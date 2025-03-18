@@ -1,0 +1,49 @@
+.device-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  text-align: center;
+  border-radius: 8px;
+  position: relative;
+  margin: 10px;
+}
+
+.device-img {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.device-name {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.device-status {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.edit-btn, .delete-btn {
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 16px;
+}
+.edit-btn {
+  background-color: #ffc107;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.group-card {
+  background-color: #e9ecef;
+}
