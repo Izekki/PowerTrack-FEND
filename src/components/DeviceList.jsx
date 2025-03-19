@@ -1,27 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import DeviceCard from "./DeviceCard";
 import GroupCard from "./GroupCard";
 
 import "../styles/DeviceList.css";
 import "../styles/GroupCard.css";
 
-const DeviceList = ({ searchQuery }) => {
-  const [devices, setDevices] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("http://localhost:5051/device/obtener")
-      .then((response) => response.json())
-      .then((data) => {
-        setDevices(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener dispositivos:", error);
-        setLoading(false);
-      });
-  }, []);
-
+const DeviceList = ({ searchQuery, devices, loading }) => {
   if (loading) {
     return <p>Cargando dispositivos...</p>;
   }
