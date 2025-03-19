@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/CreateGroupModal.css";
 
-const CreateGroupModal = ({ isOpen, onClose }) => {
+const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
   const [groupName, setGroupName] = useState("");
   const [devices, setDevices] = useState([]);
   const [selectedDevices, setSelectedDevices] = useState([]);
@@ -10,6 +10,9 @@ const CreateGroupModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
+      setGroupName("");
+      setSelectedDevices([]);
+
       fetch("http://localhost:5051/device/unassigned")
         .then((res) => res.json())
         .then((data) => {
@@ -53,8 +56,10 @@ const CreateGroupModal = ({ isOpen, onClose }) => {
       }
 
       const result = await response.json();
-      alert(`Grupo creado con éxito! ID: ${result.id}`);
-      onClose();
+      alert(`Grupo creado con éxito! ID: ${result.groupName}`);
+
+      onClose(); 
+      onGroupCreated();
     } catch (err) {
       console.error("Error al crear el grupo:", err);
       setError(err.message);
@@ -103,16 +108,10 @@ const CreateGroupModal = ({ isOpen, onClose }) => {
         {error && <p className="error-message">{error}</p>}
 
         <div className="modal-actions">
-          <button
-            className="submit-btn"
-            onClick={handleSubmit}
-            disabled={loading}
-          >
+          <button className="submit-btn" onClick={handleSubmit} disabled={loading}>
             {loading ? "Creando..." : "Crear Grupo"}
           </button>
-          <button className="cancel-btn" onClick={onClose}>
-            Cancelar
-          </button>
+          <button className="cancel-btn" onClick={onClose}>Cancelar</button>
         </div>
       </div>
     </div>
