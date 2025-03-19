@@ -1,12 +1,19 @@
 import React, { useState } from "react";
-import "../styles/SearchBard.css";
+import "../styles/SearchBar.css";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
 
+  // Maneja el cambio en el input
   const handleSearch = (e) => {
     setQuery(e.target.value);
     onSearch(e.target.value);
+  };
+
+  // Función para limpiar la búsqueda
+  const clearSearch = () => {
+    setQuery("");
+    onSearch(""); // Asegurar que se reinicia la búsqueda
   };
 
   return (
@@ -18,6 +25,7 @@ const SearchBar = ({ onSearch }) => {
         value={query}
         onChange={handleSearch}
       />
+      {query && <button className="clear-btn" onClick={clearSearch}>✖</button>}
     </div>
   );
 };

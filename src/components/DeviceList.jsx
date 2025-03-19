@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import DeviceCard from "./DeviceCard";
-import SearchBar from "./SearchBard";
-import "../styles/DeviceList.css";
+import GroupCard from "./GroupCard";
 
-const DeviceList = () => {
+import "../styles/DeviceList.css";
+import "../styles/GroupCard.css";
+
+const DeviceList = ({ searchQuery }) => {
   const [devices, setDevices] = useState([]);
-  const [filteredDevices, setFilteredDevices] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +14,6 @@ const DeviceList = () => {
       .then((response) => response.json())
       .then((data) => {
         setDevices(data);
-        setFilteredDevices(data);
         setLoading(false);
       })
       .catch((error) => {
@@ -22,60 +22,48 @@ const DeviceList = () => {
       });
   }, []);
 
-  const handleSearch = (query) => {
-    if (!query) {
-      setFilteredDevices(devices);
-    } else {
-      setFilteredDevices(
-        devices.filter((device) =>
-          device.dispositivo_nombre.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    }
-  };
-
   if (loading) {
     return <p>Cargando dispositivos...</p>;
   }
 
-  // Agrupar dispositivos por grupo
+  const filteredDevices = devices.filter((device) =>
+    device.dispositivo_nombre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (device.grupo_nombre && device.grupo_nombre.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
+
   const groupedDevices = {};
+  const devicesWithoutGroup = [];
+
   filteredDevices.forEach((device) => {
-    if (device.grupo_nombre) { // Solo si tiene un grupo
+    if (device.grupo_nombre) {
       if (!groupedDevices[device.grupo_nombre]) {
         groupedDevices[device.grupo_nombre] = [];
       }
       groupedDevices[device.grupo_nombre].push(device);
+    } else {
+      devicesWithoutGroup.push(device);
     }
   });
 
-  return (
-    <div className="device-list">
-      <SearchBar onSearch={handleSearch} />
-      <div className="device-actions">
-        <button className="add-device">Agregar Dispositivo</button>
-        <button className="add-group">Agregar Grupo</button>
-      </div>
-      <div className="device-grid">
-        {/* Mostrar dispositivos agrupados */}
-        {Object.keys(groupedDevices).map((groupName) => (
-          <div key={groupName} className="device-group">
-            <div className="group-card">
-              <h3>{groupName}</h3>
-              <div className="device-list">
-                {groupedDevices[groupName].map((device) => (
-                  <DeviceCard key={device.id} {...device} />
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+  const filteredGroups = Object.entries(groupedDevices)
+    .filter(([groupName, devices]) =>
+      groupName.toLowerCase().includes(searchQuery.toLowerCase()) || devices.length > 0
+    )
+    .reduce((acc, [groupName, devices]) => {
+      acc[groupName] = devices;
+      return acc;
+    }, {});
 
-        {/* Mostrar dispositivos que no están en ningún grupo */}
-        {filteredDevices
-          .filter(device => !device.grupo_nombre) // Dispositivos sin grupo
-          .map((device) => (
-            <DeviceCard key={device.id} {...device} />
+  return (
+    <div className="device-list-container">
+      <div className="group-column">
+        {Object.keys(filteredGroups).map((groupName) => (
+          <GroupCard key={groupName} groupName={groupName} devices={filteredGroups[groupName]} />
+        ))}
+      </div>
+      <div className="device-column">
+        {devicesWithoutGroup.map((device) => (
+          <DeviceCard key={device.id} {...device} />
         ))}
       </div>
     </div>

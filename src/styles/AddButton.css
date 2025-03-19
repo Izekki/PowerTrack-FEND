@@ -1,0 +1,30 @@
+.add-button {
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+  }
+
+.add-device-button{
+    background: #3f902e;
+}
+
+.add-device-button:hover{
+    background: #80bd00;
+}
+  
+.add-group-button{
+    background-color: #80bd00;
+}
+.add-group-button:hover{
+    background-color: #3f902e;
+}
+
+
+
+
+  
