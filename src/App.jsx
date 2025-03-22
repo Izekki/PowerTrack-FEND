@@ -26,6 +26,12 @@ const App= () => {
       });
   };
 
+  
+  const handleDeviceUpdated = () => {
+    fetchDevices(); // Vuelve a obtener la lista de dispositivos
+  };
+
+
   useEffect(() => {
     fetchDevices();
   }, []);
@@ -44,7 +50,13 @@ const App= () => {
           <SearchBar onSearch={setSearchQuery} />
         </div>
         <div className="bodyContent">
-          <DeviceList searchQuery={searchQuery} devices={devices} loading={loading} />
+        <DeviceList 
+            searchQuery={searchQuery}
+            devices={devices}
+            loading={loading}
+            onDeviceUpdate={handleDeviceUpdated} // Aquí lo pasas
+           />
+
         </div>
       </div>
       <CreateGroupModal 

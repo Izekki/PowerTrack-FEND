@@ -5,13 +5,14 @@ import GroupCard from "./GroupCard";
 import "../styles/DeviceList.css";
 import "../styles/GroupCard.css";
 
-const DeviceList = ({ searchQuery, devices, loading }) => {
+const DeviceList = ({ searchQuery, devices, loading, onDeviceUpdate }) => {
   if (loading) {
     return <p>Cargando dispositivos...</p>;
   }
 
+  // Filtrar dispositivos con verificación de valores no undefined
   const filteredDevices = devices.filter((device) =>
-    device.dispositivo_nombre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    (device.dispositivo_nombre && device.dispositivo_nombre.toLowerCase().includes(searchQuery.toLowerCase())) ||
     (device.grupo_nombre && device.grupo_nombre.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
@@ -47,7 +48,11 @@ const DeviceList = ({ searchQuery, devices, loading }) => {
       </div>
       <div className="device-column">
         {devicesWithoutGroup.map((device) => (
-          <DeviceCard key={device.id} {...device} />
+          <DeviceCard 
+            key={device.id} 
+            device={device} 
+            onDeviceUpdate={onDeviceUpdate} // Se pasa correctamente
+          />
         ))}
       </div>
     </div>

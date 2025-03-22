@@ -36,9 +36,7 @@ const GroupCard = ({ groupName, devices, onEdit = () => {}, onDelete = () => {} 
         {devices.map((device) => (
           <DeviceCard
             key={device.id}
-            dispositivo_nombre={device.dispositivo_nombre} 
-            ubicacion={device.ubicacion} 
-            id_grupo={device.id_grupo}
+            device={device}
             onEdit={() => onEdit(device.id)}
             onDelete={() => onDelete(device.id)}
           />
