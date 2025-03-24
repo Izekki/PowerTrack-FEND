@@ -5,24 +5,18 @@ import MenuBar from "./components/MenuBar";
 import SearchBar from "./components/SearchBar";
 import ActionButtons from "./components/ActionButtons";
 import CreateGroupModal from "./components/CreateGroupModal";
-<<<<<<< HEAD
 import CreateDeviceModal from "./components/CreateDeviceModal";
-=======
 import LoginForm from "./components/LoginForm";
->>>>>>> d49fd82eb8227e4a646f60e1b02ff3a3fe543cba
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
-=======
   // ------- Kevin -------
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   // ------- Kevin -------
->>>>>>> d49fd82eb8227e4a646f60e1b02ff3a3fe543cba
 
   const fetchDevices = () => {
     setLoading(true);
