@@ -47,14 +47,14 @@ const LoginForm = ({ onLoginSuccess }) => {
         <div className="logo">
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
-        <h2>Iniciar Sesión</h2>
+        <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
         {error && <p className="error">{error}</p>}
 
         <div className="form-group">
-          <label htmlFor="email">Correo electrónico</label>
+          <label className="label-Form-Login" htmlFor="email">Correo electrónico</label>
           <div className="input-container">
             <img src={emailIcon} alt="Email" />
-            <input 
+            <input className='form-control-inputs'
               type="email" 
               name="email" 
               placeholder="Introduzca su correo electrónico" 
@@ -69,7 +69,7 @@ const LoginForm = ({ onLoginSuccess }) => {
           <label htmlFor="password">Contraseña</label>
           <div className="input-container">
             <img src={passwordIcon} alt="Password" />
-            <input 
+            <input className='form-control-inputs'
               type="password" 
               name="password" 
               placeholder="Introduzca su contraseña" 
