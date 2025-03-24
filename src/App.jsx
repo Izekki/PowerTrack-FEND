@@ -5,12 +5,14 @@ import MenuBar from "./components/MenuBar";
 import SearchBar from "./components/SearchBar";
 import ActionButtons from "./components/ActionButtons";
 import CreateGroupModal from "./components/CreateGroupModal";
+import CreateDeviceModal from "./components/CreateDeviceModal";
 
 const App= () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
 
   const fetchDevices = () => {
     setLoading(true);
@@ -39,7 +41,7 @@ const App= () => {
       <div className="appBody">
         <div className="bodyHeader">
           <div className="bodyContainerButtons">
-            <ActionButtons onAddGroup={() => setIsGroupModalOpen(true)} />
+            <ActionButtons onAddGroup={() => setIsGroupModalOpen(true)} onAddDevice={() => setIsDeviceModalOpen(true)} />
           </div>
           <SearchBar onSearch={setSearchQuery} />
         </div>
@@ -51,6 +53,11 @@ const App= () => {
         isOpen={isGroupModalOpen} 
         onClose={() => setIsGroupModalOpen(false)} 
         onGroupCreated={fetchDevices}
+      />
+       <CreateDeviceModal 
+        isOpen={isDeviceModalOpen}
+        onClose={() => setIsDeviceModalOpen(false)}
+        onDeviceCreated={fetchDevices}
       />
     </>
   );
