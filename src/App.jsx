@@ -5,14 +5,24 @@ import MenuBar from "./components/MenuBar";
 import SearchBar from "./components/SearchBar";
 import ActionButtons from "./components/ActionButtons";
 import CreateGroupModal from "./components/CreateGroupModal";
+<<<<<<< HEAD
 import CreateDeviceModal from "./components/CreateDeviceModal";
+=======
+import LoginForm from "./components/LoginForm";
+>>>>>>> d49fd82eb8227e4a646f60e1b02ff3a3fe543cba
 
-const App= () => {
+const App = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
+<<<<<<< HEAD
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
+=======
+  // ------- Kevin -------
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // ------- Kevin -------
+>>>>>>> d49fd82eb8227e4a646f60e1b02ff3a3fe543cba
 
   const fetchDevices = () => {
     setLoading(true);
@@ -28,9 +38,27 @@ const App= () => {
       });
   };
 
+  const handleDeviceUpdated = () => {
+    fetchDevices(); // Vuelve a obtener la lista de dispositivos
+  };
+
   useEffect(() => {
-    fetchDevices();
-  }, []);
+    if (isAuthenticated) {
+      fetchDevices();
+    }
+  }, [isAuthenticated]);
+
+  // ------- Kevin -------
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+  };
+
+  if (!isAuthenticated) {
+    return <>
+      <LoginForm onLoginSuccess={handleLoginSuccess} ></LoginForm>
+      </>;
+  }
+  // ------- Kevin -------
 
   return (
     <>
@@ -46,12 +74,17 @@ const App= () => {
           <SearchBar onSearch={setSearchQuery} />
         </div>
         <div className="bodyContent">
-          <DeviceList searchQuery={searchQuery} devices={devices} loading={loading} />
+          <DeviceList
+            searchQuery={searchQuery}
+            devices={devices}
+            loading={loading}
+            onDeviceUpdate={handleDeviceUpdated} // Aquí lo pasas
+          />
         </div>
       </div>
-      <CreateGroupModal 
-        isOpen={isGroupModalOpen} 
-        onClose={() => setIsGroupModalOpen(false)} 
+      <CreateGroupModal
+        isOpen={isGroupModalOpen}
+        onClose={() => setIsGroupModalOpen(false)}
         onGroupCreated={fetchDevices}
       />
        <CreateDeviceModal 
@@ -63,5 +96,4 @@ const App= () => {
   );
 };
 
-
-export default App
+export default App;
