@@ -15,7 +15,14 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
   // ------- Kevin -------
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem("isAuthenticated");
+  };
+
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    sessionStorage.getItem("isAuthenticated") === "true"
+  );
   // ------- Kevin -------
 
   const fetchDevices = () => {
@@ -45,6 +52,7 @@ const App = () => {
   // ------- Kevin -------
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
+    sessionStorage.setItem("isAuthenticated", "true");
   };
 
   if (!isAuthenticated) {
@@ -57,7 +65,7 @@ const App = () => {
   return (
     <>
       <div className="appHeader">
-        <HeaderPW />
+        <HeaderPW onLogout={handleLogout} />
         <MenuBar />
       </div>
       <div className="appBody">
