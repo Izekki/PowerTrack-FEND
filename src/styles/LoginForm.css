@@ -84,7 +84,7 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 .login-btn:hover {
@@ -125,4 +125,32 @@
   color: red;
   font-size: 1rem;
   font-weight: 500;
+}
+
+.return-btn {
+  width: 52%;
+  padding: 14px;
+  background-color: #727272;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  margin-top: 8px;
+}
+
+.return-btn:hover {
+  background-color: #313531;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  padding-top: 130px;
+  background-color: #222222;
+  padding-left: 5%;
 }

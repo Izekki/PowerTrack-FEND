@@ -3,11 +3,14 @@ import '../styles/LoginForm.css';
 import logo from "../assets/logo-pw.svg";
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
+import RegisterForm from './RegisterForm.jsx';
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+    const [register, setRegister] = useState(false);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +43,23 @@ const LoginForm = ({ onLoginSuccess }) => {
       setError('Error de conexión con el servidor');
     }
   };
+
+
+
+
+  const handleGoToRegisterClick = async () => {
+    setRegister(true);
+  }
+
+  const handleSuccesRegister = async () => {
+    setRegister(false);
+  }
+
+    if (register) {
+      return <>
+        <RegisterForm onRegisterSuccess={handleSuccesRegister} ></RegisterForm>
+        </>;
+    }
 
   return (
     <div className="login-container">
@@ -83,7 +103,7 @@ const LoginForm = ({ onLoginSuccess }) => {
         <a href="#" className="forgot-password">Recuperar contraseña</a>
         <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
         <p className="register-link">No tienes una cuenta?</p>
-        <a href="#" className="forgot-password">Crear una cuenta</a>
+        <a href="#" className="forgot-password" onClick={handleGoToRegisterClick}>Crear una cuenta</a>
     </div>
   );
 };
