@@ -86,7 +86,7 @@ const LoginForm = ({ onLoginSuccess }) => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="password">Contraseña</label>
+          <label className="label-Form-Login" htmlFor="password">Contraseña</label>
           <div className="input-container">
             <img src={passwordIcon} alt="Password" />
             <input className='form-control-inputs'

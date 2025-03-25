@@ -1,17 +1,17 @@
 import "../styles/HeaderPW.css";
 import logo from "../assets/logo-pw.svg";
 
-const HeaderPW = () => {
+const HeaderPW = ({ onLogout }) => {
   return (
     <header className="header-pw">
       <div className="header-content">
-        {/* Logo a la izquierda */}
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
         </div>
 
-        {/* Cerrar sesión a la derecha */}
-        <div className="logout">
+        {/* ------- Kevin -------- */}
+        <div className="logout" onClick={onLogout} style={{ cursor: "pointer" }}>
+        {/* ------- Kevin -------- */}
           Cerrar Sesión
           <svg
             className="logout-icon"
