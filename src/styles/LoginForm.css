@@ -31,11 +31,26 @@
 }
 
 .h2-iniciar-sesion {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
   margin-top: 200px;
   margin-bottom: 1rem;
+}
+
+.back-arrow { 
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.back-arrow:hover {
+  color: #f0f0f0;
 }
 
 .form-group {
@@ -150,7 +165,6 @@
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  padding-top: 130px;
   background-color: #222222;
   padding-left: 5%;
 }

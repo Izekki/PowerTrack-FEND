@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/LoginForm.css';
+import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
+import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
+import nameIcon from "../assets/name-icon.svg"; // Ícono de contraseña
+
 import logo from "../assets/logo-pw.svg";
 
 const RegisterForm = ({ onRegisterSuccess }) => {
@@ -52,12 +56,13 @@ const RegisterForm = ({ onRegisterSuccess }) => {
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
         <br/><br/>
-        <h2 className="h2-iniciar-sesion">Registro</h2>
+        <h2 className="h2-iniciar-sesion"><a className="back-arrow" onClick={handleGoBackClick}>&larr; </a>Registro</h2>
         {error && <p className="error">{error}</p>}
 
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="nombre">Introduzca su nombre:</label>
           <div className="input-container">
+            <img src={nameIcon} alt="Nombre" />
             <input className='form-control-inputs'
               type="nombre" 
               name="nombre" 
@@ -72,6 +77,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="correo">Correo electrónico</label>
           <div className="input-container">
+          <img src={emailIcon} alt="Email" />
             <input className='form-control-inputs'
               type="correo" 
               name="correo" 
@@ -86,8 +92,9 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="contraseña">Contraseña</label>
           <div className="input-container">
+            <img src={[passwordIcon]} alt="Contraseña" />
             <input className='form-control-inputs'
-              type="contraseña" 
+              type="password" 
               name="contraseña" 
               placeholder="Introduzca su contraseña" 
               value={formData.contraseña} 
@@ -100,10 +107,11 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="confirmarContraseña">Confirmar contraseña</label>
           <div className="input-container">
+            <img src={[passwordIcon]} alt="Contraseña" />
             <input className='form-control-inputs'
-              type="confirmarContraseña" 
+              type="password" 
               name="confirmarContraseña" 
-              placeholder="Confirme su contraseña" 
+              placeholder="Vuelva a introducir la Contraseña" 
               value={formData.confirmarContraseña} 
               onChange={handleChange} 
               required 

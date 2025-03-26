@@ -9,7 +9,7 @@ const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-    const [register, setRegister] = useState(false);
+  const [register, setRegister] = useState(false);
   
 
   const handleChange = (e) => {
@@ -22,6 +22,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       setError('Todos los campos son obligatorios');
       return;
     }
+
     setError('');
     setSuccess('');
 
@@ -35,6 +36,7 @@ const LoginForm = ({ onLoginSuccess }) => {
       const data = await response.json();
       if (response.ok) {
         setSuccess('Inicio de sesión exitoso');
+        sessionStorage.setItem("userId", data.userId);
         onLoginSuccess();
       } else {
         setError(data.message || 'Error al iniciar sesión');
@@ -44,9 +46,7 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
   };
 
-
-
-
+  // ------- champi -------
   const handleGoToRegisterClick = async () => {
     setRegister(true);
   }
@@ -54,6 +54,7 @@ const LoginForm = ({ onLoginSuccess }) => {
   const handleSuccesRegister = async () => {
     setRegister(false);
   }
+  // ------- champi -------
 
     if (register) {
       return <>
