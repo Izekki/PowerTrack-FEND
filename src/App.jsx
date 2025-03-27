@@ -56,8 +56,6 @@ const App = () => {
     sessionStorage.setItem("isAuthenticated", "true");
   };
 
-  const userId = sessionStorage.getItem("userId"); 
-  
   if (!isAuthenticated) {
     return <>
       <LoginForm onLoginSuccess={handleLoginSuccess} ></LoginForm>
