@@ -14,10 +14,11 @@ const App = () => {
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
+  
   // ------- Kevin -------
   const handleLogout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("userId");
   };
 
   const [isAuthenticated, setIsAuthenticated] = useState(
