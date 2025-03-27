@@ -25,12 +25,15 @@ const App = () => {
     sessionStorage.getItem("isAuthenticated") === "true"
   );
   // ------- Kevin -------
+  const userId = sessionStorage.getItem("userId");
+  console.log("User ID:", userId); // Verifica el valor
 
   const fetchDevices = () => {
     setLoading(true);
-    fetch("http://localhost:5051/device/obtener")
+    fetch(`http://localhost:5051/device/dispositivosPorUsuario/${userId}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("Dispositivos cargados:", data);
         setDevices(data);
         setLoading(false);
       })
