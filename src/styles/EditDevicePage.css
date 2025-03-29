@@ -1,0 +1,6 @@
+.edit-device-page {
+    display: flex;
+    gap: 20px; /* Espaciado entre columnas */
+    justify-content: center; /* Centra el contenido */
+    align-items: flex-start; /* Alinea los elementos en la parte superior */
+}

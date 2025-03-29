@@ -1,0 +1,72 @@
+.edit-device-card {
+    max-width: 600px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 50px auto;
+    text-align: left;
+    
+
+}
+
+.edit-device-image {
+
+    max-width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 50px auto;
+    text-align: left;
+
+}
+
+h1 {
+    color: orangered; /* Rojo similar al de la imagen */
+    text-align: autos;
+    font-size: 28px;
+}
+
+.edit-device-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-device-card-columns{
+    display: flex;
+    flex-direction: row;
+}
+
+.lbl1, .lbl2 {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f5f5f5;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    background-color: orangered;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+button:hover {
+    background-color: #f4511e;
+}
