@@ -12,7 +12,17 @@
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.edit-device-image {
 
+    max-width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 50px auto;
+    text-align: left;
+
+}
 .image-upload:hover {
     background-color: #666666;
 }

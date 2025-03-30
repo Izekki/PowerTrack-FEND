@@ -6,24 +6,11 @@
     padding: 20px;
     margin: 50px auto;
     text-align: left;
-    
-
 }
 
-.edit-device-image {
 
-    max-width: 100%;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 50px auto;
-    text-align: left;
-
-}
-
-h1 {
-    color: orangered; /* Rojo similar al de la imagen */
+.Title-Device {
+    color: #ff1400;
     text-align: autos;
     font-size: 28px;
 }
@@ -45,7 +32,7 @@ h1 {
     margin-bottom: 5px;
 }
 
-input {
+.input-lbl {
     width: 90%;
     padding: 10px;
     margin-bottom: 15px;
@@ -55,9 +42,9 @@ input {
     font-size: 14px;
 }
 
-button {
-    width: 100%;
-    background-color: orangered;
+.buttonEditar {
+    width: 94%;
+    background-color: #ff914d;
     color: white;
     border: none;
     padding: 10px;
@@ -67,6 +54,12 @@ button {
     text-align: center;
 }
 
-button:hover {
+.buttonEditar:hover {
     background-color: #f4511e;
+}
+
+.device-name-header{
+    font-size: 24px;
+    font-weight: normal;
+    color: #545454;
 }

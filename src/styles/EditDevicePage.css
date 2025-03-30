@@ -4,3 +4,11 @@
     justify-content: center; /* Centra el contenido */
     align-items: flex-start; /* Alinea los elementos en la parte superior */
 }
+
+.title-Editar-Dispositivo {
+    font-size: 28px;
+    color: #545454;
+    margin-bottom: 20px;
+    margin: 15px;
+    padding: 0;
+}
