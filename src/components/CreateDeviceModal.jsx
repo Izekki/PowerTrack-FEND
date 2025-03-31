@@ -10,9 +10,14 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [error, setError] = useState(null);
 
   const handleSubmit = async () => {
-    // Validación básica
+    // Validación en frontend antes de enviar la solicitud
     if (!nombre.trim() || !ubicacion.trim() || !usuarioId.trim()) {
-      alert("Por favor, completa todos los campos obligatorios.");
+      setError("Todos los campos obligatorios deben ser completados.");
+      return;
+    }
+
+    if (isNaN(usuarioId) || (idGrupo && isNaN(idGrupo))) {
+      setError("El ID de usuario y el ID del grupo deben ser números.");
       return;
     }
 
@@ -28,18 +33,18 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         body: JSON.stringify({
           nombre,
           ubicacion,
-          usuario_id: parseInt(usuarioId, 10),  // Convierte a número
-          id_grupo: idGrupo ? parseInt(idGrupo, 10) : null  // Si no hay id_grupo, envía null
+          usuario_id: parseInt(usuarioId, 10),
+          id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
         }),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        throw new Error("Error al crear el dispositivo");
+        throw new Error(result.message || "Error al crear el dispositivo");
       }
 
-      const result = await response.json();
       alert(`Dispositivo creado con éxito! ID: ${result.id}`);
-
       onClose();
       onDeviceCreated();
     } catch (err) {
@@ -101,7 +106,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
           />
         </div>
 
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">{error}</p>} {/* Muestra el mensaje de error */}
 
         <div className="modal-actions">
           <button className="submit-btn" onClick={handleSubmit} disabled={loading}>
