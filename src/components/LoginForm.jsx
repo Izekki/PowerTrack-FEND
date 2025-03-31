@@ -4,6 +4,7 @@ import logo from "../assets/logo-pw.svg";
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
 import RegisterForm from './RegisterForm.jsx';
+import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -19,7 +20,7 @@ const LoginForm = ({ onLoginSuccess }) => {
 
   const handleLoginClick = async () => {
     if (!formData.email || !formData.password) {
-      setError('Todos los campos son obligatorios');
+      showAlert("error", "Todos los campos son obligatorios");
       return;
     }
 
@@ -35,14 +36,14 @@ const LoginForm = ({ onLoginSuccess }) => {
 
       const data = await response.json();
       if (response.ok) {
-        setSuccess('Inicio de sesión exitoso');
+        await showAlert("success", "Inicio de sesión exitoso");
         sessionStorage.setItem("userId", data.userId);
         onLoginSuccess();
       } else {
-        setError(data.message || 'Error al iniciar sesión');
+        await showAlert("error", data.message || "Error al iniciar sesión");
       }
     } catch {
-      setError('Error de conexión con el servidor');
+      await showAlert("error", "Error de conexión con el servidor");
     }
   };
 
@@ -69,7 +70,6 @@ const LoginForm = ({ onLoginSuccess }) => {
           <img src={logo} alt="Logo" className="logo-img" />
         </div>
         <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
-        {error && <p className="error">{error}</p>}
 
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="email">Correo electrónico</label>

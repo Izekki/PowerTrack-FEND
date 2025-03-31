@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/CreateGroupModal.css";
+import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
   const [groupName, setGroupName] = useState("");
@@ -35,7 +36,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
 
   const handleSubmit = async () => {
     if (!groupName.trim()) {
-      alert("El nombre del grupo no puede estar vacío.");
+      await showAlert("error", "El nombre del grupo no puede estar vacío.");
       return;
     }
 
@@ -56,13 +57,13 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
       }
 
       const result = await response.json();
-      alert(`Grupo creado con éxito! ID: ${result.groupName}`);
+      await showAlert("success", `Grupo creado con éxito! ID: ${result.groupName}`);
 
       onClose(); 
       onGroupCreated();
     } catch (err) {
       console.error("Error al crear el grupo:", err);
-      setError(err.message);
+      await showAlert("error", "Error al crear el grupo");
     } finally {
       setLoading(false);
     }

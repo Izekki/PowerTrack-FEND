@@ -3,6 +3,7 @@ import '../styles/LoginForm.css';
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
 import nameIcon from "../assets/name-icon.svg"; // Ícono de contraseña
+import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 import logo from "../assets/logo-pw.svg";
 
@@ -25,12 +26,12 @@ const RegisterForm = ({ onRegisterSuccess }) => {
           try {
             const datos = await respuesta.json();
             if (datos && datos.message) {
-              alert(datos.message);
+              await showAlert("error", datos.message);
             } else {
-              alert("Ocurrió un error al obtener los proveedores");
+              await showAlert("error", "Ocurrió un error al obtener los proveedores");
             }
           } catch (e) {
-            alert("Ocurrió un error al obtener los proveedores");
+            await showAlert("error", "Ocurrió un error al obtener los proveedores");
           }
         } else {
           const datos = await respuesta.json();
@@ -54,17 +55,14 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
   const handleRegisterClick = async () => {
     if (!formData.nombre || !formData.correo || !formData.contraseña || !formData.confirmarContraseña || !formData.proveedor) {
-      setError('Todos los campos son obligatorios');
+      await showAlert("error", "Todos los campos son obligatorios");
       return;
     }
 
     if(formData.contraseña != formData.confirmarContraseña){
-      setError('Las contraseñas no coinciden');
+      await showAlert("error", "Las contraseñas no coinciden");
       return;
     }
-
-    setError('');
-    setSuccess('');
 
     console.log(JSON.stringify(formData));
 
@@ -77,14 +75,13 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Usuario registrado con exito")
-        setSuccess('Registro exitoso');
+        await showAlert("success", "Usuario registrado con exito");
         onRegisterSuccess();
       } else {
-        setError(data.message || 'Error al registrarse');
+        await showAlert("error", data.message || "Error al registrarse");
       }
     } catch {
-      setError('Error de conexión con el servidor');
+      await showAlert("error", "Error de conexión con el servidor");
     }
   };
 
@@ -182,7 +179,6 @@ const RegisterForm = ({ onRegisterSuccess }) => {
       </div>
 
         <button className="login-btn" onClick={handleRegisterClick}>Registrarse</button>
-        <button className="return-btn" onClick={handleGoBackClick}>Regresar</button>
     </div>
   );
 };
