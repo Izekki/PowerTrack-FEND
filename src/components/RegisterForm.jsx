@@ -53,12 +53,20 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   };
 
   const handleRegisterClick = async () => {
-    if (!formData.nombre || !formData.correo || !formData.contraseña || !formData.confirmarContraseña) {
+    if (!formData.nombre || !formData.correo || !formData.contraseña || !formData.confirmarContraseña || !formData.proveedor) {
       setError('Todos los campos son obligatorios');
       return;
     }
+
+    if(formData.contraseña != formData.confirmarContraseña){
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+
     setError('');
     setSuccess('');
+
+    console.log(JSON.stringify(formData));
 
     try {
       const response = await fetch('http://localhost:5051/user/register', {
@@ -69,6 +77,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
       const data = await response.json();
       if (response.ok) {
+        alert("Usuario registrado con exito")
         setSuccess('Registro exitoso');
         onRegisterSuccess();
       } else {
@@ -81,7 +90,6 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
   const handleGoBackClick = async () => 
     {
-      alert("Usuario registrado con exito")
       onRegisterSuccess();
     }
 
@@ -162,7 +170,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         className='input-container'
           name="proveedor"
           value={formData.proveedor}
-          //onChange={handleSelectChange}
+          onChange={handleChange}
         >
           <option value="">Seleccione un proveedor</option>
           {supplierList.map((proveedor) => (
