@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/LoginForm.css';
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
@@ -7,8 +7,46 @@ import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 import logo from "../assets/logo-pw.svg";
 
+
+
 const RegisterForm = ({ onRegisterSuccess }) => {
   const [formData, setFormData] = useState({ nombre: '', correo: '', contraseña: '', confirmarContraseña: '' });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [supplierList, setSupplierList] =  useState([]);
+
+  const DOMAIN_URL = "localhost:5051";
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const respuesta = await fetch(`http://${DOMAIN_URL}/supplier`);
+        if (!respuesta.ok) {
+          try {
+            const datos = await respuesta.json();
+            if (datos && datos.message) {
+              await showAlert("error", datos.message);
+            } else {
+              await showAlert("error", "Ocurrió un error al obtener los proveedores");
+            }
+          } catch (e) {
+            await showAlert("error", "Ocurrió un error al obtener los proveedores");
+          }
+        } else {
+          const datos = await respuesta.json();
+          if (datos) {
+            setSupplierList(datos);
+          }
+        }
+      } catch (error) {
+        console.error('Ocurrió un problema al obtener los proveedores', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,10 +54,17 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   };
 
   const handleRegisterClick = async () => {
-    if (!formData.nombre || !formData.correo || !formData.contraseña || !formData.confirmarContraseña) {
-      setError('Todos los campos son obligatorios');
+    if (!formData.nombre || !formData.correo || !formData.contraseña || !formData.confirmarContraseña || !formData.proveedor) {
+      await showAlert("error", "Todos los campos son obligatorios");
       return;
     }
+
+    if(formData.contraseña != formData.confirmarContraseña){
+      await showAlert("error", "Las contraseñas no coinciden");
+      return;
+    }
+
+    console.log(JSON.stringify(formData));
 
     try {
       const response = await fetch('http://localhost:5051/user/register', {
@@ -30,7 +75,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
       const data = await response.json();
       if (response.ok) {
-        await showAlert("success", "Registro exitoso");
+        await showAlert("success", "Usuario registrado con exito");
         onRegisterSuccess();
       } else {
         await showAlert("error", data.message || "Error al registrarse");
@@ -54,6 +99,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         </div>
         <br/><br/>
         <h2 className="h2-iniciar-sesion"><a className="back-arrow" onClick={handleGoBackClick}>&larr; </a>Registro</h2>
+        {error && <p className="error">{error}</p>}
 
         <div className="form-group">
           <label className="label-Form-Login" htmlFor="nombre">Introduzca su nombre:</label>
@@ -114,6 +160,23 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             />
           </div>
         </div>
+
+        <div className="form-group">
+        <label className="label-Form-Login" htmlFor="proveedor">Proveedor</label>
+        <select
+        className='input-container'
+          name="proveedor"
+          value={formData.proveedor}
+          onChange={handleChange}
+        >
+          <option value="">Seleccione un proveedor</option>
+          {supplierList.map((proveedor) => (
+            <option key={proveedor.id} value={proveedor.id}>
+              {proveedor.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
 
         <button className="login-btn" onClick={handleRegisterClick}>Registrarse</button>
     </div>
