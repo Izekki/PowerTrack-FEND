@@ -7,28 +7,38 @@ import ActionButtons from "./components/ActionButtons";
 import CreateGroupModal from "./components/CreateGroupModal";
 import CreateDeviceModal from "./components/CreateDeviceModal";
 import LoginForm from "./components/LoginForm";
+import EditDevicePage from "./components/EditDevicePage";
 
 const App = () => {
+  // Estados de la aplicación
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [devices, setDevices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
-  
-  // ------- Kevin -------
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-    sessionStorage.removeItem("userId");
+  const [isEditDeviceOpen, setIsEditDeviceOpen] = useState(false);
+  const [deviceToEdit, setDeviceToEdit] = useState(null);
+  const [isEditing, setIsEditing] = useState(false); // Controla si estamos en modo de edición
+
+  // Función para abrir el modal de edición de un dispositivo
+  const handleOpenEditModal = (device) => {
+    setDeviceToEdit(device);
+    setIsEditDeviceOpen(true);
+    setIsEditing(true); // Se activa el modo de edición
   };
 
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    sessionStorage.getItem("isAuthenticated") === "true"
-  );
-  // ------- Kevin -------
+  // Función para manejar la actualización de un dispositivo
+  const handleDeviceUpdated = () => {
+    fetchDevices(); // Vuelve a cargar los dispositivos
+    setIsEditDeviceOpen(false);
+    setIsEditing(false); // Desactiva el modo de edición
+  };
 
+  // Fetch de dispositivos
   const fetchDevices = () => {
     setLoading(true);
-    fetch("http://localhost:5051/device/obtener")
+    const userId = sessionStorage.getItem("userId");
+    fetch(`http://localhost:5051/device/dispositivosPorUsuario/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setDevices(data);
@@ -40,8 +50,20 @@ const App = () => {
       });
   };
 
-  const handleDeviceUpdated = () => {
-    fetchDevices(); // Vuelve a obtener la lista de dispositivos
+  // Control de la autenticación del usuario
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    sessionStorage.getItem("isAuthenticated") === "true"
+  );
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem("userId");
+    sessionStorage.removeItem("isAuthenticated");
+  };
+
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+    sessionStorage.setItem("isAuthenticated", "true");
   };
 
   useEffect(() => {
@@ -50,18 +72,10 @@ const App = () => {
     }
   }, [isAuthenticated]);
 
-  // ------- Kevin -------
-  const handleLoginSuccess = () => {
-    setIsAuthenticated(true);
-    sessionStorage.setItem("isAuthenticated", "true");
-  };
-
+  // Si no está autenticado, muestra el formulario de login
   if (!isAuthenticated) {
-    return <>
-      <LoginForm onLoginSuccess={handleLoginSuccess} ></LoginForm>
-      </>;
+    return <LoginForm onLoginSuccess={handleLoginSuccess} />;
   }
-  // ------- Kevin -------
 
   return (
     <>
@@ -71,30 +85,51 @@ const App = () => {
       </div>
       <div className="appBody">
         <div className="bodyHeader">
-          <div className="bodyContainerButtons">
-            <ActionButtons onAddGroup={() => setIsGroupModalOpen(true)} onAddDevice={() => setIsDeviceModalOpen(true)} />
-          </div>
-          <SearchBar onSearch={setSearchQuery} />
+          {/* Ocultar SearchBar y ActionButtons si estamos editando */}
+          {!isEditing && (
+            <div className="bodyContainerButtons">
+              <ActionButtons onAddGroup={() => setIsGroupModalOpen(true)} onAddDevice={() => setIsDeviceModalOpen(true)} />
+            </div>
+          )}
+          {!isEditing && <SearchBar onSearch={setSearchQuery} />}
         </div>
+
         <div className="bodyContent">
-          <DeviceList
-            searchQuery={searchQuery}
-            devices={devices}
-            loading={loading}
-            onDeviceUpdate={handleDeviceUpdated} // Aquí lo pasas
-          />
+          {/* Solo mostrar DeviceList si no estamos en modo de edición */}
+          {!isEditing && (
+            <DeviceList
+              searchQuery={searchQuery}
+              devices={devices}
+              loading={loading}
+              onDeviceUpdate={handleDeviceUpdated}
+              onEditDevice={handleOpenEditModal}
+            />
+          )}
         </div>
       </div>
+
+      {/* Modales */}
       <CreateGroupModal
         isOpen={isGroupModalOpen}
         onClose={() => setIsGroupModalOpen(false)}
         onGroupCreated={fetchDevices}
       />
-       <CreateDeviceModal 
+      <CreateDeviceModal
         isOpen={isDeviceModalOpen}
         onClose={() => setIsDeviceModalOpen(false)}
         onDeviceCreated={fetchDevices}
       />
+      {isEditDeviceOpen && (
+        <EditDevicePage
+          isOpen={isEditDeviceOpen}
+          onClose={() => {
+            setIsEditDeviceOpen(false);
+            setIsEditing(false); // Si cancela la edición, vuelve a mostrar los dispositivos
+          }}
+          onDeviceUpdated={handleDeviceUpdated}
+          device={deviceToEdit}
+        />
+      )}
     </>
   );
 };

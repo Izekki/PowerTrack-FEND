@@ -5,7 +5,7 @@ import GroupCard from "./GroupCard";
 import "../styles/DeviceList.css";
 import "../styles/GroupCard.css";
 
-const DeviceList = ({ searchQuery, devices, loading, onDeviceUpdate }) => {
+const DeviceList = ({ searchQuery, devices, loading, onDeviceUpdate,onEditDevice }) => {
   if (loading) {
     return <p>Cargando dispositivos...</p>;
   }
@@ -43,7 +43,11 @@ const DeviceList = ({ searchQuery, devices, loading, onDeviceUpdate }) => {
     <div className="device-list-container">
       <div className="group-column">
         {Object.keys(filteredGroups).map((groupName) => (
-          <GroupCard key={groupName} groupName={groupName} devices={filteredGroups[groupName]} />
+          <GroupCard key={groupName}
+           groupName={groupName}
+           devices={filteredGroups[groupName]}
+           onEdit={onEditDevice}
+           onDeviceUpdate={onDeviceUpdate} />
         ))}
       </div>
       <div className="device-column">
@@ -51,7 +55,8 @@ const DeviceList = ({ searchQuery, devices, loading, onDeviceUpdate }) => {
           <DeviceCard 
             key={device.id} 
             device={device} 
-            onDeviceUpdate={onDeviceUpdate} // Se pasa correctamente
+            onDeviceUpdate={onDeviceUpdate}
+            onEdit={onEditDevice}
           />
         ))}
       </div>
