@@ -4,7 +4,7 @@ import "../styles/CreateDeviceModal.css";
 const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [nombre, setNombre] = useState("");
   const [ubicacion, setUbicacion] = useState("");
-  const [usuarioId, setUsuarioId] = useState("");
+  const usuarioId = sessionStorage.getItem("userId");
   const [idGrupo, setIdGrupo] = useState("");  // Opcional
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -83,6 +83,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
           <label htmlFor="usuarioId">ID del usuario</label>
           <input
             id="usuarioId"
+            disabled
             type="number"
             placeholder="Usuario ID"
             value={usuarioId}
