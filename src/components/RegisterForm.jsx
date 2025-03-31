@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/LoginForm.css';
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
@@ -6,10 +6,46 @@ import nameIcon from "../assets/name-icon.svg"; // Ícono de contraseña
 
 import logo from "../assets/logo-pw.svg";
 
+
+
 const RegisterForm = ({ onRegisterSuccess }) => {
   const [formData, setFormData] = useState({ nombre: '', correo: '', contraseña: '', confirmarContraseña: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const [supplierList, setSupplierList] =  useState([]);
+
+  const DOMAIN_URL = "localhost:5051";
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const respuesta = await fetch(`http://${DOMAIN_URL}/supplier`);
+        if (!respuesta.ok) {
+          try {
+            const datos = await respuesta.json();
+            if (datos && datos.message) {
+              alert(datos.message);
+            } else {
+              alert("Ocurrió un error al obtener los proveedores");
+            }
+          } catch (e) {
+            alert("Ocurrió un error al obtener los proveedores");
+          }
+        } else {
+          const datos = await respuesta.json();
+          if (datos) {
+            setSupplierList(datos);
+          }
+        }
+      } catch (error) {
+        console.error('Ocurrió un problema al obtener los proveedores', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -45,6 +81,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
 
   const handleGoBackClick = async () => 
     {
+      alert("Usuario registrado con exito")
       onRegisterSuccess();
     }
 
@@ -118,6 +155,23 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             />
           </div>
         </div>
+
+        <div className="form-group">
+        <label className="label-Form-Login" htmlFor="proveedor">Proveedor</label>
+        <select
+        className='input-container'
+          name="proveedor"
+          value={formData.proveedor}
+          //onChange={handleSelectChange}
+        >
+          <option value="">Seleccione un proveedor</option>
+          {supplierList.map((proveedor) => (
+            <option key={proveedor.id} value={proveedor.id}>
+              {proveedor.nombre}
+            </option>
+          ))}
+        </select>
+      </div>
 
         <button className="login-btn" onClick={handleRegisterClick}>Registrarse</button>
         <button className="return-btn" onClick={handleGoBackClick}>Regresar</button>
