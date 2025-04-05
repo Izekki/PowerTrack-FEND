@@ -9,6 +9,18 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  //nuevo
+  const sensoresDisponibles = [
+    { id: 1, nombre: "Sensor de Temperatura" },
+    { id: 2, nombre: "Sensor de Humedad" },
+    { id: 3, nombre: "Sensor de Movimiento" },
+    { id: 4, nombre: "Sensor de Luz" },
+  ];
+
+  const [sensorId, setSensorId] = useState("");
+
+  
+
   const handleSubmit = async () => {
     // Validación en frontend antes de enviar la solicitud
     if (!nombre.trim() || !ubicacion.trim() || !usuarioId.trim()) {
@@ -35,6 +47,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
           ubicacion,
           usuario_id: parseInt(usuarioId, 10),
           id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
+          id_sensor: sensorId ? parseInt(sensorId, 10) : null
         }),
       });
 
@@ -106,6 +119,24 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
             onChange={(e) => setIdGrupo(e.target.value)}
           />
         </div>
+
+        <div className="select-group">
+          <label htmlFor="sensorId">Selecciona un sensor</label>
+          <select
+            id="sensorId"
+            value={sensorId}
+            onChange={(e) => setSensorId(e.target.value)}
+          >
+            <option value="">-- Selecciona un sensor --</option>
+            {sensoresDisponibles.map((sensor) => (
+              <option key={sensor.id} value={sensor.id}>
+                {sensor.nombre} (ID: {sensor.id})
+              </option>
+            ))}
+          </select>
+        </div>
+
+
 
         {error && <p className="error-message">{error}</p>} {/* Muestra el mensaje de error */}
 
