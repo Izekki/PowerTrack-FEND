@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/CreateDeviceModal.css";
+import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [nombre, setNombre] = useState("");
@@ -12,12 +13,12 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const handleSubmit = async () => {
     // Validación en frontend antes de enviar la solicitud
     if (!nombre.trim() || !ubicacion.trim() || !usuarioId.trim()) {
-      setError("Todos los campos obligatorios deben ser completados.");
+      await showAlert("error", "Todos los campos obligatorios deben ser completados.");
       return;
     }
 
     if (isNaN(usuarioId) || (idGrupo && isNaN(idGrupo))) {
-      setError("El ID de usuario y el ID del grupo deben ser números.");
+      await showAlert("error", "El ID de usuario y el ID del grupo deben ser números.");
       return;
     }
 
@@ -44,12 +45,12 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         throw new Error(result.message || "Error al crear el dispositivo");
       }
 
-      alert(`Dispositivo creado con éxito! ID: ${result.id}`);
+      await showAlert("success", `Dispositivo creado con éxito! ID: ${result.id}`);
       onClose();
       onDeviceCreated();
     } catch (err) {
       console.error("Error al crear el dispositivo:", err);
-      setError(err.message);
+      await showAlert("error", err.message);
     } finally {
       setLoading(false);
     }

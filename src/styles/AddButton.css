@@ -2,8 +2,9 @@
     color: white;
     border: none;
     padding: 10px 15px;
+    font-family: 'nunito', sans-serif;
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
     transition: background 0.3s ease-in-out;

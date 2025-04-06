@@ -1,8 +1,9 @@
 /*PARTE NEGRA*/
-.cont-nav-bar {
-    background-color: black;
+  .cont-nav-bar {
+    background-color: #222222;
     padding: 10px;
   }
+
   .nav-bar{
     display: flex;
     justify-content: flex-end;
@@ -23,6 +24,6 @@
     transition: color 0.3s ease;
   }
 
-.nav-bar li:hover {
-  color: #78C850;
-}
+  .nav-bar li:hover {
+    color: #78C850;
+  }
