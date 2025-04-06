@@ -4,6 +4,7 @@ import logo from "../assets/logo-pw.svg";
 import emailIcon from "../assets/email-icon.svg"; // Ícono de correo
 import passwordIcon from "../assets/password-icon.svg"; // Ícono de contraseña
 import RegisterForm from './RegisterForm.jsx';
+import Header from './Header.jsx';
 import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const LoginForm = ({ onLoginSuccess }) => {
@@ -65,10 +66,7 @@ const LoginForm = ({ onLoginSuccess }) => {
 
   return (
     <div className="login-container">
-        <header className="header"></header>
-        <div className="logo">
-          <img src={logo} alt="Logo" className="logo-img" />
-        </div>
+        <Header />
         <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
 
         <div className="form-group">

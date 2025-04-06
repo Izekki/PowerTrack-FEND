@@ -1,0 +1,126 @@
+/* =====================================
+   Header y Logo
+===================================== */
+.header {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(to right, #00724e, #80bd00);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10; 
+  }
+  
+  .logo-img {
+    width: 160px;
+    height: 160px;
+    position: absolute; 
+    top: 70px; 
+    left: 5%; 
+    z-index: 100; 
+  }
+  
+  .register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    background-color: #222222;
+    padding-top: 175px; /* Adjusted to account for the fixed header */
+    padding-left: 5%;
+  }
+  
+  .register-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .register-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .register-label {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  
+  .register-input-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 12px;
+    width: 50%;
+  }
+  
+  .register-input-container img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .register-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background: transparent;
+  }
+  
+  .register-select {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    width: 52%;
+    font-size: 1rem;
+  }
+  
+  .register-btn {
+    width: 52%;
+    padding: 14px;
+    color: white;
+    background-color: #2E7D32;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .register-btn:hover {
+    background-color: #1B5E20;
+  }
+  
+  .register-error {
+    margin-top: 10px;
+    color: red;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  
+  .register-back-arrow {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .register-back-arrow:hover {
+    color: #f0f0f0;
+  }
+  
