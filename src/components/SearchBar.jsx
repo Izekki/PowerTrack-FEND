@@ -22,7 +22,7 @@ const SearchBar = ({ onSearch }) => {
       <img src={searchIcon} alt="Buscar" />
       <input
         type="text"
-        placeholder="Buscar dispositivo..."
+        placeholder="Buscar dispositivo o grupo..."
         value={query}
         onChange={handleSearch}
       />

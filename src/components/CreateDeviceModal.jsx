@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/CreateDeviceModal.css";
 import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
@@ -20,7 +20,15 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
 
   const [sensorId, setSensorId] = useState("");
 
-  
+  // Efecto para limpiar los campos cuando el modal se abre
+  useEffect(() => {
+    if (isOpen) {
+      setNombre("");
+      setUbicacion("");
+      setIdGrupo("");
+      setSensorId(""); // Limpia el campo de sensor
+    }
+  }, [isOpen]); // Se ejecuta cuando isOpen cambia
 
   const handleSubmit = async () => {
     // Validación en frontend antes de enviar la solicitud
@@ -106,7 +114,6 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
             type="number"
             placeholder="Usuario ID"
             value={usuarioId}
-            onChange={(e) => setUsuarioId(e.target.value)}
           />
         </div>
 
@@ -136,8 +143,6 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
             ))}
           </select>
         </div>
-
-
 
         {error && <p className="error-message">{error}</p>} {/* Muestra el mensaje de error */}
 

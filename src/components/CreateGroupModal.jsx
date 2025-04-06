@@ -8,13 +8,15 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
   const [selectedDevices, setSelectedDevices] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const usuarioId = sessionStorage.getItem("userId");
+
 
   useEffect(() => {
     if (isOpen) {
       setGroupName("");
       setSelectedDevices([]);
 
-      fetch("http://localhost:5051/device/unassigned")
+      fetch(`http://localhost:5051/device/unassigned/${usuarioId}`)
         .then((res) => res.json())
         .then((data) => {
           setDevices(data); 
@@ -49,21 +51,23 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name: groupName, devices: selectedDevices }),
+        body: JSON.stringify({ name: groupName, devices: selectedDevices,usuarioId:usuarioId}),
       });
 
       if (!response.ok) {
-        throw new Error("Error al crear el grupo");
+        const result = await response.json();
+        throw new Error(result.message || "Error al crear el grupo");
       }
 
       const result = await response.json();
-      await showAlert("success", `Grupo creado con éxito! ID: ${result.groupName}`);
+      console.log(result);
+      await showAlert("success", `Grupo creado con éxito! ID: ${result.newGroup.id}`);
 
       onClose(); 
       onGroupCreated();
     } catch (err) {
       console.error("Error al crear el grupo:", err);
-      await showAlert("error", "Error al crear el grupo");
+      await showAlert("error", `${err.message}`);
     } finally {
       setLoading(false);
     }
