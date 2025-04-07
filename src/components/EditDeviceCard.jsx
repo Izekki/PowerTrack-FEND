@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditDeviceCard.css";
 import EditDeviceImageCard from "./EditDeviceImageCard";
+import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const EditDeviceCard = ({ device, onDeviceUpdated }) => {
   const [deviceData, setDeviceData] = useState(device || {});
@@ -21,7 +22,7 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
 
   const handleUpdateClick = async () => {
     if (!deviceData.dispositivo_nombre || !deviceData.ubicacion) {
-      alert("Todos los campos son obligatorios");
+      showAlert("error", "Todos los campos son obligatorios");
       return;
     }
 
@@ -47,10 +48,10 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
       console.log("Dispositivo actualizado:", updatedDevice);
 
       onDeviceUpdated(updatedDevice);
-      alert("Dispositivo actualizado con éxito");
+      showAlert("success", "Dispositivo actualizado con éxito");
     } catch (error) {
       console.error("❌ Error al actualizar:", error);
-      alert(error.message);
+      showAlert("error", error.message);
     }
   };
 
