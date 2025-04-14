@@ -4,12 +4,14 @@ import HeaderPW from "./components/HeaderPW";
 import MenuBar from "./components/MenuBar";
 import LoginForm from "./components/LoginForm";
 import DispositivosPage from "./pages/DevicesPages";
+import LogoutConfirmModal from "./components/LogoutConfirmModal";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     sessionStorage.getItem("isAuthenticated") === "true"
   );
   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleLoginSuccess = () => {
     const newUserId = sessionStorage.getItem("userId");
@@ -18,10 +20,19 @@ const App = () => {
     sessionStorage.setItem("isAuthenticated", "true");
   };
 
-  const handleLogout = () => {
+  const handleLogoutClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleLogoutConfirm = () => {
     setIsAuthenticated(false);
     sessionStorage.clear();
     setUserId(null);
+    setIsModalOpen(false);
+  };
+
+  const handleLogoutCancel = () => {
+    setIsModalOpen(false);
   };
 
   if (!isAuthenticated) {
@@ -30,13 +41,19 @@ const App = () => {
 
   return (
     <Router>
-      <HeaderPW onLogout={handleLogout} />
+      <HeaderPW onLogout={handleLogoutClick} />
       <MenuBar />
       <Routes>
         <Route path="/dispositivos" element={<DispositivosPage userId={userId} />} />
-        {/* Agrega más rutas si deseas: */}
         <Route path="*" element={<Navigate to="/dispositivos" />} />
       </Routes>
+
+      {isModalOpen && (
+        <LogoutConfirmModal 
+          onConfirm={handleLogoutConfirm} 
+          onCancel={handleLogoutCancel} 
+        />
+      )}
     </Router>
   );
 };
