@@ -17,8 +17,12 @@
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
-  margin-top: 200px; /* Espacio para el logo */
+  margin-top:0; /* Espacio para el logo */
   margin-bottom: 1rem;
+}
+
+.login-form-inputs-container{
+    padding-top: 2%$; /* Espacio equivalente al header */
 }
 
 /* =====================================
@@ -69,7 +73,7 @@
   background-color: white;
   border-radius: 10px;
   padding: 12px;
-  width: 50%;
+  width: 51%;
 }
 
 .input-container img {

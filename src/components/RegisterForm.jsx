@@ -74,6 +74,8 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   return (
     <div className="register-container">
       <Header />
+      <div className='inputs-register-all-container'>
+
       <h2 className="register-title"><a className="register-back-arrow" onClick={handleGoBackClick}>&larr; </a>Registro</h2>
       {error && <p className="register-error">{error}</p>}
 
@@ -89,7 +91,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             value={formData.nombre}
             onChange={handleChange}
             required
-          />
+            />
         </div>
       </div>
 
@@ -105,7 +107,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             value={formData.correo}
             onChange={handleChange}
             required
-          />
+            />
         </div>
       </div>
 
@@ -121,7 +123,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             value={formData.contraseña}
             onChange={handleChange}
             required
-          />
+            />
         </div>
       </div>
 
@@ -137,7 +139,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
             value={formData.confirmarContraseña}
             onChange={handleChange}
             required
-          />
+            />
         </div>
       </div>
 
@@ -148,7 +150,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
           name="proveedor"
           value={formData.proveedor}
           onChange={handleChange}
-        >
+          >
           <option value="">Seleccione un proveedor</option>
           {supplierList.map((proveedor) => (
             <option key={proveedor.id} value={proveedor.id}>{proveedor.nombre}</option>
@@ -157,6 +159,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
       </div>
 
       <button className="register-btn" onClick={handleRegisterClick}>Registrarse</button>
+          </div>
     </div>
   );
 };

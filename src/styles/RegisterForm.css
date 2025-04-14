@@ -24,13 +24,17 @@
     z-index: 100; 
   }
   
+  .inputs-register-all-container {
+    padding-top: 150px; /* Espacio equivalente al header */
+  }
+  
+
   .register-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #222222;
-    padding-top: 175px; /* Adjusted to account for the fixed header */
     padding-left: 5%;
   }
   

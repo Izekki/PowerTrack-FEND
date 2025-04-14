@@ -67,6 +67,8 @@ const LoginForm = ({ onLoginSuccess }) => {
   return (
     <div className="login-container">
         <Header />
+        <div className="login-form-inputs-container">
+
         <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
 
         <div className="form-group">
@@ -80,7 +82,7 @@ const LoginForm = ({ onLoginSuccess }) => {
               value={formData.email} 
               onChange={handleChange} 
               required 
-            />
+              />
           </div>
         </div>
 
@@ -95,9 +97,10 @@ const LoginForm = ({ onLoginSuccess }) => {
               value={formData.password} 
               onChange={handleChange} 
               required 
-            />
+              />
           </div>
         </div>
+              </div>
 
         <a href="#" className="forgot-password">Recuperar contraseña</a>
         <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
