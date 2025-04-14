@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../styles/EditDeviceImageCard.css";
 import IconSelectorModal from "./IconSelectorModal";
-import noImageCard from "../assets/devices-icons/noimage-card.svg";
+import noImageCard from "../assets/devices-icons/0.svg";
 
 
 const images = import.meta.glob("../assets/devices-icons/*.png", {

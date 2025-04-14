@@ -1,29 +1,31 @@
 import { useState } from "react";
 import "../styles/IconSelectorModal.css";
+import { showAlert } from "./Alert.jsx";
 
-const images = import.meta.glob("../assets/devices-icons/*.png", {
+const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
   eager: true,
   import: "default",
 });
 
 const iconNames = {
   1: "Televisor",
-  2: "Computadora de Escritorio",
+  2: "Computadora de escritorio",
   3: "Laptop",
   4: "Aire acondicionado",
   5: "Refrigerador",
   6: "Microondas",
   7: "Consola de videojuegos",
   8: "Arrocera",
-  9: "Modem",
+  9: "Módem",
   10: "Lavadora",
   11: "Proyector",
   12: "Impresora",
   13: "Secadora de pelo",
   14: "Bocinas",
-  15: "Teléfono Fijo",
+  15: "Teléfono fijo",
   16: "Ventilador",
   17: "Plancha",
+  0: "Sin especificar",
 };
 
 const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
@@ -38,7 +40,7 @@ const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
 
   const handleConfirm = async () => {
     if (Number(selectedId) === device.id_tipo_dispositivo) {
-      onClose(); // no se hizo cambio
+      onClose();
       return;
     }
 
@@ -54,15 +56,16 @@ const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.message || "Error actualizando ícono");
+        throw new Error(err.message || "Error al actualizar el ícono");
       }
 
       const updatedDevice = await res.json();
       onDeviceUpdated(updatedDevice);
       onClose();
+      showAlert("success", "Ícono actualizado con éxito");
     } catch (err) {
       console.error("❌ Error al actualizar ícono:", err.message);
-      alert("Hubo un error al actualizar el ícono.");
+       await showAlert("Hubo un error al actualizar el ícono");
     } finally {
       setLoading(false);
     }

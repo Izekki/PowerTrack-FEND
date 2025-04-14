@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/DeviceCard.css";
-import noImageCard from "../assets/devices-icons/noimage-card.svg";
+import noImageCard from "../assets/devices-icons/0.svg";
 
 // Carga dinámica de imágenes
 const images = import.meta.glob("../assets/devices-icons/*.png", {

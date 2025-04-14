@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/CreateGroupModal.css";
-import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
+import { showAlert } from "./Alert.jsx";
 
 const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
   const [groupName, setGroupName] = useState("");

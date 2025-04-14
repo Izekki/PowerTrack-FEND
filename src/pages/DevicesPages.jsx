@@ -24,6 +24,8 @@ const DispositivosPage = ({ userId }) => {
 
   const handleDeviceUpdated = () => {
     fetchDevices();
+    setIsEditDeviceOpen(false);
+    setIsEditing(false);
   };
 
   const fetchDevices = () => {

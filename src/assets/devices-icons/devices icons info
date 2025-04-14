@@ -1,5 +1,6 @@
 Informacion de que sera cada dispositivo y que representa su id
 
+[0 = No Image Card]
 [1 = Televisor]
 [2 = Computadora de Escritorio]
 [3 = Laptop]
