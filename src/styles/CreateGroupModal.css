@@ -29,6 +29,8 @@ h2 {
 
 .input-group {
   margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .input-group label {
@@ -42,18 +44,25 @@ h2 {
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .device-list {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .device-list li {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 .device-list input[type="checkbox"] {
