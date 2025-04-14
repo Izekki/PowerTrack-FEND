@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar";
 import ActionButtons from "../components/ActionButtons";
 import CreateGroupModal from "../components/CreateGroupModal";
 import CreateDeviceModal from "../components/CreateDeviceModal";
-import EditDevicePage from "../components/EditDevicePage";
+import EditDevicePage from "../pages/EditDevicePage";
 
 const DispositivosPage = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState("");

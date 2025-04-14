@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/EditDevicePage.css";
-import EditDeviceCard from "./EditDeviceCard";
-import EditDeviceImageCard from "./EditDeviceImageCard";
+import EditDeviceCard from "../components/EditDeviceCard"
+import EditDeviceImageCard from "../components/EditDeviceImageCard";
 
 const EditDevicePage = ({ isOpen, onDeviceUpdated, device,onClose }) => {
   if (!isOpen || !device) return null;

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditDeviceCard.css";
-import EditDeviceImageCard from "./EditDeviceImageCard";
 import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
 const EditDeviceCard = ({ device, onDeviceUpdated }) => {
