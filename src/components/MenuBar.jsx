@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/MenuBar.css";
 
 const MenuBar = () => {
@@ -6,15 +7,15 @@ const MenuBar = () => {
     <div className="cont-nav-bar">
       <nav className="nav-bar">
         <ul>
-          <li>Consumo</li>
-          <li>Alertas</li>
-          <li>Dispositivos</li>
-          <li>Mi Perfil</li>
-          <li>Configuración</li>
+          <li><Link to="/consumo">Consumo</Link></li>
+          <li><Link to="/alertas">Alertas</Link></li>
+          <li><Link to="/dispositivos">Dispositivos</Link></li>
+          <li><Link to="/perfil">Mi Perfil</Link></li>
+          <li><Link to="/configuracion">Configuración</Link></li>
         </ul>
-    </nav>
+      </nav>
     </div>
   );
 };
 
-export default MenuBar
+export default MenuBar;

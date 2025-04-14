@@ -1,14 +1,47 @@
-.edit-device-page {
-    display: flex;
-    gap: 20px; /* Espaciado entre columnas */
-    justify-content: center; /* Centra el contenido */
-    align-items: flex-start; /* Alinea los elementos en la parte superior */
+.header-edit-device-container {
+  display: flex;
+  justify-content: space-between; /* separa el título del botón */
+  align-items: center; /* alinea verticalmente */
+  width: 100%;
+  padding: 10px 30px; /* padding horizontal */
+  box-sizing: border-box;
 }
 
 .title-Editar-Dispositivo {
-    font-size: 28px;
-    color: #545454;
-    margin-bottom: 20px;
-    margin: 15px;
-    padding: 0;
+  font-size: 28px;
+  color: #545454;
+  margin: 0;
+  padding: 0;
+}
+
+.edit-device-actions {
+  margin: 0; /* elimina el top margin para alinearlo bien */
+}
+
+.btn-close-edit {
+  padding: 10px 20px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.container-edit-cards {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px; /* separación entre las tarjetas */
+  padding: 20px 30px;
+  flex-wrap: wrap; /* por si la pantalla es muy pequeña */
+}
+
+.edit-device-page {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.edit-device-page > * {
+  flex: 1 1 400px; /* tamaño mínimo para que se acomoden bien */
 }

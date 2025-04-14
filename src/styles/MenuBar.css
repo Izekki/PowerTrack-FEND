@@ -1,29 +1,40 @@
-/*PARTE NEGRA*/
-  .cont-nav-bar {
-    background-color: #222222;
-    padding: 10px;
-  }
+/* Contenedor negro */
+.cont-nav-bar {
+  background-color: #222222;
+  padding: 10px;
+}
 
-  .nav-bar{
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-  
-  .nav-bar ul {
-    list-style-type: none;
-    display: flex;
-    justify-content:space-between;
-    gap: 40px;
-  }
-  
-  .nav-bar li {
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
-    transition: color 0.3s ease;
-  }
+/* Navegación */
+.nav-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
 
-  .nav-bar li:hover {
-    color: #78C850;
-  }
+/* Lista de navegación */
+.nav-bar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Elementos de lista */
+.nav-bar li {
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+/* Estilos para los enlaces */
+.nav-bar li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+/* Hover en los enlaces */
+.nav-bar li a:hover {
+  color: #78C850;
+}
