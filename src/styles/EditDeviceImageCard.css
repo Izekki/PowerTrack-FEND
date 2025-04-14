@@ -11,7 +11,7 @@
 .image-upload {
     width: 100%;
     height: 400px;
-    background-color: #808080;
+    background-color: #e5e5e5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,7 +23,7 @@
 }
 
 .image-upload:hover {
-    background-color: #666666;
+    background-color: #818181;
 }
 
 .upload-icon {
@@ -33,7 +33,7 @@
 }
 
 .image-upload p {
-    color: white;
+    color: #fe974f;
     font-size: 14px;
     font-weight: bold;
 }
