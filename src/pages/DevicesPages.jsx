@@ -61,6 +61,7 @@ const DispositivosPage = ({ userId }) => {
     setIsEditing(false);
   };
 
+  // Manejar apertura del modal para eliminar grupo
   const handleOpenDeleteGroupModal = (groupName) => {
     const selectedGroup = groups.find(g => g.name === groupName);
     
@@ -74,11 +75,24 @@ const DispositivosPage = ({ userId }) => {
     setIsDeleteModalOpen(true);
   };
 
+  // Manejar apertura del modal para eliminar dispositivo
+  const handleOpenDeleteDeviceModal = (device) => {
+    if (!device) {
+      console.error("Dispositivo no encontrado");
+      return;
+    }
+
+    setItemToDelete(device);
+    setDeleteType('device');
+    setIsDeleteModalOpen(true);
+  };
+
   const handleDeleteConfirm = () => {
     if (deleteType === 'group' && itemToDelete) {
       deleteGroup(itemToDelete.id);
+    } else if (deleteType === 'device' && itemToDelete) {
+      deleteDevice(itemToDelete.id);
     }
-    // Aquí puedes añadir más condiciones para otros tipos de elementos a eliminar en el futuro
   };
 
   const deleteGroup = (groupId) => {
@@ -104,6 +118,30 @@ const DispositivosPage = ({ userId }) => {
         console.error("Error:", error);
       });
   };
+
+  const deleteDevice = (deviceId) => {
+    fetch(`http://localhost:5051/device/deleteDevice/${deviceId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ usuarioId: userId })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al eliminar el dispositivo');
+        }
+        return response.json();
+      })
+      .then(() => {
+        fetchDevices();
+        setIsDeleteModalOpen(false);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  };
+
   const fetchGroups = () => {
     if (!userId) return;
     fetch(`http://localhost:5051/groups/byUser/${userId}`)
@@ -147,6 +185,13 @@ const DispositivosPage = ({ userId }) => {
         confirmButtonText: "Eliminar",
         type: "danger"
       };
+    } else if (deleteType === 'device') {
+      return {
+        title: "Eliminar Dispositivo",
+        message: `¿Estás seguro de que quieres eliminar el dispositivo "${itemToDelete?.dispositivo_nombre}"? Esta acción no se puede deshacer.`,
+        confirmButtonText: "Eliminar",
+        type: "danger"
+      };
     }
     // Configuraciones futuras para otros tipos
     return {};
@@ -176,6 +221,7 @@ const DispositivosPage = ({ userId }) => {
             onEditDevice={handleOpenEditModal}
             onEditGroup={handleOpenEditGroupModal}
             onDeleteGroup={handleOpenDeleteGroupModal}
+            onDeleteDevice={handleOpenDeleteDeviceModal}
           />
         )}
       </div>

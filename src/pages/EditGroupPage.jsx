@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../styles/EditGroupPage.css";
 import { showAlert } from "../components/Alert";
 
+// Cargar los iconos dinámicamente
+const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
+  eager: true,
+  import: "default",
+});
+
 const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
   const [groupName, setGroupName] = useState(group?.name || "");
   const [inGroupDevices, setInGroupDevices] = useState([]);
@@ -47,15 +53,19 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
         return res.json();
       })
       .then(() => {
-        showAlert("success", "Grupo actualizado correctamente"); // Debería pasar el tipo "success" aquí
+        showAlert("success", "Grupo actualizado correctamente");
         onGroupUpdated();
         onClose();
       })
       .catch(error => {
-        showAlert("error", error.message); // Debería pasar el tipo "error" aquí
+        showAlert("error", error.message);
       });
   };
-  
+
+  const getIconPath = (id) => {
+    const imagePath = `../assets/devices-icons/${id}.png`;
+    return images[imagePath] || images["../assets/devices-icons/noimage-card.svg"];
+  };
 
   if (!isOpen || !group) return null;
 
@@ -88,6 +98,7 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
                     checked={selectedDevices.includes(device.id)}
                     onChange={() => toggleDevice(device.id)}
                   />
+                  <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
                   {device.nombre}
                 </label>
               </li>
@@ -96,7 +107,7 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
         </div>
 
         <div className="device-list">
-          <h3>No en el Grupo</h3>
+          <h3>Sin Grupo</h3>
           <ul>
             {outGroupDevices.map(device => (
               <li key={device.id}>
@@ -106,6 +117,7 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
                     checked={selectedDevices.includes(device.id)}
                     onChange={() => toggleDevice(device.id)}
                   />
+                  <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
                   {device.nombre}
                 </label>
               </li>

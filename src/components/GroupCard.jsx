@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/GroupCard.css";
 import DeviceCard from "./DeviceCard";
 
-const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpdate, onDeleteGroup }) => {
+const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpdate, onDeleteGroup, onDeleteDevice }) => {
   return (
     <div className="group-card">
       <div className="grupo-card-header">
@@ -22,7 +22,7 @@ const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpda
           </button>
           <button
             onClick={onDeleteGroup}
-            className="icon-btn delete-btn"
+            className="icon-btn delete-btn-svg"
             aria-label="Eliminar grupo"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -41,6 +41,7 @@ const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpda
             key={device.id}
             device={device}
             onEdit={onEditDevice}
+            onDelete={onDeleteDevice}
             onDeviceUpdate={onDeviceUpdate}
           />
         ))}

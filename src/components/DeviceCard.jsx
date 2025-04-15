@@ -8,7 +8,7 @@ const images = import.meta.glob("../assets/devices-icons/*.png", {
   import: "default",
 });
 
-const DeviceCard = ({ device, onDelete, onEdit }) => {
+const DeviceCard = ({ device, onEdit, onDelete }) => {
   if (!device) return null;
 
   const {
@@ -38,7 +38,7 @@ const DeviceCard = ({ device, onDelete, onEdit }) => {
         <button className="edit-btn" onClick={() => onEdit(device)}>
           Editar
         </button>
-        <button className="delete-btn" onClick={onDelete}>
+        <button className="delete-btn" onClick={() => onDelete(device)}>
           Eliminar
         </button>
       </div>

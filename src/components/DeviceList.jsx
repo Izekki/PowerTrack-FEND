@@ -12,6 +12,7 @@ const DeviceList = ({
     onEditDevice,
     onEditGroup,
     onDeleteGroup,
+    onDeleteDevice,
    }) => {
   if (loading) {
     return <p>Cargando dispositivos...</p>;
@@ -57,6 +58,7 @@ const DeviceList = ({
             onEditDevice={onEditDevice}
             onEditGroup={() => onEditGroup(groupName)}
             onDeleteGroup={() => onDeleteGroup(groupName)}
+            onDeleteDevice={onDeleteDevice}
             onDeviceUpdate={onDeviceUpdate} 
           />
         ))}
@@ -68,6 +70,7 @@ const DeviceList = ({
             device={device} 
             onDeviceUpdate={onDeviceUpdate}
             onEdit={onEditDevice}
+            onDelete={onDeleteDevice}
           />
         ))}
       </div>
