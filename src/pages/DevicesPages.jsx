@@ -5,19 +5,28 @@ import ActionButtons from "../components/ActionButtons";
 import CreateGroupModal from "../components/CreateGroupModal";
 import CreateDeviceModal from "../components/CreateDeviceModal";
 import EditDevicePage from "../pages/EditDevicePage";
+import EditGroupPage from "../pages/EditGroupPage";
+import DeleteConfirmModal from "../components/DeleteConfirmModal";
 
 const DispositivosPage = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
   const [isEditDeviceOpen, setIsEditDeviceOpen] = useState(false);
+  const [isEditGroupOpen, setIsEditGroupOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [deviceToEdit, setDeviceToEdit] = useState(null);
+  const [groupToEdit, setGroupToEdit] = useState(null);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [deleteType, setDeleteType] = useState(null); // 'group' o 'device'
   const [isEditing, setIsEditing] = useState(false);
   const [devices, setDevices] = useState([]);
+  const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleOpenEditModal = (device) => {
-    setDeviceToEdit(device);
+    console.log("Dispositivo a editar:", device);
+    setDeviceToEdit(device); 
     setIsEditDeviceOpen(true);
     setIsEditing(true);
   };
@@ -28,6 +37,85 @@ const DispositivosPage = ({ userId }) => {
     setIsEditing(false);
   };
 
+  const handleOpenEditGroupModal = (groupName) => {
+    const selectedGroup = groups.find(g => g.name === groupName);
+    
+    if (!selectedGroup) {
+      console.error("Grupo no encontrado");
+      return;
+    }
+  
+    setGroupToEdit({
+      ...selectedGroup,
+      usuario_id: userId
+    });
+    
+    setIsEditGroupOpen(true);
+    setIsEditing(true);
+  };
+  
+  const handleGroupUpdated = () => {
+    fetchDevices();
+    fetchGroups();
+    setIsEditGroupOpen(false);
+    setIsEditing(false);
+  };
+
+  const handleOpenDeleteGroupModal = (groupName) => {
+    const selectedGroup = groups.find(g => g.name === groupName);
+    
+    if (!selectedGroup) {
+      console.error("Grupo no encontrado");
+      return;
+    }
+
+    setItemToDelete(selectedGroup);
+    setDeleteType('group');
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (deleteType === 'group' && itemToDelete) {
+      deleteGroup(itemToDelete.id);
+    }
+    // Aquí puedes añadir más condiciones para otros tipos de elementos a eliminar en el futuro
+  };
+
+  const deleteGroup = (groupId) => {
+    fetch(`http://localhost:5051/groups/deleteGroup/${groupId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ usuarioId: userId })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al eliminar el grupo');
+        }
+        return response.json();
+      })
+      .then(() => {
+        fetchGroups();
+        fetchDevices();
+        setIsDeleteModalOpen(false);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+  };
+  const fetchGroups = () => {
+    if (!userId) return;
+    fetch(`http://localhost:5051/groups/byUser/${userId}`)
+      .then(response => response.json())
+      .then(groupsData => {
+        setGroups(groupsData);
+      })
+      .catch(error => {
+        console.error("Error al obtener grupos:", error);
+      });
+  };
+  
   const fetchDevices = () => {
     if (!userId) return;
     setLoading(true);
@@ -46,8 +134,23 @@ const DispositivosPage = ({ userId }) => {
   useEffect(() => {
     if (userId) {
       fetchDevices();
+      fetchGroups();
     }
   }, [userId]);
+
+  // Configuración del modal según el tipo de eliminación
+  const getDeleteModalConfig = () => {
+    if (deleteType === 'group') {
+      return {
+        title: "Eliminar Grupo",
+        message: `¿Estás seguro de que quieres eliminar el grupo "${itemToDelete?.name}"? Esta acción no se puede deshacer.`,
+        confirmButtonText: "Eliminar",
+        type: "danger"
+      };
+    }
+    // Configuraciones futuras para otros tipos
+    return {};
+  };
 
   return (
     <div className="appBody">
@@ -71,6 +174,8 @@ const DispositivosPage = ({ userId }) => {
             loading={loading}
             onDeviceUpdate={handleDeviceUpdated}
             onEditDevice={handleOpenEditModal}
+            onEditGroup={handleOpenEditGroupModal}
+            onDeleteGroup={handleOpenDeleteGroupModal}
           />
         )}
       </div>
@@ -97,6 +202,23 @@ const DispositivosPage = ({ userId }) => {
           device={deviceToEdit}
         />
       )}
+      {isEditGroupOpen && (
+        <EditGroupPage
+          isOpen={isEditGroupOpen}
+          onClose={() => {
+            setIsEditGroupOpen(false);
+            setIsEditing(false);
+          }}
+          group={groupToEdit}
+          onGroupUpdated={handleGroupUpdated}
+        />
+      )}
+      <DeleteConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        {...getDeleteModalConfig()}
+      />
     </div>
   );
 };
