@@ -8,6 +8,8 @@ import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import "../styles/DevicesPages.css"
+import speedometer from "../assets/speedometer.svg"
+
 
 const DispositivosPage = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -19,7 +21,7 @@ const DispositivosPage = ({ userId }) => {
   const [deviceToEdit, setDeviceToEdit] = useState(null);
   const [groupToEdit, setGroupToEdit] = useState(null);
   const [itemToDelete, setItemToDelete] = useState(null);
-  const [deleteType, setDeleteType] = useState(null); // 'group' o 'device'
+  const [deleteType, setDeleteType] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [devices, setDevices] = useState([]);
   const [groups, setGroups] = useState([]);
@@ -204,7 +206,7 @@ const DispositivosPage = ({ userId }) => {
         {!isEditing && (
           <div className="bodyHeaderTop">
           <div className="headerTitle">
-            <img src="https://www.svgrepo.com/show/28222/speedometer.svg" alt="Icono de dispositivos" className="headerIcon" />
+            <img src={speedometer} alt="Icono de dispositivos" className="headerIcon" />
             <h2>Dispositivos</h2>
           </div>
           <div className="bodyContainerButtons">
