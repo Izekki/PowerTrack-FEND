@@ -126,7 +126,6 @@ const RegisterForm = ({ onRegisterSuccess }) => {
               alt="Toggle password visibility"
               className="eye-icon"
               onClick={() => setShowPassword(!showPassword)}
-              style={{ cursor: "pointer", marginLeft: "8px" }}
             />
           </div>
         </div>
@@ -149,7 +148,6 @@ const RegisterForm = ({ onRegisterSuccess }) => {
               alt="Toggle confirm password visibility"
               className="eye-icon"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              style={{ cursor: "pointer", marginLeft: "8px" }}
             />
           </div>
         </div>

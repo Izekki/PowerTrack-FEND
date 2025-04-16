@@ -8,11 +8,13 @@ import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import RegisterForm from './RegisterForm.jsx';
 import Header from './Header.jsx';
 import { showAlert } from "./Alert.jsx";
+import RecoverPasswordForm from './RecoverPasswordForm.jsx';
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [register, setRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [recover, setRecover] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +54,9 @@ const LoginForm = ({ onLoginSuccess }) => {
   if (register) {
     return <RegisterForm onRegisterSuccess={handleSuccesRegister} />;
   }
+  if (recover) {
+    return <RecoverPasswordForm onBackToLogin={() => setRecover(false)} />;
+  }
 
   return (
     <div className="login-container">
@@ -88,18 +93,24 @@ const LoginForm = ({ onLoginSuccess }) => {
               onChange={handleChange}
               required
             />
-            <img
-              src={showPassword ? eyeSlashIcon : eyeIcon}
-              alt="Toggle password visibility"
-              className="eye-icon"
+            <button
+              type="button"
+              className="eye-icon-btn"
               onClick={() => setShowPassword(!showPassword)}
-              style={{ cursor: "pointer", marginLeft: "8px" }}
-            />
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '8px' }}
+            >
+              <img
+                src={showPassword ? eyeSlashIcon : eyeIcon}
+                alt="Toggle password visibility"
+                className="eye-icon"
+              />
+            </button>
           </div>
         </div>
       </div>
 
-      <a href="#" className="forgot-password">Recuperar contraseña</a>
+      <a href="#" className="forgot-password" onClick={() => setRecover(true)}>Recuperar contraseña</a>
       <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
       <p className="register-link">¿No tienes una cuenta?</p>
       <a href="#" className="forgot-password" onClick={handleGoToRegisterClick}>Crear una cuenta</a>

@@ -12,78 +12,101 @@
   border-radius: 12px;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
-  
-  .header-container-modal-edit-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .title-edit-group {
-    font-size: 28px;
-    color: #333;
-  }
-  
-  .btn-close-edit-group {
-    padding: 10px 20px;
-    background-color: #ccc;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .btn-close-edit-group:hover {
-    background-color: #aaa;
-  }
-  
-  .form-edit-group {
-    margin-top: 20px;
-  }
-  
-  .input-edit-group {
-    width: 100%;
-    padding: 10px;
-    margin-top: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-  
-  .device-lists-container {
-    display: flex;
-    gap: 40px;
-    flex-wrap: wrap;
-  }
-  
-  .device-list {
-    flex: 1 1 300px;
-  }
-  
-  .device-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .device-list li {
-    margin-bottom: 10px;
-  }
-  
-  .btn-save-group {
-    margin-top: 30px;
-    padding: 12px 30px;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-  }
-  .btn-save-group:hover {
-    background-color: #45a049;
-  }
-  
-  .device-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
-  }
-  
+
+.header-container-modal-edit-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-edit-group {
+  font-size: 28px;
+  color: #333;
+}
+
+.btn-close-edit-group {
+  padding: 10px 20px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-close-edit-group:hover {
+  background-color: #aaa;
+}
+
+.form-edit-group {
+  margin-top: 20px;
+}
+
+.input-edit-group {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.device-lists-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.device-list {
+  flex: 1 1 300px;
+}
+
+.device-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.device-list-item {
+  margin-bottom: 10px;
+}
+
+.device-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.device-checkbox {
+  margin-right: 10px;
+}
+
+.device-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.device-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+  object-fit: contain;
+}
+
+.device-name {
+  vertical-align: middle;
+}
+
+.btn-save-group {
+  margin-top: 30px;
+  padding: 12px 30px;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-save-group:hover {
+  background-color: #45a049;
+}

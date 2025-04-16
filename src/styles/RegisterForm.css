@@ -128,3 +128,21 @@
     color: #f0f0f0;
   }
   
+  .register-input-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 12px;
+    width: 50%;
+    position: relative;
+  }
+  
+  .eye-icon {
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 16px;
+    cursor: pointer;
+  }
+  

@@ -63,8 +63,12 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
   };
 
   const getIconPath = (id) => {
+    // Buscar primero el icono específico para este id
     const imagePath = `../assets/devices-icons/${id}.png`;
-    return images[imagePath] || images["../assets/devices-icons/noimage-card.svg"];
+    // Si no lo encuentra, usar 0.svg como valor predeterminado
+    const defaultPath = "../assets/devices-icons/0.svg";
+    
+    return images[imagePath] || images[defaultPath] || images["../assets/devices-icons/noimage-card.svg"];
   };
 
   if (!isOpen || !group) return null;
@@ -91,15 +95,18 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
           <h3>En el Grupo</h3>
           <ul>
             {inGroupDevices.map(device => (
-              <li key={device.id}>
-                <label>
+              <li key={device.id} className="device-list-item">
+                <label className="device-label">
                   <input
                     type="checkbox"
                     checked={selectedDevices.includes(device.id)}
                     onChange={() => toggleDevice(device.id)}
+                    className="device-checkbox"
                   />
-                  <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
-                  {device.nombre}
+                  <div className="device-info">
+                    <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
+                    <span className="device-name">{device.nombre}</span>
+                  </div>
                 </label>
               </li>
             ))}
@@ -110,15 +117,18 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
           <h3>Sin Grupo</h3>
           <ul>
             {outGroupDevices.map(device => (
-              <li key={device.id}>
-                <label>
+              <li key={device.id} className="device-list-item">
+                <label className="device-label">
                   <input
                     type="checkbox"
                     checked={selectedDevices.includes(device.id)}
                     onChange={() => toggleDevice(device.id)}
+                    className="device-checkbox"
                   />
-                  <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
-                  {device.nombre}
+                  <div className="device-info">
+                    <img src={getIconPath(device.id_tipo_dispositivo)} alt={device.nombre} className="device-icon" />
+                    <span className="device-name">{device.nombre}</span>
+                  </div>
                 </label>
               </li>
             ))}

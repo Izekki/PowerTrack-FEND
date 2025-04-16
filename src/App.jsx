@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import HeaderPW from "./components/HeaderPW";
-import MenuBar from "./components/MenuBar";
 import LoginForm from "./components/LoginForm";
 import DispositivosPage from "./pages/DevicesPages";
-import LogoutConfirmModal from "./components/LogoutConfirmModal";
 import ProfilePage from "./pages/ProfilePage";
+import ResetPasswordForm from './components/ResetPasswordForm';
+import AuthenticatedLayout from "./layaout/AuthenticatedLayaout";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -13,7 +12,6 @@ const App = () => {
   );
   const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
   const [token, setTokenId] = useState(sessionStorage.getItem("token"));
-
   const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleLoginSuccess = () => {
@@ -40,26 +38,55 @@ const App = () => {
     setIsModalOpen(false);
   };
 
-  if (!isAuthenticated) {
-    return <LoginForm onLoginSuccess={handleLoginSuccess} />;
-  }
-
   return (
     <Router>
-      <HeaderPW onLogout={handleLogoutClick} />
-      <MenuBar />
       <Routes>
-        <Route path="/dispositivos" element={<DispositivosPage userId={userId} />} />
-        <Route path="/miperfil" element={<ProfilePage userId={userId} token={token}/>} />
-        <Route path="*" element={<Navigate to="/dispositivos" />} />
+        {/* Ruta pública - Restablecer contraseña */}
+        <Route path="/reset-password/:token" element={<ResetPasswordForm />} />
+        
+        {isAuthenticated ? (
+          /* Rutas autenticadas */
+          <>
+            <Route 
+              path="/dispositivos" 
+              element={
+                <AuthenticatedLayout 
+                  onLogout={handleLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={handleLogoutConfirm}
+                  onCancel={handleLogoutCancel}
+                >
+                  <DispositivosPage userId={userId} />
+                </AuthenticatedLayout>
+              } 
+            />
+            
+            <Route 
+              path="/miperfil" 
+              element={
+                <AuthenticatedLayout 
+                  onLogout={handleLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={handleLogoutConfirm}
+                  onCancel={handleLogoutCancel}
+                >
+                  <ProfilePage userId={userId} token={token} />
+                </AuthenticatedLayout>
+              } 
+            />
+            
+            <Route path="/" element={<Navigate to="/dispositivos" />} />
+            <Route path="*" element={<Navigate to="/dispositivos" />} />
+          </>
+        ) : (
+          /* Rutas no autenticadas */
+          <>
+            <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+            <Route path="/" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+            <Route path="*" element={<Navigate to="/login" />} />
+          </>
+        )}
       </Routes>
-
-      {isModalOpen && (
-        <LogoutConfirmModal 
-          onConfirm={handleLogoutConfirm} 
-          onCancel={handleLogoutCancel} 
-        />
-      )}
     </Router>
   );
 };

@@ -71,3 +71,16 @@
   border-bottom: 2px solid #ccc;
   padding-bottom: 0.25rem;
 }
+
+.no-results-message {
+  font-style: italic;
+  color: #888;
+  padding: 10px;
+}
+
+.no-results-overall {
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #555;
+}

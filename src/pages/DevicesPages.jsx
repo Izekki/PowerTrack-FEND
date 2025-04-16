@@ -200,6 +200,7 @@ const DispositivosPage = ({ userId }) => {
     return {};
   };
 
+
   return (
     <div className="appBody">
       <div className="bodyHeader">
@@ -226,6 +227,7 @@ const DispositivosPage = ({ userId }) => {
           <DeviceList
             searchQuery={searchQuery}
             devices={devices}
+            groups={groups}
             loading={loading}
             onDeviceUpdate={handleDeviceUpdated}
             onEditDevice={handleOpenEditModal}
