@@ -10,7 +10,7 @@ const MenuBar = () => {
           <li><Link to="/consumo">Consumo</Link></li>
           <li><Link to="/alertas">Alertas</Link></li>
           <li><Link to="/dispositivos">Dispositivos</Link></li>
-          <li><Link to="/perfil">Mi Perfil</Link></li>
+          <li><Link to="/miperfil">Mi Perfil</Link></li>
           <li><Link to="/configuracion">Configuración</Link></li>
         </ul>
       </nav>

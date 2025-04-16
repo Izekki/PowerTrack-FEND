@@ -1,0 +1,185 @@
+.profilePage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f4f7f5;
+    min-height: 100vh;
+  }
+  
+  .profilePage-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    background: linear-gradient(90deg, rgba(0,114,78,1) 0%, rgba(128,189,0,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .profilePage-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .profilePage-card {
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px 30px;
+    transition: transform 0.2s ease;
+  }
+  
+  .profilePage-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .profileCard-title {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #00724e;
+  }
+  
+  .profileCard-row {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .profileCard-subsection {
+    margin-top: 20px;
+  }
+  
+  .profileCard-subsection h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .profileCard-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .profileCard-item {
+    background-color: #eaf5ec;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .profileCard-item:hover {
+    background-color: #d0f0d8;
+    transform: scale(1.02);
+  }
+  
+  .profilePage-loading,
+  .profilePage-error {
+    color: #888;
+    font-style: italic;
+    text-align: center;
+  }
+  
+  .eye-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .eye-icon:hover {
+    opacity: 0.8;
+  }
+
+  .btn-profile-save{
+    background-color: #6dd170;
+  }
+
+  .btn-profile-save:hover{
+    background-color: #4CAF50;
+  }
+
+  .btn-change-pass{
+    background-color:  #ff914d ;
+  }
+  .btn-change-pass:hover{
+    background-color:  #f56308 ;
+  }
+
+  .btb-cancel-profile{
+    background-color:  #ff5757 ;
+  }
+
+  .btb-cancel-profile:hover{
+    background-color:  #ff0909 ;
+  }
+
+  .btn-style-default{
+    color:white;
+  }
+
+  .editProfile-btn{
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #666;
+    border-radius: 4px;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+}
+.input-style {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    transition: border 0.3s;
+    box-sizing: border-box;
+  }
+  .input-style:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  .passwordField {
+    position: relative;
+    width: 100%;
+  }
+  
+  .input-password {
+    padding-right: 40px; /* espacio para el icono */
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  .eye-icon:hover {
+    opacity: 1;
+  }
+  
+  .profileCard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem; /* para dar separación con el contenido de abajo */
+  }
+  
