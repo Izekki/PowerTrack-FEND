@@ -1,0 +1,26 @@
+.bodyHeaderTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .headerTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .headerTitle h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .headerIcon {
+    width: 36px;
+    height: 36px;
+    margin: 20px;
+    margin-right: 0px;
+  }
+  

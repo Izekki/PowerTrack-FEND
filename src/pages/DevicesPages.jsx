@@ -7,6 +7,7 @@ import CreateDeviceModal from "../components/CreateDeviceModal";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import "../styles/DevicesPages.css"
 
 const DispositivosPage = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -201,12 +202,19 @@ const DispositivosPage = ({ userId }) => {
     <div className="appBody">
       <div className="bodyHeader">
         {!isEditing && (
+          <div className="bodyHeaderTop">
+          <div className="headerTitle">
+            <img src="https://www.svgrepo.com/show/28222/speedometer.svg" alt="Icono de dispositivos" className="headerIcon" />
+            <h2>Dispositivos</h2>
+          </div>
           <div className="bodyContainerButtons">
             <ActionButtons
               onAddGroup={() => setIsGroupModalOpen(true)}
               onAddDevice={() => setIsDeviceModalOpen(true)}
             />
           </div>
+        </div>
+        
         )}
         {!isEditing && <SearchBar onSearch={setSearchQuery} />}
       </div>

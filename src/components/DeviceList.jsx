@@ -50,6 +50,7 @@ const DeviceList = ({
   return (
     <div className="device-list-container">
       <div className="group-column">
+      <h3 className="column-title">Grupos</h3>
         {Object.keys(filteredGroups).map((groupName) => (
           <GroupCard 
             key={groupName}
@@ -64,6 +65,7 @@ const DeviceList = ({
         ))}
       </div>
       <div className="device-column">
+        <h3 className="column-title">Dispositivos</h3>
         {devicesWithoutGroup.map((device) => (
           <DeviceCard 
             key={device.id} 
