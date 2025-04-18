@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/CreateGroupModal.css";
 import { showAlert } from "./Alert.jsx";
 
-const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
+const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
   const [groupName, setGroupName] = useState("");
   const [devices, setDevices] = useState([]);
   const [selectedDevices, setSelectedDevices] = useState([]);
@@ -55,16 +55,19 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated }) => {
       });
 
       if (!response.ok) {
-        const result = await response.json();
         throw new Error(result.message || "Error al crear el grupo");
       }
 
       const result = await response.json();
-      console.log(result);
+
       await showAlert("success", `Grupo creado con éxito! ID: ${result.newGroup.id}`);
 
+      if(onGroupCreated){
+        onGroupCreated();
+      }
+
+
       onClose(); 
-      onGroupCreated();
     } catch (err) {
       console.error("Error al crear el grupo:", err);
       await showAlert("error", `${err.message}`);

@@ -247,7 +247,11 @@ const DispositivosPage = ({ userId }) => {
       <CreateGroupModal
         isOpen={isGroupModalOpen}
         onClose={() => setIsGroupModalOpen(false)}
-        onGroupCreated={fetchDevices}
+        onGroupCreated={() => {
+          fetchDevices();
+          fetchGroups();
+        }}
+        onDeviceCreated={fetchDevices}
       />
       <CreateDeviceModal
         isOpen={isDeviceModalOpen}
