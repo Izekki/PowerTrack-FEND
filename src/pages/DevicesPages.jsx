@@ -148,12 +148,17 @@ const DispositivosPage = ({ userId }) => {
   const fetchGroups = () => {
     if (!userId) return;
     fetch(`http://localhost:5051/groups/byUser/${userId}`)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) throw new Error('Error en la respuesta');
+        return response.json();
+      })
       .then(groupsData => {
-        setGroups(groupsData);
+        // Asegúrate de que groupsData sea un array
+        setGroups(Array.isArray(groupsData) ? groupsData : []);
       })
       .catch(error => {
         console.error("Error al obtener grupos:", error);
+        setGroups([]); // En caso de error, establece un array vacío
       });
   };
   

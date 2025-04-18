@@ -43,9 +43,10 @@ const DeviceList = ({
   });
 
   // Filtrar grupos por búsqueda (aunque tengan dispositivos o no)
-  const filteredGroups = groups.filter((group) =>
+  const filteredGroups = Array.isArray(groups) ?
+   groups.filter((group) =>
     group.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+   ) : [];
 
   // Asegurarnos de que todos los grupos estén presentes en la lista de grupos, incluso los vacíos
   const allGroupsWithDevices = filteredGroups.map((group) => ({
