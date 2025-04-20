@@ -1,16 +1,15 @@
-/* Estilo para las cards del grupo */
 .group-card {
   margin-bottom: 20px;
   padding: 50px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: var(--group-card-bg);
 }
 
 .grupo-card-title {
   margin-bottom: 10px;
   font-size: 18px;
-  color: #333;
+  color: var(--text-primary);
 }
 
 .devices-list {
@@ -31,14 +30,13 @@
   gap: 8px;
 }
 
-/* Estilo unificado para los botones de icono */
 .icon-btn {
   background: none;
   border: none;
   padding: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  color: #666;
+  color: var(--text-secondary);
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -49,7 +47,7 @@
 
 .icon-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  color: #007bff;
+  color: var(--link-hover);
 }
 
 .icon-btn:active {
@@ -57,5 +55,5 @@
 }
 
 .delete-btn-svg:hover {
-  color: #dc3545;
+  color: var(--error-color);
 }

@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-  background-color: #222222;
+  background-color: var(--bg-body);
   padding-left: 5%;
 }
 
@@ -14,15 +14,15 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: white;
+  color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: bold;
-  margin-top:0; /* Espacio para el logo */
+  margin-top: 0;
   margin-bottom: 1rem;
 }
 
-.login-form-inputs-container{
-    padding-top: 2%$; /* Espacio equivalente al header */
+.login-form-inputs-container {
+  padding-top: 2%;
 }
 
 /* =====================================
@@ -31,7 +31,7 @@
 .header {
   width: 100%;
   height: 150px;
-  background: linear-gradient(to right, #00724e, #80bd00);
+  background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -39,16 +39,16 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10; 
+  z-index: 10;
 }
 
 .logo-img {
   width: 160px;
   height: 160px;
-  position: absolute; 
-  top: 70px; 
-  left: 5%; 
-  z-index: 100; 
+  position: absolute;
+  top: 70px;
+  left: 5%;
+  z-index: 100;
 }
 
 /* =====================================
@@ -61,7 +61,7 @@
 }
 
 .label-Form-Login {
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 5px;
@@ -70,7 +70,7 @@
 .input-container {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: var(--input-bg);
   border-radius: 10px;
   padding: 12px;
   width: 51%;
@@ -89,6 +89,7 @@
   outline: none;
   font-size: 1rem;
   background: transparent;
+  color: var(--input-text);
 }
 
 /* =====================================
@@ -98,7 +99,7 @@
 .return-btn {
   width: 52%;
   padding: 14px;
-  color: white;
+  color: var(--text-white);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -108,20 +109,20 @@
 }
 
 .login-btn {
-  background-color: #2E7D32;
+  background-color: var(--btn-primary-bg);
 }
 
 .login-btn:hover {
-  background-color: #1B5E20;
+  background-color: var(--btn-primary-hover);
 }
 
 .return-btn {
-  background-color: #727272;
+  background-color: var(--btn-secondary-bg);
   margin-top: 8px;
 }
 
 .return-btn:hover {
-  background-color: #313531;
+  background-color: var(--btn-secondary-hover);
 }
 
 /* =====================================
@@ -135,25 +136,27 @@
 }
 
 .forgot-password {
-  color: #4CAF50;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 .forgot-password:hover {
   text-decoration: underline;
+  color: var(--link-hover);
 }
 
 .register-link {
-  color: white;
+  color: var(--text-primary);
 }
 
 .register-link a {
-  color: #4CAF50;
+  color: var(--link-color);
   text-decoration: none;
 }
 
 .register-link a:hover {
   text-decoration: underline;
+  color: var(--link-hover);
 }
 
 /* =====================================
@@ -161,13 +164,13 @@
 ===================================== */
 .error {
   margin-top: 10px;
-  color: red;
+  color: var(--error-color);
   font-size: 1rem;
   font-weight: 500;
 }
 
-.back-arrow { 
-  color: white;
+.back-arrow {
+  color: var(--text-primary);
   font-size: 1.8rem;
   font-weight: bold;
   cursor: pointer;
@@ -175,14 +178,14 @@
 }
 
 .back-arrow:hover {
-  color: #f0f0f0;
+  color: var(--text-secondary);
 }
 
 .eye-icon-btn {
   position: absolute;
-  right: 0px;  /* Posiciona el icono del ojo a la derecha dentro del input */
+  right: 0px;
   top: 50%;
-  transform: translateY(-50%);  /* Centra el icono verticalmente */
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;

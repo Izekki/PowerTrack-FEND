@@ -13,10 +13,10 @@
 }
 
 .modal-content {
-  background: white;
+  background: var(--bg-light); /* Fondo consistente con el resto de la app */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-default); /* Usar sombra definida en App.css */
   width: 400px;
   max-width: 100%;
   z-index: 20;
@@ -25,6 +25,7 @@
 h2 {
   margin-bottom: 10px;
   font-size: 24px;
+  color: var(--text-primary); /* Color de texto consistente con la app */
 }
 
 .input-group {
@@ -37,13 +38,16 @@ h2 {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: var(--text-primary); /* Color de texto consistente */
 }
 
 .input-group input {
   width: 100%;
   padding: 8px;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Usar color de borde definido */
+  background-color: var(--input-bg); /* Fondo consistente con el resto de inputs */
+  color: var(--input-text); /* Color de texto consistente */
   box-sizing: border-box;
 }
 
@@ -60,8 +64,9 @@ h2 {
   align-items: center;
   margin-bottom: 10px;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Usar el mismo borde */
   border-radius: 4px;
+  background-color: var(--bg-light); /* Fondo consistente */
   box-sizing: border-box;
 }
 
@@ -80,16 +85,18 @@ h2 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
 }
 
 .submit-btn {
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--btn-primary-bg); /* Botón de acción primaria */
+  color: var(--text-white); /* Texto blanco */
 }
 
 .cancel-btn {
-  background-color: #f44336;
-  color: white;
+  background-color: var(--btn-secondary-bg); /* Botón de cancelación */
+  color: var(--text-white); /* Texto blanco */
 }
 
 .submit-btn:hover,

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import DeviceList from "../components/DeviceList";
-import SearchBar from "../components/SearchBar";
-import ActionButtons from "../components/ActionButtons";
 import CreateGroupModal from "../components/CreateGroupModal";
 import CreateDeviceModal from "../components/CreateDeviceModal";
+import DeviceList from "../components/DeviceList";
+import ActionButtons from "../components/ActionButtons";
+import SearchBar from "../components/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
-import "../styles/DevicesPages.css"
 import speedometer from "../assets/speedometer.svg"
+import "../styles/DevicesPages.css"
 
 
 const DispositivosPage = ({ userId }) => {

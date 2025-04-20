@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { ThemeProvider } from "next-themes"; 
 import LoginForm from "./components/LoginForm";
 import DispositivosPage from "./pages/DevicesPages";
 import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthenticatedLayout from "./layaout/AuthenticatedLayaout";
+import ConfigurationPage from "./pages/ConfigurationPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -39,6 +41,7 @@ const App = () => {
   };
 
   return (
+    <ThemeProvider attribute="data-theme">
     <Router>
       <Routes>
         {/* Ruta pública - Restablecer contraseña */}
@@ -74,6 +77,20 @@ const App = () => {
                 </AuthenticatedLayout>
               } 
             />
+
+            <Route 
+              path="/configuracion" 
+              element={
+                <AuthenticatedLayout 
+                  onLogout={handleLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={handleLogoutConfirm}
+                  onCancel={handleLogoutCancel}
+                >
+                  <ConfigurationPage userId={userId} token={token} />
+                </AuthenticatedLayout>
+              } 
+            />
             
             <Route path="/" element={<Navigate to="/dispositivos" />} />
             <Route path="*" element={<Navigate to="/dispositivos" />} />
@@ -88,6 +105,7 @@ const App = () => {
         )}
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 };
 

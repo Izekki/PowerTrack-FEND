@@ -3,13 +3,13 @@
   justify-content: space-between; /* separa el título del botón */
   align-items: center; /* alinea verticalmente */
   width: 100%;
-  padding: 10px 30px; /* padding horizontal */
+  padding: 15px 35px; /* padding horizontal ajustado */
   box-sizing: border-box;
 }
 
 .title-Editar-Dispositivo {
-  font-size: 28px;
-  color: #545454;
+  font-size: 30px; /* tamaño de fuente aumentado */
+  color: var(--text-primary); /* usando variable */
   margin: 0;
   padding: 0;
 }
@@ -19,32 +19,33 @@
 }
 
 .btn-close-edit {
-  padding: 10px 20px;
-  background-color: #ccc;
+  padding: 12px 25px; /* padding más amplio */
+  background-color: var(--btn-secondary-bg); /* usando variable */
   border: none;
-  border-radius: 8px;
+  border-radius: 10px; /* borde más redondeado */
   cursor: pointer;
   font-weight: bold;
 }
-.btn-close-edit:hover{
-  background-color: #a5a5a5;
+
+.btn-close-edit:hover {
+  background-color: var(--btn-secondary-hover); /* usando variable */
 }
 
 .container-edit-cards {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 40px; /* separación entre las tarjetas */
-  padding: 20px 30px;
+  gap: 50px; /* separación aumentada entre las tarjetas */
+  padding: 25px 40px; /* padding más amplio */
   flex-wrap: wrap; /* por si la pantalla es muy pequeña */
 }
 
 .edit-device-page {
   display: flex;
-  gap: 40px;
+  gap: 50px; /* separación aumentada entre elementos */
   flex-wrap: wrap;
 }
 
 .edit-device-page > * {
-  flex: 1 1 400px; /* tamaño mínimo para que se acomoden bien */
+  flex: 1 1 450px; /* tamaño mínimo ajustado para que se acomoden bien */
 }

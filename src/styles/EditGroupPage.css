@@ -1,3 +1,4 @@
+/* Estilos para la página EditGroupPage */
 .edit-group-container {
   position: fixed;
   top: 50%;
@@ -8,9 +9,9 @@
   max-height: 90vh;
   overflow-y: auto;
   padding: 30px;
-  background-color: #fff;
+  background-color: var(--bg-light); /* Fondo consistente con el resto de la app */
   border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-default); /* Sombra consistente */
 }
 
 .header-container-modal-edit-group {
@@ -21,12 +22,12 @@
 
 .title-edit-group {
   font-size: 28px;
-  color: #333;
+  color: var(--text-primary); /* Color de texto consistente */
 }
 
 .btn-close-edit-group {
   padding: 10px 20px;
-  background-color: #ccc;
+  background-color: var(--btn-secondary-bg); /* Usar color de botón secundario */
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -34,7 +35,7 @@
 }
 
 .btn-close-edit-group:hover {
-  background-color: #aaa;
+  background-color: var(--btn-secondary-hover); /* Efecto hover para botón secundario */
 }
 
 .form-edit-group {
@@ -46,8 +47,10 @@
   padding: 10px;
   margin-top: 8px;
   margin-bottom: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color); /* Borde consistente con la app */
   border-radius: 8px;
+  background-color: var(--input-bg); /* Fondo consistente */
+  color: var(--input-text); /* Color de texto consistente */
 }
 
 .device-lists-container {
@@ -100,13 +103,13 @@
 .btn-save-group {
   margin-top: 30px;
   padding: 12px 30px;
-  background-color: #4caf50;
+  background-color: var(--btn-primary-bg); /* Usar color de botón primario */
   border: none;
   border-radius: 8px;
-  color: white;
+  color: var(--text-white); /* Texto blanco */
   cursor: pointer;
 }
 
 .btn-save-group:hover {
-  background-color: #45a049;
+  background-color: var(--btn-primary-hover); /* Efecto hover para botón primario */
 }

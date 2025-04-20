@@ -1,15 +1,149 @@
-body{
-    font-family: "Nunito", sans-serif;
-    padding: 0;
-    margin: 0;
-    background-color: #e6e6e6;
+body {
+  font-family: "Nunito", sans-serif;
+  padding: 0;
+  margin: 0;
+  background-color: var(--bg-body);
 }
 
-.btn-style-default{
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
+.btn-style-default {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+:root {
+  /* Colores base */
+  --bg-body: #e6e6e6;
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --text-white: #ffffff;
+  --error-color: #ff4444;
+
+  /* Botones */
+  --btn-primary-bg: #2E7D32;
+  --btn-primary-hover: #1B5E20;
+  --btn-secondary-bg: #727272;
+  --btn-secondary-hover: #313531;
+
+  /* Inputs */
+  --input-bg: #ffffff;
+  --input-text: #333333;
+
+  /* Header */
+  --header-gradient-start: #00724e;
+  --header-gradient-end: #80bd00;
+
+  /* Enlaces */
+  --link-color: #4CAF50;
+  --link-hover: #3d8b40;
+
+  /* Barra de navegación */
+  --bg-navbar: #f5f5f5;
+  --border-color: #e0e0e0;
+
+  /* Efectos hover */
+  --nav-hover-bg: rgba(0, 0, 0, 0.05);
+
+  /* Colores adicionales */
+  --error-hover: #d32f2f;
+  --error-light: #ff7043;
+
+  /*DeviceList*/
+  --bg-light: #ffffff;
+  --bg-group: #f4f4f4;
+  --border-color: #ddd;
+  --text-muted: #888;
+  --text-dark: #555;
+  --shadow-default: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --card-hover-scale: 1.03;
+  --font-title: 1.2rem;
+
+  /*DeviceCard*/
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --text-primary: #333333;
+  --group-card-bg: #e9ecef;
+
+  --btn-edit-bg: #ff914d;
+  --btn-edit-bg-hover: #f56308;
+
+  --btn-delete-bg: #ff5757;
+  --btn-delete-bg-hover: #ff0909;
+
+  --status-online: #4caf50;
+  --status-offline: #f44336;
+
+  /*Profile Page*/
+
+  --btn-save-bg: #6dd170;
+  --btn-save-hover: #4CAF50;
+
+  --item-bg: #eaf5ec;
+  --item-hover-bg: #d0f0d8;
+
+  /* Para ConfigurationPage */
+  --card-bg: #ffffff;
+  --card-border: #e0e0e0;
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+[data-theme="dark"] {
+  --bg-body: #222222;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --input-bg: #444444;
+  --input-text: #ffffff;
+
+  /* Barra de navegación */
+  --bg-navbar: #222222;
+  --border-color: #333333;
+
+  /* Efectos hover */
+  --nav-hover-bg: rgba(255, 255, 255, 0.1);
+
+  /*DeviceList*/
+  --bg-light: #1e1e1e;
+  --bg-group: #2a2a2a;
+  --border-color: #444;
+  --text-muted: #aaa;
+  --text-dark: #e0e0e0;
+  --shadow-default: 0 2px 5px rgba(255, 255, 255, 0.05);
+  --card-hover-scale: 1.03;
+  --font-title: 1.2rem;
+
+  /*DeviceCard*/
+  --card-bg: #1e1e1e;
+  --card-border: #333;
+  --card-shadow: 0 4px 8px rgba(255, 255, 255, 0.05);
+  --text-primary: #f0f0f0;
+  --group-card-bg: #2a2a2a;
+
+  --btn-edit-bg: #e07b39;
+  --btn-edit-bg-hover: #bf5206;
+
+  --btn-delete-bg: #ff3f3f;
+  --btn-delete-bg-hover: #cc0000;
+
+  --status-online: #81c784;
+  --status-offline: #ef5350;
+
+  /*Profile Page*/
+  --btn-save-bg: #51985b;
+  --btn-save-hover: #388e3c;
+  
+  --item-bg: #2d4031;
+  --item-hover-bg: #3b5e47;
+
+  /* Para ConfigurationPage */
+  --card-bg: #1e1e1e;
+  --card-border: #333333;
+  --card-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+
+
+
 }

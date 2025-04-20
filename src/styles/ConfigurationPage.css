@@ -1,0 +1,58 @@
+.configurationPage-container {
+  padding: 2rem;
+  background-color: var(--bg-body);
+  min-height: 100vh;
+}
+
+.configurationPage-title {
+  font-size: 24px;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.configurationPage-cards {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.configurationCard {
+  flex: 1 1 45%;
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+}
+
+.configurationCard-title {
+  font-size: 20px;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.configurationCard-text {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.configurationCard-section {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.configurationCard-label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.configurationCard-select {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 16px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+}

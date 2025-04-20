@@ -1,65 +1,66 @@
 .edit-device-card {
     max-width: 600px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: var(--bg-light); /* Fondo consistente con el resto de la app */
+    box-shadow: var(--shadow-default); /* Sombra consistente */
     border-radius: 12px;
     padding: 20px;
     margin: 50px auto;
     text-align: left;
-}
-
-
-.Title-Device {
-    color: #ff1400;
+  }
+  
+  .Title-Device {
+    color: var(--btn-edit-bg); /* Usar color primario del botón de editar */
     text-align: autos;
     font-size: 28px;
-}
-
-.edit-device-form {
+  }
+  
+  .edit-device-form {
     display: flex;
     flex-direction: column;
-}
-
-.edit-device-card-columns{
+  }
+  
+  .edit-device-card-columns {
     display: flex;
     flex-direction: row;
-}
-
-.lbl1, .lbl2 {
+  }
+  
+  .lbl1, .lbl2 {
     font-size: 14px;
     font-weight: bold;
-    color: black;
+    color: var(--text-primary); /* Color consistente */
     margin-bottom: 5px;
-}
-
-.input-lbl {
+  }
+  
+  .input-lbl {
     width: 90%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color); /* Borde consistente */
     border-radius: 5px;
-    background-color: #f5f5f5;
+    background-color: var(--input-bg); /* Fondo consistente */
     font-size: 14px;
-}
-
-.buttonEditar {
+    color: var(--input-text); /* Texto consistente */
+  }
+  
+  .buttonEditar {
     width: 94%;
-    background-color: #ff914d;
-    color: white;
+    background-color: var(--btn-edit-bg); /* Usar color de botón de editar */
+    color: var(--text-white); /* Texto blanco */
     border: none;
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-}
-
-.buttonEditar:hover {
-    background-color: #f4511e;
-}
-
-.device-name-header{
+  }
+  
+  .buttonEditar:hover {
+    background-color: var(--btn-edit-bg-hover); /* Efecto hover de botón de editar */
+  }
+  
+  .device-name-header {
     font-size: 24px;
     font-weight: normal;
-    color: #545454;
-}
+    color: var(--text-dark); /* Color de texto consistente */
+  }
+  

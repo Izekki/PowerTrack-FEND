@@ -1,14 +1,12 @@
-/* Estilo del header con gradiente verde */
+/* ========== Header Principal ========== */
 .header-pw {
-  background: rgb(0, 114, 78);
-  background: linear-gradient(90deg, rgba(0,114,78,1) 0%, rgba(128,189,0,1) 100%);
+  background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
   padding: 15px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Contenedor del contenido del header */
 .header-content {
   width: 100%;
   display: flex;
@@ -16,7 +14,6 @@
   align-items: center;
 }
 
-/* Logo alineado a la izquierda */
 .logo-container {
   display: flex;
   align-items: center;
@@ -27,20 +24,24 @@
   height: auto;
 }
 
-/* Cerrar sesión alineado a la derecha */
 .logout {
   cursor: pointer;
-  color: white;
+  color: var(--text-white);
   display: flex;
   align-items: center;
   gap: 8px;
   background: none;
   border: none;
   font-size: 24px;
+  transition: opacity 0.3s ease;
+}
+
+.logout:hover {
+  opacity: 0.9;
 }
 
 .logout-icon {
   width: 20px;
   height: 20px;
-  fill: white;
+  fill: var(--text-white);
 }

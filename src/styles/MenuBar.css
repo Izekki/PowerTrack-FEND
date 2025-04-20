@@ -1,17 +1,16 @@
-/* Contenedor negro */
+/* ========== Barra de Navegación ========== */
 .cont-nav-bar {
-  background-color: #222222;
+  background-color: var(--bg-navbar);
   padding: 10px;
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* Navegación */
 .nav-bar {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
 
-/* Lista de navegación */
 .nav-bar ul {
   list-style-type: none;
   display: flex;
@@ -21,20 +20,35 @@
   padding: 0;
 }
 
-/* Elementos de lista */
 .nav-bar li {
   font-size: 20px;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
-/* Estilos para los enlaces */
 .nav-bar li a {
-  color: white;
+  color: var(--text-primary);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  padding: 5px 0;
+  position: relative;
 }
 
-/* Hover en los enlaces */
 .nav-bar li a:hover {
-  color: #78C850;
+  color: var(--link-hover);
+}
+
+/* Subrayado animado al hacer hover */
+.nav-bar li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--link-hover);
+  transition: width 0.3s ease;
+}
+
+.nav-bar li a:hover::after {
+  width: 100%;
 }
