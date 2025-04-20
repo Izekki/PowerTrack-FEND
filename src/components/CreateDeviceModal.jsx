@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../styles/CreateDeviceModal.css";
 import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
 
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+
 const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [nombre, setNombre] = useState("");
   const [ubicacion, setUbicacion] = useState("");
@@ -46,7 +48,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5051/device/devices", {
+      const response = await fetch(`${DOMAIN_URL}/device/devices`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

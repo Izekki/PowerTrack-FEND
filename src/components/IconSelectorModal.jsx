@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../styles/IconSelectorModal.css";
 import { showAlert } from "./Alert.jsx";
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
   eager: true,
@@ -46,7 +47,7 @@ const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
 
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5051/device/editar/icono/${device.id}`, {
+      const res = await fetch(`${DOMAIN_URL}/device/editar/icono/${device.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

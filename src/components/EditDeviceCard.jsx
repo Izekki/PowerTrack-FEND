@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditDeviceCard.css";
 import { showAlert } from "./Alert.jsx";
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const EditDeviceCard = ({ device, onDeviceUpdated }) => {
   const [deviceData, setDeviceData] = useState(device || {});
@@ -26,7 +27,7 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
     }
 
     try {
-      const response = await fetch(`http://localhost:5051/device/editar/${deviceData.id}`, {
+      const response = await fetch(`${DOMAIN_URL}/device/editar/${deviceData.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

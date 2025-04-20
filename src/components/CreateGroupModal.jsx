@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/CreateGroupModal.css";
 import { showAlert } from "./Alert.jsx";
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
   const [groupName, setGroupName] = useState("");
@@ -16,7 +17,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
       setGroupName("");
       setSelectedDevices([]);
 
-      fetch(`http://localhost:5051/device/unassigned/${usuarioId}`)
+      fetch(`${DOMAIN_URL}/device/unassigned/${usuarioId}`)
         .then((res) => res.json())
         .then((data) => {
           setDevices(data); 
@@ -46,7 +47,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
     setError(null);
 
     try {
-      const response = await fetch("http://localhost:5051/groups/create", {
+      const response = await fetch(`${DOMAIN_URL}/groups/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -7,6 +7,7 @@ import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "./Alert.jsx";
 import Header from './Header.jsx';
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const ResetPasswordForm = () => {
   const { token } = useParams();
@@ -25,7 +26,7 @@ const ResetPasswordForm = () => {
   useEffect(() => {
     const verifyToken = async () => {
       try {
-        const response = await fetch(`http://localhost:5051/psR/verify-token/${token}`);
+        const response = await fetch(`${DOMAIN_URL}/psR/verify-token/${token}`);
         const data = await response.json();
 
         if (data.success) {
@@ -65,7 +66,7 @@ const ResetPasswordForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:5051/psR/reset-password', {
+      const response = await fetch(`${DOMAIN_URL}/psR/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

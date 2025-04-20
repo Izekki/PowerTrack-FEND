@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditGroupPage.css";
 import { showAlert } from "../components/Alert";
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Cargar los iconos dinámicamente
 const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
@@ -17,7 +18,7 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
 
   useEffect(() => {
     if (group && isOpen) {
-      fetch(`http://localhost:5051/groups/grupo/${group.id}/dispositivos?usuarioId=${usuarioId}`)
+      fetch(`${DOMAIN_URL}/groups/grupo/${group.id}/dispositivos?usuarioId=${usuarioId}`)
         .then(res => res.json())
         .then(data => {
           setInGroupDevices(data.inGroup || []);
@@ -36,7 +37,7 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
   };
 
   const handleUpdate = () => {
-    fetch("http://localhost:5051/groups/edit", {
+    fetch(`${DOMAIN_URL}/groups/edit`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

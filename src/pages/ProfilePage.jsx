@@ -3,6 +3,7 @@ import "../styles/ProfilePage.css";
 import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "../components/Alert";
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ProfilePage = ({ userId, token }) => {
   const [profileData, setProfileData] = useState(null);
@@ -27,7 +28,7 @@ const ProfilePage = ({ userId, token }) => {
   const fetchProfileData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5051/user/show/${userId}`, {
+      const response = await fetch(`${DOMAIN_URL}/user/show/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +79,7 @@ const ProfilePage = ({ userId, token }) => {
 
       // Primero actualizar los datos del perfil
       const updateResponse = await fetch(
-        `http://localhost:5051/user/edit/${userId}`,
+        `${DOMAIN_URL}/user/edit/${userId}`,
         {
           method: "PUT",
           headers: {
@@ -117,7 +118,7 @@ const ProfilePage = ({ userId, token }) => {
   const handleChangePassword = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5051/user/${userId}/change-password`,
+        `${DOMAIN_URL}/user/${userId}/change-password`,
         {
           method: "POST",
           headers: {

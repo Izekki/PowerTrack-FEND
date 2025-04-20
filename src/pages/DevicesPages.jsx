@@ -7,8 +7,10 @@ import SearchBar from "../components/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
-import speedometer from "../assets/speedometer.svg"
-import "../styles/DevicesPages.css"
+import speedometer from "../assets/speedometer.svg";
+import "../styles/DevicesPages.css";
+
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 const DispositivosPage = ({ userId }) => {
@@ -99,7 +101,7 @@ const DispositivosPage = ({ userId }) => {
   };
 
   const deleteGroup = (groupId) => {
-    fetch(`http://localhost:5051/groups/deleteGroup/${groupId}`, {
+    fetch(`${DOMAIN_URL}/groups/deleteGroup/${groupId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +125,7 @@ const DispositivosPage = ({ userId }) => {
   };
 
   const deleteDevice = (deviceId) => {
-    fetch(`http://localhost:5051/device/deleteDevice/${deviceId}`, {
+    fetch(`${DOMAIN_URL}/device/deleteDevice/${deviceId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -147,7 +149,7 @@ const DispositivosPage = ({ userId }) => {
 
   const fetchGroups = () => {
     if (!userId) return;
-    fetch(`http://localhost:5051/groups/byUser/${userId}`)
+    fetch(`${DOMAIN_URL}/groups/byUser/${userId}`)
       .then(response => {
         if (!response.ok) throw new Error('Error en la respuesta');
         return response.json();
@@ -165,7 +167,7 @@ const DispositivosPage = ({ userId }) => {
   const fetchDevices = () => {
     if (!userId) return;
     setLoading(true);
-    fetch(`http://localhost:5051/device/dispositivosPorUsuario/${userId}`)
+    fetch(`${DOMAIN_URL}/device/dispositivosPorUsuario/${userId}`)
       .then((response) => response.json())
       .then((data) => {
         setDevices(data);
