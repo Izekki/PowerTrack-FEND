@@ -27,5 +27,8 @@ dist-ssr
 package-lock.json
 package.json
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2188b42624615e06d32680ac2ef405fd61ba07e0
 .env
