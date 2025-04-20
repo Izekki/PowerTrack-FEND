@@ -1,12 +1,31 @@
-# React + Vite
+# ⚡ PowerTrack-FEND
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PowerTrack-FEND** es una aplicación **frontend** desarrollada con **React** y **Vite**, diseñada para ofrecer seguimiento y análisis de datos relacionados con el consumo energético.  
+Este proyecto forma parte de una solución integral para **monitorear y optimizar el uso de energía en tiempo real**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Características
 
-## Expanding the ESLint configuration
+- 🖥️ **Interfaz de usuario intuitiva y responsiva**
+- 📊 **Visualización en tiempo real de datos energéticos**
+- 🔗 **Integración con APIs para obtener datos actualizados**
+- 📈 **Gráficas interactivas para análisis detallado**
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Tecnologías Utilizadas
+
+- ⚛️ **[React](https://reactjs.org/)** – Biblioteca para construir interfaces de usuario
+- ⚡ **[Vite](https://vitejs.dev/)** – Herramienta de desarrollo rápida para proyectos frontend
+- 🧹 **[ESLint](https://eslint.org/)** – Herramienta para mantener la calidad del código
+- 📉 **[Chart.js](https://www.chartjs.org/)** – Biblioteca para visualización de datos
+
+---
+
+## 👥 Autores
+
+- [@Izekki](https://github.com/Izekki)
+- [@ElMilaneso-69](https://github.com/ElMilaneso-69)
+- [@McFlyer-00](https://github.com/McFlyer-00)
+- [@Transformiuo](https://github.com/Transformiuo)
