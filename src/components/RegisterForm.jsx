@@ -19,13 +19,13 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   const [supplierList, setSupplierList] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
-  const DOMAIN_URL = "localhost:5051";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://${DOMAIN_URL}/supplier`);
+        const res = await fetch(`${DOMAIN_URL}/supplier`);
         const data = await res.json();
         if (res.ok) setSupplierList(data || []);
         else await showAlert("error", data?.message || "Error al obtener proveedores");
@@ -50,7 +50,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5051/user/register', {
+      const response = await fetch(`${DOMAIN_URL}/user/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

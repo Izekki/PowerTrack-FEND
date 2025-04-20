@@ -29,7 +29,7 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
 
     try {
-      const response = await fetch(`http://${DOMAIN_URL}/login`, {
+      const response = await fetch(`${DOMAIN_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

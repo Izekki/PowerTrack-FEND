@@ -4,6 +4,9 @@ import emailIcon from "../assets/email-icon.svg";
 import { showAlert } from "./Alert.jsx";
 import Header from './Header.jsx';
 
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+
+
 const RecoverPasswordForm = ({ onBackToLogin }) => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,7 +19,7 @@ const RecoverPasswordForm = ({ onBackToLogin }) => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:5051/psR/recover-password', {
+      const response = await fetch(`${DOMAIN_URL}/psR/recover-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ correo: email }),
