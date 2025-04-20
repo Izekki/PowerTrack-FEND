@@ -13,11 +13,11 @@
 }
 
 .confirmation-modal {
-  background-color: var(--bg-light); /* Fondo consistente con el resto de la app */
+  background-color: var(--bg-light);
   border-radius: 8px;
   width: 400px;
   max-width: 90%;
-  box-shadow: var(--shadow-default); /* Sombra consistente */
+  box-shadow: var(--shadow-default);
   overflow: hidden;
 }
 
@@ -26,22 +26,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .modal-header.warning {
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: var(--header-warning-bg);
+  color: var(--header-warning-text);
 }
 
 .modal-header.danger {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: var(--header-danger-bg);
+  color: var(--header-danger-text);
 }
 
 .modal-header.info {
-  background-color: #d1ecf1;
-  color: #0c5460;
+  background-color: var(--header-info-bg);
+  color: var(--header-info-text);
 }
 
 .modal-header h2 {
@@ -60,6 +60,7 @@
 
 .modal-body {
   padding: 20px;
+  color: var(--text-primary);
 }
 
 .modal-footer {
@@ -67,20 +68,21 @@
   justify-content: flex-end;
   padding: 16px 20px;
   gap: 10px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--border-color);
 }
 
 .cancel-button {
-  background-color: var(--btn-secondary-bg); /* Usar color de botón secundario */
-  border: 1px solid #dee2e6;
+  background-color: var(--btn-secondary-bg);
+  border: 1px solid var(--btn-secondary-border);
   border-radius: 4px;
   padding: 8px 16px;
   cursor: pointer;
   font-weight: 500;
+  color: var(--text-primary);
 }
 
 .cancel-button:hover {
-  background-color: var(--btn-secondary-hover); /* Hover color del botón secundario */
+  background-color: var(--btn-secondary-hover);
 }
 
 .confirm-button {
@@ -93,25 +95,25 @@
 }
 
 .confirm-button.warning {
-  background-color: var(--btn-edit-bg); /* Usar color de botón editar */
+  background-color: var(--btn-edit-bg);
 }
 
 .confirm-button.warning:hover {
-  background-color: var(--btn-edit-bg-hover); /* Hover color del botón editar */
+  background-color: var(--btn-edit-bg-hover);
 }
 
 .confirm-button.danger {
-  background-color: var(--btn-delete-bg); /* Usar color de botón eliminar */
+  background-color: var(--btn-delete-bg);
 }
 
 .confirm-button.danger:hover {
-  background-color: var(--btn-delete-bg-hover); /* Hover color del botón eliminar */
+  background-color: var(--btn-delete-bg-hover);
 }
 
 .confirm-button.info {
-  background-color: #17a2b8;
+  background-color: var(--btn-info-bg);
 }
 
 .confirm-button.info:hover {
-  background-color: #138496;
+  background-color: var(--btn-info-hover);
 }

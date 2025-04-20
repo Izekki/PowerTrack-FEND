@@ -7,6 +7,8 @@ import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthenticatedLayout from "./layaout/AuthenticatedLayaout";
 import ConfigurationPage from "./pages/ConfigurationPage";
+import AlertasPage from "./pages/AlertasPage";
+import ConsumoPage from "./pages/ConsumoPage";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
@@ -50,6 +52,33 @@ const App = () => {
         {isAuthenticated ? (
           /* Rutas autenticadas */
           <>
+          <Route 
+              path="/consumo" 
+              element={
+                <AuthenticatedLayout 
+                  onLogout={handleLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={handleLogoutConfirm}
+                  onCancel={handleLogoutCancel}
+                >
+                  <ConsumoPage userId={userId} />
+                </AuthenticatedLayout>
+              } 
+            />
+            <Route 
+              path="/alertas" 
+              element={
+                <AuthenticatedLayout 
+                  onLogout={handleLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={handleLogoutConfirm}
+                  onCancel={handleLogoutCancel}
+                >
+                  <AlertasPage userId={userId} />
+                </AuthenticatedLayout>
+              } 
+            />
+
             <Route 
               path="/dispositivos" 
               element={

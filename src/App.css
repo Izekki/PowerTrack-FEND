@@ -90,6 +90,21 @@ body {
   --card-border: #e0e0e0;
   --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
+  /* Modal Headers */
+  --header-warning-bg: #fff3cd;
+  --header-warning-text: #856404;
+  
+  --header-danger-bg: #f8d7da;
+  --header-danger-text: #721c24;
+  
+  --header-info-bg: #d1ecf1;
+  --header-info-text: #0c5460;
+  
+  /* Confirm Buttons */
+  --btn-info-bg: #17a2b8;
+  --btn-info-hover: #138496;
+  
+
 }
 
 [data-theme="dark"] {
@@ -144,6 +159,18 @@ body {
   --card-border: #333333;
   --card-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
 
+  /* Modal Headers - Dark Theme */
+  --header-warning-bg: #a37a1f;
+  --header-warning-text: #fff3cd;
 
+  --header-danger-bg: #8b2a2a; /* Rojo más intenso */
+  --header-danger-text: #ffd6d6;
+
+  --header-info-bg: #1a5d66;
+  --header-info-text: #c9f2f7;
+
+  /* Confirm Buttons - Dark Theme */
+  --btn-info-bg: #118391;
+  --btn-info-hover: #0e6975;
 
 }

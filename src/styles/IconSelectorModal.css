@@ -1,112 +1,117 @@
 .edit-icon-modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  
-  .edit-icon-modal {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    max-width: 800px;
-    width: 90%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  
-  .icon-modal-title {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-  }
-  
-  .icon-edit-icon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 1rem;
-  }
-  
-  .edit-icon-option {
-    cursor: pointer;
-    text-align: center;
-    border: 2px solid transparent;
-    border-radius: 8px;
-    padding: 0.5rem;
-    transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-  }
-  
-  .edit-icon-option:hover {
-    transform: scale(1.05);
-    border-color: #4caf50;
-    background-color: #f0f0f0;
-  }
-  
-  .edit-icon-option img {
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
-  }
-  
-  .edit-icon-option p {
-    font-size: 0.9rem;
-    color: #333;
-  }
-  
-  .edit-icon-close {
-    display: block;
-    margin: 2rem auto 0;
-    background-color: #e74c3c;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.2s ease;
-  }
-  
-  .edit-icon-close:hover {
-    background-color: #c0392b;
-  }
-  
-  .edit-icon-option.selected {
-    border: 2px solid #007bff;
-    background-color: #e0f0ff;
-    border-radius: 10px;
-  }
-  
-  .icon-selector-btn-accept, .icon-selector-btn-cancel {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin: 5px;
-  }
-  .icon-selector-btn-accept {
-    background-color: #ff914d;
-    color: white;
-  }
-  
-  .icon-selector-btn-accept:hover{
-    background-color: #f56308;
-  }
-  
-  .icon-selector-btn-cancel {
-    background-color: #ff5757;
-    color: white;
-  }
-  
-  .icon-selector-btn-cancel:hover{
-    background-color: #ff0909;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.edit-icon-modal {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 800px;
+  width: 90%;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--card-border);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.icon-modal-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.icon-edit-icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 1rem;
+}
+
+.edit-icon-option {
+  cursor: pointer;
+  text-align: center;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  background-color: var(--bg-light);
+  box-shadow: var(--shadow-default);
+}
+
+.edit-icon-option:hover {
+  transform: scale(1.05);
+  border-color: var(--link-color);
+  background-color: var(--item-hover-bg);
+}
+
+.edit-icon-option img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.edit-icon-option p {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.edit-icon-option.selected {
+  border: 2px solid #007bff;
+  background-color: #e0f0ff;
+  border-radius: 10px;
+}
+
+.edit-icon-close {
+  display: block;
+  margin: 2rem auto 0;
+  background-color: var(--btn-delete-bg);
+  color: var(--text-white);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.edit-icon-close:hover {
+  background-color: var(--btn-delete-bg-hover);
+}
+
+.icon-selector-btn-accept,
+.icon-selector-btn-cancel {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+  color: var(--text-white);
+}
+
+.icon-selector-btn-accept {
+  background-color: var(--btn-edit-bg);
+}
+
+.icon-selector-btn-accept:hover {
+  background-color: var(--btn-edit-bg-hover);
+}
+
+.icon-selector-btn-cancel {
+  background-color: var(--btn-delete-bg);
+}
+
+.icon-selector-btn-cancel:hover {
+  background-color: var(--btn-delete-bg-hover);
+}
