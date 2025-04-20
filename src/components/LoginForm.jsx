@@ -9,6 +9,7 @@ import RegisterForm from './RegisterForm.jsx';
 import Header from './Header.jsx';
 import { showAlert } from "./Alert.jsx";
 import RecoverPasswordForm from './RecoverPasswordForm.jsx';
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -28,7 +29,7 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
 
     try {
-      const response = await fetch('http://localhost:5051/login', {
+      const response = await fetch(`http://${DOMAIN_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
