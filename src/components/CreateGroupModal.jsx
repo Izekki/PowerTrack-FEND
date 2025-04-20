@@ -54,11 +54,11 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
         body: JSON.stringify({ name: groupName, devices: selectedDevices,usuarioId:usuarioId}),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
         throw new Error(result.message || "Error al crear el grupo");
       }
-
-      const result = await response.json();
 
       await showAlert("success", `Grupo creado con éxito! ID: ${result.newGroup.id}`);
 
