@@ -9,12 +9,14 @@ import RegisterForm from './RegisterForm.jsx';
 import Header from './Header.jsx';
 import { showAlert } from "./Alert.jsx";
 import RecoverPasswordForm from './RecoverPasswordForm.jsx';
+import { loginUser } from '../services/loginService.js';
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [register, setRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [recover, setRecover] = useState(false);
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,28 +28,18 @@ const LoginForm = ({ onLoginSuccess }) => {
       showAlert("error", "Todos los campos son obligatorios");
       return;
     }
-
-    try {
-      const response = await fetch('http://localhost:5051/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        await showAlert("success", "Inicio de sesión exitoso");
-        sessionStorage.setItem("userId", data.userId);
-        sessionStorage.setItem("token", data.token);
-        onLoginSuccess();
-      } else {
-        await showAlert("error", data.message || "Error al iniciar sesión");
-      }
-    } catch {
-      await showAlert("error", "Error de conexión con el servidor");
+  
+    const { success, data, message } = await loginUser(formData);
+  
+    if (success) {
+      showAlert("success", "Inicio de sesión exitoso");
+      sessionStorage.setItem("userId", data.userId);
+      sessionStorage.setItem("token", data.token);
+      onLoginSuccess();
+    } else {
+      showAlert("error", message);
     }
   };
-
   const handleGoToRegisterClick = () => setRegister(true);
   const handleSuccesRegister = () => setRegister(false);
 
