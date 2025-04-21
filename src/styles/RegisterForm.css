@@ -3,7 +3,7 @@
 ===================================== */
 .header {
   width: 100%;
-  height: 150px;
+  height: 15%;
   background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
   display: flex;
   align-items: center;
@@ -19,7 +19,7 @@
   width: 160px;
   height: 160px;
   position: absolute;
-  top: 70px;
+  top: 15%;
   left: 5%;
   z-index: 100;
 }
