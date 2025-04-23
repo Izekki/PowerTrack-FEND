@@ -8,19 +8,22 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [nombre, setNombre] = useState("");
   const [ubicacion, setUbicacion] = useState("");
   const usuarioId = sessionStorage.getItem("userId");
-  const [idGrupo, setIdGrupo] = useState("");  // Opcional
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   //nuevo
-  const sensoresDisponibles = [
+  /*const sensoresDisponibles = [
     { id: 1, nombre: "Sensor de Temperatura" },
     { id: 2, nombre: "Sensor de Humedad" },
     { id: 3, nombre: "Sensor de Movimiento" },
     { id: 4, nombre: "Sensor de Luz" },
-  ];
-
+  ];*/
+  const [sensoresDisponibles, setSensoresDisponibles] = useState([]);
   const [sensorId, setSensorId] = useState("");
+
+  const [gruposDisponibles, setGruposDisponibles] = useState([]);
+  const [idGrupo, setIdGrupo] = useState("");  // Opcional
+
 
   // Efecto para limpiar los campos cuando el modal se abre
   useEffect(() => {
@@ -28,9 +31,43 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
       setNombre("");
       setUbicacion("");
       setIdGrupo("");
-      setSensorId(""); // Limpia el campo de sensor
+      setSensorId("");
     }
-  }, [isOpen]); // Se ejecuta cuando isOpen cambia
+  }, [isOpen]);
+
+  // Nuevo useEffect para obtener los grupos del usuario cuando el modal se abre
+  useEffect(() => {
+    const fetchGrupos = async () => {
+      if (!usuarioId) return;
+
+      try {
+        const response = await fetch(`${DOMAIN_URL}/groups/byUser/${usuarioId}`);
+        if (!response.ok) throw new Error("Error al obtener los grupos");
+        const data = await response.json();
+        setGruposDisponibles(data);
+      } catch (error) {
+        console.error("Error al obtener grupos:", error);
+      }
+    };
+
+    if (isOpen) {
+      fetchGrupos();
+    }
+  }, [isOpen, usuarioId]);
+
+
+  useEffect(() => {
+    const fetchSensores = async () => {
+      try {
+        const response = await fetch(`${DOMAIN_URL}/sensor/obtener`);
+        const data = await response.json();
+        setSensoresDisponibles(data);
+      } catch (error) {
+        console.error("Error al obtener sensores", error);
+      }
+      };
+      fetchSensores();
+    }, [isOpen]);
 
   const handleSubmit = async () => {
     // Validación en frontend antes de enviar la solicitud
@@ -87,7 +124,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         <h2>Crear Nuevo Dispositivo</h2>
 
         <div className="input-group">
-          <label htmlFor="nombre">Nombre del dispositivo</label>
+          <label htmlFor="nombre">Nombre del dispositivo*</label>
           <input
             id="nombre"
             type="text"
@@ -98,7 +135,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         </div>
 
         <div className="input-group">
-          <label htmlFor="ubicacion">Ubicación</label>
+          <label htmlFor="ubicacion">Ubicación*</label>
           <input
             id="ubicacion"
             type="text"
@@ -119,19 +156,24 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
           />
         </div>
 
-        <div className="input-group">
+        <div className="select-group">
           <label htmlFor="idGrupo">ID del grupo (opcional)</label>
-          <input
+          <select
             id="idGrupo"
-            type="number"
-            placeholder="Grupo ID (opcional)"
             value={idGrupo}
             onChange={(e) => setIdGrupo(e.target.value)}
-          />
+          >
+          <option value="">-- Selecciona un grupo --</option>
+            {gruposDisponibles.map((grupo) => (
+              <option key={grupo.id} value={grupo.id}>
+                {grupo.name}
+                </option>
+            ))}
+            </select>
         </div>
 
         <div className="select-group">
-          <label htmlFor="sensorId">Selecciona un sensor</label>
+          <label htmlFor="sensorId">Selecciona un sensor*</label>
           <select
             id="sensorId"
             value={sensorId}
@@ -140,7 +182,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
             <option value="">-- Selecciona un sensor --</option>
             {sensoresDisponibles.map((sensor) => (
               <option key={sensor.id} value={sensor.id}>
-                {sensor.nombre} (ID: {sensor.id})
+                {sensor.tipo} (ID: {sensor.mac_address})
               </option>
             ))}
           </select>
