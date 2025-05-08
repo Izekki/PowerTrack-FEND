@@ -11,13 +11,6 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  //nuevo
-  /*const sensoresDisponibles = [
-    { id: 1, nombre: "Sensor de Temperatura" },
-    { id: 2, nombre: "Sensor de Humedad" },
-    { id: 3, nombre: "Sensor de Movimiento" },
-    { id: 4, nombre: "Sensor de Luz" },
-  ];*/
   const [sensoresDisponibles, setSensoresDisponibles] = useState([]);
   const [sensorId, setSensorId] = useState("");
 
@@ -84,6 +77,21 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
     setLoading(true);
     setError(null);
 
+    const mac = sensorId.trim(); // sensorId contiene la MAC desde el input
+
+    // Validación MAC obligatoria
+    if (!mac) {
+      await showAlert("error", "La dirección MAC es obligatoria.");
+      return;
+    }
+    
+    const macRegex = /^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/;
+    if (!macRegex.test(mac)) {
+      await showAlert("error", "Formato de dirección MAC inválido. Usa el formato 00:00:00:00:00:00");
+      return;
+    }    
+
+
     try {
       const response = await fetch(`${DOMAIN_URL}/device/devices`, {
         method: "POST",
@@ -95,7 +103,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
           ubicacion,
           usuario_id: parseInt(usuarioId, 10),
           id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
-          id_sensor: sensorId ? parseInt(sensorId, 10) : null
+          mac
         }),
       });
 
@@ -105,7 +113,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         throw new Error(result.message || "Error al crear el dispositivo");
       }
 
-      await showAlert("success", `Dispositivo creado con éxito! ID: ${result.id}`);
+      await showAlert("success", `Dispositivo creado con éxito! ID: ${result.dispositivo_id}`);
       onClose();
       onDeviceCreated();
     } catch (err) {
@@ -172,20 +180,15 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
             </select>
         </div>
 
-        <div className="select-group">
-          <label htmlFor="sensorId">Selecciona un sensor*</label>
-          <select
-            id="sensorId"
+        <div className="input-group">
+          <label htmlFor="macAddress">Dirección MAC del sensor*</label>
+          <input
+            id="macAddress"
+            type="text"
+            placeholder="Ingresa la dirección MAC (00:00:00:00:00:00)"
             value={sensorId}
             onChange={(e) => setSensorId(e.target.value)}
-          >
-            <option value="">-- Selecciona un sensor --</option>
-            {sensoresDisponibles.map((sensor) => (
-              <option key={sensor.id} value={sensor.id}>
-                {sensor.tipo} (ID: {sensor.mac_address})
-              </option>
-            ))}
-          </select>
+          />
         </div>
 
         {error && <p className="error-message">{error}</p>} {/* Muestra el mensaje de error */}
