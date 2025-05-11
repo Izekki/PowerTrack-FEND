@@ -57,27 +57,27 @@ const App = () => {
           <Route 
               path="/consumo" 
               element={
-                <AuthenticatedLayoutV2
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ConsumoPage userId={userId} />
-                </AuthenticatedLayoutV2>
+                </AuthenticatedLayout>
               } 
             />
             <Route 
               path="/alertas" 
               element={
-                <AuthenticatedLayoutV2 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <AlertasPage userId={userId} />
-                </AuthenticatedLayoutV2>
+                </AuthenticatedLayout>
               } 
             />
 
@@ -98,28 +98,28 @@ const App = () => {
             <Route 
               path="/miperfil" 
               element={
-                <AuthenticatedLayoutV2 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ProfilePage userId={userId} token={token} />
-                </AuthenticatedLayoutV2>
+                </AuthenticatedLayout>
               } 
             />
 
             <Route 
               path="/configuracion" 
               element={
-                <AuthenticatedLayoutV2 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ConfigurationPage userId={userId} token={token} />
-                </AuthenticatedLayoutV2>
+                </AuthenticatedLayout>
               } 
             />
             
