@@ -5,7 +5,7 @@
   border-radius: 20px;
   padding: 20px;
   margin: 10px 15%;
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--consumo-card-shadow);
 }
 
 /* === contenedor general === */
@@ -29,6 +29,14 @@
   gap: 10px;
 }
 
+/* === grafica === */
+.apexcharts-canvas, 
+.apexcharts-svg, 
+.apexcharts-series path {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
 /* === Lista de dispositivos === */
 .dispositivos-lista {
   display: flex;
@@ -38,8 +46,9 @@
 /* === Botones === */
 .dispositivo-btn {
   background-color: var(--consumo-button-bg);
-  border: 1px solid var(--consumo-button-bg);
-  color: var(--consumo-text);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-button);
   font-family: 'nunito', sans-serif;
   font-weight: bold;
   font-size: 14px;
@@ -48,27 +57,34 @@
   border-radius: 10px;
   cursor: pointer;
   text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 
 .dispositivo-btn:hover {
   background-color: var(--consumo-button-bg-hover);
   color: var(--consumo-text-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .dispositivo-btn.active {
+  
   background-color: var(--consumo-button-bg-hover);
   color: var(--consumo-text-hover);
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 
 /* === titulos === */
 .graph-title,
 .title-consumotitle {
-  color: var(--consumo-text);
+  color: var(--consumo-text-title);
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 0px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 
 .title-consumotitle {
@@ -85,8 +101,9 @@
 
 .datos-consumo-span {
   background-color: var(--consumo-button-bg);
-  border: 1px solid var(--consumo-button-bg);
-  color: var(--consumo-text);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-button);
   font-family: 'nunito', sans-serif;
   font-weight: bold;
   font-size: 14px;
@@ -111,8 +128,9 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: var(--consumo-button-bg);
-  border: 1px solid var(--consumo-button-bg);
+  background-color: var(--consumo-consejo-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
   border-radius: 10px;
 }
 
@@ -130,12 +148,11 @@
 
 /* Mini modal css */
 .mini-modal-cost {
-  background-color: var(--card-bg);
-  border: 1px solid var(--card-border);
+  background-color: var(--consumo-consejo-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
   border-radius: 12px;
   padding: 15px;
-  margin-top: 10px;
-  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
   color: var(--consumo-text);
   font-family: 'Nunito', sans-serif;
 }
@@ -144,23 +161,60 @@
   margin: 0 0 5px;
   font-size: 16px;
   font-weight: bold;
+  color: var(--consumo-text-title);
 }
 
 .mini-modal-cost p {
   margin: 3px 0;
+  color: var(--text-primary);
 }
 
 .ver-detalles-btn {
   margin-top: 8px;
-  background-color: var(--consumo-button-bg);
+  background-color: var(--consumo-button-extra-bg);
   border: none;
-  color: var(--consumo-text);
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-hover);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
   padding: 6px 10px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 13px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
 }
 
 .ver-detalles-btn:hover {
   background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === view-more === */
+.view-more {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto; /* Empuja el contenido hacia el fondo */
+}
+
+.ver-mas-btn {
+  background-color: var(--consumo-button-extra-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-hover);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.ver-mas-btn:hover {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
 }

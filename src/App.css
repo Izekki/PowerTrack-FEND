@@ -61,14 +61,17 @@ body {
   --card-hover-scale: 1.03;
   --font-title: 1.2rem;
 
-  /* ConsumoPage */
-  --consumo-card-bg: #ffffff;
-  --consumo-card-border: #ddd;
-  --consumo-card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  --consumo-button-bg: #BDE9AE ;
-  --consumo-text: #3c9528 ;
-  --consumo-button-bg-hover: #3c9528 ;
-  --consumo-text-hover: #ffff ;
+  /* ConsumoPage - Tema Claro */
+  --consumo-card-bg: #ffffff;               /* Fondo blanco limpio */
+  --consumo-card-border: #e0e0e0;           /* Borde gris muy claro */
+  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para claridad */
+  --consumo-consejo-bg: #faf0ef;            /* Fondo de consejo muy claro */
+  --consumo-button-bg: #faf0ef;             /* Botón en tono rosado muy suave */
+  --consumo-button-extra-bg: #ffa726;         /* Botón extra en tono rosado claro */
+  --consumo-text-title: #d84315;            /* Rojo quemado, fuerte y elegante */
+  --consumo-text-button: #e64a19;           /* Naranja oscuro, resaltante */
+  --consumo-button-bg-hover: #ff7043;       /* Naranja brillante para hover */
+  --consumo-text-hover: #ffffff;            /* Blanco para texto sobre botón hover */
 
   /*DeviceCard*/
   --card-bg: #ffffff;
@@ -141,13 +144,16 @@ body {
   --font-title: 1.2rem;
 
   /* ConsumoPage - Tema Oscuro */
-  --consumo-card-bg: #2a2a2a; /* Fondo oscuro */
-  --consumo-card-border: #555; /* Borde oscuro */
-  --consumo-card-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
-  --consumo-button-bg: #5d8f4e; /* Verde más oscuro para el botón */
-  --consumo-text: #b2e29f; /* Texto claro, más visible sobre fondo oscuro */
-  --consumo-button-bg-hover: #4e6f39; /* Verde aún más oscuro para hover */
-  --consumo-text-hover: #ffffff; /* Blanco para el texto al pasar el mouse */
+  --consumo-card-bg: #1e1e1e;               /* Fondo oscuro neutro */
+  --consumo-card-border: #2e2e2e;           /* Borde apenas perceptible */
+  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); /* Sombra más fuerte sobre fondo oscuro */
+  --consumo-consejo-bg: #2e2e2e;            /* Fondo gris oscuro */
+  --consumo-button-bg: #2c2c2c;             /* Botón gris oscuro con matiz cálido */
+  --consumo-button-extra-bg: #ffa726;         /* Botón extra en tono rosado claro */
+  --consumo-text-title: #ff8a80;            /* Rojo suave, bien visible en fondo oscuro */
+  --consumo-text-button: #ffab91;           /* Naranja claro vibrante y legible */
+  --consumo-button-bg-hover: #ff7043;       /* Hover con naranja brillante */
+  --consumo-text-hover: #1e1e1e;            /* Texto oscuro sobre botón claro al hacer hover */
 
   /*DeviceCard*/
   --card-bg: #1e1e1e;

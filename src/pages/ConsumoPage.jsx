@@ -9,6 +9,19 @@ import tip1 from "../assets/tips-icons/tip-1.svg";
 import tip2 from "../assets/tips-icons/tip-2.svg";
 import tip3 from "../assets/tips-icons/tip-3.svg";
 
+const darkenHex = (hex, amount = 20) => {
+  let num = parseInt(hex.replace("#", ""), 16);
+  let r = (num >> 16) - amount;
+  let g = ((num >> 8) & 0x00FF) - amount;
+  let b = (num & 0x0000FF) - amount;
+
+  r = Math.max(r, 0);
+  g = Math.max(g, 0);
+  b = Math.max(b, 0);
+
+  return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+};
+
 const ConsumoPage = ({ userId }) => {
   // Estados para dispositivos, datos de dispositivos y el consejo visual
   const [devices, setDevices] = useState([]); // Lista de dispositivos
@@ -65,29 +78,35 @@ const ConsumoPage = ({ userId }) => {
       }
     }, [userId]);
 
-  /* Función para obtener datos de un dispositivo
-  const fetchDeviceData = (deviceId) => {
-    const fechaInicio = '2025-05-10 04:56:50'; // Reemplazar con valores dinámicos o predeterminados
-    const fechaFinal = '2025-05-10 04:56:50'; // Reemplazar con valores dinámicos o predeterminados
-
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/electrical_analysis/consumo_d/${deviceId}?fechaInicio=${fechaInicio}&fechaFinal=${fechaFinal}`)
-      .then((res) => res.json())
-      .then((data) => setDeviceData(data.datos.map(d => d.consumoKWh))) // Solo tomamos el consumoKWh para el gráfico
-      .catch((err) => console.error("Error al obtener datos del dispositivo:", err));
-  }; */
-
   // Función para manejar el clic en los botones de dispositivos
   const handleButtonClick = (deviceId) => {
-    setSelectedDevice(devices.find(device => device.id === deviceId));
-    // fetchDeviceData(deviceId);
-    setActiveButton(deviceId);
+    if (activeButton === deviceId) {
+      // Si ya está activo, desmarcar
+      setActiveButton(null);
+      setSelectedDevice(null);
+    } else {
+      // Marcar nuevo botón y dispositivo
+      setActiveButton(deviceId);
+      setSelectedDevice(devices.find(device => device.id === deviceId));
+    }
   };
-
   
   // Datos para el gráfico
   const series = devices.map(device => device.consumoActual); // aqui va la medición de consumo de cada dispositivo
 
   // Configuración del gráfico con ApexCharts
+  const defaultColors = [
+    "#81c784", 
+    "#ffeb3b", 
+    "#ffa726", 
+    "#e53935",  
+  ];
+  
+  const colors = devices.map((device, index) => {
+    const baseColor = defaultColors[index % defaultColors.length];
+    return device.id === activeButton ? darkenHex(baseColor, 50) : baseColor;
+  });
+
   const chartOptions = {
     chart: {
       type: "pie",
@@ -96,17 +115,28 @@ const ConsumoPage = ({ userId }) => {
       animations: { enabled: true },
       foreColor: "var(--text-primary)",
       fontFamily: "Nunito",
-      zoom: { allowMouseWheelZoom: true },
+      zoom: { enabled: false },
+      selection: { enabled: false },
       toolbar: { show: false },
+      events: {
+        dataPointSelection: () => false, 
+        dataPointMouseEnter: () => false,
+        dataPointMouseLeave: () => false,
+        click: () => false, 
+      },
     },
     plotOptions: {
       pie: {
         offsetX: -75,
-        donut: { labels: { name: {}, value: {}, total: {} } },
+        expandOnClick: false, 
+        dataLabels: { enabled: false }, 
+        donut: {
+          labels: { name: {}, value: {}, total: {} },
+        },
       },
     },
     fill: {
-      colors: ["#5d8f4e", "#4e6f39", "#b2e29f", "#3c9528"],
+      colors: colors,
       opacity: 1,
     },
     labels: devices.map((device) => device.dispositivo_nombre),
@@ -118,6 +148,12 @@ const ConsumoPage = ({ userId }) => {
     offsetX: 25,
     itemMargin: { vertical: 0 },
     markers: { size: 7 },
+    onItemClick: {
+      toggleDataSeries: false, // ← no ocultar sector al hacer clic en label
+    },
+    onItemHover: {
+      highlightDataSeries: false, // ← no resaltar sector al pasar el mouse
+    },
   };
 
   const tooltipOptions = {
@@ -150,18 +186,23 @@ const ConsumoPage = ({ userId }) => {
               <span>No hay dispositivos registrados</span>
             )}
           </div>
+          <div className="view-more">
+            <button className="ver-mas-btn">Más informacion</button>
+          </div>
         </div>
 
         {/* Columna derecha: gráfico, datos y consejo */}
         <div className="columna-derecha">
           <h4 className="graph-title">Consumo Dispositivos</h4>
-          <ApexCharts 
-            key={JSON.stringify(devices)} // Cambia esta key cuando los dispositivos cambien
-            options={options} 
-            series={series} 
-            type="pie" 
-            height={300}
-          />
+          <div className="graph-container">
+            <ApexCharts 
+              key={JSON.stringify({ devices, activeButton })} 
+              options={options} 
+              series={series} 
+              type="pie" 
+              height={300}
+            />
+          </div>
 
           {selectedDevice && (
             <div className="mini-modal-cost">
@@ -171,7 +212,6 @@ const ConsumoPage = ({ userId }) => {
               <button className="ver-detalles-btn">Ver más</button>
             </div>
           )}
-
 
           <h4 className="graph-title">Datos Dispositivos</h4>
           <div className="datos-consumo">
