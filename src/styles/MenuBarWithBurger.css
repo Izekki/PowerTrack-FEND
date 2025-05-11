@@ -1,0 +1,81 @@
+/* ========== Barra de Navegación Menubar With Burger ========== */
+.cont-nav-bar-menubarwithburger {
+  background-color: transparent;
+  padding: 10px;
+  border-bottom: none;
+  transition: background-color 0.3s ease, border-bottom 0.3s ease;
+}
+
+.cont-nav-bar-menubarwithburger.open {
+  background-color: var(--bg-navbar);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.nav-bar-menubarwithburger {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 100%;
+}
+
+.burger-icon-menubarwithburger {
+  font-size: 32px;
+  cursor: pointer;
+  color: var(--text-primary);
+  z-index: 2;
+  transition: width 0.3s ease;
+}
+
+.burger-icon-menubarwithburger.open {
+  font-size: 16px;
+}
+
+.menu-items-menubarwithburger {
+  list-style-type: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: -100%;
+  transition: right 0.3s ease, background-color 0.3s ease;
+  background-color: transparent;
+}
+
+.menu-items-menubarwithburger.open {
+  right: 0;
+  background-color: var(--bg-navbar);
+}
+
+.menu-items-menubarwithburger li {
+  font-size: 20px;
+}
+
+.menu-items-menubarwithburger li a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+}
+
+.menu-items-menubarwithburger li a:hover {
+  color: var(--link-hover);
+}
+
+.menu-items-menubarwithburger li a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--link-hover);
+  transition: width 0.3s ease;
+}
+
+.menu-items-menubarwithburger li a:hover::after {
+  width: 100%;
+}

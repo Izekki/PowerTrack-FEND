@@ -6,6 +6,8 @@ import DispositivosPage from "./pages/DevicesPages";
 import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthenticatedLayout from "./layaout/AuthenticatedLayaout";
+import AuthenticatedLayoutV2 from "./layaout/AuthenticatedLayaoutV2";
+
 import ConfigurationPage from "./pages/ConfigurationPage";
 import AlertasPage from "./pages/AlertasPage";
 import ConsumoPage from "./pages/ConsumoPage";
@@ -55,34 +57,34 @@ const App = () => {
           <Route 
               path="/consumo" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayoutV2
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ConsumoPage userId={userId} />
-                </AuthenticatedLayout>
+                </AuthenticatedLayoutV2>
               } 
             />
             <Route 
               path="/alertas" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayoutV2 
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <AlertasPage userId={userId} />
-                </AuthenticatedLayout>
+                </AuthenticatedLayoutV2>
               } 
             />
 
             <Route 
               path="/dispositivos" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
@@ -96,28 +98,28 @@ const App = () => {
             <Route 
               path="/miperfil" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayoutV2 
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ProfilePage userId={userId} token={token} />
-                </AuthenticatedLayout>
+                </AuthenticatedLayoutV2>
               } 
             />
 
             <Route 
               path="/configuracion" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayoutV2 
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
                   onCancel={handleLogoutCancel}
                 >
                   <ConfigurationPage userId={userId} token={token} />
-                </AuthenticatedLayout>
+                </AuthenticatedLayoutV2>
               } 
             />
             
