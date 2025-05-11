@@ -6,6 +6,8 @@ import DispositivosPage from "./pages/DevicesPages";
 import ProfilePage from "./pages/ProfilePage";
 import ResetPasswordForm from './components/ResetPasswordForm';
 import AuthenticatedLayout from "./layaout/AuthenticatedLayaout";
+import AuthenticatedLayoutV2 from "./layaout/AuthenticatedLayaoutV2";
+
 import ConfigurationPage from "./pages/ConfigurationPage";
 import AlertasPage from "./pages/AlertasPage";
 import ConsumoPage from "./pages/ConsumoPage";
@@ -55,7 +57,7 @@ const App = () => {
           <Route 
               path="/consumo" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
@@ -68,7 +70,7 @@ const App = () => {
             <Route 
               path="/alertas" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
@@ -82,7 +84,7 @@ const App = () => {
             <Route 
               path="/dispositivos" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
@@ -96,7 +98,7 @@ const App = () => {
             <Route 
               path="/miperfil" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}
@@ -110,7 +112,7 @@ const App = () => {
             <Route 
               path="/configuracion" 
               element={
-                <AuthenticatedLayout 
+                <AuthenticatedLayout
                   onLogout={handleLogoutClick}
                   isModalOpen={isModalOpen}
                   onConfirm={handleLogoutConfirm}

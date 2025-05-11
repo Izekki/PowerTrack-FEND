@@ -37,12 +37,21 @@ const ConsumoPage = ({ userId }) => {
   const fetchDevices = () => {
     if (!userId) return;
     setLoading(true);
-    fetch(`${DOMAIN_URL}/device/dispositivosPorUsuario/${userId}`)
+    fetch(`${DOMAIN_URL}/electrical_analysis/dispositivosPorUsuarios/${userId}/consumo-actual`)
+    
       .then((response) => response.json())
       .then((data) => {
-        setDevices(data);
+        // Mapea para asegurar que cada item tenga el nombre, ID y consumo actual
+        const formattedDevices = data.map(d => ({
+          id: d.dispositivo_id,
+          dispositivo_nombre: d.dispositivo_nombre,
+          consumoActual: d.consumoActual || 0,
+          costoActual: d.costoActual || 0
+        }));
+        setDevices(formattedDevices);
         setLoading(false);
       })
+
       .catch((error) => {
         console.error("Error al obtener dispositivos:", error);
         setLoading(false);
@@ -76,7 +85,7 @@ const ConsumoPage = ({ userId }) => {
 
   
   // Datos para el gráfico
-  const series = devices.map(device => device.id); // aqui va la medición de consumo de cada dispositivo
+  const series = devices.map(device => device.consumoActual); // aqui va la medición de consumo de cada dispositivo
 
   // Configuración del gráfico con ApexCharts
   const chartOptions = {
@@ -154,6 +163,16 @@ const ConsumoPage = ({ userId }) => {
             height={300}
           />
 
+          {selectedDevice && (
+            <div className="mini-modal-cost">
+              <h5>Detalle de Consumo</h5>
+              <p><strong>Dispositivo:</strong> {selectedDevice.dispositivo_nombre}</p>
+              <p><strong>Costo estimado:</strong> ${selectedDevice.costoActual.toFixed(2)} MXN</p>
+              <button className="ver-detalles-btn">Ver más</button>
+            </div>
+          )}
+
+
           <h4 className="graph-title">Datos Dispositivos</h4>
           <div className="datos-consumo">
             {devices.map(device => (
@@ -161,7 +180,7 @@ const ConsumoPage = ({ userId }) => {
                 key={device.id}
                   className={`datos-consumo-span ${activeButton === device.id ? 'active' : ''}`}
               >
-                {device.dispositivo_nombre} = {device.consumoKWh} kWh
+                {device.dispositivo_nombre} = {device.consumoActual ?? 0} kWh
               </span>
             ))}
           </div>
