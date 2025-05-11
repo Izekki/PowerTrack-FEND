@@ -61,6 +61,15 @@ body {
   --card-hover-scale: 1.03;
   --font-title: 1.2rem;
 
+  /* ConsumoPage */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #ddd;
+  --consumo-card-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  --consumo-button-bg: #BDE9AE ;
+  --consumo-text: #3c9528 ;
+  --consumo-button-bg-hover: #3c9528 ;
+  --consumo-text-hover: #ffff ;
+
   /*DeviceCard*/
   --card-bg: #ffffff;
   --card-border: #e0e0e0;
@@ -130,6 +139,15 @@ body {
   --shadow-default: 0 2px 5px rgba(255, 255, 255, 0.05);
   --card-hover-scale: 1.03;
   --font-title: 1.2rem;
+
+  /* ConsumoPage - Tema Oscuro */
+  --consumo-card-bg: #2a2a2a; /* Fondo oscuro */
+  --consumo-card-border: #555; /* Borde oscuro */
+  --consumo-card-shadow: 0 2px 5px rgba(0, 0, 0, 0.4); /* Sombra más intensa */
+  --consumo-button-bg: #5d8f4e; /* Verde más oscuro para el botón */
+  --consumo-text: #b2e29f; /* Texto claro, más visible sobre fondo oscuro */
+  --consumo-button-bg-hover: #4e6f39; /* Verde aún más oscuro para hover */
+  --consumo-text-hover: #ffffff; /* Blanco para el texto al pasar el mouse */
 
   /*DeviceCard*/
   --card-bg: #1e1e1e;
