@@ -30,6 +30,8 @@ const ConsumoPage = ({ userId }) => {
   const [tipActual, setTipActual] = useState(0); // Índice del consejo actual
   const [activeButton, setActiveButton] = useState(null); // Dispositivo activo
   const [loading, setLoading] = useState(true);
+  const [deviceDetails, setDeviceDetails] = useState(null); // Detalles del dispositivo seleccionado
+  const [showDetails, setShowDetails] = useState(false); // Estado para manejar la visibilidad de detalles adicionales
 
   // Lista de consejos visuales y su texto
   const tips = [
@@ -51,7 +53,6 @@ const ConsumoPage = ({ userId }) => {
     if (!userId) return;
     setLoading(true);
     fetch(`${DOMAIN_URL}/electrical_analysis/dispositivosPorUsuarios/${userId}/consumo-actual`)
-    
       .then((response) => response.json())
       .then((data) => {
         // Mapea para asegurar que cada item tenga el nombre, ID y consumo actual
@@ -64,19 +65,65 @@ const ConsumoPage = ({ userId }) => {
         setDevices(formattedDevices);
         setLoading(false);
       })
-
       .catch((error) => {
         console.error("Error al obtener dispositivos:", error);
         setLoading(false);
       });
   };
+
+  // Función para obtener los detalles del dispositivo
+  const fetchDeviceDetails = (deviceId) => {
+  fetch(`${DOMAIN_URL}/electrical_analysis/dispositivo/${deviceId}/consumo-detallado`)
+    .then((response) => {
+      if (!response.ok) {
+        // Si la respuesta no es OK, asignamos valores por defecto
+        setDeviceDetails({
+          estimacionCostoDiario: 0.0,
+          estimacionCostoMensual: 0.0,
+          unidad: "N/A",
+          proveedor: "Desconocido",
+          detalleTarifas: {
+            cargo_variable: 0.0,
+            cargo_fijo: 0.0,
+            cargo_distribucion: 0.0,
+            cargo_capacidad: 0.0
+          }
+        });
+        console.error("Error al obtener los detalles del dispositivo, respuesta no válida");
+      } else {
+        return response.json();
+      }
+    })
+    .then((data) => {
+      if (data) {
+        setDeviceDetails(data); // Almacenar los detalles del dispositivo
+      }
+    })
+    .catch((error) => {
+      // Manejo de cualquier otro tipo de error
+      console.error("Error al obtener los detalles del dispositivo:", error);
+      setDeviceDetails({
+        estimacionCostoDiario: 0.0,
+        estimacionCostoMensual: 0.0,
+        unidad: "N/A",
+        proveedor: "Desconocido",
+        detalleTarifas: {
+          cargo_variable: 0.0,
+          cargo_fijo: 0.0,
+          cargo_distribucion: 0.0,
+          cargo_capacidad: 0.0
+        }
+      });
+    });
+};
+
   
   // Efecto para obtener dispositivos del usuario
   useEffect(() => {
-      if (userId) {
-        fetchDevices();
-      }
-    }, [userId]);
+    if (userId) {
+      fetchDevices();
+    }
+  }, [userId]);
 
   // Función para manejar el clic en los botones de dispositivos
   const handleButtonClick = (deviceId) => {
@@ -84,13 +131,17 @@ const ConsumoPage = ({ userId }) => {
       // Si ya está activo, desmarcar
       setActiveButton(null);
       setSelectedDevice(null);
+      setDeviceDetails(null);
+      setShowDetails(false); // Ocultar los detalles al desmarcar el dispositivo
     } else {
       // Marcar nuevo botón y dispositivo
       setActiveButton(deviceId);
       setSelectedDevice(devices.find(device => device.id === deviceId));
+      fetchDeviceDetails(deviceId);
+      setShowDetails(false); // Asegurar que los detalles estén ocultos al principio
     }
   };
-  
+
   // Datos para el gráfico
   const series = devices.map(device => device.consumoActual); // aqui va la medición de consumo de cada dispositivo
 
@@ -204,14 +255,37 @@ const ConsumoPage = ({ userId }) => {
             />
           </div>
 
-          {selectedDevice && (
-            <div className="mini-modal-cost">
-              <h5>Detalle de Consumo</h5>
-              <p><strong>Dispositivo:</strong> {selectedDevice.dispositivo_nombre}</p>
-              <p><strong>Costo estimado:</strong> ${selectedDevice.costoActual.toFixed(2)} MXN</p>
-              <button className="ver-detalles-btn">Ver más</button>
-            </div>
-          )}
+         {selectedDevice && (
+          <div className="mini-modal-cost">
+            <h5>Detalle de Consumo</h5>
+            <p><strong>Dispositivo:</strong> {selectedDevice.dispositivo_nombre}</p>
+            <p><strong>Costo estimado:</strong> ${selectedDevice.costoActual.toFixed(2)} MXN</p>
+            <button 
+              className="ver-detalles-btn" 
+              onClick={() => setShowDetails(!showDetails)} // Alternar visibilidad de detalles
+            >
+              {showDetails ? "Ver menos" : "Ver más"}
+            </button>
+
+            {showDetails && deviceDetails && (
+              <div className="expanded-modal">
+                <h6>Detalles Adicionales</h6>
+                <p><strong>Estimación Costo Diario:</strong> ${deviceDetails.estimacionCostoDiario.toFixed(2)} MXN</p>
+                <p><strong>Estimación Costo Mensual:</strong> ${deviceDetails.estimacionCostoMensual.toFixed(2)} MXN</p>
+                <p><strong>Unidad de Medición:</strong> {deviceDetails.unidad}</p>
+                <p><strong>Proveedor:</strong> {deviceDetails.proveedor}</p>
+                <div className="detalle-tarifas">
+                  <h6>Detalle de Tarifas:</h6>
+                  <p><strong>Cargo Variable:</strong> ${deviceDetails.detalleTarifas.cargo_variable.toFixed(2)}</p>
+                  <p><strong>Cargo Fijo:</strong> ${deviceDetails.detalleTarifas.cargo_fijo.toFixed(2)}</p>
+                  <p><strong>Cargo Distribución:</strong> ${deviceDetails.detalleTarifas.cargo_distribucion.toFixed(2)}</p>
+                  <p><strong>Cargo Capacidad:</strong> ${deviceDetails.detalleTarifas.cargo_capacidad.toFixed(2)}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
 
           <h4 className="graph-title">Datos Dispositivos</h4>
           <div className="datos-consumo">
