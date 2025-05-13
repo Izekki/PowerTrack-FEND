@@ -1,0 +1,24 @@
+/* === datos del consumo === */
+.datos-consumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.datos-consumo-span {
+  background-color: var(--consumo-button-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-button);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.datos-consumo-span.active {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+}

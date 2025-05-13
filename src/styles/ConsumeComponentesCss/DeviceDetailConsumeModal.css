@@ -1,0 +1,106 @@
+/* === Mini Modal === */
+.mini-modal-cost {
+  background-color: var(--consumo-consejo-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  border-radius: 12px;
+  padding: 15px;
+  color: var(--consumo-text);
+  font-family: 'Nunito', sans-serif;
+}
+
+.mini-modal-cost h5 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--consumo-text-title);
+}
+
+.mini-modal-cost p {
+  margin: 3px 0;
+  color: var(--text-primary);
+}
+
+/* === Botón Ver Detalles === */
+.ver-detalles-btn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  background-color: var(--consumo-button-extra-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-text-hover);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.ver-detalles-btn:hover {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* === Modal Expandido === */
+.expanded-modal {
+  padding: 20px;
+  border-top: 1px solid var(--card-border);
+  margin-top: 20px;
+}
+
+.expanded-modal h6 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.detalle-tarifas p {
+  margin: 5px 0;
+  text-align: left;
+}
+
+/* === Media Queries === */
+@media (max-width: 768px) {
+  .consumo-container {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+  }
+
+  .datos-consumo {
+    grid-template-columns: 1fr;
+  }
+
+  .consumo-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .ver-detalles-btn, .ver-mas-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .consumo-container {
+    flex-direction: column;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+  }
+
+  .datos-consumo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
