@@ -3,8 +3,9 @@
   background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
   padding: 15px 40px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas más pequeñas */
 }
 
 .header-content {
@@ -44,4 +45,35 @@
   width: 20px;
   height: 20px;
   fill: var(--text-white);
+}
+
+/* Media query para dispositivos móviles (hasta 768px) */
+@media (max-width: 768px) {
+  .header-pw {
+    padding: 10px 20px;
+  }
+
+  .logo {
+    width: 80px; /* Reducir el tamaño del logo */
+  }
+
+  .logout {
+    font-size: 20px; /* Reducir el tamaño de la fuente */
+  }
+
+  .header-content {
+    flex-direction: column; /* Apilar los elementos en pantallas pequeñas */
+    align-items: center;
+  }
+}
+
+/* Media query para tabletas (768px - 1024px) */
+@media (max-width: 1024px) {
+  .header-pw {
+    padding: 15px 30px;
+  }
+
+  .logo {
+    width: 90px; /* Tamaño intermedio del logo */
+  }
 }

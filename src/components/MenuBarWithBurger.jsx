@@ -3,24 +3,21 @@ import { Link } from "react-router-dom";
 import "../styles/MenuBarWithBurger.css";
 
 const MenuBarWithBurger = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen); // Cambia el estado de apertura/cierre del menú
-  };
+  const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <div className={`cont-nav-bar-menubarwithburger ${isMenuOpen ? 'open' : ''}`}>
-      <nav className="nav-bar-menubarwithburger">
-        {/* Icono de la hamburguesa */}
-        <div
-          className={`burger-icon-menubarwithburger ${isMenuOpen ? 'open' : ''}`}
-          onClick={toggleMenu} // Cambia el estado al hacer clic
-        >
-          <span className="burger-symbol-menubarwithburger">☰</span>
-        </div>
-        {/* Elementos del menú, se muestran solo si el menú está abierto */}
-        <ul className={`menu-items-menubarwithburger ${isMenuOpen ? 'open' : ''}`}>
+    <div className="cont-nav-bar">
+      <div className="menu-header">
+        <button className="burger-button" onClick={toggleMenu}>
+          ☰
+        </button>
+        <span className="menu-title">PowerTrack</span>
+      </div>
+
+      <nav className={`nav-bar ${isOpen ? "open" : ""}`}>
+        <ul>
           <li><Link to="/consumo">Consumo</Link></li>
           <li><Link to="/alertas">Alertas</Link></li>
           <li><Link to="/dispositivos">Dispositivos</Link></li>

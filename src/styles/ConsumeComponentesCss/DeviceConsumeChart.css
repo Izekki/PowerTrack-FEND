@@ -1,0 +1,17 @@
+/* === grafica === */
+.apexcharts-canvas, 
+.apexcharts-svg, 
+.apexcharts-series path {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
+/* === titulos === */
+.graph-title {
+  color: var(--consumo-text-title);
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}

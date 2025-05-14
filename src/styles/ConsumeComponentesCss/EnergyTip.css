@@ -1,0 +1,28 @@
+/* === Apartado del consejo === */
+.tip-icon {
+  width: 65px;
+  height: 65px;
+  margin-right: 20px;
+}
+
+.consejo {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--consumo-consejo-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  border-radius: 10px;
+}
+
+.tip-texto h4 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.tip-texto p {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-secondary);
+}

@@ -11,17 +11,11 @@
 /* === contenedor general === */
 .consumo-container {
   display: flex;
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en dispositivos pequeños */
   gap: 10px;
 }
 
-.columna-izquierda {
-  flex: 0.5;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 10px;
-}
-
+.columna-izquierda,
 .columna-derecha {
   flex: 1;
   display: flex;
@@ -29,50 +23,9 @@
   gap: 10px;
 }
 
-/* === grafica === */
-.apexcharts-canvas, 
-.apexcharts-svg, 
-.apexcharts-series path {
-  pointer-events: none !important;
-  cursor: default !important;
-}
-
-/* === Lista de dispositivos === */
-.dispositivos-lista {
-  display: flex;
-  flex-direction: column;
-}
-
-/* === Botones === */
-.dispositivo-btn {
-  background-color: var(--consumo-button-bg);
-  border: none;
-  box-shadow: var(--consumo-card-shadow);
-  color: var(--consumo-text-button);
-  font-family: 'nunito', sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  padding: 10px;
-  margin: 5px;
-  border-radius: 10px;
-  cursor: pointer;
-  text-align: left;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.dispositivo-btn:hover {
-  background-color: var(--consumo-button-bg-hover);
-  color: var(--consumo-text-hover);
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.dispositivo-btn.active {
-  
-  background-color: var(--consumo-button-bg-hover);
-  color: var(--consumo-text-hover);
-  transform: scale(0.97);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+.columna-izquierda{
+  flex:0.5;
+  justify-content: flex-start;
 }
 
 
@@ -92,105 +45,37 @@
   margin-left: 5px;
 }
 
-/* === datos del consumo === */
-.datos-consumo {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+
+/* === Media Queries === */
+
+/* Para dispositivos pequeños (móviles) */
+@media (max-width: 768px) {
+  .consumo-container {
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+  }
+
+  .datos-consumo {
+    grid-template-columns: 1fr; /* Una columna para dispositivos pequeños */
+  }
+
+  .consumo-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .ver-detalles-btn, .ver-mas-btn {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
 }
 
-.datos-consumo-span {
-  background-color: var(--consumo-button-bg);
-  border: none;
-  box-shadow: var(--consumo-card-shadow);
-  color: var(--consumo-text-button);
-  font-family: 'nunito', sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  padding: 10px;
-  border-radius: 10px;
-  text-align: left;
-}
-
-.datos-consumo-span.active {
-  background-color: var(--consumo-button-bg-hover);
-  color: var(--consumo-text-hover);
-}
-
-/* === Apartado del consejo === */
-.tip-icon {
-  width: 65px;
-  height: 65px;
-  margin-right: 20px;
-}
-
-.consejo {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: var(--consumo-consejo-bg);
-  border: none;
-  box-shadow: var(--consumo-card-shadow);
-  border-radius: 10px;
-}
-
-.tip-texto h4 {
-  margin: 0;
-  font-size: 18px;
-  color: var(--text-primary);
-}
-
-.tip-texto p {
-  margin: 0;
-  font-size: 16px;
-  color: var(--text-secondary);
-}
-
-/* Mini modal css */
-.mini-modal-cost {
-  background-color: var(--consumo-consejo-bg);
-  border: none;
-  box-shadow: var(--consumo-card-shadow);
-  border-radius: 12px;
-  padding: 15px;
-  color: var(--consumo-text);
-  font-family: 'Nunito', sans-serif;
-}
-
-.mini-modal-cost h5 {
-  margin: 0 0 5px;
-  font-size: 16px;
-  font-weight: bold;
-  color: var(--consumo-text-title);
-}
-
-.mini-modal-cost p {
-  margin: 3px 0;
-  color: var(--text-primary);
-}
-
-.ver-detalles-btn {
-  margin-top: 8px;
-  background-color: var(--consumo-button-extra-bg);
-  border: none;
-  box-shadow: var(--consumo-card-shadow);
-  color: var(--consumo-text-hover);
-  font-family: 'nunito', sans-serif;
-  font-weight: bold;
-  font-size: 14px;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.ver-detalles-btn:hover {
-  background-color: var(--consumo-button-bg-hover);
-  color: var(--consumo-text-hover);
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
 
 /* === view-more === */
 .view-more {
@@ -217,4 +102,23 @@
 .ver-mas-btn:hover {
   background-color: var(--consumo-button-bg-hover);
   color: var(--consumo-text-hover);
+}
+
+
+
+/* Para dispositivos medianos (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .consumo-container {
+    flex-direction: column;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+  }
+
+  .datos-consumo {
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
+  }
 }

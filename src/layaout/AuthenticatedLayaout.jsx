@@ -2,12 +2,13 @@ import React from "react";
 import HeaderPW from "../components/HeaderPW";
 import MenuBar from "../components/MenuBar";
 import LogoutConfirmModal from "../components/LogoutConfirmModal";
+import MenuBarWithBurger from "../components/MenuBarWithBurger";
 
 const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCancel }) => {
   return (
     <>
       <HeaderPW onLogout={onLogout} />
-      <MenuBar />
+      <MenuBarWithBurger/>
       {children}
       {isModalOpen && (
         <LogoutConfirmModal 
