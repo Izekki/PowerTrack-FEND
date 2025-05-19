@@ -3,9 +3,11 @@ import "../styles/ProfilePage.css";
 import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "../components/Alert";
+import { useAuth } from "../context/AuthContext";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
-const ProfilePage = ({ userId, token }) => {
+const ProfilePage = () => {
+  const { userId, token } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);

@@ -40,7 +40,8 @@ const LoginForm = ({ onLoginSuccess }) => {
         await showAlert("success", "Inicio de sesión exitoso");
         sessionStorage.setItem("userId", data.userId);
         sessionStorage.setItem("token", data.token);
-        onLoginSuccess();
+        sessionStorage.setItem("name",data.nombre);
+        onLoginSuccess(data.name);
       } else {
         await showAlert("error", data.message || "Error al iniciar sesión");
       }

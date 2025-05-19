@@ -1,0 +1,48 @@
+/* src/pages/AlertasPage.css */
+.alertas-page {
+  padding: 20px;
+}
+
+.alertas-header {
+  position: relative;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+
+.alertas-title-header{
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: bold;
+}
+
+.btn-configurar {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: var(--btn-info-bg);
+  color: var(--text-white);
+}
+
+.btn-configurar:hover {
+  background-color: var(--btn-info-hover);
+}
+
+.alertas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

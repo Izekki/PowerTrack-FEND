@@ -9,11 +9,12 @@ import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
 import speedometer from "../assets/speedometer.svg";
 import "../styles/DevicesPages.css";
+import { useAuth } from "../context/AuthContext";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 
-const DispositivosPage = ({ userId }) => {
+const DispositivosPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
@@ -28,6 +29,8 @@ const DispositivosPage = ({ userId }) => {
   const [devices, setDevices] = useState([]);
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { userId, token } = useAuth();
+
 
   const handleOpenEditModal = (device) => {
     console.log("Dispositivo a editar:", device);

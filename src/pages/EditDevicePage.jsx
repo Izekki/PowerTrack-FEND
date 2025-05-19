@@ -4,7 +4,7 @@ import EditDeviceCard from "../components/EditDeviceCard"
 import EditDeviceImageCard from "../components/EditDeviceImageCard";
 
 const EditDevicePage = ({ isOpen, onDeviceUpdated, device,onClose }) => {
-  if (!isOpen || !device) return null;
+  if (!device) return null;
 
   return (
     <div className="edit-device-container">

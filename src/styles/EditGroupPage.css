@@ -1,9 +1,10 @@
 /* Estilos para la página EditGroupPage */
 .edit-group-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  top: unset;
+  left: unset;
+  transform: none;
+  margin: auto;
   width: 90%;
   max-width: 800px;
   max-height: 90vh;
