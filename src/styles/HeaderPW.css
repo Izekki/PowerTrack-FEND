@@ -11,18 +11,30 @@
 .header-content {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 20px; /* Espacio entre elementos */
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  gap: 20px; /* Espacio entre logo y texto de bienvenida */
 }
 
 .logo {
   width: 100px;
   height: auto;
+}
+
+.user-info {
+  color: var(--text-white);
+  font-weight: bold;
+  margin-left: 20px; /* Asegura espacio entre logo y texto */
+}
+
+.user-name {
+  font-size: 1.8rem;
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
 }
 
 .logout {
@@ -35,6 +47,7 @@
   border: none;
   font-size: 24px;
   transition: opacity 0.3s ease;
+  margin-left: auto; /* Empuja el botón de logout a la derecha */
 }
 
 .logout:hover {
@@ -47,24 +60,6 @@
   fill: var(--text-white);
 }
 
-
-.user-info {
-  margin-right: 20px;
-  color: var(--text-white);
-  font-weight: bold;
-}
-
-.user-name {
-  font-size: 1rem;
-}
-
-
-
-
-
-
-
-
 /* Media query para dispositivos móviles (hasta 768px) */
 @media (max-width: 768px) {
   .header-pw {
@@ -72,16 +67,25 @@
   }
 
   .logo {
-    width: 80px; /* Reducir el tamaño del logo */
+    width: 80px;
   }
 
   .logout {
-    font-size: 20px; /* Reducir el tamaño de la fuente */
+    font-size: 20px;
   }
 
   .header-content {
-    flex-direction: column; /* Apilar los elementos en pantallas pequeñas */
+    flex-direction: row; /* Mantenemos los elementos en línea */
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .user-info {
+    order: 1; /* Mueve el user-info debajo en móviles si es necesario */
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 0 0;
   }
 }
 
@@ -92,6 +96,6 @@
   }
 
   .logo {
-    width: 90px; /* Tamaño intermedio del logo */
+    width: 90px;
   }
 }
