@@ -1,0 +1,30 @@
+/* src/components/AlertsCard.css */
+.alert-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.2s ease;
+}
+
+.alert-card:hover {
+  transform: scale(var(--card-hover-scale));
+}
+
+.alert-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}

@@ -1,7 +1,8 @@
+// HeaderPW.jsx
 import "../styles/HeaderPW.css";
 import logo from "../assets/logo-pw.svg";
 
-const HeaderPW = ({ onLogout }) => {
+const HeaderPW = ({ onLogout, userName }) => {
   return (
     <header className="header-pw">
       <div className="header-content">
@@ -9,9 +10,12 @@ const HeaderPW = ({ onLogout }) => {
           <img src={logo} alt="Logo" className="logo" />
         </div>
 
-        {/* ------- Kevin -------- */}
+        {/* Mostrar el nombre del usuario */}
+        <div className="user-info">
+          <span className="user-name">Bienvenido, {userName}</span>
+        </div>
+
         <div className="logout" onClick={onLogout} style={{ cursor: "pointer" }}>
-        {/* ------- Kevin -------- */}
           Cerrar Sesión
           <svg
             className="logout-icon"

@@ -47,6 +47,24 @@
   fill: var(--text-white);
 }
 
+
+.user-info {
+  margin-right: 20px;
+  color: var(--text-white);
+  font-weight: bold;
+}
+
+.user-name {
+  font-size: 1rem;
+}
+
+
+
+
+
+
+
+
 /* Media query para dispositivos móviles (hasta 768px) */
 @media (max-width: 768px) {
   .header-pw {

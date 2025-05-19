@@ -4,6 +4,7 @@ import DeviceConsumeChart from "../components/ConsumoComponets/DeviceConsumeChar
 import DeviceDetailConsumeModal from "../components/ConsumoComponets/DeviceDetailConsumeModal";
 import EnergyTip from "../components/ConsumoComponets/EnergyTip";
 import DeviceDataDisplay from "../components/ConsumoComponets/DeviceDataDisplay";
+import { useAuth } from "../context/AuthContext";
 import "../styles/ConsumoPage.css";
 
 import tip1 from "../assets/tips-icons/tip-1.svg";
@@ -12,7 +13,8 @@ import tip3 from "../assets/tips-icons/tip-3.svg";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
-const ConsumoPage = ({ userId }) => {
+const ConsumoPage = () => {
+  const { userId } = useAuth();
   const [devices, setDevices] = useState([]);
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [deviceDetails, setDeviceDetails] = useState(null);

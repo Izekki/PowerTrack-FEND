@@ -7,7 +7,7 @@ import MenuBarWithBurger from "../components/MenuBarWithBurger";
 const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCancel }) => {
   return (
     <>
-      <HeaderPW onLogout={onLogout} />
+      <HeaderPW onLogout={onLogout} userName={name} />
       <MenuBarWithBurger/>
       {children}
       {isModalOpen && (
