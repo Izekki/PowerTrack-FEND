@@ -11,7 +11,6 @@ const AlertsCard = ({ name, nivel, fecha, tipo }) => {
       <div className="alert-info">
         <p className="alert-message">{name}</p>
         <div className="alert-meta">
-          <span className="alert-nivel">Nivel:<strong> {nivel || 'Sin nivel '}</strong></span>
           <span className="alert-tipo"> Tipo: <strong>{tipo}</strong></span>
           <span className="alert-fecha"> Fecha: {fecha}</span>
         </div>

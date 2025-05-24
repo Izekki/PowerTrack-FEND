@@ -9,6 +9,7 @@ const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
 });
 
 const iconNames = {
+  0: "Sin especificar",
   1: "Televisor",
   2: "Computadora de escritorio",
   3: "Laptop",
@@ -25,8 +26,7 @@ const iconNames = {
   14: "Bocinas",
   15: "Teléfono fijo",
   16: "Ventilador",
-  17: "Plancha",
-  0: "Sin especificar",
+  17: "Plancha"
 };
 
 const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
