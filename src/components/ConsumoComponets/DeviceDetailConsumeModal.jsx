@@ -6,7 +6,7 @@ const DeviceDetailConsumeModal = ({ selectedDevice, deviceDetails, showDetails, 
 
   return (
     <div className="mini-modal-cost">
-      <h5>Detalle de Consumo</h5>
+      <h5>Costo del Consumo</h5>
       <p><strong>Dispositivo:</strong> {selectedDevice.dispositivo_nombre}</p>
       <p><strong>Costo estimado:</strong> ${selectedDevice.costoActual.toFixed(2)} MXN</p>
       <button className="ver-detalles-btn" onClick={toggleDetails}>
@@ -15,7 +15,7 @@ const DeviceDetailConsumeModal = ({ selectedDevice, deviceDetails, showDetails, 
 
       {showDetails && deviceDetails && (
         <div className="expanded-modal">
-          <p><strong>Costo diario estimado:</strong> ${deviceDetails.estimacionCostoDiario.toFixed(2)} MXN</p>
+          <p><strong>Costo diario estimado (24/7 hrs):</strong> ${deviceDetails.estimacionCostoDiario.toFixed(2)} MXN</p>
           <p><strong>Costo mensual estimado:</strong> ${deviceDetails.estimacionCostoMensual.toFixed(2)} MXN</p>
           <p><strong>Proveedor:</strong> {deviceDetails.proveedor}</p>
           <p><strong>Unidad:</strong> {deviceDetails.unidad}</p>

@@ -1,48 +1,101 @@
 /* src/pages/AlertasPage.css */
-.alertas-page {
+.alertas-page-container {
   padding: 20px;
 }
 
 .alertas-header {
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 60px;
   margin-bottom: 20px;
+  position: relative;
 }
 
+.alertas-title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative; /* Para posicionar el menú de filtros */
+}
 
-.alertas-title-header{
+.alertas-title-header {
   font-size: 1.8rem;
   color: var(--text-primary);
   background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   font-weight: bold;
+  margin: 0;
 }
 
 .btn-configurar {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 8px 16px;
+  background: transparent;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  padding: 0;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   transition: background-color 0.2s ease;
-  background-color: var(--btn-info-bg);
-  color: var(--text-white);
 }
 
 .btn-configurar:hover {
   background-color: var(--btn-info-hover);
 }
 
+.filter-config-container {
+  position: relative;
+  display: inline-flex;
+}
+
+.alertas-body {
+  width: 100%;
+}
 .alertas-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.filter-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.5rem;
+  border-radius: 8px;
+  box-shadow: var(--card-shadow);
+  z-index: 10;
+  min-width: 150px;
+}
+
+.filter-menu button {
+  display: block;
+  width: 100%;
+  background: none;
+  color: var(--text-primary);
+  border: none;
+  padding: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.filter-menu button:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+.btn-configurar svg {
+  fill: var(--icon-color, #666);
+  transition: fill 0.3s ease;
+}
+
+.btn-configurar:hover svg {
+  fill: var(--icon-hover-color, #007bff);
 }
