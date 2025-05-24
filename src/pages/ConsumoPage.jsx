@@ -6,6 +6,8 @@ import EnergyTip from "../components/ConsumoComponets/EnergyTip";
 import DeviceDataDisplay from "../components/ConsumoComponets/DeviceDataDisplay";
 import { useAuth } from "../context/AuthContext";
 import "../styles/ConsumoPage.css";
+import { useNavigate } from "react-router-dom";
+
 
 import tip1 from "../assets/tips-icons/tip-1.svg";
 import tip2 from "../assets/tips-icons/tip-2.svg";
@@ -20,6 +22,8 @@ const ConsumoPage = () => {
   const [deviceDetails, setDeviceDetails] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
   const [activeButton, setActiveButton] = useState(null);
+  const navigate = useNavigate();
+
 
   const tips = [
     { texto: "Apaga las luces y desconecta los aparatos cuando no los uses.", img: tip1, titulo: "Consejo 1" },
@@ -88,7 +92,9 @@ const ConsumoPage = () => {
             onDeviceClick={handleDeviceClick}
           />
           <div className="view-more">
-            <button className="ver-mas-btn">Más información</button>
+            <button className="ver-mas-btn" onClick={() => navigate("/historial")}>
+              Más información
+            </button>
           </div>
         </div>
 
