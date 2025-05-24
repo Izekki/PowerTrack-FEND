@@ -8,6 +8,8 @@ import ProfilePage from "../pages/ProfilePage";
 import ConfigurationPage from "../pages/ConfigurationPage";
 import AlertasPage from "../pages/AlertasPage";
 import ConsumoPage from "../pages/ConsumoPage";
+import HistorialPage from "../pages/HistorialPage";
+
 
 import AuthenticatedLayout from "../layaout/AuthenticatedLayaout";
 
@@ -85,6 +87,20 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
               </AuthenticatedLayout>
             }
           />
+          <Route
+            path="/historial"
+            element={
+              <AuthenticatedLayout
+                onLogout={onLogoutClick}
+                isModalOpen={isModalOpen}
+                onConfirm={onConfirmLogout}
+                onCancel={onCancelLogout}
+              >
+                <HistorialPage />
+              </AuthenticatedLayout>
+            }
+          />
+
           <Route path="/" element={<Navigate to="/dispositivos" />} />
           <Route path="*" element={<Navigate to="/dispositivos" />} />
         </>

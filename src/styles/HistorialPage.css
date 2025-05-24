@@ -1,0 +1,24 @@
+.historial-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.historial-table th,
+.historial-table td {
+  border: 1px solid var(--card-border);
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+}
+
+.historial-table th {
+  background-color: var(--card-bg);
+  color: var(--consumo-text-title);
+}
+
+.fila-activa {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
