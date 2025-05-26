@@ -8,7 +8,7 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 const AlertasPage = () => {
   const { userId } = useAuth();
   const [alerts, setAlerts] = useState([]);
-  const [filter, setFilter] = useState('consumo'); // por defecto 'consumo'
+  const [filter, setFilter] = useState('consumo');
   const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   useEffect(() => {
@@ -21,6 +21,7 @@ const AlertasPage = () => {
             mensaje: alert.mensaje,
             fecha: new Date(alert.fecha).toLocaleString('es-MX'),
             tipo: alert.tipo_alerta_clave || 'Sin tipo',
+            iconoId: alert.icono_svg,
           }));
           setAlerts(formatted);
         })
@@ -75,6 +76,7 @@ const AlertasPage = () => {
               <AlertsCard
                 key={alert.id}
                 name={alert.mensaje}
+                iconoId={alert.iconoId}
                 fecha={alert.fecha}
                 tipo={alert.tipo}
               />

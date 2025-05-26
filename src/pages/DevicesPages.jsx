@@ -33,7 +33,6 @@ const DispositivosPage = () => {
 
 
   const handleOpenEditModal = (device) => {
-    console.log("Dispositivo a editar:", device);
     setDeviceToEdit(device); 
     setIsEditDeviceOpen(true);
     setIsEditing(true);

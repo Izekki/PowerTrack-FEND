@@ -36,6 +36,7 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
           name: deviceData.dispositivo_nombre.trim(),
           ubicacion: deviceData.ubicacion.trim(),
           id_grupo: deviceData.id_grupo ? Number(deviceData.id_grupo) : null,
+          mac_address: deviceData.mac_address ? deviceData.mac_address.trim() : undefined, // <-- enviamos mac_address si existe
         }),
       });
 
@@ -59,7 +60,9 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
     <>
       <div className="edit-device-card">
         <h1 className="Title-Device">DATOS DEL DISPOSITIVO</h1>
-        <h2 className="device-name-header"> <b>Dispositivo:</b>  {deviceData.dispositivo_nombre || "Nombre no disponible"}</h2>
+        <h2 className="device-name-header">
+          <b>Dispositivo:</b> {deviceData.dispositivo_nombre || "Nombre no disponible"}
+        </h2>
         <form className="edit-device-form">
           <div className="edit-device-card-columns">
             <div>
@@ -71,7 +74,7 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
                 value={deviceData.dispositivo_nombre || ""}
                 onChange={handleChange}
                 required
-                />
+              />
               <label className="lbl2">Ubicación</label>
               <input
                 className="input-lbl"
@@ -80,7 +83,17 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
                 value={deviceData.ubicacion || ""}
                 onChange={handleChange}
                 required
-                />
+              />
+              <br />
+              <label className="lbl2">MAC-Address</label>
+              <input
+                className="input-lbl"
+                type="text"
+                name="mac_address"
+                value={deviceData.mac_address || ""}
+                onChange={handleChange}
+                placeholder="00:1A:2B:3C:4D:5E"
+              />
             </div>
           </div>
           <button type="button" className="buttonEditar" onClick={handleUpdateClick}>
