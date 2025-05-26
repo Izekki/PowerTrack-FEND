@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ProfilePage = () => {
-  const { userId, token } = useAuth();
+  const { userId, token, name, login } = useAuth(); 
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -71,51 +71,57 @@ const ProfilePage = () => {
   };
 
   const handleSave = async () => {
-    try {
-      // Validación de contraseña si se está cambiando
-      if (passwordData.currentPassword && 
-          (passwordData.newPassword !== passwordData.confirmPassword)) {
-        showAlert("error", "Las contraseñas nuevas no coinciden");
-        return;
-      }
-
-      // Primero actualizar los datos del perfil
-      const updateResponse = await fetch(
-        `${DOMAIN_URL}/user/edit/${userId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(formData),
-        }
-      );
-
-      const updateData = await updateResponse.json();
-
-      if (!updateData.success) {
-        showAlert("error", updateData.message || "Error al actualizar perfil");
-        return;
-      }
-
-      // Si hay cambio de contraseña, procesarlo
-      if (passwordData.currentPassword && 
-          passwordData.newPassword &&
-          passwordData.newPassword === passwordData.confirmPassword) {
-        await handleChangePassword();
-      }
-
-      // Recargar los datos actualizados
-      await fetchProfileData();
-      
-      showAlert("success", "Perfil actualizado correctamente");
-      setIsEditing(false);
-      setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
-    } catch (error) {
-      showAlert("error", "Error al guardar cambios");
+  try {
+    // Validación de contraseña si se está cambiando
+    if (passwordData.currentPassword && 
+        (passwordData.newPassword !== passwordData.confirmPassword)) {
+      showAlert("error", "Las contraseñas nuevas no coinciden");
+      return;
     }
-  };
+
+    // Primero actualizar los datos del perfil
+    const updateResponse = await fetch(
+      `${DOMAIN_URL}/user/edit/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      }
+    );
+
+    const updateData = await updateResponse.json();
+
+    if (!updateData.success) {
+      showAlert("error", updateData.message || "Error al actualizar perfil");
+      return;
+    }
+
+    // Si hay cambio de contraseña, procesarlo
+    if (passwordData.currentPassword && 
+        passwordData.newPassword &&
+        passwordData.newPassword === passwordData.confirmPassword) {
+      await handleChangePassword();
+    }
+
+    // Actualizar el contexto de autenticación y sessionStorage
+    if (formData.nombre !== name) {
+      sessionStorage.setItem("name", formData.nombre);
+      login(); // Esto actualizará el estado en el contexto
+    }
+
+    // Recargar los datos actualizados
+    await fetchProfileData();
+    
+    showAlert("success", "Perfil actualizado correctamente");
+    setIsEditing(false);
+    setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+  } catch (error) {
+    showAlert("error", "Error al guardar cambios");
+  }
+};
 
   const handleChangePassword = async () => {
     try {
