@@ -5,36 +5,38 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas más pequeñas */
+  flex-wrap: wrap;
 }
 
 .header-content {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 20px; /* Espacio entre elementos */
+  gap: 20px;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 20px; /* Espacio entre logo y texto de bienvenida */
+  gap: 20px;
 }
 
 .logo {
   width: 100px;
   height: auto;
+  transition: width 0.3s ease;
 }
 
 .user-info {
   color: var(--text-white);
   font-weight: bold;
-  margin-left: 20px; /* Asegura espacio entre logo y texto */
+  margin-left: 20px;
 }
 
 .user-name {
   font-size: 1.8rem;
-  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  white-space: nowrap;
+  transition: font-size 0.3s ease;
 }
 
 .logout {
@@ -46,47 +48,24 @@
   background: none;
   border: none;
   font-size: 24px;
-  transition: opacity 0.3s ease;
-  margin-left: auto; /* Empuja el botón de logout a la derecha */
+  transition: all 0.3s ease;
+  margin-left: auto;
 }
 
 .logout:hover {
   opacity: 0.9;
 }
 
-.logout-icon {
-  width: 20px;
-  height: 20px;
-  fill: var(--text-white);
+.logout-text {
+  display: inline-block;
+  transition: all 0.3s ease;
 }
 
-/* Media query para dispositivos móviles (hasta 768px) */
-@media (max-width: 768px) {
-  .header-pw {
-    padding: 10px 20px;
-  }
-
-  .logo {
-    width: 80px;
-  }
-
-  .logout {
-    font-size: 20px;
-  }
-
-  .header-content {
-    flex-direction: row; /* Mantenemos los elementos en línea */
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .user-info {
-    order: 1; /* Mueve el user-info debajo en móviles si es necesario */
-    width: 100%;
-    text-align: center;
-    margin: 10px 0 0 0;
-  }
+.logout-icon {
+  width: 25px;
+  height: 25px;
+  fill: var(--text-white);
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 /* Media query para tabletas (768px - 1024px) */
@@ -97,5 +76,59 @@
 
   .logo {
     width: 90px;
+  }
+
+  .user-name {
+    font-size: 1.6rem;
+  }
+}
+
+/* Media query para dispositivos móviles (hasta 768px) */
+@media (max-width: 768px) {
+  .header-pw {
+    padding: 12px 20px;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  .user-name {
+    font-size: 1.4rem;
+  }
+
+  .logout {
+    font-size: 0; /* Oculta el texto */
+    gap: 0;
+    padding: 8px; /* Añade padding para mejor tacto */
+  }
+
+  .logout-text {
+    display: none; /* Asegura que el texto no ocupe espacio */
+  }
+
+  .logout-icon {
+    width: 30px; /* Icono un poco más grande para móviles */
+    height: 30px;
+  }
+}
+
+/* Media query para móviles pequeños (hasta 480px) */
+@media (max-width: 480px) {
+  .header-pw {
+    padding: 10px 15px;
+  }
+
+  .logo {
+    width: 70px;
+  }
+
+  .user-name {
+    font-size: 1.2rem;
+  }
+
+  .logout-icon {
+    width: 25px;
+    height: 25px;
   }
 }
