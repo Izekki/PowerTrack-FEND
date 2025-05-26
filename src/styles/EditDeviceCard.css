@@ -1,66 +1,125 @@
+/* Estilos base se mantienen igual */
 .edit-device-card {
-    max-width: 600px;
-    background-color: var(--bg-light); /* Fondo consistente con el resto de la app */
-    box-shadow: var(--shadow-default); /* Sombra consistente */
-    border-radius: 12px;
-    padding: 20px;
-    margin: 50px auto;
-    text-align: left;
+  max-width: 600px;
+  background-color: var(--bg-light);
+  box-shadow: var(--shadow-default);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 50px auto;
+  text-align: left;
+}
+
+.Title-Device {
+  color: var(--btn-edit-bg);
+  text-align: autos;
+  font-size: 28px;
+}
+
+.edit-device-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-device-card-columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.lbl1, .lbl2 {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 5px;
+}
+
+.input-lbl {
+  width: 90%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--input-bg);
+  font-size: 14px;
+  color: var(--input-text);
+}
+
+.buttonEditar {
+  width: 94%;
+  background-color: var(--btn-edit-bg);
+  color: var(--text-white);
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.buttonEditar:hover {
+  background-color: var(--btn-edit-bg-hover);
+}
+
+.device-name-header {
+  font-size: 24px;
+  font-weight: normal;
+  color: var(--text-dark);
+}
+
+/* Media queries para móviles */
+@media (max-width: 768px) {
+  .edit-device-card {
+    max-width: 100%;
+    margin: 30px auto;
+    padding: 15px;
+    border-radius: 10px;
   }
   
   .Title-Device {
-    color: var(--btn-edit-bg); /* Usar color primario del botón de editar */
-    text-align: autos;
-    font-size: 28px;
-  }
-  
-  .edit-device-form {
-    display: flex;
-    flex-direction: column;
+    font-size: 22px;
   }
   
   .edit-device-card-columns {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .lbl1, .lbl2 {
-    font-size: 14px;
-    font-weight: bold;
-    color: var(--text-primary); /* Color consistente */
-    margin-bottom: 5px;
+    flex-direction: column;
   }
   
   .input-lbl {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border-color); /* Borde consistente */
-    border-radius: 5px;
-    background-color: var(--input-bg); /* Fondo consistente */
-    font-size: 14px;
-    color: var(--input-text); /* Texto consistente */
+    width: 95%;
   }
   
   .buttonEditar {
-    width: 94%;
-    background-color: var(--btn-edit-bg); /* Usar color de botón de editar */
-    color: var(--text-white); /* Texto blanco */
-    border: none;
-    padding: 10px;
-    font-size: 14px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-  }
-  
-  .buttonEditar:hover {
-    background-color: var(--btn-edit-bg-hover); /* Efecto hover de botón de editar */
+    width: 100%;
   }
   
   .device-name-header {
-    font-size: 24px;
-    font-weight: normal;
-    color: var(--text-dark); /* Color de texto consistente */
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-device-card {
+    margin: 20px auto;
+    padding: 12px;
   }
   
+  .Title-Device {
+    font-size: 20px;
+  }
+  
+  .lbl1, .lbl2 {
+    font-size: 13px;
+  }
+  
+  .input-lbl {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .buttonEditar {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .device-name-header {
+    font-size: 18px;
+  }
+}

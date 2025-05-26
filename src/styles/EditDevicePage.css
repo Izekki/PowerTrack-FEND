@@ -1,15 +1,16 @@
+/* Estilos base se mantienen igual */
 .header-edit-device-container {
   display: flex;
-  justify-content: space-between; /* separa el título del botón */
-  align-items: center; /* alinea verticalmente */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  padding: 15px 35px; /* padding horizontal ajustado */
+  padding: 15px 35px;
   box-sizing: border-box;
 }
 
 .title-Editar-Dispositivo {
-  font-size: 30px; /* tamaño de fuente aumentado */
-  color: var(--text-primary); /* usando variable */
+  font-size: 30px;
+  color: var(--text-primary);
   margin: 0;
   padding: 0;
 }
@@ -19,33 +20,85 @@
 }
 
 .btn-close-edit {
-  padding: 12px 25px; /* padding más amplio */
-  background-color: var(--btn-secondary-bg); /* usando variable */
+  padding: 12px 25px;
+  background-color: var(--btn-secondary-bg);
   border: none;
-  border-radius: 10px; /* borde más redondeado */
+  border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
 }
 
 .btn-close-edit:hover {
-  background-color: var(--btn-secondary-hover); /* usando variable */
+  background-color: var(--btn-secondary-hover);
 }
 
 .container-edit-cards {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  gap: 50px; /* separación aumentada entre las tarjetas */
-  padding: 25px 40px; /* padding más amplio */
-  flex-wrap: wrap; /* por si la pantalla es muy pequeña */
+  gap: 50px;
+  padding: 25px 40px;
+  flex-wrap: wrap;
 }
 
 .edit-device-page {
   display: flex;
-  gap: 50px; /* separación aumentada entre elementos */
+  gap: 50px;
   flex-wrap: wrap;
 }
 
 .edit-device-page > * {
-  flex: 1 1 450px; /* tamaño mínimo ajustado para que se acomoden bien */
+  flex: 1 1 450px;
+}
+
+/* Media queries para móviles */
+@media (max-width: 768px) {
+  .header-edit-device-container {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  .title-Editar-Dispositivo {
+    font-size: 24px;
+  }
+  
+  .btn-close-edit {
+    padding: 10px 20px;
+    width: 100%;
+  }
+  
+  .container-edit-cards {
+    padding: 15px 20px;
+    gap: 30px;
+  }
+  
+  .edit-device-page {
+    gap: 30px;
+  }
+  
+  .edit-device-page > * {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-Editar-Dispositivo {
+    font-size: 20px;
+  }
+  
+  .btn-close-edit {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .container-edit-cards {
+    padding: 10px 15px;
+    gap: 20px;
+  }
+  
+  .edit-device-page {
+    gap: 20px;
+  }
 }
