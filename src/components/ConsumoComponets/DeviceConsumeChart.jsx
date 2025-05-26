@@ -2,23 +2,21 @@ import React from "react";
 import ApexCharts from "react-apexcharts";
 import { darkenHex } from "../../utils/colorUtils";
 
-const DevicePieChart = ({ devices, activeButton }) => {
+const DevicePieChart = ({ devices, activeDeviceButton }) => {
   const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark";
   const chartBorderColor = isDarkMode ? "#333333" : "#e0e0e0";
-  const chartShadow = isDarkMode
-    ? "0 2px 6px rgba(255, 255, 255, 0.05)"
-    : "0 2px 6px rgba(0, 0, 0, 0.1)";
   const chartTextColor = isDarkMode ? "#f0f0f0" : "#333333";
-  const defaultColors = isDarkMode
-    ? ["#81c784", "#fff176", "#ffb74d", "#ef5350"]
-    : ["#4caf50", "#ffeb3b", "#ffa726", "#e53935"];
-
-  const series = devices.map(device => device.consumoActual);
+  const generateRandomColor = (index) => {
+    const hue = (index * 137.508) % 360;
+    return `hsl(${hue}, 65%, ${isDarkMode ? "60%" : "50%"})`;
+  };
 
   const colors = devices.map((device, index) => {
-    const baseColor = defaultColors[index % defaultColors.length];
-    return device.id === activeButton ? darkenHex(baseColor, 100) : baseColor;
+    const baseColor = generateRandomColor(index);
+    return device.id === activeDeviceButton ? darkenHex(baseColor, 20) : baseColor;
   });
+
+  const series = devices.map(device => device.consumoActual);
 
   const options = {
     chart: {
@@ -91,7 +89,7 @@ const DevicePieChart = ({ devices, activeButton }) => {
         },
       },
     },
-    labels: devices.map(device => device.dispositivo_nombre),
+    labels: devices.map(device => device.nombre),
     legend: {
       position: "left",
       fontSize: 14,
@@ -114,7 +112,7 @@ const DevicePieChart = ({ devices, activeButton }) => {
 
   return (
     <ApexCharts
-      key={JSON.stringify({ devices, activeButton })}
+      key={JSON.stringify({ devices, activeDeviceButton })}
       options={options}
       series={series}
       type="pie"

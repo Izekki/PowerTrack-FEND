@@ -21,9 +21,13 @@ const ConsumoPage = () => {
   const [selectedDevice, setSelectedDevice] = useState(null);
   const [deviceDetails, setDeviceDetails] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
-  const [activeButton, setActiveButton] = useState(null);
+  const [activeGroupButton, setActiveGroupButton] = useState(null);
+  const [activeDeviceButton, setActiveDeviceButton] = useState(null);
+  const [chartDevices, setChartDevices] = useState([]);
+  const [selectedGroup, setSelectedGroup] = useState(null);
+  const [expandedGroups, setExpandedGroups] = useState([]);
+  const devicesWithoutGroup = devices.filter(d => d.grupo_id === null);
   const navigate = useNavigate();
-
 
   const tips = [
     { texto: "Apaga las luces y desconecta los aparatos cuando no los uses.", img: tip1, titulo: "Consejo 1" },
@@ -31,27 +35,66 @@ const ConsumoPage = () => {
     { texto: "Aprovecha la luz natural al máximo.", img: tip3, titulo: "Consejo 3" },
   ];
 
+  const [groups, setGroups] = useState([]);
+
   useEffect(() => {
     if (userId) {
-      fetch(`${DOMAIN_URL}/electrical_analysis/dispositivosPorUsuarios/${userId}/consumo-actual`)
-        .then((res) => res.json())
-        .then((data) => {
-          const formatted = data.map(d => ({
+      fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGrupos/${userId}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("Datos recibidos:", data);
+          const formattedDevices = data.resumenDispositivos.map(d => ({
             id: d.dispositivo_id,
-            dispositivo_nombre: d.dispositivo_nombre,
-            consumoActual: d.consumoActual || 0,
-            costoActual: d.costoActual || 0,
+            dispositivo_nombre: d.nombre,
+            consumoActual: d.consumoActualKWh || 0,
+            costoActual: Number(d.costoPorMedicionMXN) || 0,
+            grupo_id: d.grupo_id,
           }));
-          setDevices(formatted);
+
+          const formattedGroups = data.resumenGrupos
+          .filter(g => g.grupo_id !== null)
+          .map(g => ({
+            id: g.grupo_id,
+            nombre: g.nombre || `Grupo ${g.grupo_id}`,
+            consumoActual: g.consumoTotalKWh || 0,  // <-- aquí
+          }));
+
+          setDevices(formattedDevices);
+          setGroups(formattedGroups);
+
+          const initialChartDevices = [
+            ...formattedDevices
+              .filter(d => d.grupo_id === null)
+              .map(d => ({
+                id: d.id,  // usa el mismo id que botones para que coincida el resaltado
+                nombre: d.dispositivo_nombre,
+                consumoActual: d.consumoActual,
+                tipo: 'dispositivo',
+              })),
+            ...formattedGroups.map(g => ({
+              id: `group-${g.id}`,
+              nombre: g.nombre,
+              consumoActual: g.consumoActual,  // usa el consumo total ya calculado
+              tipo: 'grupo',
+            })),
+          ];
+          setChartDevices(initialChartDevices);
+
         });
     }
   }, [userId]);
 
   const fetchDeviceDetails = (deviceId) => {
     fetch(`${DOMAIN_URL}/electrical_analysis/dispositivo/${deviceId}/consumo-detallado`)
-      .then((res) => res.ok ? res.json() : null)
-      .then((data) => {
-        setDeviceDetails(data || {
+      .then(res => {
+        if (!res.ok) throw new Error('Error al obtener detalles');
+        return res.json();
+      })
+      .then(data => {
+        setDeviceDetails(data);
+      })
+      .catch(() => {
+        setDeviceDetails({
           estimacionCostoDiario: 0,
           estimacionCostoMensual: 0,
           unidad: "N/A",
@@ -66,20 +109,144 @@ const ConsumoPage = () => {
       });
   };
 
-  const handleDeviceClick = (deviceId) => {
-    if (activeButton === deviceId) {
-      setActiveButton(null);
+  const handleGroupClick = (buttonId, groupId) => {
+    if (activeGroupButton === buttonId) {
+      setActiveGroupButton(null);
+      setSelectedGroup(null);
+      setExpandedGroups(prev => prev.filter(id => id !== groupId));
+      setSelectedDevice(null);
+      setActiveDeviceButton(null);
+      setDeviceDetails(null);
+      setShowDetails(false);
+
+      const allDevices = [
+        ...devices.filter(d => d.grupo_id === null).map(d => ({
+          id: d.id,
+          nombre: d.dispositivo_nombre,
+          consumoActual: d.consumoActual,
+          tipo: 'dispositivo',
+        })),
+        ...groups.map(g => ({
+          id: `group-${g.id}`,
+          nombre: g.nombre,
+          consumoActual: g.consumoActual,
+          tipo: 'grupo',
+        })),
+      ];
+      setChartDevices(allDevices);
+    } else {
+      setActiveGroupButton(buttonId);
+      setSelectedGroup(groups.find(g => g.id === groupId));
+      setExpandedGroups([groupId]);
+
+      setSelectedDevice(null);
+      setActiveDeviceButton(null);
+      setDeviceDetails(null);
+      setShowDetails(false);
+
+      const devicesInGroup = devices
+        .filter(d => d.grupo_id === groupId)
+        .map(d => ({
+          id: d.id,
+          nombre: d.dispositivo_nombre,
+          consumoActual: d.consumoActual,
+          tipo: 'dispositivo',
+        }));
+      setChartDevices(devicesInGroup);
+    }
+  };
+
+  const handleDeviceClick = (deviceId, grupoId) => {
+    if (activeDeviceButton === deviceId) {
+      setActiveDeviceButton(null);
       setSelectedDevice(null);
       setDeviceDetails(null);
       setShowDetails(false);
+
+      if (grupoId === null) {
+        setExpandedGroups([]);
+        setActiveGroupButton(null);
+        setSelectedGroup(null);
+
+        const allDevices = [
+        ...devices.filter(d => d.grupo_id === null).map(d => ({
+          id: d.id,
+          nombre: d.dispositivo_nombre,
+          consumoActual: d.consumoActual,
+          tipo: 'dispositivo',
+        })),
+        ...groups.map(g => ({
+          id: `group-${g.id}`,
+          nombre: g.nombre,
+          consumoActual: g.consumoActual,
+          tipo: 'grupo',
+        })),
+      ];
+      setChartDevices(allDevices);
+      }
     } else {
-      const device = devices.find(d => d.id === deviceId);
-      setActiveButton(deviceId);
-      setSelectedDevice(device);
+      setActiveDeviceButton(deviceId);
+      setSelectedDevice(devices.find(d => d.id === deviceId));
       fetchDeviceDetails(deviceId);
       setShowDetails(false);
+
+      if (grupoId === null) {
+        setExpandedGroups([]);
+        setActiveGroupButton(null);
+        setSelectedGroup(null);
+
+        const allDevices = [
+          ...devices.filter(d => d.grupo_id === null).map(d => ({
+            id: d.id,
+            nombre: d.dispositivo_nombre,
+            consumoActual: d.consumoActual,
+            tipo: 'dispositivo',
+          })),
+          ...groups.map(g => ({
+            id: `group-${g.id}`,
+            nombre: g.nombre,
+            consumoActual: g.consumoTotalKWh || 0,
+            tipo: 'grupo',
+          })),
+        ];
+        setChartDevices(allDevices);
+      } else {
+        if (!expandedGroups.includes(grupoId)) {
+          setExpandedGroups([grupoId]);
+        }
+        setActiveGroupButton(`group-${grupoId}`);
+        setSelectedGroup(groups.find(g => g.id === grupoId));
+
+        const devicesInGroup = [
+          {
+            id: `group-${groupId}`,
+            nombre: groups.find(g => g.id === groupId)?.nombre || 'Grupo',
+            consumoActual: groups.find(g => g.id === groupId)?.consumoActual || 0,
+            tipo: 'grupo',
+          },
+          ...devices
+            .filter(d => d.grupo_id === groupId)
+            .map(d => ({
+              id: d.id,
+              nombre: d.dispositivo_nombre,
+              consumoActual: d.consumoActual,
+              tipo: 'dispositivo',
+            }))
+        ];
+        setChartDevices(devicesInGroup);
+
+      }
     }
   };
+
+  // Prepara los datos visibles para DeviceDataDisplay
+  const visibleDevices = activeGroupButton
+    ? devices.filter(d => d.grupo_id === parseInt(activeGroupButton.replace('group-', '')))
+    : devicesWithoutGroup;
+
+  const visibleGroups = activeGroupButton
+    ? groups.filter(g => `group-${g.id}` === activeGroupButton)
+    : groups;
 
   return (
     <div className="consumo-card">
@@ -88,8 +255,12 @@ const ConsumoPage = () => {
           <h3 className="title-consumotitle">Hogar 1</h3>
           <DeviceConsumeList
             devices={devices}
-            activeButton={activeButton}
+            groups={groups}
+            activeGroupButton={activeGroupButton}
+            activeDeviceButton={activeDeviceButton}
             onDeviceClick={handleDeviceClick}
+            onGroupClick={handleGroupClick}
+            expandedGroups={expandedGroups}
           />
           <div className="view-more">
             <button className="ver-mas-btn" onClick={() => navigate("/historial")}>
@@ -101,7 +272,7 @@ const ConsumoPage = () => {
         <div className="columna-derecha">
           <h4 className="graph-title">Consumo Dispositivos</h4>
           <div className="graph-container">
-            <DeviceConsumeChart devices={devices} activeButton={activeButton} />
+            <DeviceConsumeChart devices={chartDevices} activeDeviceButton={activeDeviceButton} />
           </div>
           <DeviceDetailConsumeModal
             selectedDevice={selectedDevice}
@@ -110,7 +281,11 @@ const ConsumoPage = () => {
             toggleDetails={() => setShowDetails(!showDetails)}
           />
           <h4 className="graph-title">Datos Dispositivos</h4>
-          <DeviceDataDisplay devices={devices} activeButton={activeButton}/>
+          <DeviceDataDisplay 
+            groups={visibleGroups}
+            devices={visibleDevices}
+            activeGroupButton={activeGroupButton}
+            activeDeviceButton={activeDeviceButton}/>
           <EnergyTip tips={tips} />
         </div>
       </div>

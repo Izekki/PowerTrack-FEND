@@ -4,7 +4,54 @@
   flex-direction: column;
 }
 
+.lista {
+  margin: 5px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.dispositivos-grupo {
+  margin-left: 20px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
 /* === Botones === */
+.grupo-btn {
+  width: 100%; /* ancho completo por defecto */
+  transition: width 0.3s ease, background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  background-color: var(--consumo-group-button-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-group-text-button);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.grupo-btn:hover {
+  background-color: var(--consumo-group-button-hover);
+  color: var(--consumo-text-hover);
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.grupo-btn.active {
+  width: auto; /* ancho reducido cuando está activo */
+  max-width: 300px; /* ajusta este valor para controlar el ancho "reducido" */
+  background-color: var(--consumo-group-button-hover);
+  color: var(--consumo-text-hover);
+  transform: scale(0.97);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .dispositivo-btn {
   background-color: var(--consumo-button-bg);
   border: none;
@@ -29,7 +76,6 @@
 }
 
 .dispositivo-btn.active {
-  
   background-color: var(--consumo-button-bg-hover);
   color: var(--consumo-text-hover);
   transform: scale(0.97);

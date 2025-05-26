@@ -62,16 +62,19 @@ body {
   --font-title: 1.2rem;
 
   /* ConsumoPage - Tema Claro */
-  --consumo-card-bg: #ffffff;               /* Fondo blanco limpio */
-  --consumo-card-border: #e0e0e0;           /* Borde gris muy claro */
-  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para claridad */
-  --consumo-consejo-bg: #faf0ef;            /* Fondo de consejo muy claro */
-  --consumo-button-bg: #faf0ef;             /* Botón en tono rosado muy suave */
-  --consumo-button-extra-bg: #ffa726;         /* Botón extra en tono rosado claro */
-  --consumo-text-title: #d84315;            /* Rojo quemado, fuerte y elegante */
-  --consumo-text-button: #e64a19;           /* Naranja oscuro, resaltante */
-  --consumo-button-bg-hover: #ff7043;       /* Naranja brillante para hover */
-  --consumo-text-hover: #ffffff;            /* Blanco para texto sobre botón hover */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #e0e0e0;
+  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --consumo-consejo-bg: #faf0ef;
+  --consumo-button-bg: #faf0ef;
+  --consumo-text-button: #e64a19;
+  --consumo-group-button-bg: #fff0dd;
+  --consumo-group-button-hover: #e69b19;
+  --consumo-group-text-button: #e69e19;
+  --consumo-button-extra-bg: #ffa726;
+  --consumo-text-title: #d84315;
+  --consumo-button-bg-hover: #ff7043;
+  --consumo-text-hover: #ffffff;
 
   /*DeviceCard*/
   --card-bg: #ffffff;
@@ -144,16 +147,19 @@ body {
   --font-title: 1.2rem;
 
   /* ConsumoPage - Tema Oscuro */
-  --consumo-card-bg: #1e1e1e;               /* Fondo oscuro neutro */
-  --consumo-card-border: #2e2e2e;           /* Borde apenas perceptible */
-  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); /* Sombra más fuerte sobre fondo oscuro */
-  --consumo-consejo-bg: #2e2e2e;            /* Fondo gris oscuro */
-  --consumo-button-bg: #2c2c2c;             /* Botón gris oscuro con matiz cálido */
-  --consumo-button-extra-bg: #ffa726;         /* Botón extra en tono rosado claro */
-  --consumo-text-title: #ff8a80;            /* Rojo suave, bien visible en fondo oscuro */
-  --consumo-text-button: #ffab91;           /* Naranja claro vibrante y legible */
-  --consumo-button-bg-hover: #ff7043;       /* Hover con naranja brillante */
-  --consumo-text-hover: #1e1e1e;            /* Texto oscuro sobre botón claro al hacer hover */
+  --consumo-card-bg: #1e1e1e;
+  --consumo-card-border: #2e2e2e;
+  --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  --consumo-consejo-bg: #2e2e2e;
+  --consumo-group-button-bg: #4a3a1a;
+  --consumo-group-button-hover: #ffb84d;
+  --consumo-group-text-button: #ff9e1b;
+  --consumo-button-bg: #2c2c2c;
+  --consumo-button-extra-bg: #ffa726;
+  --consumo-text-title: #ff8a80;
+  --consumo-text-button: #ffab91;
+  --consumo-button-bg-hover: #ff7043;
+  --consumo-text-hover: #1e1e1e;
 
   /*DeviceCard*/
   --card-bg: #1e1e1e;

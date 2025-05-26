@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: var(--consumo-consejo-bg);
+  background-color: var(--consumo-card-bg);
   border: none;
   box-shadow: var(--consumo-card-shadow);
   border-radius: 10px;

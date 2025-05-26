@@ -5,6 +5,24 @@
   gap: 10px;
 }
 
+.datos-grupo-consumo-span {
+  background-color: var(--consumo-group-button-bg);
+  border: none;
+  box-shadow: var(--consumo-card-shadow);
+  color: var(--consumo-group-text-button);
+  font-family: 'nunito', sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.datos-grupo-consumo-span.active {
+  background-color: var(--consumo-group-button-hover);
+  color: var(--consumo-text-hover);
+}
+
 .datos-consumo-span {
   background-color: var(--consumo-button-bg);
   border: none;
