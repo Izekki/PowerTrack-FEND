@@ -56,30 +56,29 @@ const ConsumoPage = () => {
           .map(g => ({
             id: g.grupo_id,
             nombre: g.nombre || `Grupo ${g.grupo_id}`,
-            consumoActual: g.consumoTotalKWh || 0,  // <-- aquí
+            consumoActual: g.consumoTotalKWh || 0,
           }));
 
           setDevices(formattedDevices);
           setGroups(formattedGroups);
 
           const initialChartDevices = [
-            ...formattedDevices
-              .filter(d => d.grupo_id === null)
-              .map(d => ({
-                id: d.id,  // usa el mismo id que botones para que coincida el resaltado
-                nombre: d.dispositivo_nombre,
-                consumoActual: d.consumoActual,
-                tipo: 'dispositivo',
-              })),
-            ...formattedGroups.map(g => ({
-              id: `group-${g.id}`,
-              nombre: g.nombre,
-              consumoActual: g.consumoActual,  // usa el consumo total ya calculado
-              tipo: 'grupo',
+          ...formattedDevices
+            .filter(d => d.grupo_id === null)
+            .map(d => ({
+              id: d.id,
+              nombre: d.dispositivo_nombre,
+              consumoActual: d.consumoActual,
+              tipo: 'dispositivo',
             })),
-          ];
-          setChartDevices(initialChartDevices);
-
+          ...formattedGroups.map(g => ({
+            id: `group-${g.id}`,
+            nombre: g.nombre,
+            consumoActual: g.consumoActual,
+            tipo: 'grupo',
+          })),
+        ];
+        setChartDevices(initialChartDevices);
         });
     }
   }, [userId]);
@@ -158,33 +157,35 @@ const ConsumoPage = () => {
 
   const handleDeviceClick = (deviceId, grupoId) => {
     if (activeDeviceButton === deviceId) {
+      // Deseleccionar dispositivo
       setActiveDeviceButton(null);
       setSelectedDevice(null);
       setDeviceDetails(null);
       setShowDetails(false);
 
       if (grupoId === null) {
-        setExpandedGroups([]);
-        setActiveGroupButton(null);
-        setSelectedGroup(null);
+      setExpandedGroups([]);
+      setActiveGroupButton(null);
+      setSelectedGroup(null);
 
-        const allDevices = [
+      const allDevices = [
         ...devices.filter(d => d.grupo_id === null).map(d => ({
           id: d.id,
           nombre: d.dispositivo_nombre,
           consumoActual: d.consumoActual,
           tipo: 'dispositivo',
         })),
+        // Aquí asegúrate de incluir los grupos siempre
         ...groups.map(g => ({
           id: `group-${g.id}`,
           nombre: g.nombre,
-          consumoActual: g.consumoActual,
+          consumoActual: g.consumoActual, // usa consumo total del grupo
           tipo: 'grupo',
         })),
       ];
       setChartDevices(allDevices);
-      }
-    } else {
+    }
+} else {
       setActiveDeviceButton(deviceId);
       setSelectedDevice(devices.find(d => d.id === deviceId));
       fetchDeviceDetails(deviceId);
@@ -202,10 +203,11 @@ const ConsumoPage = () => {
             consumoActual: d.consumoActual,
             tipo: 'dispositivo',
           })),
+          // Aquí asegúrate de incluir los grupos siempre
           ...groups.map(g => ({
             id: `group-${g.id}`,
             nombre: g.nombre,
-            consumoActual: g.consumoTotalKWh || 0,
+            consumoActual: g.consumoActual, // usa consumo total del grupo
             tipo: 'grupo',
           })),
         ];
