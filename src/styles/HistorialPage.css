@@ -27,6 +27,67 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
+.generar-reporte-container {
+  background-color: var(--bg-group);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: var(--shadow-default);
+  margin-top: 20px;
+  font-family: "Nunito", sans-serif;
+}
+
+.generar-reporte-container h4 {
+  margin-top: 0;
+  color: var(--consumo-text-title);
+}
+
+.generar-reporte-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.generar-reporte-container input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.generar-reporte-container input[type="date"]:focus {
+  outline: none;
+  border-color: var(--consumo-text-button);
+}
+
+.generar-reporte-container button {
+  background-color: var(--consumo-button-bg);
+  color: var(--consumo-text-button);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.generar-reporte-container button:hover {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+}
+
+.generar-reporte-container p {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: var(--text-muted);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
