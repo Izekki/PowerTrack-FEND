@@ -75,10 +75,6 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
   };
 
   const { usuario, resumenGeneral, grupos } = reporte;
-
-  // ... resto del código igual que en la versión anterior ...
-  // (Mantengo toda la lógica de procesamiento de datos igual)
-
   // Datos para gráfico de pastel principal - usando los datos correctos de cada grupo
   const pastelResumen = grupos.map((grupo) => ({
     nombre: grupo.nombre,
@@ -130,12 +126,13 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
   // Datos para gráfico de barras - distribuyendo el consumo total entre los días
   const barrasData = [
     {
-      name: 'Consumo Diario (kWh)',
-      data: fechas.map(() => consumoPorDia),
+      name: "Consumo Diario (kWh)",
+      data: reporte.consumoPorDia.map((item) => parseFloat(item.consumoKWh)),
     },
   ];
 
-  const categorias = fechas.map(fecha => {
+  const categorias = reporte.consumoPorDia.map((item) => {
+    const fecha = new Date(item.fecha);
     return `${fecha.getDate()}/${fecha.getMonth() + 1}`;
   });
 
@@ -143,7 +140,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
     chart: {
       type: 'bar',
       animations: {
-        enabled: false // Desactivar animaciones para PDF
+        enabled: false
       }
     },
     plotOptions: {
@@ -169,16 +166,16 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
         },
       },
       labels: {
-        formatter: (value) => `${value.toFixed(4)} kWh`,
+        formatter: (value) => `${value.toFixed(2)} kWh`,
       },
     },
     tooltip: {
       y: {
-        formatter: (val) => `${val.toFixed(4)} kWh`,
+        formatter: (val) => `${val.toFixed(2)} kWh`,
       },
     },
     title: {
-      text: 'Consumo Energético por Fecha',
+      text: 'Consumo Real por Fecha',
     },
     legend: {
       show: true,
