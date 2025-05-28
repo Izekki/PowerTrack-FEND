@@ -53,11 +53,12 @@ const ConfigurationPage = () => {
     const newTheme = event.target.value;
     setTheme(newTheme);
     setSelectedTheme(newTheme);
-    
   };
+
   const updateMinAndMax = async (dispositivo_id, nuevoMin, nuevoMax) => {
     try {
-      const response = await fetch(`${DOMAIN_URL}/savsetting/update-minmax`,
+      const response = await fetch(
+        `${DOMAIN_URL}/savsetting/update-minmax`,
         {
           method: "POST",
           headers: {
