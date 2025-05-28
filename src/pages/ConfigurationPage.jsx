@@ -3,6 +3,9 @@ import "../styles/ConfigurationPage.css";
 import { useTheme } from "next-themes";
 import { useAuth } from "../context/AuthContext";
 
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+
+
 const ConfigurationPage = () => {
   const { theme, setTheme } = useTheme();
   const [selectedTheme, setSelectedTheme] = useState(theme);
@@ -19,7 +22,7 @@ const ConfigurationPage = () => {
     const fetchConfiguraciones = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5051/savsetting/configuraciones/usuario/${userId}`,
+          `${DOMAIN_URL}/savsetting/configuraciones/usuario/${userId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -50,12 +53,11 @@ const ConfigurationPage = () => {
     const newTheme = event.target.value;
     setTheme(newTheme);
     setSelectedTheme(newTheme);
+    
   };
-
   const updateMinAndMax = async (dispositivo_id, nuevoMin, nuevoMax) => {
     try {
-      const response = await fetch(
-        "http://localhost:5051/savsetting/update-minmax",
+      const response = await fetch(`${DOMAIN_URL}/savsetting/update-minmax`,
         {
           method: "POST",
           headers: {
