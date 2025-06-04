@@ -7,6 +7,7 @@ import "../styles/EditDevicePage.css";
 import ReportePDFPage from "../components/ConsumoComponets/ReportePDFPage";
 import ModalReporte from "../components/ConsumoComponets/ModalReporte";
 import { useNavigate } from "react-router-dom";
+import { showAlert } from "../components/Alert.jsx";
 
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
@@ -90,7 +91,7 @@ const HistorialPage = () => {
 
   const generarReporte = () => {
     if (!rangoSeleccionado) {
-      alert("Por favor selecciona un rango de tiempo.");
+      showAlert("error", "Por favor selecciona un rango de tiempo.");
       return;
     }
 
@@ -117,7 +118,7 @@ const HistorialPage = () => {
       })
       .catch((err) => {
         console.error("Error al obtener el reporte:", err);
-        alert("No se pudo cargar el reporte.");
+        showAlert("error", "No se pudo cargar el reporte.");
       });
   };
 
