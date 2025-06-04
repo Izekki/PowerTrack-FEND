@@ -92,6 +92,9 @@ body {
   --status-online: #4caf50;
   --status-offline: #f44336;
 
+  /*HistorialPage*/
+  --fila-activa: #e0f7fa ;
+
   /*Profile Page*/
 
   --btn-save-bg: #6dd170;
@@ -176,6 +179,9 @@ body {
 
   --status-online: #81c784;
   --status-offline: #ef5350;
+
+  /*HistorialPage*/
+  --fila-activa: #114448 ;
 
   /*Profile Page*/
   --btn-save-bg: #51985b;

@@ -19,7 +19,7 @@
 }
 
 .fila-activa {
-  background-color: #e0f7fa;
+  background-color: var(--fila-activa);
   font-weight: bold;
 }
 

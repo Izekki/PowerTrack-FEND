@@ -78,21 +78,23 @@ const DeviceList = ({
       </div>
 
       {/* Columna de Dispositivos sin grupo */}
-      <div className="device-column">
+      <div className="container-device-columns">
         <h3 className="column-title">Dispositivos</h3>
-        {devicesWithoutGroup.length > 0 ? (
-          devicesWithoutGroup.map((device) => (
-            <DeviceCard
-              key={device.id}
-              device={device}
-              onDeviceUpdate={onDeviceUpdate}
-              onEdit={onEditDevice}
-              onDelete={onDeleteDevice}
-            />
-          ))
-        ) : (
-          <p className="no-results-message">No se encontraron dispositivos.</p>
-        )}
+        <div className="device-column">
+          {devicesWithoutGroup.length > 0 ? (
+            devicesWithoutGroup.map((device) => (
+              <DeviceCard
+                key={device.id}
+                device={device}
+                onDeviceUpdate={onDeviceUpdate}
+                onEdit={onEditDevice}
+                onDelete={onDeleteDevice}
+              />
+            ))
+          ) : (
+            <p className="no-results-message">No se encontraron dispositivos.</p>
+          )}
+        </div>
       </div>
     </div>
   );
