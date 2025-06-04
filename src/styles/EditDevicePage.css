@@ -23,6 +23,7 @@
   padding: 12px 25px;
   background-color: var(--btn-secondary-bg);
   border: none;
+  color: var(--input-bg);
   border-radius: 10px;
   cursor: pointer;
   font-weight: bold;
