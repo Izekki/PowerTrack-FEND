@@ -204,3 +204,146 @@ body {
   --btn-info-hover: #0e6975;
 
 }
+
+
+/*PARA LA IMPRESION DEL PDF*/
+
+/* Base para pdf-light-mode */
+.pdf-light-mode {
+  --text-primary: #000; /* negro para texto */
+  --border-color: #ccc; /* borde gris claro */
+  --background-general: #fff; /* fondo blanco */
+  --background-card: #f9f9f9; /* fondo para tarjetas */
+  --text-dark: #333; /* texto oscuro secundario */
+  color: var(--text-primary) !important;
+  background-color: var(--background-general) !important;
+  font-family: 'Nunito', sans-serif !important;
+  line-height: 1.4 !important;
+  padding: 20px !important;
+}
+
+.pdf-light-mode * {
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+  background-color: transparent !important;
+}
+
+/* Títulos */
+.pdf-light-mode h1,
+.pdf-light-mode h2,
+.pdf-light-mode h3 {
+  color: var(--text-primary) !important;
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  font-weight: 700;
+}
+
+/* Contenedores y secciones */
+.pdf-light-mode > div {
+  page-break-inside: avoid !important;
+  margin-bottom: 30px !important;
+}
+
+/* Resumen general */
+.pdf-light-mode .resumen-general {
+  background-color: var(--background-card) !important;
+  color: var(--text-primary) !important;
+  padding: 15px !important;
+  border-radius: 8px !important;
+  margin-bottom: 30px !important;
+  page-break-inside: avoid !important;
+  page-break-after: auto !important;
+}
+
+/* Grid para resumen */
+.pdf-light-mode .resumen-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 15px !important;
+}
+
+/* Sección grupos */
+.pdf-light-mode .grupo-card {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 5px !important;
+  padding: 10px !important;
+  margin-bottom: 15px !important;
+  page-break-inside: avoid !important;
+}
+
+/* Grid para detalles de grupo */
+.pdf-light-mode .grupo-detalle-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px !important;
+  font-size: 14px !important;
+}
+
+/* Tabla */
+.pdf-light-mode table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 11px !important;
+  margin-bottom: 15px !important;
+}
+
+.pdf-light-mode table thead tr {
+  background-color: var(--background-card) !important;
+}
+
+.pdf-light-mode table th,
+.pdf-light-mode table td {
+  border: 1px solid var(--border-color) !important;
+  padding: 6px !important;
+  font-size: 10px !important;
+  color: var(--text-primary) !important;
+  background-color: var(--background-general) !important;
+}
+
+/* Texto secundario */
+.pdf-light-mode p em {
+  color: var(--text-dark) !important;
+}
+
+/* Botón Exportar PDF */
+.pdf-light-mode button {
+  margin-top: 40px !important;
+  padding: 12px 24px !important;
+  background-color: #007bff !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  opacity: 1 !important;
+  transition: opacity 0.3s ease;
+}
+
+.pdf-light-mode button:disabled {
+  background-color: #6c757d !important;
+  cursor: not-allowed !important;
+  opacity: 0.7 !important;
+}
+
+/* Estilos para gráficos */
+.pdf-light-mode .grafico-container {
+  height: 400px !important;
+  margin-bottom: 20px !important;
+  page-break-inside: avoid !important;
+  color: var(--text-primary) !important;
+}
+
+/* Ajustes para títulos de gráficas */
+.pdf-light-mode .grafico-titulo {
+  margin-top: 0 !important;
+  margin-bottom: 30px !important;
+}
+
+/* Espaciados y separadores de página */
+.pdf-light-mode .page-break-before {
+  page-break-before: always !important;
+}
+
+.pdf-light-mode .page-break-after-auto {
+  page-break-after: auto !important;
+}
