@@ -9,24 +9,27 @@ import DevicePieChart from './DeviceConsumeChart';
 const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
   const pdfRef = useRef();
   console.log('Datos para el reporte', reporte);
-  
   const generarPDF = async () => {
     // Llamar a la función del modal que maneja el estado de carga
     const shouldProceed = await onGeneratePDF();
     
     if (!shouldProceed) return;
 
+    const el = pdfRef.current;
+
+    el.classList.add('pdf-light-mode');
+
     try {
       // Esperar un poco más para asegurar que todos los gráficos estén renderizados
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      const canvas = await html2canvas(pdfRef.current, {
-        scale: 1.5, // Buena calidad sin ser muy pesado
+      const canvas = await html2canvas(el, {
+        scale: 1.5,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: 'var(--consumo-card-bg)',
-        height: pdfRef.current.scrollHeight,
-        width: pdfRef.current.scrollWidth,
+        backgroundColor: '#fff',
+        height: el.scrollHeight,
+        width: el.scrollWidth,
         scrollX: 0,
         scrollY: 0
       });
@@ -71,6 +74,8 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
     } catch (error) {
       console.error('Error al generar PDF:', error);
       alert('Error al generar el PDF. Por favor intenta nuevamente.');
+    } finally{
+      el.classList.remove('pdf-light-mode');
     }
   };
 
@@ -207,7 +212,8 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
 
       {/* Sección del Resumen General */}
       <div style={{ 
-        backgroundColor: 'var(--consumo-consejo-bg)', 
+        backgroundColor: 'var(--consumo-consejo-bg)',
+        color: 'var(--text-primary)',
         padding: '15px', 
         marginBottom: '30px', 
         borderRadius: '8px',
