@@ -9,24 +9,27 @@ import DevicePieChart from './DeviceConsumeChart';
 const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
   const pdfRef = useRef();
   console.log('Datos para el reporte', reporte);
-  
   const generarPDF = async () => {
     // Llamar a la función del modal que maneja el estado de carga
     const shouldProceed = await onGeneratePDF();
     
     if (!shouldProceed) return;
 
+    const el = pdfRef.current;
+
+    el.classList.add('pdf-light-mode');
+
     try {
       // Esperar un poco más para asegurar que todos los gráficos estén renderizados
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      const canvas = await html2canvas(pdfRef.current, {
-        scale: 1.5, // Buena calidad sin ser muy pesado
+      const canvas = await html2canvas(el, {
+        scale: 1.5,
         useCORS: true,
         allowTaint: true,
-        backgroundColor: '#ffffff',
-        height: pdfRef.current.scrollHeight,
-        width: pdfRef.current.scrollWidth,
+        backgroundColor: '#fff',
+        height: el.scrollHeight,
+        width: el.scrollWidth,
         scrollX: 0,
         scrollY: 0
       });
@@ -71,6 +74,8 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
     } catch (error) {
       console.error('Error al generar PDF:', error);
       alert('Error al generar el PDF. Por favor intenta nuevamente.');
+    } finally{
+      el.classList.remove('pdf-light-mode');
     }
   };
 
@@ -155,6 +160,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
         text: 'Fecha (Día/Mes)',
         style: {
           fontSize: '12px',
+          color: 'var(--text-primary)',
         },
       },
     },
@@ -163,19 +169,28 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
         text: 'Consumo (kWh)',
         style: {
           fontSize: '12px',
+          color: 'var(--text-primary)',
         },
       },
       labels: {
-        formatter: (value) => `${value.toFixed(2)} kWh`,
+        formatter: (value) => `${value.toFixed(2)} kWh`,      
       },
     },
     tooltip: {
       y: {
         formatter: (val) => `${val.toFixed(2)} kWh`,
       },
+      style: {
+        backgroundColor: 'var(--consumo-consejo-bg)',
+        color: 'var(--text-primary)',
+      }
     },
     title: {
       text: 'Consumo Real por Fecha',
+      style: {
+        fontSize: '16px',
+        color: 'var(--text-primary)',
+      },
     },
     legend: {
       show: true,
@@ -197,7 +212,8 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
 
       {/* Sección del Resumen General */}
       <div style={{ 
-        backgroundColor: '#f8f9fa', 
+        backgroundColor: 'var(--consumo-consejo-bg)',
+        color: 'var(--text-primary)',
         padding: '15px', 
         marginBottom: '30px', 
         borderRadius: '8px',
@@ -232,7 +248,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
           <div key={index} style={{ 
             marginBottom: '15px', 
             padding: '10px', 
-            border: '1px solid #ddd', 
+            border: '1px solid var(--border-color)', 
             borderRadius: '5px',
             pageBreakInside: 'avoid'
           }}>
@@ -282,7 +298,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
                   marginBottom: '15px'
                 }}>
                   <thead>
-                    <tr style={{ backgroundColor: '#f8f9fa' }}>
+                    <tr style={{ backgroundColor: 'var(--consumo-card-bg)' }}>
                       <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Dispositivo</th>
                       <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Potencia (W)</th>
                       <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Consumo Actual (kWh)</th>
@@ -320,11 +336,12 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
       {/* Gráfico de Barras por Fechas */}
       <div style={{ pageBreakBefore: 'always' }}>
         <h2 style={{ marginTop: '0', marginBottom: '20px' }}>📈 Consumo Promedio Diario en el Período</h2>
-        <p style={{ fontSize: '12px', color: '#666', marginBottom: '20px' }}>
+        <p style={{ fontSize: '12px', color: 'var(--text-dark)', marginBottom: '20px' }}>
           *Este gráfico muestra el consumo promedio diario ({consumoPorDia.toFixed(4)} kWh) 
           distribuido a lo largo del período de {usuario.diasEnPeriodo} días.
         </p>
         <div style={{ 
+          color: 'var(--text-primary)',
           height: '400px', 
           width: '100%',
           pageBreakInside: 'avoid',

@@ -7,8 +7,7 @@ const alertIcons = import.meta.glob('../../assets/alerts-icons/*.{png,svg}', {
   import: 'default',
 });
 
-const AlertsCard = ({ name, iconoId, nivel, fecha, tipo }) => {
-  // Encuentra el ícono que coincide con el ID (ej: 'a1', 'a2')
+const AlertsCard = ({ name, iconoId, nivel, fecha, tipo, dispositivo }) => {
   const matchingPath = Object.keys(alertIcons).find(path => path.includes(`${iconoId}.`));
   const iconSrc = matchingPath ? alertIcons[matchingPath] : null;
 
@@ -24,12 +23,14 @@ const AlertsCard = ({ name, iconoId, nivel, fecha, tipo }) => {
       <div className="alert-info">
         <p className="alert-message">{name}</p>
         <div className="alert-meta">
-          <span className="alert-tipo">Tipo: <strong>{tipo} </strong></span>
+          <span className="alert-dispositivo">Dispositivo: <strong>{dispositivo}</strong></span><br />
+          <span className="alert-tipo">Tipo: <strong>{tipo}</strong></span><br />
           <span className="alert-fecha">Fecha: {fecha}</span>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default AlertsCard;
