@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import AppRoutes from "./routes/AppRoutes";
+import { AlertProvider } from "./context/AlertContext"
 
 
 
@@ -37,7 +38,9 @@ const App = () => {
   return (
     <ThemeProvider attribute="data-theme">
       <AuthProvider>
-        <AppContent />        
+        <AlertProvider>
+          <AppContent />        
+        </AlertProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -33,3 +33,33 @@
   font-weight: 600;
   color: var(--text-primary);
 }
+
+
+.btn-card-marcar {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  background: transparent;
+  border: none;
+  color: var(--text-muted); /* color gris claro de tu paleta */
+  cursor: pointer;
+
+  font-size: 1.1rem; /* tamaño legible */
+  line-height: 1;
+  padding: 4px;
+
+  border-radius: 4px;
+  transition: color 0.3s ease, transform 0.2s ease, filter 0.2s ease;
+
+  filter: drop-shadow(0 0 1px rgba(0,0,0,0.1)); /* sombra suave */
+}
+
+.btn-card-marcar:hover {
+  color: red;
+  transform: scale(1.1);
+}
+
+.alert-card {
+  position: relative; /* importante para posicionar botón */
+}

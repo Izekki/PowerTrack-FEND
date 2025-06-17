@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/MenuBarWithBurger.css";
+import { useAlert } from "../context/AlertContext";
 
 const MenuBarWithBurger = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { hasNewAlerts } = useAlert();
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -19,8 +21,11 @@ const MenuBarWithBurger = () => {
       <nav className={`nav-bar ${isOpen ? "open" : ""}`}>
         <ul>
           <li><Link to="/consumo">Consumo</Link></li>
-          <li><Link to="/alertas">Alertas</Link></li>
-          <li><Link to="/dispositivos">Dispositivos</Link></li>
+          <li>
+            <Link to="/alertas" style={hasNewAlerts ? { color: "red", fontWeight: "bold" } : {}}>
+              Alertas {hasNewAlerts && "•"}
+            </Link>
+          </li>          <li><Link to="/dispositivos">Dispositivos</Link></li>
           <li><Link to="/miperfil">Mi Perfil</Link></li>
           <li><Link to="/configuracion">Configuración</Link></li>
         </ul>
