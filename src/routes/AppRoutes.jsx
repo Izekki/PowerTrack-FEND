@@ -101,8 +101,8 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
             }
           />
 
-          <Route path="/" element={<Navigate to="/dispositivos" />} />
-          <Route path="*" element={<Navigate to="/dispositivos" />} />
+          <Route path="/" element={<Navigate to="/consumo" />} />
+          <Route path="*" element={<Navigate to="/consumo" />} />
         </>
       ) : (
         <>
