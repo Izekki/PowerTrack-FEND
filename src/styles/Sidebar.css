@@ -5,19 +5,27 @@
   --sidebar-text: #333333;
   --sidebar-active: #e6f4ea; /* Verde muy claro */
   --sidebar-accent: #2E7D32; /* Verde principal */
+  --sidebar-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tema Oscuro para el Sidebar */
+[data-theme="dark"] {
+  --sidebar-bg: #1e1e1e;
+  --sidebar-text: #e0e0e0;
+  --sidebar-active: #2d4031; /* Verde oscuro */
+  --sidebar-accent: #81c784; /* Verde claro para dark mode */
+  --sidebar-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .sidebar {
-  height: 100vh;
+  height: 100%;
   background-color: var(--sidebar-bg);
-  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  box-shadow: var(--sidebar-shadow);
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 100;
+  transition: width 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 50;
 }
 
 .sidebar.expanded { width: var(--sidebar-width); }
@@ -43,10 +51,11 @@
   font-size: 1.5rem;
   cursor: pointer;
   color: var(--sidebar-text);
+  transition: color 0.3s ease;
 }
 
 .sidebar-nav {
-  background-color: var(--bg-boddy);  
+  background-color: var(--sidebar-bg);  
   flex: 1;
   padding-top: 20px;
   overflow-y: auto;
@@ -64,7 +73,7 @@
   padding: 12px 20px;
   color: var(--sidebar-text);
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s, color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
   border-left: 4px solid transparent;
   gap: 15px;
@@ -88,6 +97,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: filter 0.3s ease;
+}
+
+/* Filtro para imágenes PNG en modo oscuro (temporal hasta cambiar a SVG) */
+[data-theme="dark"] .nav-item .icon-img {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="dark"] .nav-item.active .icon-img {
+  filter: invert(0.7) sepia(1) saturate(3) hue-rotate(80deg) brightness(1.1);
+}
+
+/* Los SVG inline responderán automáticamente con currentColor */
+.nav-item svg {
+  color: var(--sidebar-text);
+  transition: color 0.3s ease;
+}
+
+.nav-item.active svg {
+  color: var(--sidebar-accent);
 }
 
 .label {
@@ -124,6 +153,7 @@
 .sidebar-footer {
   padding: 20px;
   border-top: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
 }
 
 .logout-btn {
@@ -131,13 +161,20 @@
   background: none;
   border: none;
   text-align: left;
+  color: var(--sidebar-text);
+  transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+.logout-btn svg {
+  color: var(--sidebar-text);
+  transition: color 0.3s ease;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-.sidebar-nav {
-  background-color: var(--bg-boddy);  
 }

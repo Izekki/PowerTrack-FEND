@@ -9,10 +9,10 @@ import ConfigurationPage from "../pages/ConfigurationPage";
 import AlertasPage from "../pages/AlertasPage";
 import ConsumoPage from "../pages/ConsumoPage";
 import HistorialPage from "../pages/HistorialPage";
-import HomePage from "../pages/HomePage"; // <--- Importar HomePage
+import HomePage from "../pages/HomePage";
 
-// Usamos el layout V2 que tiene el Sidebar
-import AuthenticatedLayout from "../layaout/AuthenticatedLayaoutV2"; 
+// Usamos el nuevo layout V3 que combina Header + Sidebar
+import AuthenticatedLayout from "../layaout/AuthenticatedLayaoutV3"; 
 
 const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout }) => {
   const { isAuthenticated, login } = useAuth();
@@ -23,7 +23,7 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
       
       {isAuthenticated ? (
         <>
-          {/* Nueva Ruta Home */}
+          {/* Ruta Home - Muestra "Bienvenido, {userName}" */}
           <Route
             path="/home"
             element={
@@ -32,12 +32,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Bienvenido"
               >
                 <HomePage />
               </AuthenticatedLayout>
             }
           />
 
+          {/* Ruta Consumo - Muestra "Consumo" */}
           <Route
             path="/consumo"
             element={
@@ -46,12 +48,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Consumo"
               >
                 <ConsumoPage />
               </AuthenticatedLayout>
             }
           />
-          {/* ... Resto de rutas igual, solo asegurate de que usen AuthenticatedLayoutV2 si quieres el sidebar en todas ... */}
+
+          {/* Ruta Alertas - Muestra "Alertas" */}
           <Route
             path="/alertas"
             element={
@@ -60,11 +64,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Alertas"
               >
                 <AlertasPage />
               </AuthenticatedLayout>
             }
           />
+
+          {/* Ruta Dispositivos - Muestra "Dispositivos" */}
           <Route
             path="/dispositivos"
             element={
@@ -73,11 +80,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Dispositivos"
               >
                 <DispositivosPage />
               </AuthenticatedLayout>
             }
           />
+
+          {/* Ruta Mi Perfil - Muestra "Mi Perfil" */}
           <Route
             path="/miperfil"
             element={
@@ -86,11 +96,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Mi Perfil"
               >
                 <ProfilePage />
               </AuthenticatedLayout>
             }
           />
+
+          {/* Ruta Configuración - Muestra "Configuración" */}
           <Route
             path="/configuracion"
             element={
@@ -99,11 +112,14 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Configuración"
               >
                 <ConfigurationPage />
               </AuthenticatedLayout>
             }
           />
+
+          {/* Ruta Historial - Muestra "Historial" */}
           <Route
             path="/historial"
             element={
@@ -112,6 +128,7 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
+                pageTitle="Historial"
               >
                 <HistorialPage />
               </AuthenticatedLayout>
