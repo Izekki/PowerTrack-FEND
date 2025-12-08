@@ -134,3 +134,243 @@
   font-weight: bold;
   color: var(--text-secondary);
 }
+
+.main-widgets-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Contenedor relativo para posicionar el botón de borrar */
+.widget-wrapper {
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+/* Animación de "vibración" al editar (estilo iOS) */
+.edit-mode .widget-wrapper {
+  animation: shake 0.3s infinite ease-in-out alternate;
+  border: 1px dashed var(--btn-edit-bg);
+  border-radius: 12px;
+  cursor: grab;
+}
+
+@keyframes shake {
+  from { transform: rotate(-0.5deg); }
+  to { transform: rotate(0.5deg); }
+}
+
+/* Botón de Eliminar (X roja) */
+.delete-widget-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  background-color: var(--error-color);
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.delete-widget-btn:hover {
+  background-color: var(--error-hover);
+  transform: scale(1.1);
+}
+
+/* Header Controls */
+.header-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit-mode {
+  background-color: var(--btn-secondary-bg);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-save-mode {
+  background-color: var(--btn-primary-bg);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-add-widget {
+  background-color: var(--link-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Modal de Agregar Widget */
+.add-widget-modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--card-bg);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+  padding: 20px;
+  z-index: 1000;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.available-widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.widget-option {
+  background-color: var(--bg-body);
+  border: 1px solid var(--border-color);
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.widget-option:hover {
+  background-color: var(--item-hover-bg);
+  border-color: var(--link-color);
+  transform: translateY(-2px);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Tendencias */
+.kpi-trend {
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: block;
+  margin-top: 5px;
+}
+
+.kpi-trend.positive {
+  color: var(--btn-primary-bg); /* Verde */
+}
+
+.kpi-trend.negative {
+  color: var(--error-color); /* Rojo */
+}
+
+.kpi-trend.neutral {
+  color: var(--text-secondary); /* Gris */
+}
+
+.kpi-status.warning {
+  color: #ff9800; /* Naranja para alerta de costo */
+}
+
+.dashboard-unified-grid {
+  display: grid;
+  /* Forzamos 3 columnas de igual tamaño */
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 20px;
+  padding: 20px 0;
+  /* Alineación vertical para que las tarjetas tengan la misma altura si están en la misma fila */
+  align-items: stretch; 
+}
+
+/* Clases para el tamaño de los widgets */
+.span-1 {
+  grid-column: span 1; /* Ocupa 1 de 3 espacios (33%) */
+}
+
+.span-full {
+  grid-column: 1 / -1; /* Ocupa todo el ancho (100%) */
+}
+
+/* Tabletas: Cambiamos a 2 columnas */
+@media (max-width: 1024px) {
+  .dashboard-unified-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .span-1 {
+    grid-column: span 1;
+  }
+  
+  /* En 2 columnas, el full ocupa 2 espacios */
+  .span-full {
+    grid-column: span 2; 
+  }
+}
+
+/* Móviles: 1 sola columna (todo vertical) */
+@media (max-width: 768px) {
+  .dashboard-unified-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .span-1, .span-full {
+    grid-column: span 1;
+  }
+}
+
+/* Estilos de la tarjeta arrastrable */
+.sortable-item {
+  height: 100%;
+}
+
+/* Animación de vibración solo en modo edición */
+.sortable-item.editable {
+  animation: shake 0.3s infinite ease-in-out alternate;
+  cursor: grab;
+}
+
+.sortable-item.editable:active {
+  cursor: grabbing;
+}
+
+/* Mantener estilos previos de delete-btn, etc. */
