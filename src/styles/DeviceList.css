@@ -54,6 +54,14 @@
 .group-card {
   background: var(--bg-group);
   padding: 20px;
+  border: 1.5px solid var(--border-color);
+}
+
+/* Mejorar visibilidad en modo oscuro */
+[data-theme="dark"] .group-card {
+  background: var(--bg-group);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .grupo-card-title {

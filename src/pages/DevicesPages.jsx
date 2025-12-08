@@ -6,7 +6,6 @@ import SearchBar from "../components/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
-import speedometer from "../assets/speedometer.svg";
 import "../styles/DevicesPages.css";
 import { useAuth } from "../context/AuthContext";
 
@@ -212,15 +211,6 @@ const DispositivosPage = () => {
   return (
     <div className="appBody">
       <div className="bodyHeader">
-        {!isEditing && (
-          <div className="bodyHeaderTop">
-          <div className="headerTitle">
-            <img src={speedometer} alt="Icono de dispositivos" className="headerIcon" />
-            <h2>Dispositivos</h2>
-          </div>
-        </div>
-        
-        )}
         {!isEditing && <SearchBar onSearch={setSearchQuery} />}
       </div>
 

@@ -120,7 +120,6 @@ const ConfigurationPage = () => {
 
   return (
     <div className="configurationPage-container">
-      <h2 className="configurationPage-title">Configuración</h2>
       <div className="configurationPage-cards">
         {/* Tarjeta de Alertas */}
         <AlertsConfigCard

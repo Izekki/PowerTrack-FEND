@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import HistorialLineChart from "../components/ConsumoComponets/HistorialLineChart";
 import "../styles/HomePage.css";
-import { useNavigate } from "react-router-dom";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const HomePage = () => {
-  const { userId, name } = useAuth();
+  const { userId } = useAuth();
   const [summaryData, setSummaryData] = useState({
     consumoDia: 0,
     costoMes: 0,
@@ -15,7 +14,6 @@ const HomePage = () => {
   });
   const [chartData, setChartData] = useState([]);
   const [deviceList, setDeviceList] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (userId) {
@@ -66,13 +64,6 @@ const HomePage = () => {
 
   return (
     <div className="home-dashboard">
-      <div className="dashboard-header">
-        <h1>Monitoreo de consumo eléctrico</h1>
-        <button className="profile-btn-header" onClick={() => navigate('/miperfil')}>
-            Perfil
-        </button>
-      </div>
-
       {/* Tarjetas Superiores */}
       <div className="kpi-container">
         <div className="kpi-card">
