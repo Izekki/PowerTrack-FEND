@@ -190,9 +190,6 @@ const AlertasPage = () => {
         )}
       </div>
 
-      {/* Título centrado */}
-      <h1 className="alertas-title-header">Alertas</h1>
-
       {/* Botón Marcar Leídas (Derecha) */}
       <div className="right-side">
         <button

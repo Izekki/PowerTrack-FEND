@@ -13,13 +13,6 @@ import logoutIcon from "../assets/sidebar-icons/salida.png";
 import consuIcon from "../assets/sidebar-icons/grafico.png";
 import profileIcon from "../assets/sidebar-icons/avatar.png";
 // Iconos inline para Home y Stats si no existen en assets
-<<<<<<< Updated upstream
-const HomeSvg = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>;
-const ChartSvg = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>;
-const GridSvg = () => <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>;
-
-=======
->>>>>>> Stashed changes
 
 const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
   const location = useLocation();
@@ -70,15 +63,10 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
             </Link>
           </li>
           <li>
-<<<<<<< Updated upstream
-=======
-            <Link to="/miperfil" className={`nav-item ${isActive("/miperfil") ? "active" : ""}`}>
-              <img src={profileIcon} alt="Perfil" className="icon-img"/>
               <span className="label">Mi Perfil</span>
             </Link>
           </li>
           <li>
->>>>>>> Stashed changes
             <Link to="/configuracion" className={`nav-item ${isActive("/configuracion") ? "active" : ""}`}>
               <img src={configIcon} alt="Config" className="icon-img"/>
               <span className="label">Configuración</span>

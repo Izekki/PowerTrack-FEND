@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import CreateGroupModal from "../components/CreateGroupModal";
 import CreateDeviceModal from "../components/CreateDeviceModal";
 import DeviceList from "../components/DeviceList";
-import ActionButtons from "../components/ActionButtons";
 import SearchBar from "../components/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
 import DeleteConfirmModal from "../components/DeleteConfirmModal";
-import speedometer from "../assets/speedometer.svg";
 import "../styles/DevicesPages.css";
 import { useAuth } from "../context/AuthContext";
 
@@ -213,21 +211,6 @@ const DispositivosPage = () => {
   return (
     <div className="appBody">
       <div className="bodyHeader">
-        {!isEditing && (
-          <div className="bodyHeaderTop">
-          <div className="headerTitle">
-            <img src={speedometer} alt="Icono de dispositivos" className="headerIcon" />
-            <h2>Dispositivos</h2>
-          </div>
-          <div className="bodyContainerButtons">
-            <ActionButtons
-              onAddGroup={() => setIsGroupModalOpen(true)}
-              onAddDevice={() => setIsDeviceModalOpen(true)}
-            />
-          </div>
-        </div>
-        
-        )}
         {!isEditing && <SearchBar onSearch={setSearchQuery} />}
       </div>
 
@@ -243,6 +226,8 @@ const DispositivosPage = () => {
             onEditGroup={handleOpenEditGroupModal}
             onDeleteGroup={handleOpenDeleteGroupModal}
             onDeleteDevice={handleOpenDeleteDeviceModal}
+            onAddGroup={() => setIsGroupModalOpen(true)}
+            onAddDevice={() => setIsDeviceModalOpen(true)}
           />
         )}
       </div>

@@ -2,7 +2,6 @@ import React, { use } from "react";
 import HeaderPW from "../components/HeaderPW";
 import MenuBar from "../components/MenuBar";
 import LogoutConfirmModal from "../components/LogoutConfirmModal";
-import MenuBarWithBurger from "../components/MenuBarWithBurger";
 import { useAuth } from "../context/AuthContext";
 
 const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCancel }) => {
@@ -12,8 +11,8 @@ const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCan
   return (
     <>
       <HeaderPW onLogout={onLogout} userName={name} />
-      <MenuBarWithBurger/>
       {children}
+
       {isModalOpen && (
         <LogoutConfirmModal 
           onConfirm={onConfirm} 
