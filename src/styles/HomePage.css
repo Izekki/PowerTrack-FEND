@@ -284,7 +284,7 @@
 }
 
 @keyframes slideUp {
-  from { transform: translateY(100%); }
+  from { transform: translateY(20%); }
   to { transform: translateY(0); }
 }
 
@@ -322,7 +322,6 @@
   align-items: stretch; 
 }
 
-/* Clases para el tamaño de los widgets */
 .span-1 {
   grid-column: span 1; /* Ocupa 1 de 3 espacios (33%) */
 }
@@ -373,4 +372,85 @@
   cursor: grabbing;
 }
 
-/* Mantener estilos previos de delete-btn, etc. */
+/* 1. Botón Editar/Guardar Flotante */
+.edit-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.btn-edit-mode-bottom {
+  background-color: transparent; /* Fondo transparente */
+  color: var(--text-primary);    /* Texto del color del tema */
+  border: 2px dashed var(--border-color);
+  padding: 12px 32px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-edit-mode-bottom:hover {
+  background-color: var(--item-hover-bg);
+  border-color: var(--link-color);
+  color: var(--link-color);
+  transform: translateY(-2px);
+}
+
+.btn-save-mode-bottom {
+  background-color: var(--btn-primary-bg);
+  color: #ffffff !important; /* Forzar blanco */
+  border: none;
+  padding: 14px 50px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 800;
+  font-size: 18px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-save-mode-bottom:hover {
+  background-color: var(--btn-primary-hover);
+  transform: scale(1.05);
+}
+
+/* 2. Panel Persistente (Drawer) */
+.add-widget-modal.persistent-drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: var(--card-bg); /* Color de fondo tarjeta */
+  padding: 20px 30px 40px 30px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
+  z-index: 1000;
+  border-top: 1px solid var(--border-color);
+  animation: slideUp 0.3s ease-out;
+  max-height: 40vh;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* 3. Corrección de Textos en Blanco (KPIs) */
+.kpi-card h3 {
+  color: var(--text-secondary); /* Asegura contraste */
+}
+
+.kpi-value {
+  color: var(--text-primary); /* Asegura contraste */
+}
+
+.widget-option {
+  color: var(--text-primary); /* Texto visible en opciones */
+}

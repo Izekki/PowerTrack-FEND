@@ -1,4 +1,3 @@
-// HeaderPW.jsx
 import "../styles/HeaderPW.css";
 import logo from "../assets/logo-pw.svg";
 import homeIcon from "../assets/sidebar-icons/home.png";
@@ -8,7 +7,6 @@ import alertIcon from "../assets/sidebar-icons/alerta.png";
 import profileIcon from "../assets/sidebar-icons/avatar.png";
 import configIcon from "../assets/sidebar-icons/ajuste.png";
 
-// Función para obtener el icono según el título de la página
 const getPageIcon = (pageTitle) => {
   const icons = {
     "Bienvenido": <img src={homeIcon} alt="Home" className="page-icon-img" />,
