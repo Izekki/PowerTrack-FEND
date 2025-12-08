@@ -9,12 +9,13 @@ import ConfigurationPage from "../pages/ConfigurationPage";
 import AlertasPage from "../pages/AlertasPage";
 import ConsumoPage from "../pages/ConsumoPage";
 import HistorialPage from "../pages/HistorialPage";
+import HomePage from "../pages/HomePage"; // <--- Importar HomePage
 
-
-import AuthenticatedLayout from "../layaout/AuthenticatedLayaout";
+// Usamos el layout V2 que tiene el Sidebar
+import AuthenticatedLayout from "../layaout/AuthenticatedLayaoutV2"; 
 
 const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout }) => {
-  const { isAuthenticated, login, logout } = useAuth();
+  const { isAuthenticated, login } = useAuth();
 
   return (
     <Routes>
@@ -22,6 +23,21 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
       
       {isAuthenticated ? (
         <>
+          {/* Nueva Ruta Home */}
+          <Route
+            path="/home"
+            element={
+              <AuthenticatedLayout
+                onLogout={onLogoutClick}
+                isModalOpen={isModalOpen}
+                onConfirm={onConfirmLogout}
+                onCancel={onCancelLogout}
+              >
+                <HomePage />
+              </AuthenticatedLayout>
+            }
+          />
+
           <Route
             path="/consumo"
             element={
@@ -35,6 +51,7 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
               </AuthenticatedLayout>
             }
           />
+          {/* ... Resto de rutas igual, solo asegurate de que usen AuthenticatedLayoutV2 si quieres el sidebar en todas ... */}
           <Route
             path="/alertas"
             element={
@@ -101,8 +118,9 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
             }
           />
 
-          <Route path="/" element={<Navigate to="/consumo" />} />
-          <Route path="*" element={<Navigate to="/consumo" />} />
+          {/* Redirección por defecto a /home */}
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </>
       ) : (
         <>

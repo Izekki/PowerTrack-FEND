@@ -1,0 +1,143 @@
+:root {
+  --sidebar-width: 250px;
+  --sidebar-width-collapsed: 70px;
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #333333;
+  --sidebar-active: #e6f4ea; /* Verde muy claro */
+  --sidebar-accent: #2E7D32; /* Verde principal */
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+}
+
+.sidebar.expanded { width: var(--sidebar-width); }
+.sidebar.collapsed { width: var(--sidebar-width-collapsed); }
+
+.sidebar-header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-logo {
+  height: 40px;
+  animation: fadeIn 0.3s;
+}
+
+.burger-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--sidebar-text);
+}
+
+.sidebar-nav {
+  background-color: var(--bg-boddy);  
+  flex: 1;
+  padding-top: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  color: var(--sidebar-text);
+  text-decoration: none;
+  transition: all 0.2s;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  gap: 15px;
+}
+
+.nav-item:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+.nav-item.active {
+  background-color: var(--sidebar-active);
+  color: var(--sidebar-accent);
+  border-left-color: var(--sidebar-accent);
+  font-weight: bold;
+}
+
+.nav-item .icon, .nav-item .icon-img, .nav-item svg {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  white-space: nowrap;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.sidebar.collapsed .label, 
+.sidebar.collapsed .sidebar-logo {
+  display: none;
+  opacity: 0;
+}
+
+.sidebar.collapsed .nav-item {
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.icon-wrapper {
+  position: relative;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.logout-btn {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.sidebar-nav {
+  background-color: var(--bg-boddy);  
+}
