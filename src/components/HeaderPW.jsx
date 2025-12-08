@@ -16,7 +16,7 @@ const HeaderPW = ({ onLogout, userName }) => {
         </div>
 
         <div className="logout" onClick={onLogout} style={{ cursor: "pointer" }}>
-          Cerrar Sesión
+          Cerrar Sesión(Quitar)
           <svg
             className="logout-icon"
             fill="#fff"

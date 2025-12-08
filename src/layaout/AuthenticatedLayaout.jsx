@@ -12,7 +12,6 @@ const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCan
   return (
     <>
       <HeaderPW onLogout={onLogout} userName={name} />
-      <MenuBarWithBurger/>
       {children}
       {isModalOpen && (
         <LogoutConfirmModal 
