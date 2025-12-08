@@ -254,7 +254,6 @@ const ConsumoPage = () => {
     <div className="consumo-card">
       <div className="consumo-container">
         <div className="columna-izquierda">
-          <h3 className="title-consumotitle">Hogar 1</h3>
           <DeviceConsumeList
             devices={devices}
             groups={groups}

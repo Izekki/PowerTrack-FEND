@@ -1,19 +1,23 @@
 import React from "react";
 import DeviceCard from "./DeviceCard";
 import GroupCard from "./GroupCard";
+import AddDeviceButton from "./AddDeviceButton";
+import AddGroupButton from "./AddGroupButton";
 
 import "../styles/DeviceList.css";
 
 const DeviceList = ({
   searchQuery,
   devices,
-  groups, // Asegúrate de pasar los grupos también como prop
+  groups,
   loading,
   onDeviceUpdate,
   onEditDevice,
   onEditGroup,
   onDeleteGroup,
   onDeleteDevice,
+  onAddGroup,
+  onAddDevice,
 }) => {
   if (loading) {
     return <p>Cargando dispositivos...</p>;
@@ -58,7 +62,10 @@ const DeviceList = ({
     <div className="device-list-container">
       {/* Columna de Grupos */}
       <div className="group-column">
-        <h3 className="column-title">Grupos</h3>
+        <div className="column-header">
+          <h3 className="column-title">Grupos</h3>
+          <AddGroupButton onClick={onAddGroup} />
+        </div>
         {allGroupsWithDevices.length > 0 ? (
           allGroupsWithDevices.map((group) => (
             <GroupCard
@@ -79,7 +86,10 @@ const DeviceList = ({
 
       {/* Columna de Dispositivos sin grupo */}
       <div className="container-device-columns">
-        <h3 className="column-title">Dispositivos</h3>
+        <div className="column-header">
+          <h3 className="column-title">Dispositivos</h3>
+          <AddDeviceButton onClick={onAddDevice} />
+        </div>
         <div className="device-column">
           {devicesWithoutGroup.length > 0 ? (
             devicesWithoutGroup.map((device) => (

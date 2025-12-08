@@ -13,12 +13,14 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  justify-content: space-between;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex-shrink: 0;
 }
 
 .logo {
@@ -30,42 +32,46 @@
 .user-info {
   color: var(--text-white);
   font-weight: bold;
-  margin-left: 20px;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 .user-name {
   font-size: 1.8rem;
   white-space: nowrap;
   transition: font-size 0.3s ease;
-}
-
-.logout {
-  cursor: pointer;
-  color: var(--text-white);
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  transition: all 0.3s ease;
-  margin-left: auto;
+  gap: 12px;
 }
 
-.logout:hover {
-  opacity: 0.9;
+.page-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.logout-text {
-  display: inline-block;
-  transition: all 0.3s ease;
+.page-icon svg {
+  stroke: var(--text-white);
+  transition: stroke 0.3s ease;
 }
 
-.logout-icon {
-  width: 25px;
-  height: 25px;
-  fill: var(--text-white);
-  transition: width 0.3s ease, height 0.3s ease;
+.page-icon-img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+/* Los iconos PNG siempre blancos en el header (fondo verde) */
+[data-theme="dark"] .page-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="light"] .page-icon-img {
+  filter: brightness(0) invert(1);
 }
 
 /* Media query para tabletas (768px - 1024px) */
@@ -96,21 +102,6 @@
   .user-name {
     font-size: 1.4rem;
   }
-
-  .logout {
-    font-size: 0; /* Oculta el texto */
-    gap: 0;
-    padding: 8px; /* Añade padding para mejor tacto */
-  }
-
-  .logout-text {
-    display: none; /* Asegura que el texto no ocupe espacio */
-  }
-
-  .logout-icon {
-    width: 30px; /* Icono un poco más grande para móviles */
-    height: 30px;
-  }
 }
 
 /* Media query para móviles pequeños (hasta 480px) */
@@ -125,10 +116,5 @@
 
   .user-name {
     font-size: 1.2rem;
-  }
-
-  .logout-icon {
-    width: 25px;
-    height: 25px;
   }
 }

@@ -155,8 +155,6 @@ const ProfilePage = () => {
 
   return (
     <div className="profilePage-container">
-      <h2 className="profilePage-title">Mi Perfil</h2>
-
       {loading ? (
         <p className="profilePage-loading">Cargando información...</p>
       ) : profileData ? (

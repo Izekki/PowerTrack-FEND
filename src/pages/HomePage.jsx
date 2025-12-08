@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import HistorialLineChart from "../components/ConsumoComponets/HistorialLineChart";
 import "../styles/HomePage.css";
-import { useNavigate } from "react-router-dom";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 

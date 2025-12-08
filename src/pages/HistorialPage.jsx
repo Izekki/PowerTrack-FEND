@@ -133,7 +133,6 @@ const HistorialPage = () => {
         <div className="consumo-container">
           {/* COLUMNA IZQUIERDA */}
           <div className="columna-izquierda">
-            <h3 className="title-consumotitle">Historial de Consumo</h3>
             <table className="historial-table">
               <thead>
                 <tr>
