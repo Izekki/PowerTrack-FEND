@@ -1,13 +1,13 @@
 // HeaderPW.jsx
 import "../styles/HeaderPW.css";
 import logo from "../assets/logo-pw.svg";
-const HeaderPW = ({ onLogout, userName }) => {
 import homeIcon from "../assets/sidebar-icons/home.png";
 import consuIcon from "../assets/sidebar-icons/grafico.png";
 import devicesIcon from "../assets/sidebar-icons/dispositivos.png";
 import alertIcon from "../assets/sidebar-icons/alerta.png";
 import profileIcon from "../assets/sidebar-icons/avatar.png";
 import configIcon from "../assets/sidebar-icons/ajuste.png";
+
 // Función para obtener el icono según el título de la página
 const getPageIcon = (pageTitle) => {
   const icons = {
