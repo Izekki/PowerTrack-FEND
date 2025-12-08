@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React from "react";
 import HeaderPW from "../components/HeaderPW";
 import MenuBar from "../components/MenuBar";
 import LogoutConfirmModal from "../components/LogoutConfirmModal";
