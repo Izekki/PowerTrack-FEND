@@ -61,11 +61,29 @@
   transition: all 0.3s ease;
 }
 
+<<<<<<< Updated upstream
 .logout-icon {
   width: 25px;
   height: 25px;
   fill: var(--text-white);
   transition: width 0.3s ease, height 0.3s ease;
+=======
+.page-icon-img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+/* Los iconos PNG siempre blancos en el header (fondo verde) */
+[data-theme="dark"] .page-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+[data-theme="light"] .page-icon-img {
+  filter: brightness(0) invert(1);
+>>>>>>> Stashed changes
 }
 
 /* Media query para tabletas (768px - 1024px) */

@@ -7,7 +7,13 @@ import { useNavigate } from "react-router-dom";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const HomePage = () => {
+<<<<<<< Updated upstream
   const { userId, name } = useAuth();
+=======
+  const { userId } = useAuth();
+
+  // Estados para almacenar los datos de la API
+>>>>>>> Stashed changes
   const [summaryData, setSummaryData] = useState({
     consumoDia: 0,
     costoMes: 0,
@@ -67,10 +73,6 @@ const HomePage = () => {
   return (
     <div className="home-dashboard">
       <div className="dashboard-header">
-        <h1>Monitoreo de consumo eléctrico</h1>
-        <button className="profile-btn-header" onClick={() => navigate('/miperfil')}>
-            Perfil
-        </button>
       </div>
 
       {/* Tarjetas Superiores */}
