@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../styles/Sidebar.css";
 import { useAlert } from "../context/AlertContext";
@@ -63,6 +63,8 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
             </Link>
           </li>
           <li>
+            <Link to="/miperfil" className={`nav-item ${isActive("/miperfil") ? "active" : ""}`}>
+              <img src={profileIcon} alt="Mi Perfil" className="icon-img"/>
               <span className="label">Mi Perfil</span>
             </Link>
           </li>

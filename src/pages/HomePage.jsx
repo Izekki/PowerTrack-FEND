@@ -34,32 +34,21 @@ const HomePage = () => {
   const [deviceList, setDeviceList] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // Estados de Configuración y Tendencias
+  // Estados de Configuración
   const [layout, setLayout] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);
+  // Eliminamos showAddModal, ya no se usa.
+  
   const [trends, setTrends] = useState({ consumoTrend: 0, consumoSign: 'neutral', costoStatus: 'neutral' });
 
-  // --- CONFIGURACIÓN DE SENSORES DND ---
-  // Configuramos para que requiera "mantener pulsado" un poco para arrastrar, como en iOS
+  // --- SENSORES DND ---
   const sensors = useSensors(
-    useSensor(MouseSensor, {
-      activationConstraint: {
-        distance: 10, // Mover 10px antes de empezar a arrastrar (evita clicks falsos)
-      },
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 250, // Mantener presionado 250ms en móvil para arrastrar
-        tolerance: 5,
-      },
-    }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
+    useSensor(MouseSensor, { activationConstraint: { distance: 10 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 250, tolerance: 5 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
-  // 1. Cargar Datos (Igual que antes)
+  // 1. Cargar Datos
   useEffect(() => {
     if (!userId) return;
     const fetchData = async () => {
@@ -81,12 +70,11 @@ const HomePage = () => {
         const defaultLayout = ["kpi_consumo", "kpi_costo", "kpi_alertas", "chart_historial", "list_top_devices"];
         setLayout(dataConfig.layout || defaultLayout);
 
-        // Procesamiento de Datos (Resumido para brevedad, misma lógica previa)
+        // Procesamiento de Datos
         const dispositivos = Array.isArray(dataConsumo.resumenDispositivos) ? dataConsumo.resumenDispositivos : [];
         const consumoTotalDia = dispositivos.reduce((acc, curr) => acc + (Number(curr.consumoActualKWh) || 0), 0);
         const costoMensualEstimado = consumoTotalDia * 30 * 1.5;
         
-        // Tendencias
         let diff = 0; let sign = 'neutral';
         const sem = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'semana') : null;
         if(sem?.detalles?.length >= 2) {
@@ -122,7 +110,7 @@ const HomePage = () => {
     }
   };
 
-  // --- Handlers Edición ---
+  // --- Funciones de Edición ---
   const handleSaveLayout = async () => {
     try {
       const response = await fetch(`${DOMAIN_URL}/user/dashboard-config/${userId}`, {
@@ -130,26 +118,29 @@ const HomePage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ layout })
       });
-      if (response.ok) { setIsEditMode(false); showAlert("success", "Guardado"); }
+      if (response.ok) { 
+        setIsEditMode(false); 
+        showAlert("success", "Guardado"); 
+      }
     } catch (e) { showAlert("error", "Error al guardar"); }
   };
 
   const removeWidget = (key) => setLayout(l => l.filter(k => k !== key));
+  
+  // Agregar widget: Se añade al inicio
   const addWidget = (widgetKey) => {
     if (!layout.includes(widgetKey)) {
       setLayout(prev => [widgetKey, ...prev]);
     }
-    setShowAddModal(false);
   };
+  
   const availableWidgets = Object.keys(WIDGET_REGISTRY).filter(k => !layout.includes(k));
 
-  // Render Widget
   const renderContent = (widgetKey) => {
     const config = WIDGET_REGISTRY[widgetKey];
     if (!config) return null;
     const Component = config.component;
     
-    // Props dinámicas
     const props = { loading };
     if (config.needsData === 'summary') { props.data = summaryData; props.trends = trends; }
     else if (config.needsData === 'chart') props.chartData = chartData;
@@ -166,28 +157,16 @@ const HomePage = () => {
   };
 
   return (
-    <div className={`home-dashboard ${isEditMode ? 'edit-mode' : ''}`}>
+    // Agregamos padding-bottom grande cuando está en modo edición para que el panel no tape el contenido
+    <div className={`home-dashboard ${isEditMode ? 'edit-mode' : ''}`} style={{ paddingBottom: isEditMode ? '280px' : '100px' }}>
       <div className="dashboard-header">
         <h1>Monitoreo de consumo eléctrico</h1>
-        <div className="header-controls">
-          {!isEditMode ? (
-            <button className="btn-edit-mode" onClick={() => setIsEditMode(true)}>Editar</button>
-          ) : (
-            <>
-              <button className="btn-add-widget" onClick={() => setShowAddModal(true)}>+ Agregar</button>
-              <button className="btn-save-mode" onClick={handleSaveLayout}>Guardar</button>
-            </>
-          )}
-        </div>
       </div>
 
       <DndContext 
         sensors={sensors} 
         collisionDetection={closestCenter} 
         onDragEnd={handleDragEnd}
-        // Solo permitimos drag en modo edición
-        // Si quieres permitirlo siempre, quita esta prop o ponla en true
-        // disabled={!isEditMode} 
       >
         <SortableContext items={layout} strategy={rectSortingStrategy}>
           <div className="dashboard-unified-grid">
@@ -196,7 +175,7 @@ const HomePage = () => {
                 key={key} 
                 id={key} 
                 isEditMode={isEditMode}
-                widgetType={key} // Para saber si es kpi o full
+                widgetType={key}
               >
                 {renderContent(key)}
               </SortableWidget>
@@ -205,18 +184,37 @@ const HomePage = () => {
         </SortableContext>
       </DndContext>
 
-      {showAddModal && (
-        <div className="add-widget-modal">
+      {/* BOTÓN UNIFICADO: CENTRADO Y AL FINAL */}
+      <div className="edit-button-container">
+         <button 
+            className={isEditMode ? "btn-save-mode-bottom" : "btn-edit-mode-bottom"}
+            onClick={isEditMode ? handleSaveLayout : () => setIsEditMode(true)}
+         >
+           {isEditMode ? "Guardar Dashboard" : "Editar widgets"}
+         </button>
+      </div>
+
+      {/* PANEL DE WIDGETS PERSISTENTE (Solo en modo edición) */}
+      {isEditMode && (
+        <div className="add-widget-modal persistent-drawer">
           <div className="modal-header">
-            <h3>Agregar Widget</h3>
-            <button onClick={() => setShowAddModal(false)}>✕</button>
+            <h3 className="modal-title">Widgets Disponibles</h3>
+            {/* No hay botón de cerrar, se cierra al dar clic en "Guardar" */}
           </div>
+          
           <div className="available-widgets-grid">
-            {availableWidgets.map(key => (
-              <div key={key} className="widget-option" onClick={() => addWidget(key)}>
-                {WIDGET_REGISTRY[key].label} +
-              </div>
-            ))}
+            {availableWidgets.length > 0 ? (
+              availableWidgets.map(key => (
+                <div key={key} className="widget-option" onClick={() => addWidget(key)}>
+                  <span>{WIDGET_REGISTRY[key].label}</span>
+                  <div style={{fontSize: '24px', marginTop: '5px', color: 'var(--btn-primary-bg)'}}>+</div>
+                </div>
+              ))
+            ) : (
+              <p style={{color: 'var(--text-secondary)', fontSize: '0.9rem', width: '100%', textAlign: 'center', fontStyle: 'italic'}}>
+                Todos los widgets están activos.
+              </p>
+            )}
           </div>
         </div>
       )}
