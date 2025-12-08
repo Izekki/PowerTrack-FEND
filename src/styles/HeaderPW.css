@@ -61,6 +61,18 @@
 .page-icon-img {
   width: 28px;
   height: 28px;
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+/* Los iconos PNG siempre blancos en el header (fondo verde) */
+[data-theme="dark"] .page-icon-img {
+  filter: brightness(0) invert(1);
+}
+
+.page-icon-img {
+  width: 24px;
+  height: 24px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   transition: filter 0.3s ease;
@@ -74,11 +86,6 @@
 [data-theme="light"] .page-icon-img {
   filter: brightness(0) invert(1);
 }
-
-[data-theme="light"] .page-icon-img {
-  filter: brightness(0) invert(1);
-}
-
 /* Media query para tabletas (768px - 1024px) */
 @media (max-width: 1024px) {
   .header-pw {
@@ -122,4 +129,4 @@
   .user-name {
     font-size: 1.2rem;
   }
-}
+ }
