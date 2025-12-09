@@ -4,7 +4,7 @@ import HistorialLineChart from "../ConsumoComponets/HistorialLineChart";
 const ChartHistorial = ({ chartData, loading }) => {
   return (
     <div className="chart-section">
-      <h3>Historial de consumo (Últimas 24h)</h3>
+      <h3>Historial de consumo</h3>
       <div className="home-chart-container">
           {!loading && chartData?.length > 0 ? (
               <HistorialLineChart detalles={chartData} />
