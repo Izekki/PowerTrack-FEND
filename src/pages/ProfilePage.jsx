@@ -29,17 +29,6 @@ const ProfilePage = () => {
     confirmPassword: "",
   });
 
-  useEffect(() => {
-    setSelectedTheme(theme);
-  }, [theme]);
-
-  const handleThemeChange = (event) => {
-    const newTheme = event.target.value;
-    setTheme(newTheme);
-    setSelectedTheme(newTheme);
-  };
-
-  // Función reutilizable para cargar los datos del perfil
   const fetchProfileData = async () => {
     try {
       setLoading(true);
