@@ -4,10 +4,14 @@ import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
+import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
+import { useTheme } from "next-themes";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ProfilePage = () => {
-  const { userId, token, name, login } = useAuth(); 
+  const { userId, token, name, login } = useAuth();
+  const { theme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme); 
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -25,6 +29,16 @@ const ProfilePage = () => {
     newPassword: "",
     confirmPassword: "",
   });
+
+  useEffect(() => {
+    setSelectedTheme(theme);
+  }, [theme]);
+
+  const handleThemeChange = (event) => {
+    const newTheme = event.target.value;
+    setTheme(newTheme);
+    setSelectedTheme(newTheme);
+  };
 
   // Función reutilizable para cargar los datos del perfil
   const fetchProfileData = async () => {
@@ -305,6 +319,11 @@ const ProfilePage = () => {
               </>
             )}
           </div>
+
+          <AccessibilityCard
+            selectedTheme={selectedTheme}
+            handleThemeChange={handleThemeChange}
+          />
 
           <div className="profilePage-card profileCard-summary">
             <h3 className="profileCard-title">Resumen</h3>

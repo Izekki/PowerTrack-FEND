@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ConfigurationPage.css";
-import { useTheme } from "next-themes";
 import { useAuth } from "../context/AuthContext";
 import AlertsConfigCard from "../components/ConfigPageComponents/AlertsConfigCard";
-import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 const ConfigurationPage = () => {
-  const { theme, setTheme } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
   const [configuraciones, setConfiguraciones] = useState([]);
   const [loading, setLoading] = useState(true);
   const { userId, token } = useAuth();
-
-  useEffect(() => {
-    setSelectedTheme(theme);
-  }, [theme]);
 
   // Cargar configuraciones del usuario
   useEffect(() => {
@@ -50,12 +42,6 @@ const ConfigurationPage = () => {
 
     if (userId) fetchConfiguraciones();
   }, [userId, token]);
-
-  const handleThemeChange = (event) => {
-    const newTheme = event.target.value;
-    setTheme(newTheme);
-    setSelectedTheme(newTheme);
-  };
 
   const updateMinAndMax = async (dispositivo_id, nuevoMin, nuevoMax) => {
     try {
@@ -127,12 +113,6 @@ const ConfigurationPage = () => {
           configuraciones={configuraciones}
           handleMinChange={handleMinChange}
           handleMaxChange={handleMaxChange}
-        />
-
-        {/* Tarjeta de Accesibilidad */}
-        <AccessibilityCard
-          selectedTheme={selectedTheme}
-          handleThemeChange={handleThemeChange}
         />
       </div>
     </div>
