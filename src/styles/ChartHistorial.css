@@ -1,0 +1,37 @@
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.chart-header h3 {
+  margin: 0;
+}
+
+.time-selector-inline {
+  display: flex;
+  gap: 8px;
+}
+
+.time-btn-inline {
+  padding: 6px 14px;
+  border: 1px solid var(--border-color, #ddd);
+  background-color: var(--widget-bg, #fff);
+  color: var(--text-color, #333);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.time-btn-inline:hover {
+  background-color: var(--hover-bg, #f0f0f0);
+}
+
+.time-btn-inline.active {
+  background-color: var(--btn-primary-bg, #4CAF50);
+  color: white;
+  border-color: var(--btn-primary-bg, #4CAF50);
+}
