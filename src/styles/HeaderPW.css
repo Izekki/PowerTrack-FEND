@@ -6,6 +6,11 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  transition: padding 0.3s ease;
+}
+
+.header-pw.header-collapsed {
+  padding: 10px 20px;
 }
 
 .header-content {
@@ -14,6 +19,12 @@
   align-items: center;
   gap: 20px;
   justify-content: space-between;
+  transition: gap 0.3s ease;
+}
+
+.header-pw.header-collapsed .header-content {
+  gap: 10px;
+  justify-content: center;
 }
 
 .logo-container {
@@ -21,6 +32,11 @@
   align-items: center;
   gap: 20px;
   flex-shrink: 0;
+  transition: opacity 0.3s ease, max-width 0.3s ease;
+}
+
+.header-pw.header-collapsed .logo-container {
+  display: none;
 }
 
 .logo {
@@ -38,6 +54,10 @@
   text-align: center;
 }
 
+.header-pw.header-collapsed .user-info {
+  flex: none;
+}
+
 .user-name {
   font-size: 1.8rem;
   white-space: nowrap;
@@ -47,27 +67,14 @@
   gap: 12px;
 }
 
+.header-pw.header-collapsed .user-name {
+  font-size: 1.2rem;
+}
+
 .page-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.page-icon svg {
-  stroke: var(--text-white);
-  transition: stroke 0.3s ease;
-}
-
-.page-icon-img {
-  width: 28px;
-  height: 28px;
-  filter: brightness(0) invert(1);
-  transition: filter 0.3s ease;
-}
-
-/* Los iconos PNG siempre blancos en el header (fondo verde) */
-[data-theme="dark"] .page-icon-img {
-  filter: brightness(0) invert(1);
 }
 
 .page-icon-img {
@@ -86,6 +93,7 @@
 [data-theme="light"] .page-icon-img {
   filter: brightness(0) invert(1);
 }
+
 /* Media query para tabletas (768px - 1024px) */
 @media (max-width: 1024px) {
   .header-pw {
