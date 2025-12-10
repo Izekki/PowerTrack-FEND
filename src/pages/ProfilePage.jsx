@@ -4,10 +4,13 @@ import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "../components/Alert";
 import { useAuth } from "../context/AuthContext";
+// Importamos el nuevo widget
+import SummaryWidget from "../components/HomeWidgets/SummaryWidget";
+
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ProfilePage = () => {
-  const { userId, token, name, login } = useAuth(); 
+  const { userId, token, name, login } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -35,9 +38,9 @@ const ProfilePage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      
+
       const data = await response.json();
-      
+
       if (data.success) {
         setProfileData(data.data);
         setFormData({
@@ -71,57 +74,62 @@ const ProfilePage = () => {
   };
 
   const handleSave = async () => {
-  try {
-    // Validación de contraseña si se está cambiando
-    if (passwordData.currentPassword && 
-        (passwordData.newPassword !== passwordData.confirmPassword)) {
-      showAlert("error", "Las contraseñas nuevas no coinciden");
-      return;
-    }
+    try {
+      // Validación de contraseña si se está cambiando
+      if (
+        passwordData.currentPassword &&
+        passwordData.newPassword !== passwordData.confirmPassword
+      ) {
+        showAlert("error", "Las contraseñas nuevas no coinciden");
+        return;
+      }
 
-    // Primero actualizar los datos del perfil
-    const updateResponse = await fetch(
-      `${DOMAIN_URL}/user/edit/${userId}`,
-      {
+      // Primero actualizar los datos del perfil
+      const updateResponse = await fetch(`${DOMAIN_URL}/user/edit/${userId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(formData),
+      });
+
+      const updateData = await updateResponse.json();
+
+      if (!updateData.success) {
+        showAlert("error", updateData.message || "Error al actualizar perfil");
+        return;
       }
-    );
 
-    const updateData = await updateResponse.json();
-
-    if (!updateData.success) {
-      showAlert("error", updateData.message || "Error al actualizar perfil");
-      return;
-    }
-
-    // Si hay cambio de contraseña, procesarlo
-    if (passwordData.currentPassword && 
+      // Si hay cambio de contraseña, procesarlo
+      if (
+        passwordData.currentPassword &&
         passwordData.newPassword &&
-        passwordData.newPassword === passwordData.confirmPassword) {
-      await handleChangePassword();
-    }
+        passwordData.newPassword === passwordData.confirmPassword
+      ) {
+        await handleChangePassword();
+      }
 
-    // Actualizar el contexto de autenticación y sessionStorage
-    if (formData.nombre !== name) {
-      sessionStorage.setItem("name", formData.nombre);
-      login(); // Esto actualizará el estado en el contexto
-    }
+      // Actualizar el contexto de autenticación y sessionStorage
+      if (formData.nombre !== name) {
+        sessionStorage.setItem("name", formData.nombre);
+        login(); // Esto actualizará el estado en el contexto
+      }
 
-    // Recargar los datos actualizados
-    await fetchProfileData();
-    
-    showAlert("success", "Perfil actualizado correctamente");
-    setIsEditing(false);
-    setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
-  } catch (error) {
-    showAlert("error", "Error al guardar cambios");
-  }
-};
+      // Recargar los datos actualizados
+      await fetchProfileData();
+
+      showAlert("success", "Perfil actualizado correctamente");
+      setIsEditing(false);
+      setPasswordData({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
+    } catch (error) {
+      showAlert("error", "Error al guardar cambios");
+    }
+  };
 
   const handleChangePassword = async () => {
     try {
@@ -135,7 +143,7 @@ const ProfilePage = () => {
           },
           body: JSON.stringify({
             currentPassword: passwordData.currentPassword,
-            newPassword: passwordData.newPassword
+            newPassword: passwordData.newPassword,
           }),
         }
       );
@@ -143,7 +151,11 @@ const ProfilePage = () => {
       const data = await response.json();
       if (data.success) {
         showAlert("success", "Contraseña actualizada correctamente");
-        setPasswordData({ currentPassword: "", newPassword: "", confirmPassword: "" });
+        setPasswordData({
+          currentPassword: "",
+          newPassword: "",
+          confirmPassword: "",
+        });
       } else {
         throw new Error(data.message || "Error al cambiar contraseña");
       }
@@ -159,22 +171,22 @@ const ProfilePage = () => {
         <p className="profilePage-loading">Cargando información...</p>
       ) : profileData ? (
         <div className="profilePage-content">
+          {/* Tarjeta de Información Personal */}
           <div className="profilePage-card profileCard-info">
-
-                    <div className="profileCard-header">
-        <h3 className="profileCard-title">Datos Personales</h3>
-        <button
-            className="editProfile-btn"
-            onClick={() => setIsEditing(!isEditing)}
-        >
-            <svg width="20" height="20" viewBox="0 0 24 24">
-            <path
-                fill="currentColor"
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
-            />
-            </svg>
-        </button>
-</div>
+            <div className="profileCard-header">
+              <h3 className="profileCard-title">Datos Personales</h3>
+              <button
+                className="editProfile-btn"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                  />
+                </svg>
+              </button>
+            </div>
 
             {isEditing ? (
               <>
@@ -206,7 +218,10 @@ const ProfilePage = () => {
                     className="input-style"
                     value={formData.id_proveedor}
                     onChange={(e) =>
-                      setFormData({ ...formData, id_proveedor: e.target.value })
+                      setFormData({
+                        ...formData,
+                        id_proveedor: e.target.value,
+                      })
                     }
                   >
                     <option value="">Seleccione un proveedor</option>
@@ -293,7 +308,8 @@ const ProfilePage = () => {
                   <strong>Correo:</strong> {profileData.correo}
                 </div>
                 <div className="profileCard-row">
-                  <strong>Proveedor:</strong> {profileData.proveedor_actual?.nombre || "N/A"}
+                  <strong>Proveedor:</strong>{" "}
+                  {profileData.proveedor_actual?.nombre || "N/A"}
                 </div>
                 <div className="profileCard-row">
                   <strong>Fecha de Registro:</strong>{" "}
@@ -306,31 +322,13 @@ const ProfilePage = () => {
             )}
           </div>
 
-          <div className="profilePage-card profileCard-summary">
-            <h3 className="profileCard-title">Resumen</h3>
-
-            <div className="profileCard-subsection">
-              <h4>Dispositivos ({profileData.total_dispositivos})</h4>
-              <ul className="profileCard-list">
-                {profileData.dispositivos.map((d) => (
-                  <li key={d.id} className="profileCard-item">
-                    <strong>{d.nombre}</strong> <span>- {d.ubicacion}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="profileCard-subsection">
-              <h4>Grupos ({profileData.total_grupos})</h4>
-              <ul className="profileCard-list">
-                {profileData.grupos.map((g) => (
-                  <li key={g.id} className="profileCard-item">
-                    <strong>{g.nombre}</strong>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          {/* Widget de Resumen (Refactorizado) */}
+          <SummaryWidget
+            dispositivos={profileData.dispositivos}
+            grupos={profileData.grupos}
+            totalDispositivos={profileData.total_dispositivos}
+            totalGrupos={profileData.total_grupos}
+          />
         </div>
       ) : (
         <p className="profilePage-error">No se pudo cargar el perfil.</p>
