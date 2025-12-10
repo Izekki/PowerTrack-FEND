@@ -33,6 +33,7 @@ const HomePage = () => {
   const [chartData, setChartData] = useState([]);
   const [deviceList, setDeviceList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [groupList, setGroupList] = useState([]); // <--- NUEVO ESTADO PARA GRUPOS
   
   // Rango de Tiempo (Zoom)
   const [timeRange, setTimeRange] = useState(24); // 1, 8, 12, 24
@@ -244,15 +245,23 @@ const HomePage = () => {
   const addWidget = (widgetKey) => { if (!layout.includes(widgetKey)) setLayout(prev => [widgetKey, ...prev]); };
   const availableWidgets = Object.keys(WIDGET_REGISTRY).filter(k => !layout.includes(k));
 
-  const renderContent = (widgetKey) => {
+const renderContent = (widgetKey) => {
     const config = WIDGET_REGISTRY[widgetKey];
     if (!config) return null;
     const Component = config.component;
     const props = { loading };
     
-    if (config.needsData === 'summary') { props.data = summaryData; props.trends = trends; }
-    else if (config.needsData === 'chart') { props.chartData = chartData; props.timeRange = timeRange; props.setTimeRange = setTimeRange; }
-    else if (config.needsData === 'devices') props.deviceList = deviceList;
+    // Configuración de props para los widgets existentes
+    if (config.needsData === 'summary') { 
+        props.data = summaryData; 
+        props.trends = trends; 
+    }
+    else if (config.needsData === 'chart') {
+        props.chartData = chartData;
+    }
+    // "devices" y "full_summary" YA NO NECESITAN PROPS ESPECÍFICAS
+    // porque TopDevicesList y SummaryWidget ahora se auto-gestionan.
+    // Puedes dejar el 'else if' vacío o simplemente no pasar nada.
 
     return (
         <div className="widget-inner-content">
@@ -260,7 +269,7 @@ const HomePage = () => {
             <Component {...props} />
         </div>
     );
-  };
+};
 
   return (
     <div className={`home-dashboard ${isEditMode ? 'edit-mode' : ''}`} style={{ paddingBottom: isEditMode ? '280px' : '100px' }}>

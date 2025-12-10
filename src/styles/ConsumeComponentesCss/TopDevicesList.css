@@ -1,0 +1,217 @@
+/* src/styles/ConsumeComponentesCss/TopDevicesList.css */
+
+/* Contenedor principal */
+.top-devices-container {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-default);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative; /* Necesario para posicionar el lápiz */
+  transition: box-shadow 0.3s ease;
+}
+
+/* Título */
+.top-devices-title {
+  color: var(--consumo-text-title);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+}
+
+/* Lista */
+.top-devices-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+  flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+/* Scrollbar */
+.top-devices-list::-webkit-scrollbar { width: 6px; }
+.top-devices-list::-webkit-scrollbar-track { background: transparent; }
+.top-devices-list::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+.top-devices-list::-webkit-scrollbar-thumb:hover { background-color: var(--text-secondary); }
+
+/* --- Ítem Individual --- */
+.top-device-item {
+  margin-bottom: 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  position: relative; /* Para posicionar el tache */
+}
+
+.top-device-item:hover {
+  background-color: var(--nav-hover-bg);
+}
+
+/* Header del ítem (Nombre y Valor) */
+.top-device-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.top-device-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 70%;
+}
+
+.top-device-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--consumo-text-title);
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Barra de progreso */
+.progress-track {
+  width: 100%;
+  height: 10px;
+  background-color: var(--bg-body);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--btn-primary-bg) 0%, var(--btn-primary-hover) 100%);
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- MODO EDICIÓN --- */
+
+/* Botón de Lápiz (Editar) */
+.edit-mode-trigger {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  color: var(--text-secondary);
+  opacity: 0; /* Invisible por defecto */
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.edit-mode-trigger:hover {
+  background-color: var(--btn-primary-bg);
+  color: white;
+  border-color: var(--btn-primary-bg);
+}
+
+/* Mostrar el lápiz al hacer hover en el contenedor O si ya está en modo edición */
+.top-devices-container:hover .edit-mode-trigger,
+.edit-mode-trigger.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botón de Eliminar (Tache) */
+.remove-device-btn {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: popIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.remove-device-btn:hover {
+  background-color: #d32f2f;
+  transform: scale(1.1);
+}
+
+/* Sección de Agregar Nuevo (+ y Select) */
+.add-device-section {
+  margin-top: 15px;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: fadeIn 0.3s ease;
+}
+
+.add-device-btn {
+  background-color: var(--btn-primary-bg);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.add-device-btn:hover {
+  background-color: var(--btn-primary-hover);
+  transform: scale(1.1);
+}
+
+.device-select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  font-family: 'Nunito', sans-serif;
+}
+
+/* Animaciones */
+@keyframes popIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.no-data-msg {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 20px;
+}
