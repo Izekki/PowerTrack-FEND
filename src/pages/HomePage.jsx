@@ -73,6 +73,19 @@ const HomePage = () => {
       return `${pad(date.getHours())}:${pad(date.getMinutes())}`;
     };
 
+    // Parsea etiqueta del backend (YYYY-MM-DD HH:mm) a Date en UTC
+    const parseBackendEtiqueta = (etiqueta) => {
+      if (!etiqueta) return null;
+      // Formato: "YYYY-MM-DD HH:mm"
+      const match = etiqueta.match(/^(\d{4})-(\d{2})-(\d{2})\s(\d{2}):(\d{2})/);
+      if (match) {
+        const [, year, month, day, hour, min] = match;
+        // Parsear como UTC
+        return new Date(`${year}-${month}-${day}T${hour}:${min}:00Z`);
+      }
+      return null;
+    };
+
     const fetchData = async (isBackgroundRefresh = false) => {
       try {
         if (!isBackgroundRefresh) setLoading(true);
@@ -83,15 +96,12 @@ const HomePage = () => {
 
         // --- CONFIGURACIÓN DE RANGOS ---
         if (timeRange === 24) {
-            // 24H: 23h atrás + 1h futuro (buffer)
             pastMs = 23 * 60 * 60 * 1000;
             bufferMs = 1 * 60 * 60 * 1000;
         } else if (timeRange === 1) {
-            // 1H: 1h atrás + 1h futuro (buffer)
             pastMs = 60 * 60 * 1000;
             bufferMs = 60 * 60 * 1000;
         } else {
-            // Otros: 90% pasado, 10% futuro
             const totalMs = timeRange * 60 * 60 * 1000;
             pastMs = totalMs * 0.9;
             bufferMs = totalMs * 0.1;
@@ -100,23 +110,22 @@ const HomePage = () => {
         // --- LÓGICA DE "OBJETIVO FUTURO ESTABLE" ---
         let currentFuture = futureLimitRef.current ? new Date(futureLimitRef.current) : null;
 
-        // Si no hay límite o YA ALCANZAMOS el límite -> Calculamos uno nuevo
         if (!currentFuture || now >= currentFuture) {
             console.log("🔄 Actualizando límite futuro...");
-            // Nuevo límite = Ahora + Buffer
             currentFuture = new Date(now.getTime() + bufferMs);
-            // Guardamos en la referencia para el siguiente ciclo
             futureLimitRef.current = currentFuture.toISOString();
         }
 
-        // Definimos start y end
-        // End es el OBJETIVO FUTURO (Fijo hasta que lo alcancemos)
-        const end = currentFuture;
-        // Start se mueve con 'now' para mantener la ventana del pasado consistente
+        // SEPARAR: Límite Visual vs Límite de Petición
+        const end = currentFuture; // Límite visual (gráfica)
         const start = new Date(now.getTime() - pastMs);
 
+        // Petición con 2h extra para detectar datos adelantados del simulador
+        const BUFFER_MINUTES_FETCH = 120; // 2 horas
+        const endForFetch = new Date(end.getTime() + (BUFFER_MINUTES_FETCH * 60000));
+
         const fechaInicio = formatDateForMySQL(start);
-        const fechaFin = formatDateForMySQL(end); 
+        const fechaFin = formatDateForMySQL(endForFetch);
         const queryParams = `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
 
         const promises = [
@@ -138,30 +147,17 @@ const HomePage = () => {
         const historialDiaTemp = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];
         
         if (historialDiaTemp.length > 0) {
-            // Obtener la última medición recibida
             const ultimaMedicion = historialDiaTemp[historialDiaTemp.length - 1];
+            const fechaUltimaMedicion = parseBackendEtiqueta(ultimaMedicion.etiqueta);
             
-            // Extraer hora de la etiqueta (formato "HH:mm hrs" o "HH:mm")
-            const horaMatch = ultimaMedicion.etiqueta.match(/(\d{2}):(\d{2})/);
-            
-            if (horaMatch && currentFuture) {
-                const horaUltimaMedicion = parseInt(horaMatch[1]);
-                const minutoUltimaMedicion = parseInt(horaMatch[2]);
-                const horaLimite = currentFuture.getHours();
-                const minutoLimite = currentFuture.getMinutes();
-                
-                // Si la última medición alcanzó o superó el límite futuro
-                if (horaUltimaMedicion > horaLimite || 
-                    (horaUltimaMedicion === horaLimite && minutoUltimaMedicion >= minutoLimite)) {
-                    
+            if (fechaUltimaMedicion && currentFuture) {
+                // Comparar fechas completas (no solo horas) - Resuelve el problema de medianoche
+                if (fechaUltimaMedicion >= currentFuture) {
                     console.log(`⚡ Nueva medición alcanzó el límite: ${ultimaMedicion.etiqueta} >= ${formatLabel(currentFuture)}`);
                     console.log("🔄 Recalculando límite futuro...");
                     
-                    // Recalcular: límite = hora de la última medición + 1 hora extra
-                    const nuevaBase = new Date();
-                    nuevaBase.setHours(horaUltimaMedicion, minutoUltimaMedicion, 0, 0);
-                    
-                    currentFuture = new Date(nuevaBase.getTime() + (60 * 60 * 1000)); // +1h
+                    // Recalcular: límite = timestamp de la última medición + 1h
+                    currentFuture = new Date(fechaUltimaMedicion.getTime() + (60 * 60 * 1000));
                     futureLimitRef.current = currentFuture.toISOString();
                     
                     console.log(`✅ Nuevo límite futuro: ${formatLabel(currentFuture)}`);
@@ -189,19 +185,24 @@ const HomePage = () => {
         // --- GRÁFICA CON PUNTO FANTASMA ESTABLE ---
         let historialDia = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];
         
-        // Limpiar etiquetas: si vienen con fecha (YYYY-MM-DD HH:mm), extraer solo HH:mm
-        historialDia = historialDia.map(item => {
-          const match = item.etiqueta.match(/(\d{2}:\d{2})/);
-          const etiquetaLimpia = match ? match[1] : item.etiqueta;
-          return { ...item, etiqueta: etiquetaLimpia };
-        });
+        // Limpiar etiquetas y filtrar: solo mostrar datos dentro del límite visual (end)
+        historialDia = historialDia
+          .map(item => {
+            const match = item.etiqueta.match(/(\d{2}:\d{2})/);
+            const etiquetaLimpia = match ? match[1] : item.etiqueta;
+            return { ...item, etiqueta: etiquetaLimpia };
+          })
+          .filter(item => {
+            // Parsear la etiqueta para comparar con el límite visual
+            const fechaParsed = parseBackendEtiqueta(item.etiqueta);
+            if (!fechaParsed) return true; // Si no se puede parsear, incluir
+            // Solo incluir si es <= límite visual
+            return fechaParsed <= end;
+          });
         
         if (historialDia.length > 0) {
-            // Agregamos el punto futuro (que ahora es estable y no cambia en cada tick)
-            historialDia.push({
-                etiqueta: formatLabel(end), 
-                promedio: null // Null seguro para romper la línea sin crashear (si tu librería lo soporta)
-            });
+            // NO agregamos el punto futuro, dejamos que la gráfica siga avanzando naturalmente
+            // La lógica de límite sigue funcionando para detectar cuando actualizar el rango
         }
         
         setChartData(historialDia);
@@ -250,7 +251,7 @@ const HomePage = () => {
     const props = { loading };
     
     if (config.needsData === 'summary') { props.data = summaryData; props.trends = trends; }
-    else if (config.needsData === 'chart') props.chartData = chartData;
+    else if (config.needsData === 'chart') { props.chartData = chartData; props.timeRange = timeRange; props.setTimeRange = setTimeRange; }
     else if (config.needsData === 'devices') props.deviceList = deviceList;
 
     return (
@@ -265,16 +266,6 @@ const HomePage = () => {
     <div className={`home-dashboard ${isEditMode ? 'edit-mode' : ''}`} style={{ paddingBottom: isEditMode ? '280px' : '100px' }}>
       <div className="dashboard-header">
         <h1>Monitoreo de consumo eléctrico</h1>
-        <div className="time-selector-container">
-            <span className="time-label">Vista:</span>
-            <div className="time-buttons">
-                {[1, 8, 12, 24].map(hours => (
-                    <button key={hours} className={`time-btn ${timeRange === hours ? 'active' : ''}`} onClick={() => setTimeRange(hours)}>
-                        {hours}h
-                    </button>
-                ))}
-            </div>
-        </div>
       </div>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
