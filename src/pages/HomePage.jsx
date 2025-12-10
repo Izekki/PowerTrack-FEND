@@ -189,6 +189,13 @@ const HomePage = () => {
         // --- GRÁFICA CON PUNTO FANTASMA ESTABLE ---
         let historialDia = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];
         
+        // Limpiar etiquetas: si vienen con fecha (YYYY-MM-DD HH:mm), extraer solo HH:mm
+        historialDia = historialDia.map(item => {
+          const match = item.etiqueta.match(/(\d{2}:\d{2})/);
+          const etiquetaLimpia = match ? match[1] : item.etiqueta;
+          return { ...item, etiqueta: etiquetaLimpia };
+        });
+        
         if (historialDia.length > 0) {
             // Agregamos el punto futuro (que ahora es estable y no cambia en cada tick)
             historialDia.push({
