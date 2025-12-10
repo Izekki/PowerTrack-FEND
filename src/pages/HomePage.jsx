@@ -33,6 +33,7 @@ const HomePage = () => {
   const [chartData, setChartData] = useState([]);
   const [deviceList, setDeviceList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [groupList, setGroupList] = useState([]); // <--- NUEVO ESTADO PARA GRUPOS
   
   // Estados de Configuración
   const [layout, setLayout] = useState([]);
@@ -136,15 +137,24 @@ const HomePage = () => {
   
   const availableWidgets = Object.keys(WIDGET_REGISTRY).filter(k => !layout.includes(k));
 
-  const renderContent = (widgetKey) => {
+const renderContent = (widgetKey) => {
     const config = WIDGET_REGISTRY[widgetKey];
     if (!config) return null;
     const Component = config.component;
     
     const props = { loading };
-    if (config.needsData === 'summary') { props.data = summaryData; props.trends = trends; }
-    else if (config.needsData === 'chart') props.chartData = chartData;
-    else if (config.needsData === 'devices') props.deviceList = deviceList;
+    
+    // Configuración de props para los widgets existentes
+    if (config.needsData === 'summary') { 
+        props.data = summaryData; 
+        props.trends = trends; 
+    }
+    else if (config.needsData === 'chart') {
+        props.chartData = chartData;
+    }
+    // "devices" y "full_summary" YA NO NECESITAN PROPS ESPECÍFICAS
+    // porque TopDevicesList y SummaryWidget ahora se auto-gestionan.
+    // Puedes dejar el 'else if' vacío o simplemente no pasar nada.
 
     return (
         <div className="widget-inner-content">
@@ -154,7 +164,7 @@ const HomePage = () => {
             <Component {...props} />
         </div>
     );
-  };
+};
 
   return (
     // Agregamos padding-bottom grande cuando está en modo edición para que el panel no tape el contenido
