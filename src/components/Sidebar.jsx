@@ -25,7 +25,8 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
       {/* Header del Sidebar (Logo y botón hamburguesa) */}
       <div className="sidebar-header">
         <div className="logo-area">
-           {!isCollapsed && <img src={logo} alt="PowerTrack" className="sidebar-logo" />}
+           <img src={logo} alt="PowerTrack" className="sidebar-logo" />
+           {!isCollapsed && <span className="sidebar-title">Power Track</span>}
         </div>
         <button className="burger-btn" onClick={toggleSidebar}>
           ☰
