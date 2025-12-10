@@ -3,22 +3,26 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 const SortableWidget = ({ id, children, isEditMode, widgetType }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging
-  } = useSortable({ id });
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition,
+        isDragging
+    } = useSortable({ 
+        id,
+        disabled: !isEditMode 
+    });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1, 
+    opacity: isDragging ? 0.5 : 1,
     zIndex: isDragging ? 999 : 'auto',
     position: 'relative',
-    touchAction: 'none'
+    touchAction: 'none',
+    height: '100%',
   };
 
   const gridSpanClass = widgetType.startsWith('kpi_') ? 'span-1' : 'span-full';
