@@ -258,6 +258,8 @@ const renderContent = (widgetKey) => {
     }
     else if (config.needsData === 'chart') {
         props.chartData = chartData;
+        props.timeRange = timeRange;
+        props.setTimeRange = setTimeRange;
     }
     // "devices" y "full_summary" YA NO NECESITAN PROPS ESPECÍFICAS
     // porque TopDevicesList y SummaryWidget ahora se auto-gestionan.
