@@ -40,9 +40,26 @@
   border-bottom: 1px solid var(--border-color);
 }
 
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  justify-content: center;
+}
+
 .sidebar-logo {
   height: 40px;
   animation: fadeIn 0.3s;
+  flex-shrink: 0;
+}
+
+.sidebar-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: var(--sidebar-text);
+  white-space: nowrap;
+  transition: opacity 0.2s;
 }
 
 .burger-btn {
@@ -126,7 +143,8 @@
 }
 
 .sidebar.collapsed .label, 
-.sidebar.collapsed .sidebar-logo {
+.sidebar.collapsed .sidebar-logo,
+.sidebar.collapsed .sidebar-title {
   display: none;
   opacity: 0;
 }
