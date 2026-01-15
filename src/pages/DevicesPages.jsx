@@ -168,13 +168,17 @@ const DispositivosPage = () => {
     if (!userId) return;
     setLoading(true);
     fetch(`${DOMAIN_URL}/device/dispositivosPorUsuario/${userId}`)
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) throw new Error('Error en la respuesta');
+        return response.json();
+      })
       .then((data) => {
-        setDevices(data);
+        setDevices(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error al obtener dispositivos:", error);
+        setDevices([]);
         setLoading(false);
       });
   };
