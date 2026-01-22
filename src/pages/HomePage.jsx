@@ -169,7 +169,19 @@ const HomePage = () => {
         if (resConfig && !isBackgroundRefresh) {
             const dataConfig = await resConfig.json();
             const defaultLayout = ["kpi_consumo", "kpi_costo", "kpi_alertas", "chart_historial", "list_top_devices"];
-            setLayout(dataConfig.layout || defaultLayout);
+            const layoutData = dataConfig.layout;
+            
+            // Si layout es un string JSON, parsearlo; si es array, usarlo directo
+            let parsedLayout = defaultLayout;
+            if (layoutData) {
+                try {
+                    parsedLayout = typeof layoutData === 'string' ? JSON.parse(layoutData) : layoutData;
+                } catch (e) {
+                    console.error('Error parsing layout:', e);
+                    parsedLayout = defaultLayout;
+                }
+            }
+            setLayout(Array.isArray(parsedLayout) ? parsedLayout : defaultLayout);
         }
 
         // --- PROCESAMIENTO ---
