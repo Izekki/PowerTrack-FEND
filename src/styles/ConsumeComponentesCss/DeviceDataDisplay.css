@@ -1,7 +1,15 @@
 /* === datos del consumo === */
+.device-data-display {
+  background-color: var(--consumo-card-bg);
+  border: 1px solid var(--consumo-card-border);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: var(--consumo-card-shadow);
+}
+
 .datos-consumo {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 10px;
 }
 

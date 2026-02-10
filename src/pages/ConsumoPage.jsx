@@ -26,6 +26,7 @@ const ConsumoPage = () => {
   const [chartDevices, setChartDevices] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [expandedGroups, setExpandedGroups] = useState([]);
+  const [displayMode, setDisplayMode] = useState("kwh");
   const devicesWithoutGroup = devices.filter(d => d.grupo_id === null);
   const navigate = useNavigate();
 
@@ -57,6 +58,9 @@ const ConsumoPage = () => {
             id: g.grupo_id,
             nombre: g.nombre || `Grupo ${g.grupo_id}`,
             consumoActual: g.consumoTotalKWh || 0,
+            costoActual: Number(
+              g.costoTotalMXN ?? g.costoTotalPeriodoMXN ?? g.costoMensualTotalMXN ?? 0
+            ) || 0,
           }));
 
           setDevices(formattedDevices);
@@ -69,12 +73,14 @@ const ConsumoPage = () => {
               id: d.id,
               nombre: d.dispositivo_nombre,
               consumoActual: d.consumoActual,
+              costoActual: d.costoActual,
               tipo: 'dispositivo',
             })),
           ...formattedGroups.map(g => ({
             id: `group-${g.id}`,
             nombre: g.nombre,
             consumoActual: g.consumoActual,
+            costoActual: g.costoActual,
             tipo: 'grupo',
           })),
         ];
@@ -123,12 +129,14 @@ const ConsumoPage = () => {
           id: d.id,
           nombre: d.dispositivo_nombre,
           consumoActual: d.consumoActual,
+          costoActual: d.costoActual,
           tipo: 'dispositivo',
         })),
         ...groups.map(g => ({
           id: `group-${g.id}`,
           nombre: g.nombre,
           consumoActual: g.consumoActual,
+          costoActual: g.costoActual,
           tipo: 'grupo',
         })),
       ];
@@ -149,6 +157,7 @@ const ConsumoPage = () => {
           id: d.id,
           nombre: d.dispositivo_nombre,
           consumoActual: d.consumoActual,
+          costoActual: d.costoActual,
           tipo: 'dispositivo',
         }));
       setChartDevices(devicesInGroup);
@@ -173,6 +182,7 @@ const ConsumoPage = () => {
           id: d.id,
           nombre: d.dispositivo_nombre,
           consumoActual: d.consumoActual,
+          costoActual: d.costoActual,
           tipo: 'dispositivo',
         })),
         // Aquí asegúrate de incluir los grupos siempre
@@ -180,6 +190,7 @@ const ConsumoPage = () => {
           id: `group-${g.id}`,
           nombre: g.nombre,
           consumoActual: g.consumoActual, // usa consumo total del grupo
+          costoActual: g.costoActual,
           tipo: 'grupo',
         })),
       ];
@@ -201,6 +212,7 @@ const ConsumoPage = () => {
             id: d.id,
             nombre: d.dispositivo_nombre,
             consumoActual: d.consumoActual,
+            costoActual: d.costoActual,
             tipo: 'dispositivo',
           })),
           // Aquí asegúrate de incluir los grupos siempre
@@ -208,6 +220,7 @@ const ConsumoPage = () => {
             id: `group-${g.id}`,
             nombre: g.nombre,
             consumoActual: g.consumoActual, // usa consumo total del grupo
+            costoActual: g.costoActual,
             tipo: 'grupo',
           })),
         ];
@@ -224,6 +237,7 @@ const ConsumoPage = () => {
             id: `group-${groupId}`,
             nombre: groups.find(g => g.id === groupId)?.nombre || 'Grupo',
             consumoActual: groups.find(g => g.id === groupId)?.consumoActual || 0,
+            costoActual: groups.find(g => g.id === groupId)?.costoActual || 0,
             tipo: 'grupo',
           },
           ...devices
@@ -232,6 +246,7 @@ const ConsumoPage = () => {
               id: d.id,
               nombre: d.dispositivo_nombre,
               consumoActual: d.consumoActual,
+              costoActual: d.costoActual,
               tipo: 'dispositivo',
             }))
         ];
@@ -271,9 +286,33 @@ const ConsumoPage = () => {
         </div>
 
         <div className="columna-derecha">
-          <h4 className="graph-title">Consumo Dispositivos</h4>
+          <div className="consumo-chart-header">
+            <h4 className="graph-title">Consumo Dispositivos</h4>
+            <div className="consumo-mode-toggle" role="tablist" aria-label="Filtro de consumo">
+              <button
+                className={displayMode === "kwh" ? "active" : ""}
+                onClick={() => setDisplayMode("kwh")}
+                type="button"
+                aria-pressed={displayMode === "kwh"}
+              >
+                kWh
+              </button>
+              <button
+                className={displayMode === "mxn" ? "active" : ""}
+                onClick={() => setDisplayMode("mxn")}
+                type="button"
+                aria-pressed={displayMode === "mxn"}
+              >
+                MXN
+              </button>
+            </div>
+          </div>
           <div className="graph-container">
-            <DeviceConsumeChart devices={chartDevices} activeDeviceButton={activeDeviceButton} />
+            <DeviceConsumeChart
+              devices={chartDevices}
+              activeDeviceButton={activeDeviceButton}
+              displayMode={displayMode}
+            />
           </div>
           <DeviceDetailConsumeModal
             selectedDevice={selectedDevice}
@@ -286,7 +325,9 @@ const ConsumoPage = () => {
             groups={visibleGroups}
             devices={visibleDevices}
             activeGroupButton={activeGroupButton}
-            activeDeviceButton={activeDeviceButton}/>
+            activeDeviceButton={activeDeviceButton}
+            displayMode={displayMode}
+          />
           <EnergyTip tips={tips} />
         </div>
       </div>

@@ -6,7 +6,7 @@ const ChartHistorial = ({ chartData, loading, timeRange, setTimeRange }) => {
   return (
     <div className="chart-section">
       <div className="chart-header">
-        <h3>Historial de consumo</h3>
+        <h3>Gráfica Histórica</h3>
         <div className="time-selector-inline">
           {[1, 8, 12, 24].map(hours => (
             <button 

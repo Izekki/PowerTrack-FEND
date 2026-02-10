@@ -8,17 +8,17 @@ import SummaryWidget from '../components/HomeWidgets/SummaryWidget'; // <--- IMP
 export const WIDGET_REGISTRY = {
   "kpi_consumo": {
     component: KpiConsumo,
-    label: "KPI Consumo",
+    label: "Consumo estimado hoy",
     needsData: "summary"
   },
   "kpi_costo": {
     component: KpiCosto,
-    label: "KPI Costo",
+    label: "Costo estimado mes",
     needsData: "summary"
   },
   "kpi_alertas": {
     component: KpiAlertas,
-    label: "KPI Alertas",
+    label: "Alertas de hoy",
     needsData: "summary"
   },
   "chart_historial": {

@@ -28,7 +28,12 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
            <img src={logo} alt="PowerTrack" className="sidebar-logo" />
            {!isCollapsed && <span className="sidebar-title">Power Track</span>}
         </div>
-        <button className="burger-btn" onClick={toggleSidebar}>
+        <button
+          className="burger-btn"
+          onClick={toggleSidebar}
+          title={isCollapsed ? "Expandir menú" : "Contraer menú"}
+          aria-label={isCollapsed ? "Expandir menú" : "Contraer menú"}
+        >
           ☰
         </button>
       </div>
@@ -37,41 +42,71 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
       <nav className="sidebar-nav">
         <ul>
           <li>
-            <Link to="/home" className={`nav-item ${isActive("/home") ? "active" : ""}`}>
-              <img src={homeIcon} alt="Home" className="icon-img"/>
+            <Link
+              to="/home"
+              className={`nav-item ${isActive("/home") ? "active" : ""}`}
+              title="Inicio"
+              aria-label="Inicio"
+            >
+              <img src={homeIcon} alt="Inicio" className="icon-img" />
               <span className="label">Inicio</span>
             </Link>
           </li>
           <li>
-            <Link to="/consumo" className={`nav-item ${isActive("/consumo") ? "active" : ""}`}>
-              <img src={consuIcon} alt="Consumo" className="icon-img"/>
+            <Link
+              to="/consumo"
+              className={`nav-item ${isActive("/consumo") ? "active" : ""}`}
+              title="Consumo"
+              aria-label="Consumo"
+            >
+              <img src={consuIcon} alt="Consumo" className="icon-img" />
               <span className="label">Consumo</span>
             </Link>
           </li>
           <li>
-            <Link to="/dispositivos" className={`nav-item ${isActive("/dispositivos") ? "active" : ""}`}>
-              <img src={devicesIcon} alt="Dispositivos" className="icon-img"/>
+            <Link
+              to="/dispositivos"
+              className={`nav-item ${isActive("/dispositivos") ? "active" : ""}`}
+              title="Dispositivos"
+              aria-label="Dispositivos"
+            >
+              <img src={devicesIcon} alt="Dispositivos" className="icon-img" />
               <span className="label">Dispositivos</span>
             </Link>
           </li>
           <li>
-            <Link to="/alertas" className={`nav-item ${isActive("/alertas") ? "active" : ""}`}>
+            <Link
+              to="/alertas"
+              className={`nav-item ${isActive("/alertas") ? "active" : ""}`}
+              title="Alertas"
+              aria-label="Alertas"
+            >
               <span className="icon-wrapper">
-                 <img src={alertsIcon} alt="Alertas" className="icon-img"/>
+                 <img src={alertsIcon} alt="Alertas" className="icon-img" />
                  {hasNewAlerts && <span className="notification-dot"></span>}
               </span>
               <span className="label">Alertas</span>
             </Link>
           </li>
           <li>
-            <Link to="/miperfil" className={`nav-item ${isActive("/miperfil") ? "active" : ""}`}>
-              <img src={profileIcon} alt="Mi Perfil" className="icon-img"/>
+            <Link
+              to="/miperfil"
+              className={`nav-item ${isActive("/miperfil") ? "active" : ""}`}
+              title="Mi perfil"
+              aria-label="Mi perfil"
+            >
+              <img src={profileIcon} alt="Mi perfil" className="icon-img" />
               <span className="label">Mi Perfil</span>
             </Link>
           </li>
           <li>
-            <Link to="/configuracion" className={`nav-item ${isActive("/configuracion") ? "active" : ""}`}>
-              <img src={configIcon} alt="Config" className="icon-img"/>
+            <Link
+              to="/configuracion"
+              className={`nav-item ${isActive("/configuracion") ? "active" : ""}`}
+              title="Configuración"
+              aria-label="Configuración"
+            >
+              <img src={configIcon} alt="Configuración" className="icon-img" />
               <span className="label">Configuración</span>
             </Link>
           </li>
@@ -80,8 +115,13 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
 
       {/* Footer del Sidebar (Logout) */}
       <div className="sidebar-footer">
-         <button onClick={onLogout} className="nav-item logout-btn">
-            <img src={logoutIcon} alt="Logout" className="icon-img" />
+        <button
+          onClick={onLogout}
+          className="nav-item logout-btn"
+          title="Salir"
+          aria-label="Salir"
+        >
+          <img src={logoutIcon} alt="Salir" className="icon-img" />
             <span className="label">Salir</span>
          </button>
       </div>

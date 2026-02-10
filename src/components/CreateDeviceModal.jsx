@@ -25,6 +25,8 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
       setUbicacion("");
       setIdGrupo("");
       setSensorId("");
+      setLoading(false);
+      setError(null);
     }
   }, [isOpen]);
 
@@ -63,6 +65,8 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
     }, [isOpen]);
 
   const handleSubmit = async () => {
+    setError(null);
+
     // Validación en frontend antes de enviar la solicitud
     if (!nombre.trim() || !ubicacion.trim() || !usuarioId.trim()) {
       await showAlert("error", "Todos los campos obligatorios deben ser completados.");
@@ -73,9 +77,6 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
       await showAlert("error", "El ID de usuario y el ID del grupo deben ser números.");
       return;
     }
-
-    setLoading(true);
-    setError(null);
 
     const mac = sensorId.trim(); // sensorId contiene la MAC desde el input
 
@@ -89,8 +90,9 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
     if (!macRegex.test(mac)) {
       await showAlert("error", "Formato de dirección MAC inválido. Usa el formato 00:00:00:00:00:00");
       return;
-    }    
+    }
 
+    setLoading(true);
 
     try {
       const response = await fetch(`${DOMAIN_URL}/device/devices`, {

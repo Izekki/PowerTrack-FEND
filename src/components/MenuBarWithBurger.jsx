@@ -12,7 +12,12 @@ const MenuBarWithBurger = () => {
   return (
     <div className="cont-nav-bar">
       <div className="menu-header">
-        <button className="burger-button" onClick={toggleMenu}>
+        <button
+          className="burger-button"
+          onClick={toggleMenu}
+          title={isOpen ? "Cerrar menú" : "Abrir menú"}
+          aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+        >
           ☰
         </button>
         <span className="menu-title">PowerTrack</span>

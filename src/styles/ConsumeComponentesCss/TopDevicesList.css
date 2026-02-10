@@ -10,8 +10,18 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative; /* Necesario para posicionar el lápiz */
   transition: box-shadow 0.3s ease;
+}
+
+.top-devices-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 /* Título */
@@ -19,9 +29,48 @@
   color: var(--consumo-text-title);
   font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 15px;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
+  margin: 0;
+}
+
+.top-devices-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.top-devices-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 4px 6px;
+}
+
+.top-devices-toggle button {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.top-devices-toggle button:hover {
+  background-color: var(--item-hover-bg);
+}
+
+.top-devices-toggle button.active {
+  background-color: var(--btn-primary-bg);
+  color: white;
+}
+
+.toggle-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
 }
 
 /* Lista */
@@ -97,24 +146,20 @@
 
 /* Botón de Lápiz (Editar) */
 .edit-mode-trigger {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background-color: var(--card-bg);
+  background-color: var(--bg-body);
   border: 1px solid var(--border-color);
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
+  border-radius: 16px;
+  padding: 6px 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 6px;
   cursor: pointer;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
   color: var(--text-secondary);
-  opacity: 0; /* Invisible por defecto */
-  transform: translateY(10px);
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   z-index: 10;
+  font-size: 0.85rem;
 }
 
 .edit-mode-trigger:hover {
@@ -123,11 +168,11 @@
   border-color: var(--btn-primary-bg);
 }
 
-/* Mostrar el lápiz al hacer hover en el contenedor O si ya está en modo edición */
-.top-devices-container:hover .edit-mode-trigger,
+/* Estado activo de edicion */
 .edit-mode-trigger.active {
-  opacity: 1;
-  transform: translateY(0);
+  background-color: var(--btn-primary-bg);
+  color: white;
+  border-color: var(--btn-primary-bg);
 }
 
 /* Botón de Eliminar (Tache) */

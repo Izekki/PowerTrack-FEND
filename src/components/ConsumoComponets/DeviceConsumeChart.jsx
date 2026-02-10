@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import ApexCharts from "react-apexcharts";
 import { darkenHex } from "../../utils/colorUtils";
 
-const DevicePieChart = ({ devices, activeDeviceButton }) => {
+const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
   const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark";
   const chartBorderColor = isDarkMode ? "#333333" : "#e0e0e0";
   const chartTextColor = isDarkMode ? "#f0f0f0" : "#333333";
-  const toolbarTextColor = isDarkMode ? "#e0e0e0" : "#333333";
+
+  const isCostMode = displayMode === "mxn";
+  const unitLabel = isCostMode ? "MXN" : "kWh";
+  const axisTitle = isCostMode ? "Costo (MXN)" : "Consumo (kWh)";
+  const formatValue = (value) => {
+    if (!Number.isFinite(value)) return isCostMode ? "$0.00" : "0.00 kWh";
+    const formatted = value.toFixed(2);
+    return isCostMode ? `$${formatted}` : `${formatted} kWh`;
+  };
   
   const generateRandomColor = (index) => {
     const hue = (index * 137.508) % 360;
@@ -20,10 +28,10 @@ const DevicePieChart = ({ devices, activeDeviceButton }) => {
 
   const series = [
     {
-      name: "Consumo (kWh)",
+      name: axisTitle,
       data: devices.map(device => ({
         x: device.nombre,
-        y: device.consumoActual,
+        y: isCostMode ? device.costoActual : device.consumoActual,
         fillColor: colors[devices.indexOf(device)]
       }))
     }
@@ -82,7 +90,10 @@ const DevicePieChart = ({ devices, activeDeviceButton }) => {
     };
   };
 
-  const maxValue = Math.max(...devices.map(d => d.consumoActual), 0);
+  const maxValue = Math.max(
+    ...devices.map(d => (isCostMode ? d.costoActual : d.consumoActual)),
+    0
+  );
   const scaleConfig = calculateDynamicScale(maxValue);
 
   const options = {
@@ -179,7 +190,7 @@ const DevicePieChart = ({ devices, activeDeviceButton }) => {
         },
       },
       title: {
-        text: "Consumo (kWh)",
+        text: axisTitle,
         style: {
           fontSize: "12px",
           fontWeight: 600,
@@ -203,7 +214,7 @@ const DevicePieChart = ({ devices, activeDeviceButton }) => {
       fillSeriesColor: true,
       theme: isDarkMode ? "dark" : "light",
       y: {
-        formatter: (value) => `${value.toFixed(2)} kWh`
+        formatter: (value) => formatValue(value)
       }
     },
     dataLabels: {
@@ -213,7 +224,7 @@ const DevicePieChart = ({ devices, activeDeviceButton }) => {
         fontSize: "12px",
         colors: [chartTextColor],
       },
-      formatter: (value) => `${value.toFixed(2)} kWh`
+      formatter: (value) => formatValue(value)
     },
     legend: {
       show: false,

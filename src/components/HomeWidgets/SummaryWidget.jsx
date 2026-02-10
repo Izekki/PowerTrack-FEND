@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import "../../styles/SummaryWidget.css";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -69,7 +70,7 @@ const SummaryWidget = ({
 
   if (!isUsingProps && localData.loading) {
     return (
-      <div className="profilePage-card profileCard-summary">
+      <div className="summary-widget-card">
         <p style={{ textAlign: 'center', padding: '20px' }}>Cargando resumen...</p>
       </div>
     );
@@ -88,16 +89,16 @@ const SummaryWidget = ({
   const needsExpansion = displayData.totalDispositivos > 2 || displayData.totalGrupos > 2;
 
   return (
-    <div className="profilePage-card profileCard-summary" style={{ height: '100%' }}>
-      <h3 className="profileCard-title">Resumen</h3>
+    <div className="summary-widget-card">
+      <h3 className="summary-widget-title">Resumen General</h3>
 
       {/* Sección Dispositivos */}
-      <div className="profileCard-subsection">
+      <div className="summary-widget-subsection">
         <h4>Dispositivos ({displayData.totalDispositivos})</h4>
         {displayData.dispositivos?.length > 0 ? (
-          <ul className="profileCard-list">
+          <ul className="summary-widget-list">
             {displayedDevices.map((d) => ( // Usar la lista reducida/completa
-              <li key={d.id} className="profileCard-item">
+              <li key={d.id} className="summary-widget-item">
                 <strong>{d.nombre}</strong> 
                 {d.ubicacion && <span> - {d.ubicacion}</span>}
               </li>
@@ -117,12 +118,12 @@ const SummaryWidget = ({
       </div>
 
       {/* Sección Grupos */}
-      <div className="profileCard-subsection">
+      <div className="summary-widget-subsection">
         <h4>Grupos ({displayData.totalGrupos})</h4>
         {displayData.grupos?.length > 0 ? (
-          <ul className="profileCard-list">
+          <ul className="summary-widget-list">
             {displayedGroups.map((g) => ( // Usar la lista reducida/completa
-              <li key={g.id} className="profileCard-item">
+              <li key={g.id} className="summary-widget-item">
                 <strong>{g.nombre}</strong>
               </li>
             ))}

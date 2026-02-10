@@ -130,7 +130,7 @@ const HomePage = () => {
         const queryParams = `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
 
         const promises = [
-          fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGrupos/${userId}${queryParams}`),
+          fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGruposReal/${userId}${queryParams}`),
           fetch(`${DOMAIN_URL}/electrical_analysis/historial_detallado/${userId}${queryParams}`),
           fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=100&filtro=todos`)
         ];
@@ -185,15 +185,16 @@ const HomePage = () => {
         }
 
         // --- PROCESAMIENTO ---
-        const dispositivos = Array.isArray(dataConsumo.resumenDispositivos) ? dataConsumo.resumenDispositivos : [];
-        const consumoTotalDia = dispositivos.reduce((acc, curr) => acc + (Number(curr.consumoActualKWh) || 0), 0);
-        const costoMensualEstimado = consumoTotalDia * 30 * 1.5;
+        const resumenGeneral = dataConsumo?.resumenGeneral || {};
+        const dispositivos = Array.isArray(dataConsumo?.resumenDispositivos) ? dataConsumo.resumenDispositivos : [];
+        const consumoTotalDia = Number(resumenGeneral.consumoRealKWh || 0);
+        const costoMensualEstimado = Number(resumenGeneral.costoMensualProyectadoMXN || 0);
         
         const hoyString = new Date().toLocaleDateString('es-MX');
         const alertas = Array.isArray(dataAlertas) ? dataAlertas.filter(a => new Date(a.fecha).toLocaleDateString('es-MX') === hoyString).length : 0;
 
         setSummaryData({ consumoDia: consumoTotalDia.toFixed(2), costoMes: costoMensualEstimado.toFixed(2), alertasDia: alertas });
-        setDeviceList([...dispositivos].sort((a,b) => b.consumoActualKWh - a.consumoActualKWh).slice(0,3));
+        setDeviceList([...dispositivos].sort((a,b) => (b.consumoRealKWh || 0) - (a.consumoRealKWh || 0)).slice(0,3));
         
         // --- GRÁFICA CON PUNTO FANTASMA ESTABLE ---
         let historialDia = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];

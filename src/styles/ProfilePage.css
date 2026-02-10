@@ -26,7 +26,8 @@
 
 .profilePage-card {
   background-color: var(--card-bg);
-  border-radius: 20px;
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
   box-shadow: var(--card-shadow);
   padding: 25px 30px;
   transition: transform 0.2s ease;
