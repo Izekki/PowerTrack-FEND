@@ -58,37 +58,52 @@ const DeviceList = ({
     devices: groupedDevices[group.name] || [], // Si no hay dispositivos, asignar un array vacío
   }));
 
+  const hasGroups = Array.isArray(groups) && groups.length > 0;
+
   return (
-    <div className="device-list-container">
+    <div className={`device-list-container${hasGroups ? "" : " no-groups"}`}>
       {/* Columna de Grupos */}
-      <div className="group-column">
-        <div className="column-header">
-          <h3 className="column-title">Grupos</h3>
-          <AddGroupButton onClick={onAddGroup} />
+      {hasGroups && (
+        <div className="group-column">
+          <div className="column-header">
+            <h3 className="column-title">Grupos</h3>
+            <AddGroupButton onClick={onAddGroup} />
+          </div>
+          {allGroupsWithDevices.length > 0 ? (
+            allGroupsWithDevices.map((group) => (
+              <GroupCard
+                key={group.id}
+                groupName={group.name}
+                devices={group.devices}
+                onEditDevice={onEditDevice}
+                onEditGroup={() => onEditGroup(group.name)}
+                onDeleteGroup={() => onDeleteGroup(group.name)}
+                onDeleteDevice={onDeleteDevice}
+                onDeviceUpdate={onDeviceUpdate}
+              />
+            ))
+          ) : (
+            <p className="no-results-message">No se encontraron grupos.</p>
+          )}
         </div>
-        {allGroupsWithDevices.length > 0 ? (
-          allGroupsWithDevices.map((group) => (
-            <GroupCard
-              key={group.id}
-              groupName={group.name}
-              devices={group.devices}
-              onEditDevice={onEditDevice}
-              onEditGroup={() => onEditGroup(group.name)}
-              onDeleteGroup={() => onDeleteGroup(group.name)}
-              onDeleteDevice={onDeleteDevice}
-              onDeviceUpdate={onDeviceUpdate}
-            />
-          ))
-        ) : (
-          <p className="no-results-message">No se encontraron grupos.</p>
-        )}
-      </div>
+      )}
 
       {/* Columna de Dispositivos sin grupo */}
       <div className="container-device-columns">
         <div className="column-header">
-          <h3 className="column-title">Dispositivos</h3>
-          <AddDeviceButton onClick={onAddDevice} />
+          <div className="column-header-left">
+            <h3 className="column-title">Dispositivos</h3>
+            <AddDeviceButton onClick={onAddDevice} />
+          </div>
+          <div className="column-actions">
+            {!hasGroups && (
+              <AddGroupButton
+                onClick={onAddGroup}
+                label="Grupos"
+                className="add-button-compact"
+              />
+            )}
+          </div>
         </div>
         <div className="device-column">
           {devicesWithoutGroup.length > 0 ? (

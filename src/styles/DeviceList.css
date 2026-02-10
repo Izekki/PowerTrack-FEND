@@ -6,6 +6,12 @@
   gap: 1rem;
 }
 
+.column-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .column-header .column-title {
   margin: 0;
 }
@@ -15,10 +21,31 @@
   
 }
 
+.column-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
 .device-list-container {
   display: flex;
   gap: 20px;
   padding: 20px;
+}
+
+.device-list-container.no-groups .container-device-columns {
+  flex: 1 1 100%;
+  min-width: 100%;
+}
+
+.device-list-container.no-groups .device-column {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 12px;
+}
+
+.device-list-container.no-groups .device-card {
+  width: 100%;
 }
 
 .group-column, .container-device-columns{
@@ -32,8 +59,9 @@
 .device-column {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+  gap: 20px;
   min-width: 300px;
+  padding: 8px;
 }
 
 /* Tarjetas */
@@ -74,7 +102,7 @@
 .devices-list {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
 }
 
 /* Responsive */
