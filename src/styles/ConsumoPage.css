@@ -28,6 +28,49 @@
   justify-content: flex-start;
 }
 
+.consumo-chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.consumo-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--card-border);
+  background-color: var(--consumo-button-bg);
+  box-shadow: var(--consumo-card-shadow);
+}
+
+.consumo-mode-toggle button {
+  border: none;
+  background: transparent;
+  color: var(--consumo-text-button);
+  font-family: 'nunito', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+}
+
+.consumo-mode-toggle button:hover {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+  transform: translateY(-1px);
+}
+
+.consumo-mode-toggle button.active {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+}
+
 
 /* === titulos === */
 .graph-title,
@@ -68,6 +111,11 @@
   .consumo-card {
     margin: 10px;
     padding: 15px;
+  }
+
+  .consumo-chart-header {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .ver-detalles-btn, .ver-mas-btn {

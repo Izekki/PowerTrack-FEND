@@ -7,7 +7,6 @@ import { useAuth } from "../context/AuthContext";
 import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
 import { useTheme } from "next-themes";
 // Importamos el nuevo widget
-import SummaryWidget from "../components/HomeWidgets/SummaryWidget";
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -340,13 +339,6 @@ const ProfilePage = () => {
             handleThemeChange={handleThemeChange}
           />
 
-          {/* Widget de Resumen (Refactorizado) */}
-          <SummaryWidget
-            dispositivos={profileData.dispositivos}
-            grupos={profileData.grupos}
-            totalDispositivos={profileData.total_dispositivos}
-            totalGrupos={profileData.total_grupos}
-          />
         </div>
       ) : (
         <p className="profilePage-error">No se pudo cargar el perfil.</p>

@@ -2,7 +2,17 @@ import React from 'react';
 import "../../styles/ConsumeComponentesCss/DeviceDataDisplay.css"
 
 
-const DeviceDataDisplay = ({ groups, devices, activeGroupButton, activeDeviceButton }) => {
+const DeviceDataDisplay = ({ groups, devices, activeGroupButton, activeDeviceButton, displayMode }) => {
+  const isCostMode = displayMode === "mxn";
+  const formatValue = (value) => {
+    const numericValue = Number(value);
+    if (!Number.isFinite(numericValue)) {
+      return isCostMode ? "$0.00" : "0.00 kWh";
+    }
+    const formatted = numericValue.toFixed(2);
+    return isCostMode ? `$${formatted} MXN` : `${formatted} kWh`;
+  };
+
   return (
     <div className="device-data-display">
       <div className="datos-consumo">
@@ -11,7 +21,7 @@ const DeviceDataDisplay = ({ groups, devices, activeGroupButton, activeDeviceBut
             key={`group-${group.id}`}
             className={`datos-grupo-consumo-span ${activeGroupButton === `group-${group.id}` ? 'active' : ''}`}
           >
-            {group.nombre} = {group.consumoActual ?? 0} kWh
+            {group.nombre} = {formatValue(isCostMode ? group.costoActual : group.consumoActual)}
           </span>
         ))}
         {devices.map(device => (
@@ -19,7 +29,7 @@ const DeviceDataDisplay = ({ groups, devices, activeGroupButton, activeDeviceBut
             key={device.id}
             className={`datos-consumo-span ${activeDeviceButton === device.id ? 'active' : ''}`}
           >
-            {device.dispositivo_nombre} = {device.consumoActual ?? 0} kWh
+            {device.dispositivo_nombre} = {formatValue(isCostMode ? device.costoActual : device.consumoActual)}
           </span>
         ))}
       </div>
