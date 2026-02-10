@@ -15,7 +15,7 @@
 .devices-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 20px;
 }
 
 .grupo-card-header {

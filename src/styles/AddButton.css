@@ -20,6 +20,29 @@
     transition: filter 0.3s ease;
 }
 
+.add-button-label {
+    margin-left: 6px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.add-button-compact {
+    padding: 2px 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-light);
+}
+
+.add-button-compact .add-button-icon {
+    width: 24px;
+    height: 24px;
+}
+
+.add-button-compact .add-button-label {
+    font-size: 0.85rem;
+}
+
 /* Invertir el icono en modo oscuro si es necesario */
 [data-theme="dark"] .add-button-icon {
     filter: brightness(0) invert(1);
