@@ -289,7 +289,7 @@ const renderContent = (widgetKey) => {
   return (
     <div className={`home-dashboard ${isEditMode ? 'edit-mode' : ''}`} style={{ paddingBottom: isEditMode ? '280px' : '100px' }}>
       <div className="dashboard-header">
-        <h1>Monitoreo de consumo eléctrico</h1>
+        
       </div>
 
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
