@@ -62,60 +62,65 @@ const LoginForm = ({ onLoginSuccess }) => {
 
   return (
     <div className="login-container">
-      <Header />
-      <div className="login-form-inputs-container">
-        <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
+      <Header showLogo={false} />
+      <img src={logo} alt="Logo PowerTrack" className="login-logo" />
+      <div className="login-form-wrapper">
+        <div className="login-form-inputs-container">
+          <h2 className="h2-iniciar-sesion">Iniciar Sesión</h2>
 
-        <div className="form-group">
-          <label className="label-Form-Login" htmlFor="email">Correo electrónico</label>
-          <div className="input-container">
-            <img src={emailIcon} alt="Email" />
-            <input
-              className='form-control-inputs'
-              type="email"
-              name="email"
-              placeholder="Introduzca su correo electrónico"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="label-Form-Login" htmlFor="password">Contraseña</label>
-          <div className="input-container">
-            <img src={passwordIcon} alt="Password" />
-            <input
-              className='form-control-inputs'
-              type={showPassword ? "text" : "password"}
-              name="password"
-              placeholder="Introduzca su contraseña"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            <button
-              type="button"
-              className="eye-icon-btn"
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '8px' }}
-            >
-              <img
-                src={showPassword ? eyeSlashIcon : eyeIcon}
-                alt="Toggle password visibility"
-                className="eye-icon"
+          <div className="form-group">
+            <label className="label-Form-Login" htmlFor="email">Correo electrónico</label>
+            <div className="input-container">
+              <img src={emailIcon} alt="Email" />
+              <input
+                className='form-control-inputs'
+                type="email"
+                name="email"
+                placeholder="Introduzca su correo electrónico"
+                value={formData.email}
+                onChange={handleChange}
+                required
               />
-            </button>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="label-Form-Login" htmlFor="password">Contraseña</label>
+            <div className="input-container">
+              <img src={passwordIcon} alt="Password" />
+              <input
+                className='form-control-inputs'
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Introduzca su contraseña"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                className="eye-icon-btn"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', marginLeft: '8px' }}
+              >
+                <img
+                  src={showPassword ? eyeSlashIcon : eyeIcon}
+                  alt="Toggle password visibility"
+                  className="eye-icon"
+                />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <a href="#" className="forgot-password" onClick={() => setRecover(true)}>Recuperar contraseña</a>
-      <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
-      <p className="register-link">¿No tienes una cuenta?</p>
-      <a href="#" className="forgot-password" onClick={handleGoToRegisterClick}>Crear una cuenta</a>
+        <a href="#" className="forgot-password" onClick={() => setRecover(true)}>Recuperar contraseña</a>
+        <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
+
+        <div className="register-separator" />
+        <p className="register-link">¿No tienes una cuenta?</p>
+        <button className="register-btn register-btn-login" onClick={handleGoToRegisterClick}>Registrate</button>
+      </div>
     </div>
   );
 };

@@ -5,14 +5,14 @@ import { useAlert } from "../context/AlertContext";
 
 // Importación de iconos 
 import logo from "../assets/logo-pw.svg";
-import homeIcon from "../assets/sidebar-icons/home.png"; 
 import devicesIcon from "../assets/sidebar-icons/dispositivos.png"; 
 import alertsIcon from "../assets/sidebar-icons/alerta.png";
 import configIcon from "../assets/sidebar-icons/ajuste.png";
 import logoutIcon from "../assets/sidebar-icons/salida.png";
 import consuIcon from "../assets/sidebar-icons/grafico.png";
 import profileIcon from "../assets/sidebar-icons/avatar.png";
-// Iconos inline para Home y Stats si no existen en assets
+import dashboardIcon from "../assets/sidebar-icons/dashboard.png";
+// Iconos inline para Dashboard y Stats si no existen en assets
 
 const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
   const location = useLocation();
@@ -43,13 +43,13 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
         <ul>
           <li>
             <Link
-              to="/home"
-              className={`nav-item ${isActive("/home") ? "active" : ""}`}
-              title="Inicio"
-              aria-label="Inicio"
+              to="/dashboard"
+              className={`nav-item ${isActive("/dashboard") ? "active" : ""}`}
+              title="Dashboard"
+              aria-label="Dashboard"
             >
-              <img src={homeIcon} alt="Inicio" className="icon-img" />
-              <span className="label">Inicio</span>
+              <img src={dashboardIcon} alt="Dashboard" className="icon-img" />
+              <span className="label">Dashboard</span>
             </Link>
           </li>
           <li>

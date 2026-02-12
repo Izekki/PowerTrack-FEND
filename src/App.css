@@ -63,7 +63,7 @@ body {
 
   /* ConsumoPage - Tema Claro */
   --consumo-card-bg: #ffffff;
-  --consumo-card-border: #e0e0e0;
+  --consumo-card-border: #ffffff;
   --consumo-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --consumo-consejo-bg: #faf0ef;
   --consumo-button-bg: #faf0ef;
@@ -78,7 +78,7 @@ body {
 
   /*DeviceCard*/
   --card-bg: #ffffff;
-  --card-border: #e0e0e0;
+  --card-border: #ffffff;
   --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   --text-primary: #333333;
   --group-card-bg: #e9ecef;
@@ -142,7 +142,7 @@ body {
   /*DeviceList*/
   --bg-light: #1f1f1f;
   --bg-group: #2b2b2b;
-  --border-color: #5a5a5a;
+  --border-color: #a1a1a1;
   --text-muted: #aaa;
   --text-dark: #e0e0e0;
   --shadow-default: 0 8px 18px rgba(0, 0, 0, 0.45);

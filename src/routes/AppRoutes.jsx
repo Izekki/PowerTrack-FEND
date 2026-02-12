@@ -23,16 +23,16 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
       
       {isAuthenticated ? (
         <>
-          {/* Ruta Home - Muestra "Bienvenido, {userName}" */}
+          {/* Ruta Dashboard - Muestra "Dashboard, {userName}" */}
           <Route
-            path="/home"
+            path="/dashboard"
             element={
               <AuthenticatedLayout
                 onLogout={onLogoutClick}
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
-                pageTitle="Bienvenido"
+                pageTitle="Dashboard"
               >
                 <HomePage />
               </AuthenticatedLayout>
@@ -135,9 +135,9 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
             }
           />
 
-          {/* Redirección por defecto a /home */}
-          <Route path="/" element={<Navigate to="/home" />} />
-          <Route path="*" element={<Navigate to="/home" />} />
+          {/* Redirección por defecto a /dashboard */}
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="*" element={<Navigate to="/dashboard" />} />
         </>
       ) : (
         <>

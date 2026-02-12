@@ -14,6 +14,7 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const DispositivosPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [activeView, setActiveView] = useState("devices");
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [isDeviceModalOpen, setIsDeviceModalOpen] = useState(false);
   const [isEditDeviceOpen, setIsEditDeviceOpen] = useState(false);
@@ -215,7 +216,33 @@ const DispositivosPage = () => {
   return (
     <div className="appBody">
       <div className="bodyHeader">
-        {!isEditing && <SearchBar onSearch={setSearchQuery} />}
+        {!isEditing && (
+          <div className="devices-header-controls">
+            <SearchBar onSearch={setSearchQuery} />
+            <div
+              className="devices-view-toggle"
+              role="tablist"
+              aria-label="Vista de dispositivos y grupos"
+            >
+              <button
+                type="button"
+                className={activeView === "devices" ? "active" : ""}
+                onClick={() => setActiveView("devices")}
+                aria-pressed={activeView === "devices"}
+              >
+                Dispositivos
+              </button>
+              <button
+                type="button"
+                className={activeView === "groups" ? "active" : ""}
+                onClick={() => setActiveView("groups")}
+                aria-pressed={activeView === "groups"}
+              >
+                Grupos
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="bodyContent">
@@ -225,6 +252,7 @@ const DispositivosPage = () => {
             devices={devices}
             groups={groups}
             loading={loading}
+            viewMode={activeView}
             onDeviceUpdate={handleDeviceUpdated}
             onEditDevice={handleOpenEditModal}
             onEditGroup={handleOpenEditGroupModal}

@@ -20,6 +20,7 @@
   width: 400px;
   max-width: 100%;
   animation: fadeIn 0.3s ease-in-out; /* Agregué animación */
+  color: var(--text-primary);
 }
 
 /* Título */
@@ -41,12 +42,29 @@ h2 {
   color: var(--text-secondary); /* Se usa el color secundario */
 }
 
+.required-indicator {
+  color: var(--error-color);
+  margin-left: 4px;
+}
+
 .input-group input {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
   border: 1px solid var(--border-color); /* Se actualiza el color del borde */
   transition: border 0.3s;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+}
+
+.input-group input.input-error {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+}
+
+.input-group input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
 
 /* Efecto hover en los inputs */
@@ -71,6 +89,7 @@ h2 {
   border: 1px solid var(--border-color); /* Se actualiza el color del borde */
   border-radius: 4px;
   transition: background 0.3s;
+  color: var(--text-primary);
 }
 
 .device-list li:hover {
@@ -151,6 +170,7 @@ h2 {
   background: var(--input-bg); /* Se usa el color de fondo del input */
   font-size: 16px;
   transition: border 0.3s, box-shadow 0.3s;
+  color: var(--input-text);
 }
 
 /* Efecto al enfocar */
@@ -163,6 +183,8 @@ h2 {
 /* Estilo de las opciones */
 .select-group select option {
   padding: 10px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
 }
 
 /* Efecto hover en opciones (solo visible en algunos navegadores) */

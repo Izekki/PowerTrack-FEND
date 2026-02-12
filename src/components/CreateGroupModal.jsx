@@ -61,7 +61,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
         throw new Error(result.message || "Error al crear el grupo");
       }
 
-      await showAlert("success", `Grupo creado con éxito! ID: ${result.newGroup.id}`);
+      await showAlert("success", "Grupo creado correctamente");
 
       if(onGroupCreated){
         onGroupCreated();
@@ -84,13 +84,17 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
       <div className="modal-content">
         <h2>Crear Nuevo Grupo</h2>
         <div className="input-group">
-          <label htmlFor="group-name">Nombre del grupo</label>
+          <label htmlFor="group-name">
+            Nombre del grupo
+            <span className="required-indicator">*</span>
+          </label>
           <input
             id="group-name"
             type="text"
             placeholder="Nombre del grupo"
             value={groupName}
             onChange={(e) => setGroupName(e.target.value)}
+            required
           />
         </div>
 

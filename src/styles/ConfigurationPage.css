@@ -11,23 +11,21 @@
 }
 
 .configurationPage-cards {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .configurationCard {
   flex: 1 1 45%;
   background-color: var(--card-bg);
-  padding: 1.5rem;
+  padding: 1.8rem;
   border-radius: 12px;
   box-shadow: var(--card-shadow);
-  border: 1px solid var(--card-border);
+  border: 1px solid #ffffff;
 }
 
 .configurationCard-title {
   font-size: 20px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   color: var(--text-primary);
 }
 
@@ -102,7 +100,8 @@
   color: var(--text-secondary);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+  line-height: 1.4;
 }
 
 .alert-slider-label input[type="range"] {
@@ -169,18 +168,92 @@
   font-size: 16px;
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  line-height: 1.35;
 }
 
 .alert-header strong {
   display: block; /* Para que el nombre aparezca en línea separada si lo deseas */
   font-size: 17px;
   color: var(--text-primary);
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .alert-header small {
   font-size: 13px;
   color: var(--text-secondary);
   font-weight: 400;
+}
+
+.alert-config-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.alert-config-state {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.alert-config-card {
+  background-color: var(--card-bg);
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.alert-slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.config-toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: #2e9a5f;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 1200;
+}
+
+.config-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.alert-slider-label.is-active {
+  color: #2e9a5f;
+  font-weight: 600;
+}
+
+.alert-slider.is-active::-webkit-slider-runnable-track {
+  background: rgba(46, 154, 95, 0.2);
+  border-color: #2e9a5f;
+}
+
+.alert-slider.is-active::-webkit-slider-thumb {
+  background: #2e9a5f;
+}
+
+.alert-slider.is-active::-moz-range-track {
+  background: rgba(46, 154, 95, 0.2);
+  border-color: #2e9a5f;
+}
+
+.alert-slider.is-active::-moz-range-thumb {
+  background: #2e9a5f;
 }

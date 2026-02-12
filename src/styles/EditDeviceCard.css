@@ -1,8 +1,9 @@
 /* Estilos base se mantienen igual */
 .edit-device-card {
   max-width: 600px;
-  background-color: var(--bg-light);
-  box-shadow: var(--shadow-default);
+  background-color: var(--card-bg);
+  border: 1px solid #ffffff;
+  box-shadow: var(--card-shadow);
   border-radius: 12px;
   padding: 20px;
   margin: 50px auto;

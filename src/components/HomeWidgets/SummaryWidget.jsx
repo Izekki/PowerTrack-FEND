@@ -90,7 +90,7 @@ const SummaryWidget = ({
 
   return (
     <div className="summary-widget-card">
-      <h3 className="summary-widget-title">Resumen General</h3>
+      <h3 className="summary-widget-title">Dispositivos Vinculados</h3>
 
       {/* Sección Dispositivos */}
       <div className="summary-widget-subsection">

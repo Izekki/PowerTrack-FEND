@@ -177,7 +177,7 @@ const HistorialPage = () => {
               className="generar-reporte-container"
               style={{ marginTop: "20px" }}
             >
-              <h4 >Generar Reporte</h4>
+              <h4 >Descargas de Reportes</h4>
               <button onClick={generarReporte} className="ver-mas-btn">
                 Generar PDF
               </button>
@@ -202,7 +202,7 @@ const HistorialPage = () => {
 
           {/* COLUMNA DERECHA */}
           <div className="columna-derecha">
-            <h4 className="graph-title">Detalle del Historial</h4>
+            <h4 className="graph-title">Reporte de Consumo</h4>
             {rangoSeleccionado ? (
               (() => {
                 const item = historialData.find(

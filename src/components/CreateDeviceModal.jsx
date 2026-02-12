@@ -10,6 +10,9 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const usuarioId = sessionStorage.getItem("userId");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [missingFields, setMissingFields] = useState({
+    nombre: false
+  });
 
   const [sensoresDisponibles, setSensoresDisponibles] = useState([]);
   const [sensorId, setSensorId] = useState("");
@@ -27,6 +30,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
       setSensorId("");
       setLoading(false);
       setError(null);
+      setMissingFields({ nombre: false });
     }
   }, [isOpen]);
 
@@ -67,30 +71,33 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const handleSubmit = async () => {
     setError(null);
 
+    const nombreValue = nombre.trim();
+    const ubicacionValue = ubicacion.trim();
+    const missing = {
+      nombre: !nombreValue
+    };
+
+    setMissingFields(missing);
+
     // Validación en frontend antes de enviar la solicitud
-    if (!nombre.trim() || !ubicacion.trim() || !usuarioId.trim()) {
-      await showAlert("error", "Todos los campos obligatorios deben ser completados.");
+    if (missing.nombre) {
+      await showAlert("error", "Los campos obligatorios deben ser completados.");
       return;
     }
 
-    if (isNaN(usuarioId) || (idGrupo && isNaN(idGrupo))) {
-      await showAlert("error", "El ID de usuario y el ID del grupo deben ser números.");
+    if (!usuarioId || isNaN(usuarioId) || (idGrupo && isNaN(idGrupo))) {
+      await showAlert("error", "No se encontro un usuario valido o el grupo no es valido.");
       return;
     }
 
     const mac = sensorId.trim(); // sensorId contiene la MAC desde el input
-
-    // Validación MAC obligatoria
-    if (!mac) {
-      await showAlert("error", "La dirección MAC es obligatoria.");
-      return;
-    }
-    
     const macRegex = /^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$/;
-    if (!macRegex.test(mac)) {
-      await showAlert("error", "Formato de dirección MAC inválido. Usa el formato 00:00:00:00:00:00");
+    if (mac && !macRegex.test(mac)) {
+      await showAlert("error", "Formato de direccion MAC invalido. Usa el formato 00:00:00:00:00:00");
       return;
     }
+
+    const macValue = mac || null;
 
     setLoading(true);
 
@@ -102,10 +109,10 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         },
         body: JSON.stringify({
           nombre,
-          ubicacion,
+          ubicacion: ubicacionValue,
           usuario_id: parseInt(usuarioId, 10),
           id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
-          mac
+          mac: macValue
         }),
       });
 
@@ -115,7 +122,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         throw new Error(result.message || "Error al crear el dispositivo");
       }
 
-      await showAlert("success", `Dispositivo creado con éxito! ID: ${result.dispositivo_id}`);
+      await showAlert("success", "Dispositivo creado correctamente");
       onClose();
       onDeviceCreated();
     } catch (err) {
@@ -134,40 +141,43 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         <h2>Crear Nuevo Dispositivo</h2>
 
         <div className="input-group">
-          <label htmlFor="nombre">Nombre del dispositivo*</label>
+          <label htmlFor="nombre">
+            Nombre del dispositivo
+            <span className="required-indicator">*</span>
+          </label>
           <input
             id="nombre"
             type="text"
             placeholder="Nombre"
             value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            onChange={(e) => {
+              setNombre(e.target.value);
+              if (missingFields.nombre) {
+                setMissingFields((prev) => ({ ...prev, nombre: false }));
+              }
+            }}
+            required
+            className={missingFields.nombre ? "input-error" : ""}
           />
         </div>
 
         <div className="input-group">
-          <label htmlFor="ubicacion">Ubicación*</label>
+          <label htmlFor="ubicacion">
+            Descripción (opcional)
+          </label>
           <input
             id="ubicacion"
             type="text"
-            placeholder="Ubicación"
+            placeholder="Descripción"
             value={ubicacion}
-            onChange={(e) => setUbicacion(e.target.value)}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="usuarioId">ID del usuario</label>
-          <input
-            id="usuarioId"
-            disabled
-            type="number"
-            placeholder="Usuario ID"
-            value={usuarioId}
+            onChange={(e) => {
+              setUbicacion(e.target.value);
+            }}
           />
         </div>
 
         <div className="select-group">
-          <label htmlFor="idGrupo">ID del grupo (opcional)</label>
+          <label htmlFor="idGrupo">Grupos (opcional)</label>
           <select
             id="idGrupo"
             value={idGrupo}
@@ -183,7 +193,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
         </div>
 
         <div className="input-group">
-          <label htmlFor="macAddress">Dirección MAC del sensor*</label>
+          <label htmlFor="macAddress">Direccion MAC del sensor<span className="required-indicator">*</span></label>
           <input
             id="macAddress"
             type="text"

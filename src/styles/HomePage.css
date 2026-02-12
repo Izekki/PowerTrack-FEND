@@ -89,7 +89,7 @@
 
 .kpi-card {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid #ffffff;
   border-radius: 15px;
   padding: 20px;
   box-shadow: var(--shadow-default);
@@ -125,7 +125,7 @@
 /* Chart Section */
 .chart-section {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid #ffffff;
   border-radius: 15px;
   padding: 20px;
   box-shadow: var(--shadow-default);
@@ -140,7 +140,7 @@
 /* Devices List */
 .devices-summary-section {
   background: var(--card-bg);
-  border: 1px solid var(--border-color);
+  border: 1px solid #ffffff;
   border-radius: 15px;
   padding: 20px;
   box-shadow: var(--shadow-default);

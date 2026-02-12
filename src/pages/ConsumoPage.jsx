@@ -280,7 +280,7 @@ const ConsumoPage = () => {
           />
           <div className="view-more">
             <button className="ver-mas-btn" onClick={() => navigate("/historial")}>
-              Más información
+              Reporte de Consumo
             </button>
           </div>
         </div>
