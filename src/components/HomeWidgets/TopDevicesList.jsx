@@ -104,7 +104,7 @@ const TopDevicesList = () => {
   if (loading) {
     return (
       <div className="top-devices-container">
-        <h3 className="top-devices-title">Top Dispositivos</h3>
+        <h3 className="top-devices-title">Comparador de dispositivos</h3>
         <p className="no-data-msg">Cargando dispositivos...</p>
       </div>
     );
@@ -113,7 +113,7 @@ const TopDevicesList = () => {
   return (
     <div className="top-devices-container">
       <div className="top-devices-header-row">
-        <h3 className="top-devices-title">Top Dispositivos</h3>
+        <h3 className="top-devices-title">Comparador de dispositivos</h3>
         <div className="top-devices-controls">
           <div className="top-devices-toggle">
             <span className="toggle-label">Ver:</span>

@@ -20,6 +20,7 @@
   width: 400px;
   max-width: 100%;
   z-index: 20;
+  color: var(--text-primary);
 }
 
 h2 {
@@ -39,6 +40,11 @@ h2 {
   margin-bottom: 5px;
   font-weight: bold;
   color: var(--text-primary); /* Color de texto consistente */
+}
+
+.required-indicator {
+  color: var(--error-color);
+  margin-left: 4px;
 }
 
 .input-group input {
@@ -68,6 +74,7 @@ h2 {
   border-radius: 4px;
   background-color: var(--bg-light); /* Fondo consistente */
   box-sizing: border-box;
+  color: var(--text-primary);
 }
 
 .device-list input[type="checkbox"] {

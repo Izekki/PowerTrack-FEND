@@ -11,6 +11,7 @@ const DeviceList = ({
   devices,
   groups,
   loading,
+  viewMode = "devices",
   onDeviceUpdate,
   onEditDevice,
   onEditGroup,
@@ -23,34 +24,35 @@ const DeviceList = ({
     return <p>Cargando dispositivos...</p>;
   }
 
+  const normalizedQuery = (searchQuery || "").toLowerCase();
+
   // Filtrar dispositivos con verificación de valores no undefined
-  const filteredDevices = devices.filter((device) =>
-    (device.dispositivo_nombre &&
-      device.dispositivo_nombre.toLowerCase().includes(searchQuery.toLowerCase())) ||
-    (device.grupo_nombre &&
-      device.grupo_nombre.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const filteredDevices = devices.filter((device) => {
+    const deviceName = device.dispositivo_nombre
+      ? device.dispositivo_nombre.toLowerCase()
+      : "";
+    const groupName = device.grupo_nombre ? device.grupo_nombre.toLowerCase() : "";
+    return deviceName.includes(normalizedQuery) || groupName.includes(normalizedQuery);
+  });
 
   const groupedDevices = {};
-  const devicesWithoutGroup = [];
 
-  // Agrupar dispositivos o agregar a la lista de dispositivos sin grupo
+  // Agrupar dispositivos por nombre de grupo
   filteredDevices.forEach((device) => {
     if (device.grupo_nombre) {
       if (!groupedDevices[device.grupo_nombre]) {
         groupedDevices[device.grupo_nombre] = [];
       }
       groupedDevices[device.grupo_nombre].push(device);
-    } else {
-      devicesWithoutGroup.push(device);
     }
   });
 
   // Filtrar grupos por búsqueda (aunque tengan dispositivos o no)
-  const filteredGroups = Array.isArray(groups) ?
-   groups.filter((group) =>
-    group.name.toLowerCase().includes(searchQuery.toLowerCase())
-   ) : [];
+  const filteredGroups = Array.isArray(groups)
+    ? groups.filter((group) =>
+        group.name.toLowerCase().includes(normalizedQuery)
+      )
+    : [];
 
   // Asegurarnos de que todos los grupos estén presentes en la lista de grupos, incluso los vacíos
   const allGroupsWithDevices = filteredGroups.map((group) => ({
@@ -60,54 +62,53 @@ const DeviceList = ({
 
   const hasGroups = Array.isArray(groups) && groups.length > 0;
 
-  return (
-    <div className={`device-list-container${hasGroups ? "" : " no-groups"}`}>
-      {/* Columna de Grupos */}
-      {hasGroups && (
-        <div className="group-column">
+  if (viewMode === "groups") {
+    return (
+      <div className="device-list-container single-view">
+        <div className="group-column full-width">
           <div className="column-header">
-            <h3 className="column-title">Grupos</h3>
-            <AddGroupButton onClick={onAddGroup} />
+            <div className="column-header-left">
+              <h3 className="column-title">Grupos</h3>
+              <AddGroupButton onClick={onAddGroup} />
+            </div>
           </div>
-          {allGroupsWithDevices.length > 0 ? (
-            allGroupsWithDevices.map((group) => (
-              <GroupCard
-                key={group.id}
-                groupName={group.name}
-                devices={group.devices}
-                onEditDevice={onEditDevice}
-                onEditGroup={() => onEditGroup(group.name)}
-                onDeleteGroup={() => onDeleteGroup(group.name)}
-                onDeleteDevice={onDeleteDevice}
-                onDeviceUpdate={onDeviceUpdate}
-              />
-            ))
+          {hasGroups ? (
+            allGroupsWithDevices.length > 0 ? (
+              allGroupsWithDevices.map((group) => (
+                <GroupCard
+                  key={group.id}
+                  groupName={group.name}
+                  devices={group.devices}
+                  onEditDevice={onEditDevice}
+                  onEditGroup={() => onEditGroup(group.name)}
+                  onDeleteGroup={() => onDeleteGroup(group.name)}
+                  onDeleteDevice={onDeleteDevice}
+                  onDeviceUpdate={onDeviceUpdate}
+                />
+              ))
+            ) : (
+              <p className="no-results-message">No se encontraron grupos.</p>
+            )
           ) : (
-            <p className="no-results-message">No se encontraron grupos.</p>
+            <p className="no-results-message">No hay grupos registrados.</p>
           )}
         </div>
-      )}
+      </div>
+    );
+  }
 
-      {/* Columna de Dispositivos sin grupo */}
-      <div className="container-device-columns">
+  return (
+    <div className="device-list-container single-view">
+      <div className="container-device-columns full-width">
         <div className="column-header">
           <div className="column-header-left">
             <h3 className="column-title">Dispositivos</h3>
             <AddDeviceButton onClick={onAddDevice} />
           </div>
-          <div className="column-actions">
-            {!hasGroups && (
-              <AddGroupButton
-                onClick={onAddGroup}
-                label="Grupos"
-                className="add-button-compact"
-              />
-            )}
-          </div>
         </div>
-        <div className="device-column">
-          {devicesWithoutGroup.length > 0 ? (
-            devicesWithoutGroup.map((device) => (
+        <div className="device-column device-column-single">
+          {filteredDevices.length > 0 ? (
+            filteredDevices.map((device) => (
               <DeviceCard
                 key={device.id}
                 device={device}

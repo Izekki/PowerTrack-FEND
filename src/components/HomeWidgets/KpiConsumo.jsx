@@ -6,7 +6,7 @@ const KpiConsumo = ({ data, trends, loading }) => {
   
   return (
     <div className="kpi-card">
-      <h3>Consumo estimado hoy</h3>
+      <h3>Consumo estimado</h3>
       <div className="kpi-value">
          {loading ? "..." : data?.consumoDia} <small>kWh</small>
       </div>

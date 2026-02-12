@@ -11,7 +11,7 @@ const AuthenticatedLayoutV3 = ({
   onLogout, 
   onConfirm, 
   onCancel,
-  pageTitle = "Bienvenido" // Título dinámico de la página
+  pageTitle = "Dashboard" // Título dinámico de la página
 }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const { name } = useAuth();
@@ -20,15 +20,18 @@ const AuthenticatedLayoutV3 = ({
     setIsSidebarCollapsed(!isSidebarCollapsed);
   };
 
+  const sidebarOffset = isSidebarCollapsed ? "70px" : "250px";
+
   return (
     <div style={{ 
       display: "flex", 
       flexDirection: "column", 
       height: "100vh",
       backgroundColor: "var(--bg-body)",
-      transition: "background-color 0.3s ease"
+      transition: "background-color 0.3s ease",
+      "--sidebar-offset": sidebarOffset
     }}>
-      {/* Header en la parte superior - fijo */}
+      {/* Header en la parte superior */}
       <div style={{ position: "relative", zIndex: 100 }}>
         <HeaderPW 
           onLogout={onLogout} 
@@ -37,19 +40,21 @@ const AuthenticatedLayoutV3 = ({
         />
       </div>
 
-      {/* Contenedor de Sidebar + Contenido */}
+      {/* Sidebar superpuesto + Contenido */}
       <div style={{ 
-        display: "flex", 
         flex: 1, 
         overflow: "hidden", 
         position: "relative",
         backgroundColor: "var(--bg-body)",
         transition: "background-color 0.3s ease"
       }}>
-        {/* Sidebar Fijo a la izquierda - DEBAJO del header */}
+        {/* Sidebar fijo desde el tope */}
         <div style={{ 
-          position: "relative",
-          zIndex: 50
+          position: "fixed",
+          top: 0,
+          left: 0,
+          height: "100vh",
+          zIndex: 200
         }}>
           <Sidebar 
             isCollapsed={isSidebarCollapsed} 
@@ -63,10 +68,13 @@ const AuthenticatedLayoutV3 = ({
           style={{ 
             flex: 1,
             padding: "20px",
+            paddingLeft: `calc(${sidebarOffset} + 20px)` ,
+            height: "100%",
+            minHeight: 0,
             overflowY: "auto",
             backgroundColor: "var(--bg-body)",
             color: "var(--text-primary)",
-            transition: "background-color 0.3s ease, color 0.3s ease"
+            transition: "background-color 0.3s ease, color 0.3s ease, padding-left 0.3s ease"
           }}
         >
           {children}

@@ -3,7 +3,7 @@ import React from 'react';
 const KpiAlertas = ({ data, loading }) => {
   return (
     <div className="kpi-card">
-      <h3>Alertas de hoy</h3>
+      <h3>Alertas</h3>
       <div className={`kpi-value ${data?.alertasDia > 0 ? "alert-text" : ""}`}>
         {loading ? "..." : data?.alertasDia}
       </div>

@@ -8,32 +8,32 @@ import SummaryWidget from '../components/HomeWidgets/SummaryWidget'; // <--- IMP
 export const WIDGET_REGISTRY = {
   "kpi_consumo": {
     component: KpiConsumo,
-    label: "Consumo estimado hoy",
+    label: "Consumo estimado",
     needsData: "summary"
   },
   "kpi_costo": {
     component: KpiCosto,
-    label: "Costo estimado mes",
+    label: "Costo estimado",
     needsData: "summary"
   },
   "kpi_alertas": {
     component: KpiAlertas,
-    label: "Alertas de hoy",
+    label: "Alertas",
     needsData: "summary"
   },
   "chart_historial": {
     component: ChartHistorial,
-    label: "Gráfica Histórica",
+    label: "Histórico de consumo",
     needsData: "chart"
   },
   "list_top_devices": {
     component: TopDevicesList,
-    label: "Top Dispositivos",
+    label: "Comparador de dispositivos",
     needsData: "devices"
   },
   "summary_widget": { 
     component: SummaryWidget,
-    label: "Resumen General",
+    label: "Dispositivos Vinculados",
     needsData: "none" 
   }
 };

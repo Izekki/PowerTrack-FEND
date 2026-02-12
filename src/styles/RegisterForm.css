@@ -3,7 +3,7 @@
 ===================================== */
 .header {
   width: 100%;
-  height: 15%;
+  height: var(--login-header-height, 15vh);
   background: linear-gradient(to right, var(--header-gradient-start), var(--header-gradient-end));
   display: flex;
   align-items: center;
@@ -16,16 +16,17 @@
 }
 
 .logo-img {
-  width: 160px;
-  height: 160px;
+  width: var(--public-logo-size, 190px);
+  height: auto;
   position: absolute;
-  top: 15%;
+  top: 100%;
   left: 5%;
+  transform: translateY(-50%);
   z-index: 100;
 }
 
 .inputs-register-all-container {
-  padding-top: 150px;
+  padding-top: calc(var(--login-header-height, 15vh) + (var(--public-logo-size, 190px) / 2) + 20px);
 }
 
 .register-container {
@@ -35,6 +36,19 @@
   min-height: 100vh;
   background-color: var(--bg-body);
   padding-left: 5%;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .register-container {
+    --public-logo-size: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    --public-logo-size: 150px;
+  }
 }
 
 .register-title {
@@ -75,6 +89,11 @@
   margin-right: 10px;
 }
 
+[data-theme="dark"] .register-input-container img,
+[data-theme="dark"] .eye-icon {
+  filter: brightness(0) invert(1);
+}
+
 .register-input {
   flex: 1;
   border: none;
@@ -98,7 +117,7 @@
   width: 52%;
   padding: 14px;
   color: var(--text-white);
-  background-color: var(--btn-primary-bg);
+  background-color: #f28c28;
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -108,7 +127,7 @@
 }
 
 .register-btn:hover {
-  background-color: var(--btn-primary-hover);
+  background-color: #e07c1f;
 }
 
 .register-error {
