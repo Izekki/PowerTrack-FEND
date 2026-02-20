@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../styles/HomePage.css";
 import { WIDGET_REGISTRY } from "../config/widgetRegistry";
-import { showAlert } from "../components/Alert";
+import { showAlert } from "../components/CommonComponents/Alert";
 
 // --- DND KIT IMPORTS ---
 import {

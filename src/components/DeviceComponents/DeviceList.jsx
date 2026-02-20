@@ -4,7 +4,7 @@ import GroupCard from "./GroupCard";
 import AddDeviceButton from "./AddDeviceButton";
 import AddGroupButton from "./AddGroupButton";
 
-import "../styles/DeviceList.css";
+import "../../styles/DeviceComponentsCss/DeviceList.css";
 
 const DeviceList = ({
   searchQuery,

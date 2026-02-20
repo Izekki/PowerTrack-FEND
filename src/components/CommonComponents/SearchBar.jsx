@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "../styles/SearchBar.css";
-import searchIcon from "../assets/search-icon.svg";
+import "../../styles/CommonComponentsCss/SearchBar.css";
+import searchIcon from "../../assets/search-icon.svg";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");

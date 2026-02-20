@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/GroupCard.css";
+import "../../styles/DeviceComponentsCss/GroupCard.css";
 import DeviceCard from "./DeviceCard";
 
 const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpdate, onDeleteGroup, onDeleteDevice }) => {

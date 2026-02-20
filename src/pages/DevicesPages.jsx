@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import CreateGroupModal from "../components/CreateGroupModal";
-import CreateDeviceModal from "../components/CreateDeviceModal";
-import DeviceList from "../components/DeviceList";
-import SearchBar from "../components/SearchBar";
+import CreateGroupModal from "../components/DeviceComponents/CreateGroupModal";
+import CreateDeviceModal from "../components/DeviceComponents/CreateDeviceModal";
+import DeviceList from "../components/DeviceComponents/DeviceList";
+import SearchBar from "../components/CommonComponents/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
-import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import DeleteConfirmModal from "../components/CommonComponents/DeleteConfirmModal";
 import "../styles/DevicesPages.css";
 import { useAuth } from "../context/AuthContext";
 

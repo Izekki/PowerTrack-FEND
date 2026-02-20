@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import DeviceConsumeList from "../components/ConsumoComponets/DeviceConsumeList";
-import DeviceConsumeChart from "../components/ConsumoComponets/DeviceConsumeChart";
-import DeviceDetailConsumeModal from "../components/ConsumoComponets/DeviceDetailConsumeModal";
-import EnergyTip from "../components/ConsumoComponets/EnergyTip";
-import DeviceDataDisplay from "../components/ConsumoComponets/DeviceDataDisplay";
+import DeviceConsumeList from "../components/ConsumoComponents/DeviceConsumeList";
+import DeviceConsumeChart from "../components/ConsumoComponents/DeviceConsumeChart";
+import DeviceDetailConsumeModal from "../components/ConsumoComponents/DeviceDetailConsumeModal";
+import EnergyTip from "../components/ConsumoComponents/EnergyTip";
+import DeviceDataDisplay from "../components/ConsumoComponents/DeviceDataDisplay";
 import { useAuth } from "../context/AuthContext";
 import "../styles/ConsumoPage.css";
 import { useNavigate } from "react-router-dom";

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import '../styles/LoginForm.css';
-import logo from "../assets/logo-pw.svg";
-import emailIcon from "../assets/email-icon.svg";
-import passwordIcon from "../assets/password-icon.svg";
-import eyeIcon from "../assets/eye-icon.svg";
-import eyeSlashIcon from "../assets/eye-slash-icon.svg";
+import '../../styles/AuthComponentsCss/LoginForm.css';
+import logo from "../../assets/logo-pw.svg";
+import emailIcon from "../../assets/email-icon.svg";
+import passwordIcon from "../../assets/password-icon.svg";
+import eyeIcon from "../../assets/eye-icon.svg";
+import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
 import RegisterForm from './RegisterForm.jsx';
 import Header from './Header.jsx';
-import { showAlert } from "./Alert.jsx";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 import RecoverPasswordForm from './RecoverPasswordForm.jsx';
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 

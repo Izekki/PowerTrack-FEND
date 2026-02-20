@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import HistorialLineChart from "../components/ConsumoComponets/HistorialLineChart";
+import HistorialLineChart from "../components/ConsumoComponents/HistorialLineChart";
 import "../styles/ConsumoPage.css";
 import "../styles/HistorialPage.css";
 import "../styles/EditDevicePage.css";
-import ReportePDFPage from "../components/ConsumoComponets/ReportePDFPage";
-import ModalReporte from "../components/ConsumoComponets/ModalReporte";
+import ReportePDFPage from "../components/ConsumoComponents/ReportePDFPage";
+import ModalReporte from "../components/ConsumoComponents/ModalReporte";
 import { useNavigate } from "react-router-dom";
-import { showAlert } from "../components/Alert.jsx";
+import { showAlert } from "../components/CommonComponents/Alert.jsx";
 
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;

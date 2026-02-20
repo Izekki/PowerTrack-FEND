@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Sidebar from "../components/Sidebar";
-import LogoutConfirmModal from "../components/LogoutConfirmModal";
-import "../styles/Sidebar.css"; // Asegurarse que los estilos globales carguen
+import Sidebar from "../components/LayoutComponents/Sidebar";
+import LogoutConfirmModal from "../components/CommonComponents/LogoutConfirmModal";
+import "../styles/LayoutComponentsCss/Sidebar.css"; // Asegurarse que los estilos globales carguen
 
 const AuthenticatedLayout = ({ children, isModalOpen, onLogout, onConfirm, onCancel }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);

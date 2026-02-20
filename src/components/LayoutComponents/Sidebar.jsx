@@ -1,17 +1,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../styles/Sidebar.css";
-import { useAlert } from "../context/AlertContext";
+import "../../styles/LayoutComponentsCss/Sidebar.css";
+import { useAlert } from "../../context/AlertContext";
 
 // Importación de iconos 
-import logo from "../assets/logo-pw.svg";
-import devicesIcon from "../assets/sidebar-icons/dispositivos.png"; 
-import alertsIcon from "../assets/sidebar-icons/alerta.png";
-import configIcon from "../assets/sidebar-icons/ajuste.png";
-import logoutIcon from "../assets/sidebar-icons/salida.png";
-import consuIcon from "../assets/sidebar-icons/grafico.png";
-import profileIcon from "../assets/sidebar-icons/avatar.png";
-import dashboardIcon from "../assets/sidebar-icons/dashboard.png";
+import logo from "../../assets/logo-pw.svg";
+import devicesIcon from "../../assets/sidebar-icons/dispositivos.png"; 
+import alertsIcon from "../../assets/sidebar-icons/alerta.png";
+import configIcon from "../../assets/sidebar-icons/ajuste.png";
+import logoutIcon from "../../assets/sidebar-icons/salida.png";
+import consuIcon from "../../assets/sidebar-icons/grafico.png";
+import profileIcon from "../../assets/sidebar-icons/avatar.png";
+import dashboardIcon from "../../assets/sidebar-icons/dashboard.png";
 // Iconos inline para Dashboard y Stats si no existen en assets
 
 const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {

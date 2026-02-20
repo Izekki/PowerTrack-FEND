@@ -1,7 +1,7 @@
 // Header.jsx
 import React from 'react';
-import '../styles/LoginForm.css'; // Asegúrate que aquí se incluya el estilo del header
-import logo from '../assets/logo-pw.svg';
+import '../../styles/AuthComponentsCss/LoginForm.css'; // Asegúrate que aquí se incluya el estilo del header
+import logo from '../../assets/logo-pw.svg';
 
 const Header = ({ showLogo = true }) => {
   return (

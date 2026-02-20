@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/ProfilePage.css";
 import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
-import { showAlert } from "../components/Alert";
+import { showAlert } from "../components/CommonComponents/Alert";
 import { useAuth } from "../context/AuthContext";
 import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
 import { useTheme } from "next-themes";
@@ -236,7 +236,7 @@ const ProfilePage = () => {
                       })
                     }
                   >
-                    <option value="">Seleccione un proveedor</option>
+                    <option value="" disabled>Seleccione un proveedor</option>
                     {proveedoresDisponibles.map((prov) => (
                       <option key={prov.id} value={prov.id}>
                         {prov.nombre}

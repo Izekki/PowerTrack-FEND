@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "../styles/IconSelectorModal.css";
-import { showAlert } from "./Alert.jsx";
+import "../../styles/DeviceComponentsCss/IconSelectorModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
-const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
+const images = import.meta.glob("../../assets/devices-icons/*.{png,svg}", {
   eager: true,
   import: "default",
 });

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../styles/CreateGroupModal.css";
-import { showAlert } from "./Alert.jsx";
+import "../../styles/DeviceComponentsCss/CreateGroupModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {

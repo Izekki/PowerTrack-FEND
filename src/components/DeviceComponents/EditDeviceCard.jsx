@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../styles/EditDeviceCard.css";
-import { showAlert } from "./Alert.jsx";
+import "../../styles/DeviceComponentsCss/EditDeviceCard.css";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 
 const EditDeviceCard = ({ device, onDeviceUpdated }) => {

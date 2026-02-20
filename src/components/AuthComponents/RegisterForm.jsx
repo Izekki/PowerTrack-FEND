@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import '../styles/RegisterForm.css';
-import emailIcon from "../assets/email-icon.svg";
-import passwordIcon from "../assets/password-icon.svg";
-import nameIcon from "../assets/name-icon.svg";
-import eyeIcon from "../assets/eye-icon.svg";
-import eyeSlashIcon from "../assets/eye-slash-icon.svg";
-import { showAlert } from "./Alert.jsx";
+import '../../styles/AuthComponentsCss/RegisterForm.css';
+import emailIcon from "../../assets/email-icon.svg";
+import passwordIcon from "../../assets/password-icon.svg";
+import nameIcon from "../../assets/name-icon.svg";
+import eyeIcon from "../../assets/eye-icon.svg";
+import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
 
 const RegisterForm = ({ onRegisterSuccess }) => {

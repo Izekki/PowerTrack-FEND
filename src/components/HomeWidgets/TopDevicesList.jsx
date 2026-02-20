@@ -156,6 +156,37 @@ const TopDevicesList = () => {
           </button>
         </div>
       </div>
+
+      {isEditMode && (
+        <div className="add-device-section">
+          {!showAddSelect ? (
+            <button 
+              className="add-device-btn" 
+              onClick={() => setShowAddSelect(true)}
+              title="Agregar dispositivo oculto"
+              disabled={hiddenList.length === 0}
+              style={{ opacity: hiddenList.length === 0 ? 0.5 : 1 }}
+            >
+              +
+            </button>
+          ) : (
+            <select 
+              className="device-select" 
+              onChange={handleShowDevice} 
+              defaultValue=""
+              autoFocus
+              onBlur={() => setShowAddSelect(false)}
+            >
+              <option value="" disabled>Selecciona un dispositivo...</option>
+              {hiddenList.map(dev => (
+                <option key={dev.dispositivo_id || dev.id} value={dev.dispositivo_id || dev.id}>
+                  {dev.nombre || dev.dispositivo_nombre}
+                </option>
+              ))}
+            </select>
+          )}
+        </div>
+      )}
       
       <div className="top-devices-list">
         {visibleList.length > 0 ? (
@@ -202,37 +233,6 @@ const TopDevicesList = () => {
           </p>
         )}
       </div>
-
-      {isEditMode && (
-        <div className="add-device-section">
-          {!showAddSelect ? (
-            <button 
-              className="add-device-btn" 
-              onClick={() => setShowAddSelect(true)}
-              title="Agregar dispositivo oculto"
-              disabled={hiddenList.length === 0}
-              style={{ opacity: hiddenList.length === 0 ? 0.5 : 1 }}
-            >
-              +
-            </button>
-          ) : (
-            <select 
-              className="device-select" 
-              onChange={handleShowDevice} 
-              defaultValue=""
-              autoFocus
-              onBlur={() => setShowAddSelect(false)}
-            >
-              <option value="" disabled>Selecciona un dispositivo...</option>
-              {hiddenList.map(dev => (
-                <option key={dev.dispositivo_id || dev.id} value={dev.dispositivo_id || dev.id}>
-                  {dev.nombre || dev.dispositivo_nombre}
-                </option>
-              ))}
-            </select>
-          )}
-        </div>
-      )}
 
     </div>
   );

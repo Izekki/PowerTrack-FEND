@@ -1,5 +1,5 @@
 import React from 'react';
-import HistorialLineChart from "../ConsumoComponets/HistorialLineChart";
+import HistorialLineChart from "../ConsumoComponents/HistorialLineChart";
 import '../../styles/ChartHistorial.css';
 
 const ChartHistorial = ({ chartData, loading, timeRange, setTimeRange }) => {

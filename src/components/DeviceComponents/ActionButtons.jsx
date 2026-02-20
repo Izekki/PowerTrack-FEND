@@ -2,7 +2,7 @@ import React from "react";
 import AddDeviceButton from "./AddDeviceButton";
 import AddGroupButton from "./AddGroupButton";
 
-import "../styles/ActionButtons.css";
+import "../../styles/DeviceComponentsCss/ActionButtons.css";
 
 const ActionButtons = ({ onAddDevice, onAddGroup }) => {
   return (

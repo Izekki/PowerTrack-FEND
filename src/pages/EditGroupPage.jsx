@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditGroupPage.css";
-import { showAlert } from "../components/Alert";
+import { showAlert } from "../components/CommonComponents/Alert";
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 // Cargar los iconos dinámicamente

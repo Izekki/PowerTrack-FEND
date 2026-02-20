@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../styles/CreateDeviceModal.css";
-import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
+import "../../styles/DeviceComponentsCss/CreateDeviceModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx"; // Importa la función showAlert
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 

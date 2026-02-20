@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "../styles/MenuBarWithBurger.css";
-import { useAlert } from "../context/AlertContext";
+import "../../styles/LayoutComponentsCss/MenuBarWithBurger.css";
+import { useAlert } from "../../context/AlertContext";
 
 const MenuBarWithBurger = () => {
   const [isOpen, setIsOpen] = useState(false);
