@@ -33,7 +33,19 @@ const AlertasPage = () => {
 
     try {
       // Añadimos el filtro en la URL
-      const data = await apiGet(`/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
+      const response = await apiGet(`/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
+           
+      // Manejar diferentes formatos de respuesta
+      let data = response;
+      if (response && !Array.isArray(response)) {
+        // Si no es un array, intentar extraer el array de diferentes propiedades comunes
+        data = response.data || response.alertas || response.results || [];
+      }
+
+      // Validar que data sea un array
+      if (!Array.isArray(data)) {
+        throw new Error('Formato de respuesta inválido');
+      }
 
       const formatted = data.map(alert => ({
         id: alert.id,
@@ -74,7 +86,19 @@ const AlertasPage = () => {
 
   const interval = setInterval(async () => {
     try {
-      const data = await apiGet(`/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
+      const response = await apiGet(`/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
+      
+      // Manejar diferentes formatos de respuesta
+      let data = response;
+      if (response && !Array.isArray(response)) {
+        data = response.data || response.alertas || response.results || [];
+      }
+
+      // Validar que data sea un array
+      if (!Array.isArray(data)) {
+        console.error('Formato de respuesta inválido en polling:', response);
+        return;
+      }
 
       const nuevas = data
         .map(alert => ({
