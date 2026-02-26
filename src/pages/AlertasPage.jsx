@@ -3,9 +3,10 @@ import AlertsCard from '../components/AlertasComponents/AlertsCard';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AlertasPage.css';
 import { useAlert } from '../context/AlertContext';
+import { apiGet, apiPut, createAuthHeaders, getApiDomain } from '../utils/apiHelper';
 
 
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+const DOMAIN_URL = getApiDomain();
 
 const AlertasPage = () => {
   const { userId } = useAuth();
@@ -32,8 +33,7 @@ const AlertasPage = () => {
 
     try {
       // Añadimos el filtro en la URL
-      const res = await fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
-      const data = await res.json();
+      const data = await apiGet(`/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
 
       const formatted = data.map(alert => ({
         id: alert.id,
@@ -74,8 +74,7 @@ const AlertasPage = () => {
 
   const interval = setInterval(async () => {
     try {
-      const res = await fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
-      const data = await res.json();
+      const data = await apiGet(`/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
 
       const nuevas = data
         .map(alert => ({
@@ -226,9 +225,7 @@ const AlertasPage = () => {
                     tipo={alert.tipo}
                     dispositivo={alert.dispositivo}
                     onMarcarLeida={async (id) => {
-                      await fetch(`${DOMAIN_URL}/alertas/marcar-una/${id}`, {
-                        method: "PUT",
-                      });
+                      await apiPut(`/alertas/marcar-una/${id}`);
                       setAlerts((prev) =>
                         prev.filter((alert) => alert.id !== id)
                       );
@@ -247,9 +244,7 @@ const AlertasPage = () => {
                   tipo={alert.tipo}
                   dispositivo={alert.dispositivo}
                   onMarcarLeida={async (id) => {
-                    await fetch(`${DOMAIN_URL}/alertas/marcar-una/${id}`, {
-                      method: "PUT",
-                    });
+                    await apiPut(`/alertas/marcar-una/${id}`);
                     setAlerts((prev) =>
                       prev.filter((alert) => alert.id !== id)
                     );

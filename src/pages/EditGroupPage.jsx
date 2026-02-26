@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/EditGroupPage.css";
 import { showAlert } from "../components/CommonComponents/Alert";
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiGet, apiPut } from "../utils/apiHelper";
 
 // Cargar los iconos dinámicamente
 const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
@@ -18,12 +18,14 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
 
   useEffect(() => {
     if (group && isOpen) {
-      fetch(`${DOMAIN_URL}/groups/grupo/${group.id}/dispositivos?usuarioId=${usuarioId}`)
-        .then(res => res.json())
+      apiGet(`/groups/grupo/${group.id}/dispositivos?usuarioId=${usuarioId}`)
         .then(data => {
           setInGroupDevices(data.inGroup || []);
           setOutGroupDevices(data.outGroup || []);
           setSelectedDevices(data.inGroup.map(d => d.id));
+        })
+        .catch(err => {
+          console.error("Error al cargar dispositivos del grupo:", err);
         });
     }
   }, [group, isOpen]);
@@ -37,22 +39,12 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
   };
 
   const handleUpdate = () => {
-    fetch(`${DOMAIN_URL}/groups/edit`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: group.id,
-        name: groupName,
-        devices: selectedDevices,
-        usuarioId: usuarioId
-      })
+    apiPut(`/groups/edit`, {
+      id: group.id,
+      name: groupName,
+      devices: selectedDevices,
+      usuarioId: usuarioId
     })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Hubo un error al actualizar el grupo.");
-        }
-        return res.json();
-      })
       .then(() => {
         showAlert("success", "Grupo actualizado correctamente");
         onGroupUpdated();

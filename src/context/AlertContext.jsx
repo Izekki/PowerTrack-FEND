@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
+import { apiGet, apiPut } from '../utils/apiHelper';
 
 const AlertContext = createContext();
 
@@ -12,8 +13,7 @@ export const AlertProvider = ({ children }) => {
     if (!userId) return;
     console.log('🔁 Verificando nuevas alertas para usuario', userId);
 
-    const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/alertas/verificar-nuevas/${userId}`);
-    const data = await res.json();
+    const data = await apiGet(`/alertas/verificar-nuevas/${userId}`);
 
     console.log('✅ Respuesta de alertas nuevas:', data);
     setHasNewAlerts(data.nuevas);
@@ -26,9 +26,7 @@ export const AlertProvider = ({ children }) => {
   const markAlertsAsRead = async () => {
     try {
       if (!userId) return;
-      await fetch(`${import.meta.env.VITE_BACKEND_URL}/alertas/marcar-leidas/${userId}`, {
-        method: 'PUT',
-      });
+      await apiPut(`/alertas/marcar-leidas/${userId}`);
       setHasNewAlerts(false);
     } catch (err) {
       console.error('Error al marcar alertas como leídas:', err);

@@ -8,9 +8,7 @@ import ReportePDFPage from "../components/ConsumoComponents/ReportePDFPage";
 import ModalReporte from "../components/ConsumoComponents/ModalReporte";
 import { useNavigate } from "react-router-dom";
 import { showAlert } from "../components/CommonComponents/Alert.jsx";
-
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiGet, apiPost } from "../utils/apiHelper";
 
 const HistorialPage = () => {
   const { userId } = useAuth();
@@ -32,20 +30,7 @@ const HistorialPage = () => {
 
   useEffect(() => {
     if (userId) {
-      fetch(`${DOMAIN_URL}/electrical_analysis/historial_detallado/${userId}`)
-        .then(async (res) => {
-          const contentType = res.headers.get("content-type");
-          if (!res.ok) {
-            const text = await res.text();
-            throw new Error(`Error ${res.status}: ${text}`);
-          }
-          if (contentType && contentType.includes("application/json")) {
-            return res.json();
-          } else {
-            const text = await res.text();
-            throw new Error(`Respuesta no es JSON: ${text}`);
-          }
-        })
+      apiGet(`/electrical_analysis/historial_detallado/${userId}`)
         .then((data) => {
           if (Array.isArray(data)) {
             setHistorialData(data);
@@ -97,21 +82,12 @@ const HistorialPage = () => {
 
     const { fechaInicio, fechaFinal } = getFechaRango(rangoSeleccionado);
 
-    const url = `${DOMAIN_URL}/user/reports/${userId}`;
-
     const body = {
       fechaInicio: `${fechaInicio}T00:00:00Z`,
       fechaFinal: `${fechaFinal}T23:59:59Z`,
     };
 
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    })
-      .then((res) => res.json())
+    apiPost(`/user/reports/${userId}`, body)
       .then((data) => {
         setReporte(data);
         setMostrarReporte(true);

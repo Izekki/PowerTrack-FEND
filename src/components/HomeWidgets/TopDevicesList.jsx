@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import "../../styles/ConsumeComponentesCss/TopDevicesList.css";
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiGet } from '../../utils/apiHelper';
 
 const TopDevicesList = () => {
   const { userId } = useAuth();
@@ -41,11 +40,7 @@ const TopDevicesList = () => {
 
       try {
         setLoading(true);
-        const response = await fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGruposReal/${userId}`);
-        
-        if (!response.ok) throw new Error('Error al obtener los datos');
-
-        const data = await response.json();
+        const data = await apiGet(`/electrical_analysis/consumoPorDispositivosGruposReal/${userId}`);
         const dispositivos = data.resumenDispositivos || [];
         
         // console.log("📊 [TopDevicesList] Datos cargados:", dispositivos); // Comentado para limpiar consola

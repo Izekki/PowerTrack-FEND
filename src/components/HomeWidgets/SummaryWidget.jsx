@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import "../../styles/SummaryWidget.css";
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiGet } from "../../utils/apiHelper";
 
 const SummaryWidget = ({ 
   dispositivos: propDispositivos, 
@@ -43,12 +42,7 @@ const SummaryWidget = ({
       try {
         setLocalData(prev => ({ ...prev, loading: true }));
         // Usamos el endpoint que trae la DATA COMPLETA (nombres, ubicaciones, etc)
-        const response = await fetch(`${DOMAIN_URL}/user/show/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const data = await response.json();
+        const data = await apiGet(`/user/show/${userId}`);
 
         if (data.success) {
           setLocalData({

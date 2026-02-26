@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../../styles/DeviceComponentsCss/EditDeviceCard.css";
 import { showAlert } from "../CommonComponents/Alert.jsx";
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import { apiPut } from "../../utils/apiHelper";
 
 const EditDeviceCard = ({ device, onDeviceUpdated }) => {
   const [deviceData, setDeviceData] = useState(device || {});
@@ -27,25 +27,13 @@ const EditDeviceCard = ({ device, onDeviceUpdated }) => {
     }
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/device/editar/${deviceData.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: deviceData.dispositivo_nombre.trim(),
-          ubicacion: deviceData.ubicacion.trim(),
-          id_grupo: deviceData.id_grupo ? Number(deviceData.id_grupo) : null,
-          mac_address: deviceData.mac_address ? deviceData.mac_address.trim() : undefined, // <-- enviamos mac_address si existe
-        }),
+      const updatedDevice = await apiPut(`/device/editar/${deviceData.id}`, {
+        name: deviceData.dispositivo_nombre.trim(),
+        ubicacion: deviceData.ubicacion.trim(),
+        id_grupo: deviceData.id_grupo ? Number(deviceData.id_grupo) : null,
+        mac_address: deviceData.mac_address ? deviceData.mac_address.trim() : undefined, // <-- enviamos mac_address si existe
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Error al actualizar el dispositivo: ${errorData.message}`);
-      }
-
-      const updatedDevice = await response.json();
       console.log("Dispositivo actualizado:", updatedDevice);
 
       onDeviceUpdated(updatedDevice);
