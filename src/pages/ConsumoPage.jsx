@@ -38,15 +38,17 @@ const ConsumoPage = () => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    if (userId) {
-      apiGet(`/electrical_analysis/consumoPorDispositivosGrupos/${userId}`)
+    if (!userId) return;
+
+    const loadConsumo = () => {
+      apiGet(`/electrical_analysis/consumoPorDispositivosGruposReal/${userId}`)
         .then(data => {
           console.log("Datos recibidos:", data);
           const formattedDevices = data.resumenDispositivos.map(d => ({
             id: d.dispositivo_id,
             dispositivo_nombre: d.nombre,
-            consumoActual: d.consumoActualKWh || 0,
-            costoActual: Number(d.costoPorMedicionMXN) || 0,
+            consumoActual: d.consumoRealKWh ?? d.consumoActualKWh ?? 0,
+            costoActual: Number(d.costoRealMXN ?? d.costoPorMedicionMXN ?? 0) || 0,
             grupo_id: d.grupo_id,
           }));
 
@@ -55,9 +57,9 @@ const ConsumoPage = () => {
           .map(g => ({
             id: g.grupo_id,
             nombre: g.nombre || `Grupo ${g.grupo_id}`,
-            consumoActual: g.consumoTotalKWh || 0,
+            consumoActual: g.consumoRealKWh ?? g.consumoTotalKWh ?? 0,
             costoActual: Number(
-              g.costoTotalMXN ?? g.costoTotalPeriodoMXN ?? g.costoMensualTotalMXN ?? 0
+              g.costoRealMXN ?? g.costoTotalMXN ?? g.costoTotalPeriodoMXN ?? g.costoMensualTotalMXN ?? 0
             ) || 0,
           }));
 
@@ -87,7 +89,11 @@ const ConsumoPage = () => {
         .catch(error => {
           console.error("Error al cargar datos de consumo:", error);
         });
-    }
+    };
+
+    loadConsumo();
+    const intervalId = setInterval(loadConsumo, 30000);
+    return () => clearInterval(intervalId);
   }, [userId]);
 
   const fetchDeviceDetails = (deviceId) => {

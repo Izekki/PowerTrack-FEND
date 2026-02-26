@@ -201,19 +201,20 @@ const HomePage = () => {
         // --- GRÁFICA CON PUNTO FANTASMA ESTABLE ---
         let historialDia = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];
         
-        // Limpiar etiquetas y filtrar: solo mostrar datos dentro del límite visual (end)
+        // PRIMERO filtrar con etiquetas completas, LUEGO limpiar para visualización
         historialDia = historialDia
-          .map(item => {
-            const match = item.etiqueta.match(/(\d{2}:\d{2})/);
-            const etiquetaLimpia = match ? match[1] : item.etiqueta;
-            return { ...item, etiqueta: etiquetaLimpia };
-          })
           .filter(item => {
-            // Parsear la etiqueta para comparar con el límite visual
+            // Parsear la etiqueta completa (YYYY-MM-DD HH:mm) para comparar con el límite visual
             const fechaParsed = parseBackendEtiqueta(item.etiqueta);
             if (!fechaParsed) return true; // Si no se puede parsear, incluir
             // Solo incluir si es <= límite visual
             return fechaParsed <= end;
+          })
+          .map(item => {
+            // Ahora sí limpiar etiquetas: extraer solo HH:mm para visualización
+            const match = item.etiqueta.match(/(\d{2}:\d{2})/);
+            const etiquetaLimpia = match ? match[1] : item.etiqueta;
+            return { ...item, etiqueta: etiquetaLimpia };
           });
         
         if (historialDia.length > 0) {
