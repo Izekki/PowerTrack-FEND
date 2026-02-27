@@ -1,6 +1,6 @@
 import React from "react";
-import "../styles/AddButton.css";
-import botonMasIcon from "../assets/sidebar-icons/boton-mas.png";
+import "../../styles/DeviceComponentsCss/AddButton.css";
+import botonMasIcon from "../../assets/sidebar-icons/boton-mas.png";
 
 const AddDeviceButton = ({ onClick }) => {
   return (

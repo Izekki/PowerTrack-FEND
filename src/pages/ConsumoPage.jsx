@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
-import DeviceConsumeList from "../components/ConsumoComponets/DeviceConsumeList";
-import DeviceConsumeChart from "../components/ConsumoComponets/DeviceConsumeChart";
-import DeviceDetailConsumeModal from "../components/ConsumoComponets/DeviceDetailConsumeModal";
-import EnergyTip from "../components/ConsumoComponets/EnergyTip";
-import DeviceDataDisplay from "../components/ConsumoComponets/DeviceDataDisplay";
+import DeviceConsumeList from "../components/ConsumoComponents/DeviceConsumeList";
+import DeviceConsumeChart from "../components/ConsumoComponents/DeviceConsumeChart";
+import DeviceDetailConsumeModal from "../components/ConsumoComponents/DeviceDetailConsumeModal";
+import EnergyTip from "../components/ConsumoComponents/EnergyTip";
+import DeviceDataDisplay from "../components/ConsumoComponents/DeviceDataDisplay";
 import { useAuth } from "../context/AuthContext";
 import "../styles/ConsumoPage.css";
 import { useNavigate } from "react-router-dom";
+import { apiGet } from "../utils/apiHelper";
 
 
 import tip1 from "../assets/tips-icons/tip-1.svg";
 import tip2 from "../assets/tips-icons/tip-2.svg";
 import tip3 from "../assets/tips-icons/tip-3.svg";
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ConsumoPage = () => {
   const { userId } = useAuth();
@@ -39,16 +38,17 @@ const ConsumoPage = () => {
   const [groups, setGroups] = useState([]);
 
   useEffect(() => {
-    if (userId) {
-      fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGrupos/${userId}`)
-        .then(res => res.json())
+    if (!userId) return;
+
+    const loadConsumo = () => {
+      apiGet(`/electrical_analysis/consumoPorDispositivosGruposReal/${userId}`)
         .then(data => {
           console.log("Datos recibidos:", data);
           const formattedDevices = data.resumenDispositivos.map(d => ({
             id: d.dispositivo_id,
             dispositivo_nombre: d.nombre,
-            consumoActual: d.consumoActualKWh || 0,
-            costoActual: Number(d.costoPorMedicionMXN) || 0,
+            consumoActual: d.consumoRealKWh ?? d.consumoActualKWh ?? 0,
+            costoActual: Number(d.costoRealMXN ?? d.costoPorMedicionMXN ?? 0) || 0,
             grupo_id: d.grupo_id,
           }));
 
@@ -57,9 +57,9 @@ const ConsumoPage = () => {
           .map(g => ({
             id: g.grupo_id,
             nombre: g.nombre || `Grupo ${g.grupo_id}`,
-            consumoActual: g.consumoTotalKWh || 0,
+            consumoActual: g.consumoRealKWh ?? g.consumoTotalKWh ?? 0,
             costoActual: Number(
-              g.costoTotalMXN ?? g.costoTotalPeriodoMXN ?? g.costoMensualTotalMXN ?? 0
+              g.costoRealMXN ?? g.costoTotalMXN ?? g.costoTotalPeriodoMXN ?? g.costoMensualTotalMXN ?? 0
             ) || 0,
           }));
 
@@ -85,16 +85,19 @@ const ConsumoPage = () => {
           })),
         ];
         setChartDevices(initialChartDevices);
+        })
+        .catch(error => {
+          console.error("Error al cargar datos de consumo:", error);
         });
-    }
+    };
+
+    loadConsumo();
+    const intervalId = setInterval(loadConsumo, 30000);
+    return () => clearInterval(intervalId);
   }, [userId]);
 
   const fetchDeviceDetails = (deviceId) => {
-    fetch(`${DOMAIN_URL}/electrical_analysis/dispositivo/${deviceId}/consumo-detallado`)
-      .then(res => {
-        if (!res.ok) throw new Error('Error al obtener detalles');
-        return res.json();
-      })
+    apiGet(`/electrical_analysis/dispositivo/${deviceId}/consumo-detallado`)
       .then(data => {
         setDeviceDetails(data);
       })

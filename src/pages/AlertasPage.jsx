@@ -3,9 +3,10 @@ import AlertsCard from '../components/AlertasComponents/AlertsCard';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AlertasPage.css';
 import { useAlert } from '../context/AlertContext';
+import { apiGet, apiPut, createAuthHeaders, getApiDomain } from '../utils/apiHelper';
 
 
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+const DOMAIN_URL = getApiDomain();
 
 const AlertasPage = () => {
   const { userId } = useAuth();
@@ -32,8 +33,19 @@ const AlertasPage = () => {
 
     try {
       // Añadimos el filtro en la URL
-      const res = await fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
-      const data = await res.json();
+      const response = await apiGet(`/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
+           
+      // Manejar diferentes formatos de respuesta
+      let data = response;
+      if (response && !Array.isArray(response)) {
+        // Si no es un array, intentar extraer el array de diferentes propiedades comunes
+        data = response.data || response.alertas || response.results || [];
+      }
+
+      // Validar que data sea un array
+      if (!Array.isArray(data)) {
+        throw new Error('Formato de respuesta inválido');
+      }
 
       const formatted = data.map(alert => ({
         id: alert.id,
@@ -74,8 +86,19 @@ const AlertasPage = () => {
 
   const interval = setInterval(async () => {
     try {
-      const res = await fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
-      const data = await res.json();
+      const response = await apiGet(`/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
+      
+      // Manejar diferentes formatos de respuesta
+      let data = response;
+      if (response && !Array.isArray(response)) {
+        data = response.data || response.alertas || response.results || [];
+      }
+
+      // Validar que data sea un array
+      if (!Array.isArray(data)) {
+        console.error('Formato de respuesta inválido en polling:', response);
+        return;
+      }
 
       const nuevas = data
         .map(alert => ({
@@ -226,9 +249,7 @@ const AlertasPage = () => {
                     tipo={alert.tipo}
                     dispositivo={alert.dispositivo}
                     onMarcarLeida={async (id) => {
-                      await fetch(`${DOMAIN_URL}/alertas/marcar-una/${id}`, {
-                        method: "PUT",
-                      });
+                      await apiPut(`/alertas/marcar-una/${id}`);
                       setAlerts((prev) =>
                         prev.filter((alert) => alert.id !== id)
                       );
@@ -247,9 +268,7 @@ const AlertasPage = () => {
                   tipo={alert.tipo}
                   dispositivo={alert.dispositivo}
                   onMarcarLeida={async (id) => {
-                    await fetch(`${DOMAIN_URL}/alertas/marcar-una/${id}`, {
-                      method: "PUT",
-                    });
+                    await apiPut(`/alertas/marcar-una/${id}`);
                     setAlerts((prev) =>
                       prev.filter((alert) => alert.id !== id)
                     );

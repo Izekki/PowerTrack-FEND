@@ -1,7 +1,7 @@
 import React from "react";
-import HeaderPW from "../components/HeaderPW";
-import MenuBar from "../components/MenuBar";
-import LogoutConfirmModal from "../components/LogoutConfirmModal";
+import HeaderPW from "../components/LayoutComponents/HeaderPW";
+import MenuBar from "../components/LayoutComponents/MenuBar";
+import LogoutConfirmModal from "../components/CommonComponents/LogoutConfirmModal";
 import { useAuth } from "../context/AuthContext";
 
 const AuthenticatedLayout = ({ children, onLogout, isModalOpen, onConfirm, onCancel }) => {

@@ -1,13 +1,13 @@
 // HeaderPW.jsx
 import React, { useState, useEffect } from "react";
-import "../styles/HeaderPW.css";
-import logo from "../assets/logo-pw.svg";
-import dashboardIcon from "../assets/sidebar-icons/dashboard.png";
-import consuIcon from "../assets/sidebar-icons/grafico.png";
-import devicesIcon from "../assets/sidebar-icons/dispositivos.png";
-import alertIcon from "../assets/sidebar-icons/alerta.png";
-import profileIcon from "../assets/sidebar-icons/avatar.png";
-import configIcon from "../assets/sidebar-icons/ajuste.png";
+import "../../styles/LayoutComponentsCss/HeaderPW.css";
+import logo from "../../assets/logo-pw.svg";
+import dashboardIcon from "../../assets/sidebar-icons/dashboard.png";
+import consuIcon from "../../assets/sidebar-icons/grafico.png";
+import devicesIcon from "../../assets/sidebar-icons/dispositivos.png";
+import alertIcon from "../../assets/sidebar-icons/alerta.png";
+import profileIcon from "../../assets/sidebar-icons/avatar.png";
+import configIcon from "../../assets/sidebar-icons/ajuste.png";
 
 const getPageIcon = (pageTitle) => {
   const icons = {

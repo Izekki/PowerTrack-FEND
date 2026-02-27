@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../styles/CreateGroupModal.css";
-import { showAlert } from "./Alert.jsx";
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import "../../styles/DeviceComponentsCss/CreateGroupModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx";
+import { apiGet, apiPost } from "../../utils/apiHelper";
 
 const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
   const [groupName, setGroupName] = useState("");
@@ -17,8 +17,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
       setGroupName("");
       setSelectedDevices([]);
 
-      fetch(`${DOMAIN_URL}/device/unassigned/${usuarioId}`)
-        .then((res) => res.json())
+      apiGet(`/device/unassigned/${usuarioId}`)
         .then((data) => {
           setDevices(data); 
         })
@@ -47,19 +46,7 @@ const CreateGroupModal = ({ isOpen, onClose, onGroupCreated}) => {
     setError(null);
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/groups/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name: groupName, devices: selectedDevices,usuarioId:usuarioId}),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Error al crear el grupo");
-      }
+      const result = await apiPost(`/groups/create`, { name: groupName, devices: selectedDevices,usuarioId:usuarioId});
 
       await showAlert("success", "Grupo creado correctamente");
 

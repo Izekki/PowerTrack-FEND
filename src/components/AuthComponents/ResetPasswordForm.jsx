@@ -1,11 +1,11 @@
 // ResetPasswordForm.jsx
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import '../styles/RegisterForm.css';
-import passwordIcon from "../assets/password-icon.svg";
-import eyeIcon from "../assets/eye-icon.svg";
-import eyeSlashIcon from "../assets/eye-slash-icon.svg";
-import { showAlert } from "./Alert.jsx";
+import '../../styles/AuthComponentsCss/RegisterForm.css';
+import passwordIcon from "../../assets/password-icon.svg";
+import eyeIcon from "../../assets/eye-icon.svg";
+import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
+import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
 

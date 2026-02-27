@@ -2,7 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../styles/HomePage.css";
 import { WIDGET_REGISTRY } from "../config/widgetRegistry";
-import { showAlert } from "../components/Alert";
+import { showAlert } from "../components/CommonComponents/Alert";
+import { createAuthHeaders, getApiDomain } from "../utils/apiHelper";
 
 // --- DND KIT IMPORTS ---
 import {
@@ -23,7 +24,7 @@ import {
 } from '@dnd-kit/sortable';
 import SortableWidget from "../components/HomeWidgets/SortableWidget";
 
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+const DOMAIN_URL = getApiDomain();
 
 const HomePage = () => {
   const { userId } = useAuth();
@@ -129,13 +130,14 @@ const HomePage = () => {
         const fechaFin = formatDateForMySQL(endForFetch);
         const queryParams = `?fechaInicio=${fechaInicio}&fechaFin=${fechaFin}`;
 
+        const authHeaders = createAuthHeaders();
         const promises = [
-          fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGruposReal/${userId}${queryParams}`),
-          fetch(`${DOMAIN_URL}/electrical_analysis/historial_detallado/${userId}${queryParams}`),
-          fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=100&filtro=todos`)
+          fetch(`${DOMAIN_URL}/electrical_analysis/consumoPorDispositivosGruposReal/${userId}${queryParams}`, { headers: authHeaders }),
+          fetch(`${DOMAIN_URL}/electrical_analysis/historial_detallado/${userId}${queryParams}`, { headers: authHeaders }),
+          fetch(`${DOMAIN_URL}/alertas/usuario/${userId}?limit=100&filtro=todos`, { headers: authHeaders })
         ];
 
-        if (!isBackgroundRefresh) promises.push(fetch(`${DOMAIN_URL}/user/dashboard-config/${userId}`));
+        if (!isBackgroundRefresh) promises.push(fetch(`${DOMAIN_URL}/user/dashboard-config/${userId}`, { headers: authHeaders }));
 
         const responses = await Promise.all(promises);
         const [resConsumo, resHistorial, resAlertas, resConfig] = responses;
@@ -199,19 +201,20 @@ const HomePage = () => {
         // --- GRÁFICA CON PUNTO FANTASMA ESTABLE ---
         let historialDia = Array.isArray(dataHistorial) ? dataHistorial.find(d => d.rango === 'dia')?.detalles || [] : [];
         
-        // Limpiar etiquetas y filtrar: solo mostrar datos dentro del límite visual (end)
+        // PRIMERO filtrar con etiquetas completas, LUEGO limpiar para visualización
         historialDia = historialDia
-          .map(item => {
-            const match = item.etiqueta.match(/(\d{2}:\d{2})/);
-            const etiquetaLimpia = match ? match[1] : item.etiqueta;
-            return { ...item, etiqueta: etiquetaLimpia };
-          })
           .filter(item => {
-            // Parsear la etiqueta para comparar con el límite visual
+            // Parsear la etiqueta completa (YYYY-MM-DD HH:mm) para comparar con el límite visual
             const fechaParsed = parseBackendEtiqueta(item.etiqueta);
             if (!fechaParsed) return true; // Si no se puede parsear, incluir
             // Solo incluir si es <= límite visual
             return fechaParsed <= end;
+          })
+          .map(item => {
+            // Ahora sí limpiar etiquetas: extraer solo HH:mm para visualización
+            const match = item.etiqueta.match(/(\d{2}:\d{2})/);
+            const etiquetaLimpia = match ? match[1] : item.etiqueta;
+            return { ...item, etiqueta: etiquetaLimpia };
           });
         
         if (historialDia.length > 0) {
@@ -245,9 +248,10 @@ const HomePage = () => {
 
   const handleSaveLayout = async () => {
     try {
+      const authHeaders = createAuthHeaders();
       const response = await fetch(`${DOMAIN_URL}/user/dashboard-config/${userId}`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: authHeaders,
         body: JSON.stringify({ layout })
       });
       if (response.ok) { setIsEditMode(false); showAlert("success", "Guardado"); }

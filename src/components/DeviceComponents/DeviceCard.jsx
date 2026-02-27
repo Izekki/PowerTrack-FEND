@@ -1,9 +1,9 @@
 import React from "react";
-import "../styles/DeviceCard.css";
-import noImageCard from "../assets/devices-icons/0.svg";
+import "../../styles/DeviceComponentsCss/DeviceCard.css";
+import noImageCard from "../../assets/devices-icons/0.svg";
 
 // Carga dinámica de imágenes
-const images = import.meta.glob("../assets/devices-icons/*.png", {
+const images = import.meta.glob("../../assets/devices-icons/*.png", {
   eager: true,
   import: "default",
 });
@@ -20,9 +20,9 @@ const DeviceCard = ({ device, onEdit, onDelete }) => {
 
   const status = "online";
 
-  const imagePath = `../assets/devices-icons/${id_tipo_dispositivo}.png`;
+  const imagePath = `../../assets/devices-icons/${id_tipo_dispositivo}.png`;
   const image =
-    images[imagePath] || images["../assets/devices-icons/noimage-card.svg"] || noImageCard;
+    images[imagePath] || images["../../assets/devices-icons/noimage-card.svg"] || noImageCard;
 
   return (
     <div className={`device-card ${id_grupo ? "group-card" : ""}`}>

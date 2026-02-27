@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import "../styles/ProfilePage.css";
 import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
-import { showAlert } from "../components/Alert";
+import { showAlert } from "../components/CommonComponents/Alert";
 import { useAuth } from "../context/AuthContext";
 import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
 import { useTheme } from "next-themes";
+import { apiGet, apiPut, apiPost } from "../utils/apiHelper";
 // Importamos el nuevo widget
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
 
 const ProfilePage = () => {
   const { userId, token, name, login } = useAuth();
@@ -45,13 +44,7 @@ const ProfilePage = () => {
   const fetchProfileData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${DOMAIN_URL}/user/show/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await response.json();
+      const data = await apiGet(`/user/show/${userId}`);
 
       if (data.success) {
         setProfileData(data.data);
@@ -97,16 +90,7 @@ const ProfilePage = () => {
       }
 
       // Primero actualizar los datos del perfil
-      const updateResponse = await fetch(`${DOMAIN_URL}/user/edit/${userId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const updateData = await updateResponse.json();
+      const updateData = await apiPut(`/user/edit/${userId}`, formData);
 
       if (!updateData.success) {
         showAlert("error", updateData.message || "Error al actualizar perfil");
@@ -145,22 +129,14 @@ const ProfilePage = () => {
 
   const handleChangePassword = async () => {
     try {
-      const response = await fetch(
-        `${DOMAIN_URL}/user/${userId}/change-password`,
+      const data = await apiPost(
+        `/user/${userId}/change-password`,
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            currentPassword: passwordData.currentPassword,
-            newPassword: passwordData.newPassword,
-          }),
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword,
         }
       );
 
-      const data = await response.json();
       if (data.success) {
         showAlert("success", "Contraseña actualizada correctamente");
         setPasswordData({
@@ -236,7 +212,7 @@ const ProfilePage = () => {
                       })
                     }
                   >
-                    <option value="">Seleccione un proveedor</option>
+                    <option value="" disabled>Seleccione un proveedor</option>
                     {proveedoresDisponibles.map((prov) => (
                       <option key={prov.id} value={prov.id}>
                         {prov.nombre}

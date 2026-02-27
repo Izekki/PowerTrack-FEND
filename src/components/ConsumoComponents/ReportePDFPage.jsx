@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import Header from '../Header';
+import Header from '../AuthComponents/Header';
 import Chart from 'react-apexcharts';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';

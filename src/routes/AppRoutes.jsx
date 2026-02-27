@@ -1,8 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
-import LoginForm from "../components/LoginForm";
-import ResetPasswordForm from "../components/ResetPasswordForm";
+import LoginForm from "../components/AuthComponents/LoginForm";
+import ResetPasswordForm from "../components/AuthComponents/ResetPasswordForm";
 import DispositivosPage from "../pages/DevicesPages";
 import ProfilePage from "../pages/ProfilePage";
 import ConfigurationPage from "../pages/ConfigurationPage";

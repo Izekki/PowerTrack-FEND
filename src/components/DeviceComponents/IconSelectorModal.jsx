@@ -1,9 +1,9 @@
 import { useState } from "react";
-import "../styles/IconSelectorModal.css";
-import { showAlert } from "./Alert.jsx";
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import "../../styles/DeviceComponentsCss/IconSelectorModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx";
+import { apiPut } from "../../utils/apiHelper";
 
-const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
+const images = import.meta.glob("../../assets/devices-icons/*.{png,svg}", {
   eager: true,
   import: "default",
 });
@@ -47,20 +47,8 @@ const IconSelectorModal = ({ device, onClose, onDeviceUpdated }) => {
 
     setLoading(true);
     try {
-      const res = await fetch(`${DOMAIN_URL}/device/editar/icono/${device.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id_tipo_dispositivo: Number(selectedId) }),
-      });
+      const updatedDevice = await apiPut(`/device/editar/icono/${device.id}`, { id_tipo_dispositivo: Number(selectedId) });
 
-      if (!res.ok) {
-        const err = await res.json();
-        throw new Error(err.message || "Error al actualizar el ícono");
-      }
-
-      const updatedDevice = await res.json();
       onDeviceUpdated(updatedDevice);
       onClose();
       showAlert("success", "Ícono actualizado con éxito");

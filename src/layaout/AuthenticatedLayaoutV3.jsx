@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import HeaderPW from "../components/HeaderPW";
-import Sidebar from "../components/Sidebar";
-import LogoutConfirmModal from "../components/LogoutConfirmModal";
+import HeaderPW from "../components/LayoutComponents/HeaderPW";
+import Sidebar from "../components/LayoutComponents/Sidebar";
+import LogoutConfirmModal from "../components/CommonComponents/LogoutConfirmModal";
 import { useAuth } from "../context/AuthContext";
-import "../styles/Sidebar.css";
+import "../styles/LayoutComponentsCss/Sidebar.css";
 
 const AuthenticatedLayoutV3 = ({ 
   children, 

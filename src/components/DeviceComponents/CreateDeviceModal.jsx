@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import "../styles/CreateDeviceModal.css";
-import { showAlert } from "./Alert.jsx"; // Importa la función showAlert
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import "../../styles/DeviceComponentsCss/CreateDeviceModal.css";
+import { showAlert } from "../CommonComponents/Alert.jsx"; // Importa la función showAlert
+import { apiGet, apiPost } from "../../utils/apiHelper";
 
 const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   const [nombre, setNombre] = useState("");
@@ -40,9 +39,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
       if (!usuarioId) return;
 
       try {
-        const response = await fetch(`${DOMAIN_URL}/groups/byUser/${usuarioId}`);
-        if (!response.ok) throw new Error("Error al obtener los grupos");
-        const data = await response.json();
+        const data = await apiGet(`/groups/byUser/${usuarioId}`);
         setGruposDisponibles(data);
       } catch (error) {
         console.error("Error al obtener grupos:", error);
@@ -58,8 +55,7 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
   useEffect(() => {
     const fetchSensores = async () => {
       try {
-        const response = await fetch(`${DOMAIN_URL}/sensor/obtener`);
-        const data = await response.json();
+        const data = await apiGet(`/sensor/obtener`);
         setSensoresDisponibles(data);
       } catch (error) {
         console.error("Error al obtener sensores", error);
@@ -102,25 +98,13 @@ const CreateDeviceModal = ({ isOpen, onClose, onDeviceCreated }) => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/device/devices`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          nombre,
-          ubicacion: ubicacionValue,
-          usuario_id: parseInt(usuarioId, 10),
-          id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
-          mac: macValue
-        }),
+      const result = await apiPost(`/device/devices`, {
+        nombre,
+        ubicacion: ubicacionValue,
+        usuario_id: parseInt(usuarioId, 10),
+        id_grupo: idGrupo ? parseInt(idGrupo, 10) : null,
+        mac: macValue
       });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Error al crear el dispositivo");
-      }
 
       await showAlert("success", "Dispositivo creado correctamente");
       onClose();

@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import CreateGroupModal from "../components/CreateGroupModal";
-import CreateDeviceModal from "../components/CreateDeviceModal";
-import DeviceList from "../components/DeviceList";
-import SearchBar from "../components/SearchBar";
+import CreateGroupModal from "../components/DeviceComponents/CreateGroupModal";
+import CreateDeviceModal from "../components/DeviceComponents/CreateDeviceModal";
+import DeviceList from "../components/DeviceComponents/DeviceList";
+import SearchBar from "../components/CommonComponents/SearchBar";
 import EditDevicePage from "../pages/EditDevicePage";
 import EditGroupPage from "../pages/EditGroupPage";
-import DeleteConfirmModal from "../components/DeleteConfirmModal";
+import DeleteConfirmModal from "../components/CommonComponents/DeleteConfirmModal";
 import "../styles/DevicesPages.css";
 import { useAuth } from "../context/AuthContext";
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiGet, apiDelete } from "../utils/apiHelper";
 
 
 const DispositivosPage = () => {
@@ -101,87 +100,52 @@ const DispositivosPage = () => {
     }
   };
 
-  const deleteGroup = (groupId) => {
-    fetch(`${DOMAIN_URL}/groups/deleteGroup/${groupId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ usuarioId: userId })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al eliminar el grupo');
-        }
-        return response.json();
-      })
-      .then(() => {
-        fetchGroups();
-        fetchDevices();
-        setIsDeleteModalOpen(false);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
+  const deleteGroup = async (groupId) => {
+    try {
+      await apiDelete(`/groups/deleteGroup/${groupId}`);
+      fetchGroups();
+      fetchDevices();
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      console.error("Error al eliminar el grupo:", error);
+      alert(error.message || 'Error al eliminar el grupo');
+    }
   };
 
-  const deleteDevice = (deviceId) => {
-    fetch(`${DOMAIN_URL}/device/deleteDevice/${deviceId}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ usuarioId: userId })
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error al eliminar el dispositivo');
-        }
-        return response.json();
-      })
-      .then(() => {
-        fetchDevices();
-        setIsDeleteModalOpen(false);
-      })
-      .catch(error => {
-        console.error("Error:", error);
-      });
+  const deleteDevice = async (deviceId) => {
+    try {
+      await apiDelete(`/device/deleteDevice/${deviceId}`);
+      fetchDevices();
+      setIsDeleteModalOpen(false);
+    } catch (error) {
+      console.error("Error al eliminar el dispositivo:", error);
+      alert(error.message || 'Error al eliminar el dispositivo');
+    }
   };
 
-  const fetchGroups = () => {
+  const fetchGroups = async () => {
     if (!userId) return;
-    fetch(`${DOMAIN_URL}/groups/byUser/${userId}`)
-      .then(response => {
-        if (!response.ok) throw new Error('Error en la respuesta');
-        return response.json();
-      })
-      .then(groupsData => {
-        // Asegúrate de que groupsData sea un array
-        setGroups(Array.isArray(groupsData) ? groupsData : []);
-      })
-      .catch(error => {
-        console.error("Error al obtener grupos:", error);
-        setGroups([]); // En caso de error, establece un array vacío
-      });
+    try {
+      const groupsData = await apiGet(`/groups/byUser/${userId}`);
+      setGroups(Array.isArray(groupsData) ? groupsData : []);
+    } catch (error) {
+      console.error("Error al obtener grupos:", error);
+      setGroups([]);
+    }
   };
   
-  const fetchDevices = () => {
+  const fetchDevices = async () => {
     if (!userId) return;
     setLoading(true);
-    fetch(`${DOMAIN_URL}/device/dispositivosPorUsuario/${userId}`)
-      .then((response) => {
-        if (!response.ok) throw new Error('Error en la respuesta');
-        return response.json();
-      })
-      .then((data) => {
-        setDevices(Array.isArray(data) ? data : []);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener dispositivos:", error);
-        setDevices([]);
-        setLoading(false);
-      });
+    try {
+      const data = await apiGet(`/device/dispositivosPorUsuario/${userId}`);
+      setDevices(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error("Error al obtener dispositivos:", error);
+      setDevices([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
