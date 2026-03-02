@@ -1,4 +1,4 @@
-.chart-header {
+﻿.chart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,7 +21,7 @@
   color: var(--text-color, #333);
   border-radius: 4px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: var(--font-small);
   font-weight: 500;
   transition: all 0.2s ease;
 }
@@ -35,3 +35,4 @@
   color: white;
   border-color: var(--btn-primary-bg, #4CAF50);
 }
+

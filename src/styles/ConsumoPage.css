@@ -1,4 +1,4 @@
-/* === card === */
+﻿/* === card === */
 .consumo-card {
   background-color: var(--card-bg);
   border: 1px solid #ffffff;
@@ -11,7 +11,7 @@
 /* === contenedor general === */
 .consumo-container {
   display: flex;
-  flex-wrap: wrap; /* Permite que los elementos se ajusten en dispositivos pequeños */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten en dispositivos pequeÃ±os */
   gap: 10px;
 }
 
@@ -52,7 +52,7 @@
   color: var(--consumo-text-button);
   font-family: 'nunito', sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: var(--font-small);
   padding: 6px 12px;
   border-radius: 999px;
   cursor: pointer;
@@ -76,7 +76,7 @@
 .graph-title,
 .title-consumotitle {
   color: var(--consumo-text-title);
-  font-size: 1.2em;
+  font-size: var(--font-heading-small);
   font-weight: bold;
   margin-top: 0px;
   text-align: center;
@@ -91,7 +91,7 @@
 
 /* === Media Queries === */
 
-/* Para dispositivos pequeños (móviles) */
+/* Para dispositivos pequeÃ±os (mÃ³viles) */
 @media (max-width: 768px) {
   .consumo-container {
     flex-direction: column;
@@ -105,7 +105,7 @@
   }
 
   .datos-consumo {
-    grid-template-columns: 1fr; /* Una columna para dispositivos pequeños */
+    grid-template-columns: 1fr; /* Una columna para dispositivos pequeÃ±os */
   }
 
   .consumo-card {
@@ -119,7 +119,7 @@
   }
 
   .ver-detalles-btn, .ver-mas-btn {
-    font-size: 12px;
+    font-size: var(--font-small);
     padding: 5px 8px;
   }
 }
@@ -139,7 +139,7 @@
   color: var(--consumo-text-hover);
   font-family: 'nunito', sans-serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   padding: 10px;
   margin: 5px;
   border-radius: 10px;
@@ -170,3 +170,4 @@
     grid-template-columns: repeat(2, 1fr); /* Dos columnas en tablets */
   }
 }
+

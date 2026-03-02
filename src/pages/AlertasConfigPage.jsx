@@ -3,6 +3,9 @@ import "../styles/ConfigurationPage.css";
 import { useAuth } from "../context/AuthContext";
 import AlertsConfigCard from "../components/ConfigPageComponents/AlertsConfigCard";
 import { getApiDomain } from "../utils/apiHelper";
+import { useNavigate } from "react-router-dom";
+import BackButton from "../components/CommonComponents/BackButton";
+import Breadcrumb from "../components/CommonComponents/Breadcrumb";
 
 const DOMAIN_URL = getApiDomain();
 
@@ -13,6 +16,12 @@ const AlertasConfigPage = () => {
     id: null,
     field: null,
   });
+  const navigate = useNavigate();
+
+  const breadcrumbItems = [
+    { label: "Alertas", onClick: () => navigate("/alertas") },
+    { label: "Configuración", active: true }
+  ];
   const [toastState, setToastState] = useState({ visible: false, message: "" });
   const { userId, token } = useAuth();
   const toastTimer = useRef();
@@ -138,9 +147,19 @@ const AlertasConfigPage = () => {
   };
 
   return (
-    <div className="configurationPage-container">
-      <h2 className="configurationPage-title">Configuración de Alertas</h2>
-      <div className="configurationPage-cards">
+    <div className="configurationPage-container alertasConfigPage-container">
+      <div className="breadcrumb-topbar">
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="breadcrumb-actions">
+          <BackButton
+            className="alertasConfig-backBtn"
+            onClick={() => navigate("/alertas")}
+            ariaLabel="Volver a alertas"
+          />
+        </div>
+      </div>
+
+      <div className="configurationPage-cards alertasConfigPage-cards">
         <AlertsConfigCard
           loading={loading}
           configuraciones={configuraciones}

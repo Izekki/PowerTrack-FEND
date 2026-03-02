@@ -1,4 +1,4 @@
-.home-dashboard {
+﻿.home-dashboard {
   padding: 20px 40px;
   max-width: 1200px;
   margin: 0 auto;
@@ -14,7 +14,7 @@
 }
 
 .dashboard-header h1 {
-  font-size: 24px;
+  font-size: var(--font-heading-medium);
   color: var(--text-primary);
   display: flex;
   align-items: center;
@@ -29,7 +29,7 @@
 }
 
 .time-label {
-  font-size: 14px;
+  font-size: var(--font-secondary);
   font-weight: 500;
   color: var(--text-secondary);
 }
@@ -46,7 +46,7 @@
   color: var(--text-primary);
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -98,19 +98,19 @@
 
 .kpi-card h3 {
   margin: 0 0 10px 0;
-  font-size: 16px;
+  font-size: var(--font-body-interaction);
   color: var(--text-secondary);
 }
 
 .kpi-value {
-  font-size: 36px;
+  font-size: var(--font-page-title);
   font-weight: bold;
   color: var(--text-primary);
   margin-bottom: 10px;
 }
 
 .kpi-value small {
-  font-size: 18px;
+  font-size: var(--font-body-reading);
   color: var(--text-secondary);
 }
 
@@ -118,9 +118,9 @@
   color: #d32f2f;
 }
 
-.kpi-trend.negative { color: #d32f2f; font-size: 14px; }
-.kpi-status.ok { color: #2E7D32; font-size: 14px; }
-.kpi-sub { color: #f57c00; font-size: 14px; }
+.kpi-trend.negative { color: #d32f2f; font-size: var(--font-secondary); }
+.kpi-status.ok { color: #2E7D32; font-size: var(--font-secondary); }
+.kpi-sub { color: #f57c00; font-size: var(--font-secondary); }
 
 /* Chart Section */
 .chart-section {
@@ -187,13 +187,13 @@
   width: 100%;
 }
 
-/* Contenedor relativo para posicionar el botón de borrar */
+/* Contenedor relativo para posicionar el botÃ³n de borrar */
 .widget-wrapper {
   position: relative;
   transition: transform 0.2s ease;
 }
 
-/* Animación de "vibración" al editar (estilo iOS) */
+/* AnimaciÃ³n de "vibraciÃ³n" al editar (estilo iOS) */
 .edit-mode .widget-wrapper {
   animation: shake 0.3s infinite ease-in-out alternate;
   border: 1px dashed var(--btn-edit-bg);
@@ -206,7 +206,7 @@
   to { transform: rotate(0.5deg); }
 }
 
-/* Botón de Eliminar (X roja) */
+/* BotÃ³n de Eliminar (X roja) */
 .delete-widget-btn {
   position: absolute;
   top: -10px;
@@ -217,7 +217,7 @@
   border-radius: 50%;
   width: 24px;
   height: 24px;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,14 +294,14 @@
 
 .modal-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: var(--font-heading-small);
   color: var(--text-primary);
 }
 
 .close-modal {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: var(--font-heading-large);
   cursor: pointer;
   color: var(--text-secondary);
 }
@@ -335,7 +335,7 @@
 
 /* Tendencias */
 .kpi-trend {
-  font-size: 0.9rem;
+  font-size: var(--font-secondary);
   font-weight: bold;
   display: block;
   margin-top: 5px;
@@ -359,11 +359,11 @@
 
 .dashboard-unified-grid {
   display: grid;
-  /* Forzamos 3 columnas de igual tamaño */
+  /* Forzamos 3 columnas de igual tamaÃ±o */
   grid-template-columns: repeat(3, 1fr); 
   gap: 20px;
   padding: 20px 0;
-  /* Alineación vertical para que las tarjetas tengan la misma altura si están en la misma fila */
+  /* AlineaciÃ³n vertical para que las tarjetas tengan la misma altura si estÃ¡n en la misma fila */
   align-items: stretch; 
 }
 
@@ -391,7 +391,7 @@
   }
 }
 
-/* Móviles: 1 sola columna (todo vertical) */
+/* MÃ³viles: 1 sola columna (todo vertical) */
 @media (max-width: 768px) {
   .dashboard-unified-grid {
     grid-template-columns: 1fr;
@@ -407,7 +407,7 @@
   height: 100%;
 }
 
-/* Animación de vibración solo en modo edición */
+/* AnimaciÃ³n de vibraciÃ³n solo en modo ediciÃ³n */
 .sortable-item.editable {
   animation: shake 0.3s infinite ease-in-out alternate;
   cursor: grab;
@@ -417,7 +417,7 @@
   cursor: grabbing;
 }
 
-/* 1. Botón Editar/Guardar Flotante */
+/* BotÃ³n Editar en Modo Normal */
 .edit-button-container {
   display: flex;
   justify-content: center;
@@ -426,14 +426,14 @@
 }
 
 .btn-edit-mode-bottom {
-  background-color: transparent; /* Fondo transparente */
-  color: var(--text-primary);    /* Texto del color del tema */
+  background-color: transparent;
+  color: var(--text-primary);
   border: 2px dashed var(--border-color);
   padding: 12px 32px;
   border-radius: 30px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 16px;
+  font-size: var(--font-body-interaction);
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -447,25 +447,74 @@
   transform: translateY(-2px);
 }
 
+/* Botones de Edición (Guardar y Cancelar) - Flotante a la derecha en medio de pantalla */
+.edit-action-buttons {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 1100;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+@media (max-width: 768px) {
+  .edit-action-buttons {
+    right: 15px;
+    gap: 10px;
+  }
+}
+
 .btn-save-mode-bottom {
   background-color: var(--btn-primary-bg);
-  color: #ffffff !important; /* Forzar blanco */
+  color: #ffffff !important;
   border: none;
-  padding: 14px 50px;
-  border-radius: 30px;
+  padding: 12px 24px;
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 800;
-  font-size: 18px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  font-weight: 700;
+  font-size: var(--font-body-reading);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-width: 140px;
 }
 
 .btn-save-mode-bottom:hover {
   background-color: var(--btn-primary-hover);
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-cancel-mode {
+  background-color: var(--btn-secondary-bg);
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: var(--font-body-reading);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 140px;
+}
+
+.btn-cancel-mode:hover {
+  background-color: var(--btn-secondary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
 /* 2. Panel Persistente (Drawer) */
@@ -487,7 +536,7 @@
   box-sizing: border-box;
 }
 
-/* 3. Corrección de Textos en Blanco (KPIs) */
+/* 3. CorrecciÃ³n de Textos en Blanco (KPIs) */
 .kpi-card h3 {
   color: var(--text-secondary); /* Asegura contraste */
 }

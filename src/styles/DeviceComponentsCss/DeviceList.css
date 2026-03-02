@@ -1,4 +1,4 @@
-.column-header {
+﻿.column-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -110,8 +110,9 @@
 }
 
 .grupo-card-title {
-  font-size: var(--font-title);
-  font-weight: bold;
+  font-size: var(--font-body-reading);
+  font-weight: 700;
+  line-height: 1.3;
   margin-bottom: 10px;
 }
 
@@ -134,8 +135,9 @@
 }
 
 .column-title {
-  font-size: var(--font-title);
-  font-weight: bold;
+  font-size: var(--font-body-reading);
+  font-weight: 700;
+  line-height: 1.3;
   margin-bottom: 0.5rem;
   border-bottom: 2px solid var(--border-color);
   padding-bottom: 0.25rem;
@@ -143,13 +145,16 @@
 
 .no-results-message {
   font-style: italic;
+  font-size: var(--font-secondary);
   color: var(--text-muted);
   padding: 10px;
 }
 
 .no-results-overall {
   text-align: center;
-  font-weight: bold;
+  font-size: var(--font-secondary);
+  font-weight: 700;
   margin-top: 20px;
   color: var(--text-dark);
 }
+

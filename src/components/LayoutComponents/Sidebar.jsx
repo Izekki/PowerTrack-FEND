@@ -18,8 +18,17 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
   const location = useLocation();
   const { hasNewAlerts } = useAlert();
 
-  const isActive = (path) =>
-    location.pathname === path || location.pathname.startsWith(`${path}/`);
+  const isActive = (path) => {
+    // Para Configuration, consideramos también /ayuda como parte de esa sección
+    if (path === "/configuracion") {
+      return (
+        location.pathname === path ||
+        location.pathname.startsWith(`${path}/`) ||
+        location.pathname === "/ayuda"
+      );
+    }
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
 
   return (
     <aside className={`sidebar ${isCollapsed ? "collapsed" : "expanded"}`}>

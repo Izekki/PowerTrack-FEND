@@ -1,4 +1,4 @@
-.edit-icon-modal-overlay {
+﻿.edit-icon-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -26,7 +26,7 @@
 .icon-modal-title {
   text-align: center;
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: var(--font-heading-large);
   color: var(--text-primary);
 }
 
@@ -61,7 +61,7 @@
 }
 
 .edit-icon-option p {
-  font-size: 0.9rem;
+  font-size: var(--font-secondary);
   color: var(--text-primary);
 }
 
@@ -80,7 +80,7 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   transition: background-color 0.2s ease;
 }
 
@@ -94,7 +94,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   transition: background-color 0.3s ease;
   margin: 5px;
   color: var(--text-white);
@@ -115,3 +115,4 @@
 .icon-selector-btn-cancel:hover {
   background-color: var(--btn-delete-bg-hover);
 }
+

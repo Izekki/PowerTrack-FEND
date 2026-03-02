@@ -1,4 +1,4 @@
-/* src/styles/ConsumeComponentesCss/TopDevicesList.css */
+﻿/* src/styles/ConsumeComponentesCss/TopDevicesList.css */
 
 /* Contenedor principal */
 .top-devices-container {
@@ -24,10 +24,10 @@
   flex-wrap: wrap;
 }
 
-/* Título */
+/* TÃ­tulo */
 .top-devices-title {
   color: var(--consumo-text-title);
-  font-size: 1.2rem;
+  font-size: var(--font-heading-small);
   font-weight: 700;
   margin: 0;
 }
@@ -69,7 +69,7 @@
 }
 
 .toggle-label {
-  font-size: 0.85rem;
+  font-size: var(--font-extra-small);
   color: var(--text-secondary);
 }
 
@@ -87,7 +87,7 @@
 .top-devices-list::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
 .top-devices-list::-webkit-scrollbar-thumb:hover { background-color: var(--text-secondary); }
 
-/* --- Ítem Individual --- */
+/* --- Ãtem Individual --- */
 .top-device-item {
   margin-bottom: 12px;
   padding: 8px 10px;
@@ -100,7 +100,7 @@
   background-color: var(--nav-hover-bg);
 }
 
-/* Header del ítem (Nombre y Valor) */
+/* Header del Ã­tem (Nombre y Valor) */
 .top-device-header {
   display: flex;
   justify-content: space-between;
@@ -109,7 +109,7 @@
 }
 
 .top-device-name {
-  font-size: 0.95rem;
+  font-size: var(--font-secondary);
   font-weight: 600;
   color: var(--text-primary);
   white-space: nowrap;
@@ -119,7 +119,7 @@
 }
 
 .top-device-value {
-  font-size: 0.9rem;
+  font-size: var(--font-secondary);
   font-weight: 700;
   color: var(--consumo-text-title);
   font-family: 'Nunito', sans-serif;
@@ -142,9 +142,9 @@
   transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* --- MODO EDICIÓN --- */
+/* --- MODO EDICIÃ“N --- */
 
-/* Botón de Lápiz (Editar) */
+/* BotÃ³n de LÃ¡piz (Editar) */
 .edit-mode-trigger {
   background-color: var(--bg-body);
   border: 1px solid var(--border-color);
@@ -159,7 +159,7 @@
   color: var(--text-secondary);
   transition: all 0.2s ease;
   z-index: 10;
-  font-size: 0.85rem;
+  font-size: var(--font-extra-small);
 }
 
 .edit-mode-trigger:hover {
@@ -175,7 +175,7 @@
   border-color: var(--btn-primary-bg);
 }
 
-/* Botón de Eliminar (Tache) */
+/* BotÃ³n de Eliminar (Tache) */
 .remove-device-btn {
   position: absolute;
   top: -5px;
@@ -186,7 +186,7 @@
   border-radius: 50%;
   width: 20px;
   height: 20px;
-  font-size: 12px;
+  font-size: var(--font-small);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -200,7 +200,7 @@
   transform: scale(1.1);
 }
 
-/* Sección de Agregar Nuevo (+ y Select) */
+/* SecciÃ³n de Agregar Nuevo (+ y Select) */
 .add-device-section {
   margin-top: 15px;
   border-top: 1px dashed var(--border-color);
@@ -219,7 +219,7 @@
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  font-size: 20px;
+  font-size: var(--font-heading-medium);
   line-height: 1;
   cursor: pointer;
   display: flex;
@@ -235,12 +235,19 @@
 
 .device-select {
   width: 100%;
-  padding: 8px;
+  padding: 10px 32px 10px 10px;
   border-radius: 6px;
   border: 1px solid var(--border-color);
   background-color: var(--input-bg);
-  color: var(--text-primary);
+  color: var(--input-text);
   font-family: 'Nunito', sans-serif;
+  font-size: var(--font-body-interaction);
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px 16px;
+  cursor: pointer;
 }
 
 /* Animaciones */

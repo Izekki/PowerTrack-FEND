@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../styles/EditGroupPage.css";
 import { showAlert } from "../components/CommonComponents/Alert";
 import { apiGet, apiPut } from "../utils/apiHelper";
+import BackButton from "../components/CommonComponents/BackButton";
+import Breadcrumb from "../components/CommonComponents/Breadcrumb";
 
 // Cargar los iconos dinámicamente
 const images = import.meta.glob("../assets/devices-icons/*.{png,svg}", {
@@ -15,6 +17,11 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
   const [outGroupDevices, setOutGroupDevices] = useState([]);
   const [selectedDevices, setSelectedDevices] = useState([]);
   const usuarioId = group?.usuario_id;
+
+  const breadcrumbItems = [
+    { label: "Dispositivos", onClick: onClose },
+    { label: "Editar Grupo", active: true }
+  ];
 
   useEffect(() => {
     if (group && isOpen) {
@@ -68,9 +75,14 @@ const EditGroupPage = ({ isOpen, onClose, group, onGroupUpdated }) => {
 
   return (
     <div className="edit-group-container">
+      <div className="breadcrumb-topbar">
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="breadcrumb-actions">
+          <BackButton className="btn-close-edit-group" onClick={onClose} />
+        </div>
+      </div>
       <div className="header-container-modal-edit-group">
         <h2 className="title-edit-group">Editar Grupo</h2>
-        <button className="btn-close-edit-group" onClick={onClose}>Volver</button>
       </div>
 
       <div className="form-edit-group">

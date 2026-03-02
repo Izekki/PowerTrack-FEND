@@ -5,6 +5,7 @@ import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
 
 const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+const GENERIC_RECOVERY_MESSAGE = 'Si el correo electrónico existe, recibirás instrucciones para restablecer tu contraseña.';
 
 
 const RecoverPasswordForm = ({ onBackToLogin }) => {
@@ -25,13 +26,19 @@ const RecoverPasswordForm = ({ onBackToLogin }) => {
         body: JSON.stringify({ correo: email }),
       });
 
-      const data = await response.json();
       if (response.ok) {
-        await showAlert("success", "Se ha enviado un correo para restablecer tu contraseña");
+        await showAlert("success", GENERIC_RECOVERY_MESSAGE);
         onBackToLogin();
-      } else {
-        await showAlert("error", data.message || "No se pudo enviar el correo");
+        return;
       }
+
+      if (response.status >= 500) {
+        await showAlert("error", "No se pudo procesar la solicitud en este momento");
+        return;
+      }
+
+      await showAlert("success", GENERIC_RECOVERY_MESSAGE);
+      onBackToLogin();
     } catch (error) {
       await showAlert("error", "Error de conexión con el servidor");
     } finally {
@@ -62,10 +69,13 @@ const RecoverPasswordForm = ({ onBackToLogin }) => {
               required
             />
           </div>
+          <p className="register-label" style={{ marginTop: '8px' }}>
+            {GENERIC_RECOVERY_MESSAGE}
+          </p>
         </div>
 
-        <button 
-          className="register-btn" 
+        <button
+          className="register-btn"
           onClick={handleRecoverClick}
           disabled={isSubmitting}
         >

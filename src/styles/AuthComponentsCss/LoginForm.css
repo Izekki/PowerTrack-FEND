@@ -1,4 +1,4 @@
-/* =====================================
+﻿/* =====================================
    Estilos Generales de Contenedores
 ===================================== */
 .login-container {
@@ -19,7 +19,7 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--text-primary);
-  font-size: 1.8rem;
+  font-size: var(--font-page-title);
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 1rem;
@@ -107,7 +107,7 @@
 
 .label-Form-Login {
   color: var(--text-primary);
-  font-size: 1rem;
+  font-size: var(--font-secondary);
   font-weight: 500;
   margin-bottom: 5px;
 }
@@ -137,7 +137,7 @@
   flex: 1;
   border: none;
   outline: none;
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   background: transparent;
   color: var(--input-text);
 }
@@ -153,7 +153,7 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-body-interaction);
   font-weight: bold;
   transition: background-color 0.3s;
 }
@@ -180,7 +180,7 @@
 ===================================== */
 .forgot-password,
 .register-link {
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   font-weight: 500;
   margin-bottom: 10px;
   text-align: center;
@@ -215,7 +215,7 @@
   color: #f28c28;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: var(--font-body-interaction);
   font-weight: bold;
   transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
@@ -253,13 +253,13 @@
 .error {
   margin-top: 10px;
   color: var(--error-color);
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   font-weight: 500;
 }
 
 .back-arrow {
   color: var(--text-primary);
-  font-size: 1.8rem;
+  font-size: var(--font-page-title);
   font-weight: bold;
   cursor: pointer;
   transition: color 0.3s ease-in-out;
@@ -278,3 +278,4 @@
   border: none;
   cursor: pointer;
 }
+

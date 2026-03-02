@@ -1,4 +1,4 @@
-.historial-table {
+﻿.historial-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
@@ -9,7 +9,7 @@
   border: 1px solid var(--card-border);
   padding: 8px;
   text-align: center;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   font-family: 'Nunito', sans-serif;
 }
 
@@ -55,7 +55,7 @@
   border-radius: 5px;
   background-color: var(--input-bg);
   color: var(--input-text);
-  font-size: 14px;
+  font-size: var(--font-secondary);
   width: 100%;
   box-sizing: border-box;
   transition: border-color 0.3s ease;
@@ -84,7 +84,7 @@
 
 .generar-reporte-container p {
   margin-top: 10px;
-  font-size: 0.9em;
+  font-size: var(--font-secondary);
   color: var(--text-muted);
 }
 

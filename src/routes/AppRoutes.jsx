@@ -11,6 +11,7 @@ import AlertasConfigPage from "../pages/AlertasConfigPage";
 import ConsumoPage from "../pages/ConsumoPage";
 import HistorialPage from "../pages/HistorialPage";
 import HomePage from "../pages/HomePage";
+import HelpPage from "../pages/HelpPage";
 
 // Usamos el nuevo layout V3 que combina Header + Sidebar
 import AuthenticatedLayout from "../layaout/AuthenticatedLayaoutV3"; 
@@ -147,6 +148,21 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 pageTitle="Historial"
               >
                 <HistorialPage />
+              </AuthenticatedLayout>
+            }
+          />
+
+          <Route
+            path="/ayuda"
+            element={
+              <AuthenticatedLayout
+                onLogout={onLogoutClick}
+                isModalOpen={isModalOpen}
+                onConfirm={onConfirmLogout}
+                onCancel={onCancelLogout}
+                pageTitle="Ayuda"
+              >
+                <HelpPage />
               </AuthenticatedLayout>
             }
           />

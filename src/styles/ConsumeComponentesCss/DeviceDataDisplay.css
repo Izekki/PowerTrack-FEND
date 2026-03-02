@@ -1,4 +1,4 @@
-/* === datos del consumo === */
+﻿/* === datos del consumo === */
 .device-data-display {
   background-color: var(--consumo-card-bg);
   border: 1px solid #ffffff;
@@ -20,7 +20,7 @@
   color: var(--consumo-group-text-button);
   font-family: 'nunito', sans-serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   padding: 10px;
   border-radius: 10px;
   text-align: left;
@@ -38,7 +38,7 @@
   color: var(--consumo-text-button);
   font-family: 'nunito', sans-serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   padding: 10px;
   border-radius: 10px;
   text-align: left;
@@ -48,3 +48,4 @@
   background-color: var(--consumo-button-bg-hover);
   color: var(--consumo-text-hover);
 }
+

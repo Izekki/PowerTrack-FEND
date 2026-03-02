@@ -12,22 +12,26 @@ const AlertasPage = () => {
   const [alerts, setAlerts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0); // Página actual
   const limit = 10;
   const { markAlertsAsRead } = useAlert();
   const filter = 'todos';
 
   const observer = useRef();
+  const isFetchingRef = useRef(false);
+  const pageRef = useRef(0);
+  const hasMoreRef = useRef(true);
+  const alertsRef = useRef([]);
 
   // Cargar más alertas cuando llegamos al final
   const lastAlertRef = useRef();
 
   const loadAlerts = useCallback(async (reset = false) => {
-    if (loading || (!hasMore && !reset)) return;
+    if (isFetchingRef.current || (!hasMoreRef.current && !reset)) return;
 
+    isFetchingRef.current = true;
     setLoading(true);
 
-    const offset = reset ? 0 : page * limit;
+    const offset = reset ? 0 : pageRef.current * limit;
 
     try {
       // Añadimos el filtro en la URL
@@ -58,27 +62,39 @@ const AlertasPage = () => {
 
       if (reset) {
         setAlerts(formatted);
-        setPage(1);
-        setHasMore(formatted.length === limit);
+        pageRef.current = 1;
+        const nextHasMore = formatted.length === limit;
+        setHasMore(nextHasMore);
+        hasMoreRef.current = nextHasMore;
       } else {
         setAlerts(prev => [...prev, ...formatted]);
-        setPage(prev => prev + 1);
-        setHasMore(formatted.length === limit);
+        pageRef.current = pageRef.current + 1;
+        const nextHasMore = formatted.length === limit;
+        setHasMore(nextHasMore);
+        hasMoreRef.current = nextHasMore;
       }
 
     } catch (err) {
       console.error('Error cargando alertas:', err);
     } finally {
+      isFetchingRef.current = false;
       setLoading(false);
     }
-  }, [filter, hasMore, limit, loading, page, userId]);
+  }, [filter, limit, userId]);
 
   // Inicializar carga
   useEffect(() => {
     if (userId) {
+      pageRef.current = 0;
+      hasMoreRef.current = true;
+      setHasMore(true);
       loadAlerts(true);
     }
   }, [userId, loadAlerts]);
+
+  useEffect(() => {
+    alertsRef.current = alerts;
+  }, [alerts]);
 
 
   useEffect(() => {
@@ -111,7 +127,7 @@ const AlertasPage = () => {
           iconoId: alert.icono_svg,
           dispositivo: alert.tipo_dispositivo,
         }))
-        .filter(alertNueva => !alerts.some(alertExistente => alertExistente.id === alertNueva.id));
+        .filter(alertNueva => !alertsRef.current.some(alertExistente => alertExistente.id === alertNueva.id));
 
       if (nuevas.length > 0) {
         setAlerts(prev => [...nuevas, ...prev]);
@@ -122,17 +138,18 @@ const AlertasPage = () => {
   }, 15000); // cada 15 segundos
 
   return () => clearInterval(interval);
-}, [userId, filter, alerts]);
+}, [userId, filter]);
 
 
   // Observar último elemento para cargar más
   useEffect(() => {
-    if (loading) return;
-
     if (observer.current) observer.current.disconnect();
 
+    if (loading || !hasMore) return;
+
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
+      if (entries[0].isIntersecting && hasMoreRef.current) {
+        observer.current?.disconnect();
         loadAlerts();
       }
     });
@@ -152,20 +169,37 @@ const AlertasPage = () => {
         <button
           className="btn-style-default btn-configurar"
           onClick={() => navigate('/alertas/configuracion')}
-          aria-label="Configuración de alertas"
-          title="Configuración de alertas"
+          aria-label="Configuración"
+          title="Configuración"
+          style={{
+            width: 24,
+            height: 24,
+            padding: 0,
+            border: "none",
+            background: "transparent",
+          }}
         >
           <svg
-            width="20"
-            height="20"
+            className="alertas-config-icon"
+            width="64px"
+            height="64px"
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
-      configaria-hidden="true"
           >
-            <path
-              d="M0 3.7L11 3.7 11 2.3 0 2.3 0 3.7zM13 0C12.4477153 0 12 .44771525 12 1L12 5C12 5.55228475 12.4477153 6 13 6 13.5522847 6 14 5.55228475 14 5L14 1C14 .44771525 13.5522847 0 13 0zM7 8.3L7 7C7 6.44771525 6.55228475 6 6 6 5.44771525 6 5 6.44771525 5 7L5 11C5 11.5522847 5.44771525 12 6 12 6.55228475 12 7 11.5522847 7 11L7 9.7 14 9.7 14 8.3 7 8.3zM0 9.7L4 9.7 4 8.3 0 8.3 0 9.7z"
-              transform="translate(1 2)"
-            />
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <path
+                  d="M0 3.7L11 3.7 11 2.3 0 2.3 0 3.7zM13 0C12.4477153 0 12 .44771525 12 1L12 5C12 5.55228475 12.4477153 6 13 6 13.5522847 6 14 5.55228475 14 5L14 1C14 .44771525 13.5522847 0 13 0zM7 8.3L7 7C7 6.44771525 6.55228475 6 6 6 5.44771525 6 5 6.44771525 5 7L5 11C5 11.5522847 5.44771525 12 6 12 6.55228475 12 7 11.5522847 7 11L7 9.7 14 9.7 14 8.3 7 8.3zM0 9.7L4 9.7 4 8.3 0 8.3 0 9.7z"
+                  transform="translate(1 2)"
+                ></path>
+              </g>
+            </g>
           </svg>
         </button>
       </div>
@@ -237,8 +271,8 @@ const AlertasPage = () => {
         </div>
       )}
 
-      {loading && <p>Cargando más alertas...</p>}
-      {!hasMore && <p>No hay más alertas disponibles.</p>}
+      {loading && hasMore && <p>Cargando más alertas...</p>}
+      {!hasMore && alerts.length > 0 && <p>No hay más alertas disponibles.</p>}
     </div>
   </div>
 );

@@ -1,4 +1,4 @@
-/* Estilos base se mantienen igual */
+﻿/* Estilos base se mantienen igual */
 .edit-device-image {
   width: 600px;
   background-color: var(--card-bg);
@@ -36,11 +36,11 @@
 
 .image-upload p {
   color: var(--btn-edit-bg);
-  font-size: 14px;
+  font-size: var(--font-secondary);
   font-weight: bold;
 }
 
-/* Media queries para móviles */
+/* Media queries para mÃ³viles */
 @media (max-width: 768px) {
   .edit-device-image {
     width: 100%;
@@ -59,7 +59,7 @@
   }
   
   .image-upload p {
-    font-size: 13px;
+    font-size: var(--font-small);
   }
 }
 
@@ -81,6 +81,6 @@
   }
   
   .image-upload p {
-    font-size: 12px;
+    font-size: var(--font-small);
   }
 }

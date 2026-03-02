@@ -1,4 +1,4 @@
-/* Estilos para el modal */
+﻿/* Estilos para el modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -14,19 +14,19 @@
 
 .modal-content {
   background: var(--bg-light); /* Se actualiza el fondo */
-  padding: 30px; /* Aumenté el padding para más espacio interno */
+  padding: 30px; /* AumentÃ© el padding para mÃ¡s espacio interno */
   border-radius: 8px;
   box-shadow: var(--shadow-default); /* Se usa el valor de sombra */
   width: 400px;
   max-width: 100%;
-  animation: fadeIn 0.3s ease-in-out; /* Agregué animación */
+  animation: fadeIn 0.3s ease-in-out; /* AgreguÃ© animaciÃ³n */
   color: var(--text-primary);
 }
 
-/* Título */
+/* TÃ­tulo */
 h2 {
   margin-bottom: 15px;
-  font-size: 26px; /* Tamaño más visible */
+  font-size: var(--font-heading-large); /* TamaÃ±o mÃ¡s visible */
   color: var(--text-primary); /* Se usa el color del texto primario */
 }
 
@@ -51,10 +51,11 @@ h2 {
   width: 100%;
   padding: 10px;
   border-radius: 4px;
-  border: 1px solid var(--border-color); /* Se actualiza el color del borde */
+  border: 1px solid var(--border-color);
   transition: border 0.3s;
   background-color: var(--input-bg);
   color: var(--input-text);
+  font-size: var(--font-body-interaction);
 }
 
 .input-group input.input-error {
@@ -93,7 +94,7 @@ h2 {
 }
 
 .device-list li:hover {
-  background: var(--nav-hover-bg); /* Se usa el color de hover de la barra de navegación */
+  background: var(--nav-hover-bg); /* Se usa el color de hover de la barra de navegaciÃ³n */
 }
 
 .device-list input[type="checkbox"] {
@@ -118,11 +119,11 @@ h2 {
 }
 
 .submit-btn {
-  background-color: var(--btn-primary-bg); /* Se usa el color de fondo del botón primario */
+  background-color: var(--btn-primary-bg); /* Se usa el color de fondo del botÃ³n primario */
 }
 
 .cancel-btn {
-  background-color: var(--btn-secondary-bg); /* Se usa el color de fondo del botón secundario */
+  background-color: var(--btn-secondary-bg); /* Se usa el color de fondo del botÃ³n secundario */
 }
 
 .submit-btn:hover, .cancel-btn:hover {
@@ -136,7 +137,7 @@ h2 {
   font-weight: bold;
 }
 
-/* Animación de aparición */
+/* AnimaciÃ³n de apariciÃ³n */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -158,19 +159,26 @@ h2 {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: var(--text-secondary); /* Se usa el color secundario */
+  color: var(--text-secondary);
+  font-size: var(--font-secondary);
 }
 
 /* Estilos del select */
 .select-group select {
   width: 100%;
-  padding: 10px;
+  padding: 10px 32px 10px 10px;
   border-radius: 4px;
-  border: 1px solid var(--border-color); /* Se actualiza el color del borde */
-  background: var(--input-bg); /* Se usa el color de fondo del input */
-  font-size: 16px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg fill='%23666' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px 16px;
+  font-size: var(--font-body-interaction);
   transition: border 0.3s, box-shadow 0.3s;
   color: var(--input-text);
+  appearance: none;
+  cursor: pointer;
 }
 
 /* Efecto al enfocar */
@@ -189,21 +197,7 @@ h2 {
 
 /* Efecto hover en opciones (solo visible en algunos navegadores) */
 .select-group select:hover {
-  cursor: pointer;
+  background-color: var(--input-bg);
+  color: var(--input-text);
 }
 
-/* Si quieres un ícono desplegable más personalizado */
-.select-group {
-  position: relative;
-}
-
-.select-group::after {
-  content: "▼";
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translateY(-50%);
-  font-size: 12px;
-  color: var(--text-secondary); /* Se usa el color secundario */
-  pointer-events: none;
-}

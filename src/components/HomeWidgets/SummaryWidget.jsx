@@ -105,7 +105,7 @@ const SummaryWidget = ({
         )}
         {/* Indicador de elementos ocultos (solo si no está expandido y hay más de 2) */}
         {!isExpanded && displayData.totalDispositivos > 2 && (
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'right', marginTop: '5px' }}>
+            <p style={{ fontSize: 'var(--font-extra-small)', color: 'var(--text-muted)', textAlign: 'right', marginTop: '5px' }}>
                 ... y {displayData.totalDispositivos - 2} más.
             </p>
         )}
@@ -129,7 +129,7 @@ const SummaryWidget = ({
         )}
         {/* Indicador de elementos ocultos (solo si no está expandido y hay más de 2) */}
         {!isExpanded && displayData.totalGrupos > 2 && (
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', textAlign: 'right', marginTop: '5px' }}>
+            <p style={{ fontSize: 'var(--font-extra-small)', color: 'var(--text-muted)', textAlign: 'right', marginTop: '5px' }}>
                 ... y {displayData.totalGrupos - 2} más.
             </p>
         )}
@@ -143,7 +143,7 @@ const SummaryWidget = ({
             background: 'none',
             border: 'none',
             color: 'var(--link-color)',
-            fontSize: '1rem',
+            fontSize: 'var(--font-body-interaction)',
             cursor: 'pointer',
             marginTop: '15px',
             padding: '5px 10px',

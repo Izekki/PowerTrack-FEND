@@ -9,17 +9,22 @@ import ModalReporte from "../components/ConsumoComponents/ModalReporte";
 import { useNavigate } from "react-router-dom";
 import { showAlert } from "../components/CommonComponents/Alert.jsx";
 import { apiGet, apiPost } from "../utils/apiHelper";
+import BackButton from "../components/CommonComponents/BackButton";
+import Breadcrumb from "../components/CommonComponents/Breadcrumb";
 
 const HistorialPage = () => {
   const { userId } = useAuth();
   const [historialData, setHistorialData] = useState([]);
   const [rangoSeleccionado, setRangoSeleccionado] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [fechaInicio, setFechaInicio] = useState("");
-  const [fechaFinal, setFechaFinal] = useState("");
   const [reporte, setReporte] = useState(null);
   const [mostrarReporte, setMostrarReporte] = useState(false);
     const navigate = useNavigate();
+
+  const breadcrumbItems = [
+    { label: "Consumo", onClick: () => navigate("/consumo") },
+    { label: "Historial", active: true }
+  ];
 
   const rangosDisponibles = [
     { value: "dia", label: "Día" },
@@ -100,9 +105,10 @@ const HistorialPage = () => {
 
   return (
     <div className="historial-page">
-      <div className="header-edit-device-container">
-        <div className="edit-device-actions">
-          <button className="btn-close-edit" onClick={() => navigate("/consumo")}>Volver</button>
+      <div className="breadcrumb-topbar">
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="breadcrumb-actions">
+          <BackButton className="btn-close-edit" onClick={() => navigate("/consumo")} />
         </div>
       </div>
       <div className="consumo-card">
@@ -160,7 +166,7 @@ const HistorialPage = () => {
 
               {rangoSeleccionado && (
                 <p
-                  style={{ fontSize: "0.9em", color: "#666", marginTop: "10px" }}
+                  style={{ fontSize: "var(--font-secondary)", color: "#666", marginTop: "10px" }}
                 >
                   Rango usado: {getFechaRango(rangoSeleccionado).fechaInicio} al{" "}
                   {getFechaRango(rangoSeleccionado).fechaFinal}

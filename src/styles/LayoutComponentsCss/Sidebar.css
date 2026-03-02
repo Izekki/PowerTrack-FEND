@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --sidebar-width: 250px;
   --sidebar-width-collapsed: 70px;
   --sidebar-bg: #ffffff;
@@ -50,22 +50,25 @@
 
 .sidebar-logo {
   height: 40px;
-  animation: fadeIn 0.3s;
   flex-shrink: 0;
 }
 
 .sidebar-title {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: var(--font-heading-small);
   color: var(--sidebar-text);
   white-space: nowrap;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s ease;
 }
 
 .burger-btn {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: var(--font-heading-small);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   color: var(--sidebar-text);
   transition: color 0.3s ease;
@@ -90,7 +93,7 @@
   padding: 12px 20px;
   color: var(--sidebar-text);
   text-decoration: none;
-  transition: all 0.2s, color 0.3s ease, background-color 0.3s ease;
+  transition: all 0.3s ease, color 0.3s ease, background-color 0.3s ease;
   cursor: pointer;
   border-left: 4px solid transparent;
   gap: 15px;
@@ -117,7 +120,7 @@
   transition: filter 0.3s ease;
 }
 
-/* Filtro para imágenes PNG en modo oscuro (temporal hasta cambiar a SVG) */
+/* Filtro para imÃ¡genes PNG en modo oscuro (temporal hasta cambiar a SVG) */
 [data-theme="dark"] .nav-item .icon-img {
   filter: brightness(0) invert(1);
 }
@@ -126,7 +129,7 @@
   filter: invert(0.7) sepia(1) saturate(3) hue-rotate(80deg) brightness(1.1);
 }
 
-/* Los SVG inline responderán automáticamente con currentColor */
+/* Los SVG inline responderÃ¡n automÃ¡ticamente con currentColor */
 .nav-item svg {
   color: var(--sidebar-text);
   transition: color 0.3s ease;
@@ -137,9 +140,10 @@
 }
 
 .label {
+  font-size: var(--font-body-interaction);
   white-space: nowrap;
   opacity: 1;
-  transition: opacity 0.2s;
+  transition: opacity 0.3s ease;
 }
 
 .sidebar.collapsed .label, 
@@ -190,9 +194,4 @@
 .logout-btn svg {
   color: var(--sidebar-text);
   transition: color 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }

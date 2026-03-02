@@ -185,14 +185,14 @@ const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
           }
         },
         style: {
-          fontSize: "11px",
+          fontSize: "var(--font-small)",
           colors: chartTextColor,
         },
       },
       title: {
         text: axisTitle,
         style: {
-          fontSize: "12px",
+          fontSize: "var(--font-small)",
           fontWeight: 600,
           color: chartTextColor,
         },
@@ -204,7 +204,7 @@ const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
       },
       labels: {
         style: {
-          fontSize: "12px",
+          fontSize: "var(--font-small)",
           colors: chartTextColor,
         },
       },
@@ -221,7 +221,7 @@ const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
       enabled: true,
       offsetX: 10,
       style: {
-        fontSize: "12px",
+        fontSize: "var(--font-small)",
         colors: [chartTextColor],
       },
       formatter: (value) => formatValue(value)

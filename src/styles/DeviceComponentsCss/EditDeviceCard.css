@@ -1,4 +1,4 @@
-/* Estilos base se mantienen igual */
+﻿/* Estilos base se mantienen igual */
 .edit-device-card {
   max-width: 600px;
   background-color: var(--card-bg);
@@ -13,7 +13,7 @@
 .Title-Device {
   color: var(--btn-edit-bg);
   text-align: autos;
-  font-size: 28px;
+  font-size: var(--font-heading-large);
 }
 
 .edit-device-form {
@@ -27,7 +27,7 @@
 }
 
 .lbl1, .lbl2 {
-  font-size: 14px;
+  font-size: var(--font-secondary);
   font-weight: bold;
   color: var(--text-primary);
   margin-bottom: 5px;
@@ -40,7 +40,7 @@
   border: 1px solid var(--border-color);
   border-radius: 5px;
   background-color: var(--input-bg);
-  font-size: 14px;
+  font-size: var(--font-body-interaction);
   color: var(--input-text);
 }
 
@@ -50,7 +50,7 @@
   color: var(--text-white);
   border: none;
   padding: 10px;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
@@ -61,12 +61,12 @@
 }
 
 .device-name-header {
-  font-size: 24px;
+  font-size: var(--font-heading-large);
   font-weight: normal;
   color: var(--text-dark);
 }
 
-/* Media queries para móviles */
+/* Media queries para mÃ³viles */
 @media (max-width: 768px) {
   .edit-device-card {
     max-width: 100%;
@@ -76,7 +76,7 @@
   }
   
   .Title-Device {
-    font-size: 22px;
+    font-size: var(--font-heading-medium);
   }
   
   .edit-device-card-columns {
@@ -92,7 +92,7 @@
   }
   
   .device-name-header {
-    font-size: 20px;
+    font-size: var(--font-heading-medium);
   }
 }
 
@@ -103,24 +103,24 @@
   }
   
   .Title-Device {
-    font-size: 20px;
+    font-size: var(--font-heading-medium);
   }
   
   .lbl1, .lbl2 {
-    font-size: 13px;
+    font-size: var(--font-small);
   }
   
   .input-lbl {
     padding: 8px;
-    font-size: 13px;
+    font-size: var(--font-small);
   }
   
   .buttonEditar {
     padding: 8px;
-    font-size: 13px;
+    font-size: var(--font-small);
   }
   
   .device-name-header {
-    font-size: 18px;
+    font-size: var(--font-body-reading);
   }
 }

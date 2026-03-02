@@ -1,4 +1,4 @@
-.search-bar {
+﻿.search-bar {
   display: flex;
   align-items: center;
   background: var(--input-bg); /* Usa el color de fondo de los inputs */
@@ -19,7 +19,8 @@
   border: none;
   outline: none;
   flex: 1;
-  font-size: 16px;
-  color: var(--input-text); /* Color del texto basado en la configuración */
+  font-size: var(--font-body-interaction);
+  color: var(--input-text); /* Color del texto basado en la configuraciÃ³n */
   background: var(--input-bg); /* Fondo de entrada consistente */
 }
+
