@@ -1,173 +1,129 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ConfigurationPage.css";
-import { useAuth } from "../context/AuthContext";
-import AlertsConfigCard from "../components/ConfigPageComponents/AlertsConfigCard";
-
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
+import { useTheme } from "next-themes";
+import { getHelpSections } from "../utils/services/helpService";
 
 
 const ConfigurationPage = () => {
-  const [configuraciones, setConfiguraciones] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [activeThreshold, setActiveThreshold] = useState({
-    id: null,
-    field: null,
-  });
-  const [toastState, setToastState] = useState({ visible: false, message: "" });
-  const { userId, token } = useAuth();
-  const toastTimer = useRef();
-  const highlightTimer = useRef();
+  const { theme, setTheme } = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+  const [activeCard, setActiveCard] = useState(null);
+  const [helpStatus, setHelpStatus] = useState("idle");
+  const [helpSections, setHelpSections] = useState([]);
 
-  // Cargar configuraciones del usuario
   useEffect(() => {
-    const fetchConfiguraciones = async () => {
-      try {
-        const response = await fetch(
-          `${DOMAIN_URL}/savsetting/configuraciones/usuario/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const data = await response.json();
+    setSelectedTheme(theme);
+  }, [theme]);
 
-        // Convertir minimo y maximo a números
-        const formatted = data.configuraciones.map((conf) => ({
-          ...conf,
-          minimo: parseFloat(conf.minimo),
-          maximo: parseFloat(conf.maximo),
-        }));
+  const handleThemeChange = (event) => {
+    const newTheme = event.target.value;
+    setTheme(newTheme);
+    setSelectedTheme(newTheme);
+  };
 
-        setConfiguraciones(formatted);
-      } catch (error) {
-        console.error("Error al cargar configuraciones:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const cards = [
+    {
+      title: "Ayuda y Comentarios",
+      text: "Aquí encontrarás acceso a ayuda rápida y espacio para comentarios de mejora.",
+      key: "ayuda",
+    },
+    {
+      title: "Contraste",
+      text: "Configura opciones visuales de contraste para mejorar la legibilidad de la interfaz.",
+      key: "contraste",
+    },
+    {
+      title: "Contacto",
+      text: "Revisa la información de contacto para soporte y atención de incidencias.",
+      key: "contacto",
+    },
+    {
+      title: "Fecha de corte",
+      text: "Define la fecha base para el seguimiento mensual de consumo y alertas.",
+      key: "fecha-corte",
+    },
+  ];
 
-    if (userId) fetchConfiguraciones();
-  }, [userId, token]);
+  const openCard = async (key) => {
+    setActiveCard(key);
 
-  const updateMinAndMax = async (dispositivo_id, nuevoMin, nuevoMax) => {
+    if (key !== "ayuda" || helpStatus === "success" || helpStatus === "loading") {
+      return;
+    }
+
     try {
-      const response = await fetch(
-        `${DOMAIN_URL}/savsetting/update-minmax`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            dispositivo_id,
-            minimo: nuevoMin,
-            maximo: nuevoMax,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Error al actualizar");
-      }
-
-      return true;
+      setHelpStatus("loading");
+      const data = await getHelpSections();
+      setHelpSections(data);
+      setHelpStatus("success");
     } catch (error) {
-      console.error("Error al actualizar configuración:", error);
-      return false;
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (toastTimer.current) clearTimeout(toastTimer.current);
-      if (highlightTimer.current) clearTimeout(highlightTimer.current);
-    };
-  }, []);
-
-  const showToast = (message) => {
-    setToastState({ visible: true, message });
-    if (toastTimer.current) clearTimeout(toastTimer.current);
-    toastTimer.current = setTimeout(() => {
-      setToastState({ visible: false, message: "" });
-    }, 2000);
-  };
-
-  const highlightThreshold = (dispositivoId, field) => {
-    setActiveThreshold({ id: dispositivoId, field });
-    if (highlightTimer.current) clearTimeout(highlightTimer.current);
-    highlightTimer.current = setTimeout(() => {
-      setActiveThreshold({ id: null, field: null });
-    }, 900);
-  };
-
-  // Manejadores de cambios
-  const handleMinChange = async (dispositivo_id, value) => {
-    const newMin = parseFloat(value);
-    const conf = configuraciones.find(
-      (c) => c.dispositivo_id === dispositivo_id
-    );
-
-    if (!conf) return;
-
-    // Validar que esté dentro del rango permitido y sea menor que maximo
-    if (newMin < conf.consumo_minimo_w || newMin >= conf.maximo) return;
-
-    const updated = configuraciones.map((c) =>
-      c.dispositivo_id === dispositivo_id ? { ...c, minimo: newMin } : c
-    );
-
-    setConfiguraciones(updated);
-    highlightThreshold(dispositivo_id, "min");
-
-    const ok = await updateMinAndMax(dispositivo_id, newMin, conf.maximo);
-    if (ok) {
-      showToast(`Umbral minimo actualizado: ${conf.dispositivo_nombre}`);
-    }
-  };
-
-  const handleMaxChange = async (dispositivo_id, value) => {
-    const newMax = parseFloat(value);
-    const conf = configuraciones.find(
-      (c) => c.dispositivo_id === dispositivo_id
-    );
-
-    if (!conf) return;
-
-    // Validar que esté dentro del rango permitido y sea mayor que minimo
-    if (newMax > conf.consumo_maximo_w || newMax <= conf.minimo) return;
-
-    const updated = configuraciones.map((c) =>
-      c.dispositivo_id === dispositivo_id ? { ...c, maximo: newMax } : c
-    );
-
-    setConfiguraciones(updated);
-    highlightThreshold(dispositivo_id, "max");
-
-    const ok = await updateMinAndMax(dispositivo_id, conf.minimo, newMax);
-    if (ok) {
-      showToast(`Umbral maximo actualizado: ${conf.dispositivo_nombre}`);
+      console.error("Error cargando ayuda:", error);
+      setHelpStatus("error");
     }
   };
 
   return (
     <div className="configurationPage-container">
       <h2 className="configurationPage-title">Configuración</h2>
-      <div className="configurationPage-cards">
-        <AlertsConfigCard
-          loading={loading}
-          configuraciones={configuraciones}
-          handleMinChange={handleMinChange}
-          handleMaxChange={handleMaxChange}
-          activeThreshold={activeThreshold}
+      <div className="configurationPage-content">
+        <AccessibilityCard
+          selectedTheme={selectedTheme}
+          handleThemeChange={handleThemeChange}
         />
-      </div>
-      <div
-        className={`config-toast ${toastState.visible ? "show" : ""}`}
-        aria-live="polite"
-      >
-        {toastState.message}
+
+        {cards.map((card) => (
+          <button
+            key={card.title}
+            type="button"
+            className={`configurationCard configurationCard-button ${
+              activeCard === card.key ? "active" : ""
+            }`}
+            onClick={() => openCard(card.key)}
+          >
+            <div className="configurationCard-headerInline">
+              <h3 className="configurationCard-title">{card.title}</h3>
+              {card.key === "ayuda" && (
+                <span
+                  className="configuration-help-icon"
+                  aria-hidden="true"
+                />
+              )}
+            </div>
+            <p className="configurationCard-text">{card.text}</p>
+          </button>
+        ))}
+
+        {activeCard === "ayuda" && (
+          <div className="configurationCard">
+            <h3 className="configurationCard-title">Ayudas disponibles</h3>
+
+            {helpStatus === "loading" && (
+              <p className="configurationCard-text">Cargando ayudas...</p>
+            )}
+
+            {helpStatus === "error" && (
+              <p className="configurationCard-text">
+                No se pudo cargar la ayuda por el momento.
+              </p>
+            )}
+
+            {helpStatus === "success" && (
+              <div className="configuration-help-grid">
+                {helpSections.map((section) => (
+                  <div key={section.id} className="configuration-help-item">
+                    <h4>{section.title}</h4>
+                    <ul>
+                      {section.guides.map((guide, index) => (
+                        <li key={`${section.id}-${index}`}>{guide}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,37 +1,99 @@
 .configurationPage-container {
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
   background-color: var(--bg-body);
   min-height: 100vh;
 }
 
 .configurationPage-title {
-  font-size: 24px;
-  margin-bottom: 1.5rem;
-  color: var(--text-primary);
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  background: linear-gradient(90deg, var(--header-gradient-start) 0%, var(--header-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.configurationPage-cards {
-  display: block;
+.configurationPage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .configurationCard {
-  flex: 1 1 45%;
   background-color: var(--card-bg);
-  padding: 1.8rem;
+  border: 1px solid #ffffff;
   border-radius: 12px;
   box-shadow: var(--card-shadow);
-  border: 1px solid #ffffff;
+  padding: 25px 30px;
+}
+
+.configurationCard-button {
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.configurationCard-button:hover {
+  transform: translateY(-3px);
+}
+
+.configurationCard-button.active {
+  border-color: var(--btn-primary-bg);
 }
 
 .configurationCard-title {
-  font-size: 20px;
-  margin-bottom: 1.25rem;
-  color: var(--text-primary);
+  font-size: 22px;
+  margin-bottom: 15px;
+  color: var(--header-gradient-start);
 }
 
 .configurationCard-text {
   font-size: 16px;
   color: var(--text-secondary);
+}
+
+.configurationCard-headerInline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.configuration-help-icon {
+  width: 22px;
+  height: 22px;
+  display: inline-block;
+  background-color: currentColor;
+  -webkit-mask: url("../assets/informacion.svg") center / contain no-repeat;
+  mask: url("../assets/informacion.svg") center / contain no-repeat;
+}
+
+.configuration-help-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.configuration-help-item h4 {
+  margin: 0 0 8px;
+  color: var(--text-primary);
+  font-size: 17px;
+}
+
+.configuration-help-item ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-secondary);
+}
+
+.configuration-help-item li {
+  margin-bottom: 6px;
+  line-height: 1.35;
 }
 
 .configurationCard-section {
@@ -256,4 +318,25 @@
 
 .alert-slider.is-active::-moz-range-thumb {
   background: #2e9a5f;
+}
+
+@media (max-width: 1024px) {
+  .alert-slider-label {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 768px) {
+  .configurationPage-title {
+    font-size: 26px;
+  }
+
+  .configurationCard-title {
+    font-size: 19px;
+  }
+
+  .configurationCard-text,
+  .alert-slider-label {
+    font-size: 14px;
+  }
 }

@@ -1,0 +1,39 @@
+.help-page-container {
+  padding: 20px;
+}
+
+.help-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.help-card {
+  background-color: var(--card-bg);
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+}
+
+.help-card-title {
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-size: 1.05rem;
+}
+
+.help-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-secondary);
+}
+
+.help-list li {
+  margin-bottom: 6px;
+  line-height: 1.35;
+}
+
+.help-status {
+  padding: 20px;
+  color: var(--text-secondary);
+}

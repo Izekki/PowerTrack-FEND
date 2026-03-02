@@ -7,6 +7,7 @@ import DispositivosPage from "../pages/DevicesPages";
 import ProfilePage from "../pages/ProfilePage";
 import ConfigurationPage from "../pages/ConfigurationPage";
 import AlertasPage from "../pages/AlertasPage";
+import AlertasConfigPage from "../pages/AlertasConfigPage";
 import ConsumoPage from "../pages/ConsumoPage";
 import HistorialPage from "../pages/HistorialPage";
 import HomePage from "../pages/HomePage";
@@ -67,6 +68,21 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
                 pageTitle="Alertas"
               >
                 <AlertasPage />
+              </AuthenticatedLayout>
+            }
+          />
+
+          <Route
+            path="/alertas/configuracion"
+            element={
+              <AuthenticatedLayout
+                onLogout={onLogoutClick}
+                isModalOpen={isModalOpen}
+                onConfirm={onConfirmLogout}
+                onCancel={onCancelLogout}
+                pageTitle="Configuración de Alertas"
+              >
+                <AlertasConfigPage />
               </AuthenticatedLayout>
             }
           />

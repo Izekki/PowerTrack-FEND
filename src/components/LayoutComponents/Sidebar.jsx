@@ -18,7 +18,8 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
   const location = useLocation();
   const { hasNewAlerts } = useAlert();
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) =>
+    location.pathname === path || location.pathname.startsWith(`${path}/`);
 
   return (
     <aside className={`sidebar ${isCollapsed ? "collapsed" : "expanded"}`}>
