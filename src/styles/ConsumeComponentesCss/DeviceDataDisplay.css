@@ -1,7 +1,7 @@
 ﻿/* === datos del consumo === */
 .device-data-display {
   background-color: var(--consumo-card-bg);
-  border: 1px solid #ffffff;
+  border: 1px solid var(--consumo-card-border);
   border-radius: 12px;
   padding: 12px;
   box-shadow: var(--consumo-card-shadow);

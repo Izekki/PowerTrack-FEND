@@ -76,7 +76,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                 className='form-control-inputs'
                 type="email"
                 name="email"
-                placeholder="Introduzca su correo electrónico"
+                placeholder="correo@ejemplo.com"
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -92,7 +92,7 @@ const LoginForm = ({ onLoginSuccess }) => {
                 className='form-control-inputs'
                 type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Introduzca su contraseña"
+                placeholder="Contraseña"
                 value={formData.password}
                 onChange={handleChange}
                 required
@@ -115,11 +115,11 @@ const LoginForm = ({ onLoginSuccess }) => {
         </div>
 
         <a href="#" className="forgot-password" onClick={() => setRecover(true)}>Recuperar contraseña</a>
-        <button className="login-btn" onClick={handleLoginClick}>INICIAR SESIÓN</button>
+        <button className="login-btn" onClick={handleLoginClick}>Inicia Sesión</button>
 
         <div className="register-separator" />
         <p className="register-link">¿No tienes una cuenta?</p>
-        <button className="register-btn register-btn-login" onClick={handleGoToRegisterClick}>Registrate</button>
+        <button className="register-btn register-btn-login" onClick={handleGoToRegisterClick}>Haz clic aquí</button>
       </div>
     </div>
   );

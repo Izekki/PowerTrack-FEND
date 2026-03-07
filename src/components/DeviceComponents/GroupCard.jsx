@@ -43,6 +43,7 @@ const GroupCard = ({ groupName, devices, onEditDevice, onEditGroup, onDeviceUpda
             onEdit={onEditDevice}
             onDelete={onDeleteDevice}
             onDeviceUpdate={onDeviceUpdate}
+            isInGroup={true}
           />
         ))}
       </div>

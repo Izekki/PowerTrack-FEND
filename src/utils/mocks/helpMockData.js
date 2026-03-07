@@ -19,8 +19,8 @@ export const helpMockData = [
     ],
   },
   {
-    id: "dashboard",
-    title: "Dashboard",
+    id: "inicio",
+    title: "Inicio",
     items: [
       "Cómo agregar widgets",
       "Cómo eliminar widgets",

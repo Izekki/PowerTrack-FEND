@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "../styles/ConfigurationPage.css";
 import AccessibilityCard from "../components/ConfigPageComponents/AccessibilityCard";
-import { useTheme } from "next-themes";
+import { useAuth } from "../context/AuthContext";
+import { useContrast } from "../context/ContrastContext";
 import { useNavigate } from "react-router-dom";
 
 
 const ConfigurationPage = () => {
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme();
-  const [selectedTheme, setSelectedTheme] = useState(theme);
+  const { userId } = useAuth();
+  const { themePreference, handleThemePreferenceChange } = useContrast();
+  const [selectedTheme, setSelectedTheme] = useState(themePreference);
   const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
-    setSelectedTheme(theme);
-  }, [theme]);
+    setSelectedTheme(themePreference);
+  }, [themePreference]);
 
-  const handleThemeChange = (event) => {
+  const handleThemeChange = async (event) => {
     const newTheme = event.target.value;
-    setTheme(newTheme);
     setSelectedTheme(newTheme);
+    await handleThemePreferenceChange(newTheme, userId);
   };
 
   const cards = [
@@ -26,11 +28,6 @@ const ConfigurationPage = () => {
       title: "Ayuda y Comentarios",
       text: "Aquí encontrarás acceso a ayuda rápida y espacio para comentarios de mejora.",
       key: "ayuda",
-    },
-    {
-      title: "Contraste",
-      text: "Configura opciones visuales de contraste para mejorar la legibilidad de la interfaz.",
-      key: "contraste",
     },
     {
       title: "Contacto",
@@ -44,13 +41,16 @@ const ConfigurationPage = () => {
     },
   ];
 
-  const openCard = async (key) => {
-    if (key === "ayuda") {
-      navigate("/ayuda");
-      return;
-    }
-
-    setActiveCard(key);
+    const openCard = async (key) => {
+      if (key === "ayuda") {
+        navigate("/ayuda");
+        return;
+      }
+      if (key === "contacto") {
+        navigate("/contacto");
+        return;
+      }
+      setActiveCard(key);
   };
 
   return (
@@ -63,25 +63,27 @@ const ConfigurationPage = () => {
         />
 
         {cards.map((card) => (
-          <button
-            key={card.title}
-            type="button"
-            className={`configurationCard configurationCard-button ${
-              activeCard === card.key ? "active" : ""
-            }`}
-            onClick={() => openCard(card.key)}
-          >
-            <div className="configurationCard-headerInline">
-              <h3 className="configurationCard-title">{card.title}</h3>
-              {card.key === "ayuda" && (
-                <span
-                  className="configuration-help-icon"
-                  aria-hidden="true"
-                />
-              )}
-            </div>
-            <p className="configurationCard-text">{card.text}</p>
-          </button>
+          <React.Fragment key={card.title}>
+            <button
+              type="button"
+              className={`configurationCard configurationCard-button ${
+                activeCard === card.key ? "active" : ""
+              }`}
+              onClick={() => openCard(card.key)}
+            >
+              <div className="configurationCard-headerInline">
+                <h3 className="configurationCard-title">{card.title}</h3>
+                {card.key === "ayuda" && (
+                  <span
+                    className="configuration-help-icon"
+                    aria-hidden="true"
+                  />
+                )}
+              </div>
+              <p className="configurationCard-text">{card.text}</p>
+            </button>
+
+          </React.Fragment>
         ))}
 
       </div>

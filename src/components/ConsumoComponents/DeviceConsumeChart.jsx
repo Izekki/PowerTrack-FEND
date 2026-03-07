@@ -3,12 +3,33 @@ import ApexCharts from "react-apexcharts";
 import { darkenHex } from "../../utils/colorUtils";
 
 const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
+  const [contrastClassSnapshot, setContrastClassSnapshot] = useState(() =>
+    document.body.className
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setContrastClassSnapshot(document.body.className);
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark";
-  const chartBorderColor = isDarkMode ? "#333333" : "#e0e0e0";
-  const chartTextColor = isDarkMode ? "#f0f0f0" : "#333333";
+  const rootStyles = getComputedStyle(document.body);
+  const chartBorderColor =
+    rootStyles.getPropertyValue("--card-border").trim() ||
+    (isDarkMode ? "#333333" : "#e0e0e0");
+  const chartTextColor =
+    rootStyles.getPropertyValue("--text-primary").trim() ||
+    (isDarkMode ? "#f0f0f0" : "#333333");
 
   const isCostMode = displayMode === "mxn";
-  const unitLabel = isCostMode ? "MXN" : "kWh";
   const axisTitle = isCostMode ? "Costo (MXN)" : "Consumo (kWh)";
   const formatValue = (value) => {
     if (!Number.isFinite(value)) return isCostMode ? "$0.00" : "0.00 kWh";
@@ -233,7 +254,7 @@ const DevicePieChart = ({ devices, activeDeviceButton, displayMode }) => {
 
   return (
     <ApexCharts
-      key={JSON.stringify({ devices, activeDeviceButton })}
+      key={JSON.stringify({ devices, activeDeviceButton, contrastClassSnapshot, chartTextColor, chartBorderColor })}
       options={options}
       series={series}
       type="bar"

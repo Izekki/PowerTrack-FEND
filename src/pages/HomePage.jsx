@@ -48,7 +48,7 @@ const HomePage = () => {
   const bypassNextPopRef = useRef(false);
   const currentPathRef = useRef(`${location.pathname}${location.search}${location.hash}`);
 
-  // Configuración Dashboard
+  // Configuración Inicio
   const [layout, setLayout] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [trends, setTrends] = useState({ consumoTrend: 0, consumoSign: 'neutral', costoStatus: 'neutral' });
@@ -58,7 +58,7 @@ const HomePage = () => {
     if (!isEditMode || !Array.isArray(savedLayout)) return false;
     return JSON.stringify(layout) !== JSON.stringify(savedLayout);
   }, [isEditMode, layout, savedLayout]);
-  const unsavedChangesMessage = 'Tienes cambios sin guardar en el Dashboard. ¿Deseas salir sin guardar?';
+  const unsavedChangesMessage = 'Tienes cambios sin guardar en Inicio. ¿Deseas salir sin guardar?';
 
   useEffect(() => {
     currentPathRef.current = `${location.pathname}${location.search}${location.hash}`;

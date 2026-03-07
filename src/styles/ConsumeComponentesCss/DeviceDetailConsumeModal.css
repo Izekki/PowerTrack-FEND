@@ -1,7 +1,7 @@
 ﻿/* === Mini Modal === */
 .mini-modal-cost {
   background-color: var(--consumo-consejo-bg);
-  border: 1px solid #ffffff;
+  border: 1px solid var(--consumo-card-border);
   box-shadow: var(--consumo-card-shadow);
   border-radius: 12px;
   padding: 15px;

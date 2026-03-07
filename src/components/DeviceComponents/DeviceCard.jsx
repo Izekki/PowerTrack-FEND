@@ -8,7 +8,7 @@ const images = import.meta.glob("../../assets/devices-icons/*.png", {
   import: "default",
 });
 
-const DeviceCard = ({ device, onEdit, onDelete }) => {
+const DeviceCard = ({ device, onEdit, onDelete, isInGroup = false }) => {
   if (!device) return null;
 
   const {
@@ -25,7 +25,7 @@ const DeviceCard = ({ device, onEdit, onDelete }) => {
     images[imagePath] || images["../../assets/devices-icons/noimage-card.svg"] || noImageCard;
 
   return (
-    <div className={`device-card ${id_grupo ? "group-card" : ""}`}>
+    <div className={`device-card ${isInGroup && id_grupo ? "group-card" : ""}`}>
       <div className="device-img">
         <img src={image} alt={`Tipo ${id_tipo_dispositivo}`} />
       </div>

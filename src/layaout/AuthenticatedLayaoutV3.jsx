@@ -3,6 +3,7 @@ import HeaderPW from "../components/LayoutComponents/HeaderPW";
 import Sidebar from "../components/LayoutComponents/Sidebar";
 import LogoutConfirmModal from "../components/CommonComponents/LogoutConfirmModal";
 import { useAuth } from "../context/AuthContext";
+import { useLoadUserPreferences } from "../hooks/useLoadUserPreferences";
 import "../styles/LayoutComponentsCss/Sidebar.css";
 
 const AuthenticatedLayoutV3 = ({ 
@@ -11,10 +12,13 @@ const AuthenticatedLayoutV3 = ({
   onLogout, 
   onConfirm, 
   onCancel,
-  pageTitle = "Dashboard" // Título dinámico de la página
+  pageTitle = "Inicio" // Título dinámico de la página
 }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
   const { name } = useAuth();
+  
+    // Cargar preferencias del usuario al montar el layout
+    useLoadUserPreferences();
 
   const toggleSidebar = () => {
     setIsSidebarCollapsed(!isSidebarCollapsed);

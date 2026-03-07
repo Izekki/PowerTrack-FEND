@@ -1,0 +1,426 @@
+/* ===================================
+   DeleteAccount Component Styles
+   === Eliminación de Cuenta ===
+   =================================== */
+
+/* ============================================
+   SECCIÓN: Card Eliminación de Cuenta
+   ============================================ */
+
+.deleteAccountSection {
+  margin-top: 30px;
+  padding: 0;
+}
+
+.deleteAccountCard {
+  background-color: rgba(255, 87, 87, 0.05);
+  border: 2px solid var(--btn-delete-bg);
+  border-radius: 12px;
+  padding: 16px 20px;
+  transition: all 0.3s ease;
+}
+
+.deleteAccountCard:hover {
+  border-color: var(--btn-delete-bg-hover);
+  background-color: rgba(255, 87, 87, 0.08);
+}
+
+.cardTitle {
+  color: var(--btn-delete-bg);
+  margin: 0 0 8px 0;
+  font-size: var(--font-body-reading);
+  font-weight: 600;
+  display: block;
+  line-height: 1.2;
+}
+
+.cardSubtitle {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: var(--font-body-interaction);
+  font-weight: normal;
+  display: none;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.cardDescription {
+  color: var(--text-secondary);
+  margin: 0;
+  font-size: var(--font-secondary);
+  line-height: 1.4;
+  flex: 1;
+}
+
+.deleteBtn {
+  background-color: var(--btn-delete-bg);
+  color: var(--text-white);
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--font-secondary);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  align-self: flex-start;
+  line-height: 1;
+}
+
+.deleteBtn:hover:not(:disabled) {
+  background-color: var(--btn-delete-bg-hover);
+}
+
+.deleteBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.deleteBtn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================
+   SECCIÓN: Modal Overlay
+   ============================================ */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.modalContent {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--card-shadow);
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   SECCIÓN: Modal Header
+   ============================================ */
+
+.modalHeader {
+  padding: 25px 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modalHeader h2 {
+  color: var(--text-primary);
+  margin: 0;
+  font-size: var(--font-heading-small);
+  font-weight: 600;
+}
+
+/* ============================================
+   SECCIÓN: Modal Body
+   ============================================ */
+
+.modalBody {
+  padding: 25px 30px;
+}
+
+/* Texto de advertencia */
+.warningText {
+  color: var(--text-primary);
+  font-size: var(--font-body-reading);
+  font-weight: 600;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
+
+.warningText strong {
+  color: var(--btn-delete-bg);
+  font-weight: 700;
+}
+
+/* Descripción */
+.descriptionText {
+  color: var(--text-primary);
+  font-size: var(--font-body-interaction);
+  font-weight: 500;
+  margin: 15px 0 10px 0;
+}
+
+/* Lista de datos a eliminar */
+.deleteList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.deleteList li {
+  color: var(--text-secondary);
+  font-size: var(--font-body-interaction);
+  margin: 8px 0;
+  padding-left: 20px;
+  position: relative;
+}
+
+.deleteList li:before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--btn-delete-bg);
+  font-weight: bold;
+}
+
+/* Texto de peligro */
+.dangerText {
+  color: var(--btn-delete-bg);
+  font-size: var(--font-body-interaction);
+  font-weight: 600;
+  text-align: center;
+  margin: 15px 0 0 0;
+  padding: 15px;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  border-left: 4px solid var(--btn-delete-bg);
+}
+
+/* Input para confirmación */
+.inputLabel {
+  display: block;
+  color: var(--text-primary);
+  font-size: var(--font-body-interaction);
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.inputLabel strong {
+  color: var(--btn-delete-bg);
+}
+
+.confirmInput {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  transition: border 0.3s;
+  box-sizing: border-box;
+  font-size: var(--font-body-interaction);
+  font-family: "Nunito", sans-serif;
+}
+
+.confirmInput:focus {
+  outline: none;
+  border-color: var(--btn-delete-bg);
+  box-shadow: 0 0 0 3px rgba(255, 87, 87, 0.1);
+}
+
+.confirmInput:disabled {
+  background-color: #f5f5f5;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Input Hint */
+.inputHint {
+  color: var(--text-secondary);
+  font-size: var(--font-secondary);
+  margin: 8px 0 15px 0;
+  font-style: italic;
+}
+
+/* Error Message */
+.errorMessage {
+  background-color: #f8d7da;
+  border-left: 4px solid var(--btn-delete-bg);
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: var(--font-body-interaction);
+  font-weight: 500;
+}
+
+/* Success Message */
+.successText {
+  color: #2e7d32;
+  font-size: var(--font-body-reading);
+  font-weight: 600;
+  text-align: center;
+  margin: 15px 0 10px 0;
+}
+
+.redirectText {
+  color: var(--text-secondary);
+  font-size: var(--font-body-interaction);
+  text-align: center;
+  margin: 10px 0 15px 0;
+}
+
+/* ============================================
+   SECCIÓN: Modal Footer
+   ============================================ */
+
+.modalFooter {
+  display: flex;
+  gap: 10px;
+  padding: 25px 30px;
+  border-top: 1px solid #e0e0e0;
+  justify-content: flex-end;
+}
+
+.cancelBtn {
+  background-color: var(--btn-secondary-bg);
+  color: var(--text-white);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--font-secondary);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.cancelBtn:hover:not(:disabled) {
+  background-color: var(--btn-secondary-hover);
+}
+
+.cancelBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.cancelBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.confirmBtn {
+  background-color: var(--btn-delete-bg);
+  color: var(--text-white);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--font-secondary);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.confirmBtn:hover {
+  background-color: var(--btn-delete-bg-hover);
+}
+
+.confirmBtn:active {
+  transform: scale(0.98);
+}
+
+.deleteConfirmBtn {
+  background-color: var(--btn-delete-bg);
+  color: var(--text-white);
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: var(--font-secondary);
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.deleteConfirmBtn.enabled:hover:not(:disabled) {
+  background-color: var(--btn-delete-bg-hover);
+}
+
+.deleteConfirmBtn.enabled:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.deleteConfirmBtn.disabled:disabled,
+.deleteConfirmBtn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ============================================
+   SECCIÓN: Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .deleteAccountCard {
+    padding: 15px 20px;
+  }
+
+  .cardTitle {
+    font-size: var(--font-heading-medium);
+  }
+
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .deleteBtn {
+    padding: 8px 15px;
+    font-size: var(--font-secondary);
+    width: 100%;
+  }
+
+  .modalContent {
+    width: 95%;
+  }
+
+  .modalHeader,
+  .modalBody,
+  .modalFooter {
+    padding: 15px 20px;
+  }
+
+  .modalHeader h2 {
+    font-size: var(--font-heading-medium);
+  }
+
+  .modalFooter {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cancelBtn,
+  .confirmBtn,
+  .deleteConfirmBtn {
+    width: 100%;
+  }
+
+  .deleteList {
+    margin: 0 0 15px 0;
+  }
+
+  .deleteList li {
+    font-size: var(--font-secondary);
+    margin: 6px 0;
+  }
+}

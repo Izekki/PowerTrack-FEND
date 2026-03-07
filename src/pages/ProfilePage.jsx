@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/ProfilePage.css";
 import eyeIcon from "../assets/eye-icon.svg";
 import eyeSlashIcon from "../assets/eye-slash-icon.svg";
 import { showAlert } from "../components/CommonComponents/Alert";
 import { useAuth } from "../context/AuthContext";
 import { apiGet, apiPut, apiPost } from "../utils/apiHelper";
-// Importamos el nuevo widget
+import DeleteAccountButton from "../components/DeleteAccount/DeleteAccountButton";
 
 const ProfilePage = () => {
-  const { userId, token, name, login } = useAuth();
+  const navigate = useNavigate();
+  const { userId, token, name, login, logout } = useAuth();
   const [profileData, setProfileData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -137,6 +139,12 @@ const ProfilePage = () => {
       showAlert("error", error.message);
       throw error; // Re-lanzar el error para manejarlo en handleSave
     }
+  };
+
+  const handleDeleteSuccess = () => {
+    // El logout y limpieza de sesión ya se ejecutó en deleteAccountService
+    // Solo navegar a login
+    navigate("/login");
   };
 
   return (
@@ -295,6 +303,15 @@ const ProfilePage = () => {
               </>
             )}
           </div>
+
+          {/* ============================================ */}
+          {/* 🆕 Sección: Eliminación de Cuenta            */}
+          {/* ============================================ */}
+          <DeleteAccountButton 
+            userId={userId}
+            token={token}
+            onSuccess={handleDeleteSuccess}
+          />
         </div>
       ) : (
         <p className="profilePage-error">No se pudo cargar el perfil.</p>

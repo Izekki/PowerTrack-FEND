@@ -71,6 +71,91 @@
   border-color: var(--btn-primary-bg);
 }
 
+.contactFormCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contactFormCard-description {
+  margin-top: -4px;
+}
+
+.contactForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.contactForm-label {
+  color: var(--text-primary);
+  font-size: var(--font-secondary);
+  font-weight: 600;
+}
+
+.contactForm-input,
+.contactForm-textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: var(--font-body-interaction);
+  font-family: inherit;
+  color: var(--input-text);
+  background: var(--input-bg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.contactForm-textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.contactForm-input:focus,
+.contactForm-textarea:focus {
+  outline: none;
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.2);
+}
+
+.contactForm-submit {
+  margin-top: 6px;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  font-size: var(--font-body-interaction);
+  font-weight: 700;
+  color: var(--text-white);
+  background: var(--btn-primary-bg);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.contactForm-submit:hover {
+  background: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.contactForm-submit:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.25);
+}
+
+.contactForm-status {
+  margin: 2px 0 0;
+  font-size: var(--font-secondary);
+  font-weight: 600;
+}
+
+.contactForm-status.is-success {
+  color: #2e9a5f;
+}
+
+.contactForm-status.is-error {
+  color: var(--error-color);
+}
+
 .configurationCard-title {
   font-size: var(--font-heading-small);
   margin-bottom: 15px;
@@ -364,4 +449,60 @@
   .alert-slider-label {
     font-size: var(--font-secondary);
   }
+
+  .contactForm-submit {
+    width: 100%;
+  }
 }
+
+  /* Estilos para la sección de contraste */
+  .contrast-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contrast-info-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: space-between;
+  }
+
+  .contrast-current {
+    font-size: var(--font-body-interaction);
+    font-weight: 500;
+    color: var(--text-primary);
+    background-color: rgba(100, 149, 237, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
+    flex: 1;
+  }
+
+  .contrast-edit-btn {
+    background-color: var(--btn-primary-bg);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: var(--font-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .contrast-edit-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(100, 149, 237, 0.3);
+  }
+
+  .contrast-edit-btn:focus-visible {
+    outline: 2px solid var(--btn-primary-bg);
+    outline-offset: 2px;
+  }
+
+  .contrast-edit-btn:active {
+    transform: translateY(0);
+  }

@@ -405,6 +405,7 @@
 /* Estilos de la tarjeta arrastrable */
 .sortable-item {
   height: 100%;
+  transition: box-shadow 0.3s ease, scale 0.3s ease, filter 0.3s ease;
 }
 
 /* AnimaciÃ³n de vibraciÃ³n solo en modo ediciÃ³n */
@@ -415,6 +416,14 @@
 
 .sortable-item.editable:active {
   cursor: grabbing;
+}
+
+/* Retroalimentación visual durante el arrastre */
+.sortable-item.dragging {
+  border: 2px solid var(--btn-primary-bg);
+  border-radius: 12px;
+  background: var(--card-bg);
+  animation: none;
 }
 
 /* BotÃ³n Editar en Modo Normal */

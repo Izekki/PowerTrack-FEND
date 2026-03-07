@@ -238,6 +238,124 @@ body {
 
 }
 
+/* Contraste global para toda la aplicacion */
+body.contrast-high {
+  --text-primary: #000;
+  --text-secondary: #333;
+  --border-color: #0000d0;
+  --card-border: #0000d0;
+  --btn-primary-bg: #0000d0;
+  --btn-primary-hover: #0000a8;
+  --btn-secondary-bg: #4a4a4a;
+  --btn-secondary-hover: #222;
+  --card-bg: #f5f5f5;
+  --group-card-bg: #f0f2ff;
+  --bg-light: #ffffff;
+  --bg-group: #f5f5f5;
+  --bg-body: #fff;
+  --bg-navbar: #fff;
+  --nav-hover-bg: rgba(0, 0, 208, 0.12);
+  --input-bg: #fff;
+  --input-text: #000;
+  --header-gradient-start: #0000d0;
+  --header-gradient-end: #000;
+  --link-color: #0000d0;
+  --link-hover: #00008b;
+
+  /* Consumo tokens para contraste alto */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #0000d0;
+  --consumo-card-shadow: 0 0 0 2px rgba(0, 0, 208, 0.2);
+  --consumo-consejo-bg: #eef1ff;
+  --consumo-button-bg: #ffffff;
+  --consumo-text-button: #0000d0;
+  --consumo-group-button-bg: #f2f4ff;
+  --consumo-group-button-hover: #0000d0;
+  --consumo-group-text-button: #0000d0;
+  --consumo-button-extra-bg: #0000d0;
+  --consumo-text-title: #000000;
+  --consumo-button-bg-hover: #0000d0;
+  --consumo-text-hover: #ffffff;
+}
+
+body.contrast-high :is(input, select, textarea) {
+  border: 2px solid #0000d0 !important;
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+body.contrast-high button {
+  border: 2px solid currentColor !important;
+  font-weight: 600 !important;
+}
+
+body.contrast-high *:focus-visible {
+  outline: 3px solid #0000d0 !important;
+  outline-offset: 2px !important;
+}
+
+body.contrast-very-high {
+  --text-primary: #000;
+  --text-secondary: #000;
+  --border-color: #000;
+  --card-border: #000;
+  --btn-primary-bg: #000;
+  --btn-primary-hover: #000;
+  --btn-secondary-bg: #000;
+  --btn-secondary-hover: #000;
+  --text-white: #ffff00;
+  --card-bg: #fff;
+  --group-card-bg: #fff;
+  --bg-light: #fff;
+  --bg-group: #fff;
+  --bg-body: #fff;
+  --bg-navbar: #fff;
+  --nav-hover-bg: #ffff00;
+  --input-bg: #fff;
+  --input-text: #000;
+  --header-gradient-start: #000;
+  --header-gradient-end: #000;
+  --link-color: #0000ff;
+  --link-hover: #0000ff;
+
+  /* Consumo tokens para contraste muy alto */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #000000;
+  --consumo-card-shadow: 0 0 0 2px #000000;
+  --consumo-consejo-bg: #ffffff;
+  --consumo-button-bg: #ffffff;
+  --consumo-text-button: #000000;
+  --consumo-group-button-bg: #ffffff;
+  --consumo-group-button-hover: #000000;
+  --consumo-group-text-button: #000000;
+  --consumo-button-extra-bg: #000000;
+  --consumo-text-title: #000000;
+  --consumo-button-bg-hover: #000000;
+  --consumo-text-hover: #ffff00;
+}
+
+body.contrast-very-high :is(input, select, textarea) {
+  border: 3px solid #000 !important;
+  color: #000 !important;
+  background-color: #fff !important;
+  font-weight: 700 !important;
+}
+
+body.contrast-very-high button {
+  border: 3px solid #000 !important;
+  font-weight: 700 !important;
+}
+
+body.contrast-very-high a {
+  color: #0000ff !important;
+  text-decoration: underline !important;
+}
+
+body.contrast-very-high *:focus-visible {
+  outline: 3px solid #000 !important;
+  outline-offset: 2px !important;
+}
+
 
 /*PARA LA IMPRESION DEL PDF*/
 

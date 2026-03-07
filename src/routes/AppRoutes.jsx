@@ -6,6 +6,8 @@ import ResetPasswordForm from "../components/AuthComponents/ResetPasswordForm";
 import DispositivosPage from "../pages/DevicesPages";
 import ProfilePage from "../pages/ProfilePage";
 import ConfigurationPage from "../pages/ConfigurationPage";
+import ContrastPage from "../pages/ContrastPage";
+import ContactPage from "../pages/ContactPage";
 import AlertasPage from "../pages/AlertasPage";
 import AlertasConfigPage from "../pages/AlertasConfigPage";
 import ConsumoPage from "../pages/ConsumoPage";
@@ -25,21 +27,23 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
       
       {isAuthenticated ? (
         <>
-          {/* Ruta Dashboard - Muestra "Dashboard, {userName}" */}
+          {/* Ruta Inicio - Muestra "Inicio" */}
           <Route
-            path="/dashboard"
+            path="/home"
             element={
               <AuthenticatedLayout
                 onLogout={onLogoutClick}
                 isModalOpen={isModalOpen}
                 onConfirm={onConfirmLogout}
                 onCancel={onCancelLogout}
-                pageTitle="Dashboard"
+                pageTitle="Inicio"
               >
                 <HomePage />
               </AuthenticatedLayout>
             }
           />
+
+          <Route path="/dashboard" element={<Navigate to="/home" replace />} />
 
           {/* Ruta Consumo - Muestra "Consumo" */}
           <Route
@@ -167,9 +171,39 @@ const AppRoutes = ({ isModalOpen, onLogoutClick, onConfirmLogout, onCancelLogout
             }
           />
 
-          {/* Redirección por defecto a /dashboard */}
-          <Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          <Route
+            path="/contacto"
+            element={
+              <AuthenticatedLayout
+                onLogout={onLogoutClick}
+                isModalOpen={isModalOpen}
+                onConfirm={onConfirmLogout}
+                onCancel={onCancelLogout}
+                pageTitle="Contacto"
+              >
+                <ContactPage />
+              </AuthenticatedLayout>
+            }
+          />
+
+            <Route
+              path="/contraste"
+              element={
+                <AuthenticatedLayout
+                  onLogout={onLogoutClick}
+                  isModalOpen={isModalOpen}
+                  onConfirm={onConfirmLogout}
+                  onCancel={onCancelLogout}
+                  pageTitle="Contraste"
+                >
+                  <ContrastPage />
+                </AuthenticatedLayout>
+              }
+            />
+
+          {/* Redirección por defecto a /home */}
+          <Route path="/" element={<Navigate to="/home" />} />
+          <Route path="*" element={<Navigate to="/home" />} />
         </>
       ) : (
         <>

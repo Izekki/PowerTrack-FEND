@@ -5,7 +5,7 @@
  * con autenticación JWT automática y manejo de errores centralizado.
  */
 
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL;
+const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL;
 
 /**
  * Obtiene el token JWT del sessionStorage

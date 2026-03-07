@@ -95,14 +95,14 @@ const RegisterForm = ({ onRegisterSuccess }) => {
         <h2 className="register-title"><a className="register-back-arrow" onClick={handleGoBackClick}>&larr;</a> Registro</h2>
 
         <div className="register-form-group">
-          <label className="register-label" htmlFor="nombre">Introduzca su nombre:</label>
+          <label className="register-label" htmlFor="nombre">Nombre</label>
           <div className="register-input-container">
             <img src={nameIcon} alt="Nombre" />
             <input
               className="register-input"
               type="text"
               name="nombre"
-              placeholder="Introduzca su nombre"
+              placeholder="Juan Pérez"
               value={formData.nombre}
               onChange={handleChange}
               required
@@ -118,7 +118,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
               className="register-input"
               type="email"
               name="correo"
-              placeholder="Introduzca su correo electrónico"
+              placeholder="correo@ejemplo.com"
               value={formData.correo}
               onChange={handleChange}
               required
@@ -136,7 +136,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
                   className="register-input"
                   type={showPassword ? "text" : "password"}
                   name="contraseña"
-                  placeholder="Introduzca su contraseña"
+                  placeholder="Contraseña"
                   value={formData.contraseña}
                                     onFocus={handlePasswordFocus}
                                     onBlur={handlePasswordBlur}
@@ -168,7 +168,7 @@ const RegisterForm = ({ onRegisterSuccess }) => {
               className="register-input"
               type={showConfirmPassword ? "text" : "password"}
               name="confirmarContraseña"
-              placeholder="Vuelva a introducir la Contraseña"
+              placeholder="Confirma la contraseña"
               value={formData.confirmarContraseña}
               onChange={handleChange}
               required
