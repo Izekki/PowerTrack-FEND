@@ -1,4 +1,4 @@
-import { getApiDomain } from "../apiHelper";
+import { apiPost, getApiDomain } from "../apiHelper";
 
 const CONTACT_ENDPOINT = "/contacto";
 
@@ -13,33 +13,15 @@ export const sendContactMessage = async (payload) => {
     };
   }
 
-  let response;
-
   try {
-    response = await fetch(`${baseUrl}${CONTACT_ENDPOINT}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
-  } catch {
+    return await apiPost(CONTACT_ENDPOINT, payload, false);
+  } catch (error) {
     throw {
-      status: 0,
-      message: "Error de conexion. Verifica tu red e intenta nuevamente.",
-      data: null,
+      status: error?.status ?? 0,
+      message:
+        error?.message ||
+        "Error de conexion. Verifica tu red e intenta nuevamente.",
+      data: error?.details || null,
     };
   }
-
-  const responseData = await response.json().catch(() => ({}));
-
-  if (!response.ok) {
-    throw {
-      status: response.status,
-      message: responseData?.message || "No fue posible enviar el mensaje",
-      data: responseData,
-    };
-  }
-
-  return responseData;
 };

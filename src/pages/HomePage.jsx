@@ -462,19 +462,18 @@ const renderContent = (widgetKey) => {
       )}
 
       {isEditMode && (
-        <div className="edit-action-buttons">
-          <button className="btn-cancel-mode" onClick={handleCancelEdit}>
-            Cancelar
-          </button>
-          <button className="btn-save-mode-bottom" onClick={handleSaveLayout}>
-            Guardar
-          </button>
-        </div>
-      )}
-
-      {isEditMode && (
         <div className="add-widget-modal persistent-drawer">
-          <div className="modal-header"><h3 className="modal-title">Widgets Disponibles</h3></div>
+          <div className="modal-header">
+            <h3 className="modal-title">Widgets Disponibles</h3>
+            <div className="modal-actions">
+              <button className="btn-cancel-mode" onClick={handleCancelEdit}>
+                Cancelar
+              </button>
+              <button className="btn-save-mode-bottom" onClick={handleSaveLayout}>
+                Guardar
+              </button>
+            </div>
+          </div>
           <div className="available-widgets-grid">
             {availableWidgets.map(key => (
                 <div key={key} className="widget-option" onClick={() => addWidget(key)}>

@@ -1,10 +1,18 @@
 .contactPage-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   padding: 40px 20px;
   background-color: var(--bg-body);
   min-height: 100vh;
+}
+
+.contactPage-content {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .contactPage-card {
@@ -155,6 +163,10 @@
 }
 
 @media (max-width: 768px) {
+  .contactPage-container {
+    padding: 20px 12px;
+  }
+
   .contactPage-card {
     padding: 20px;
   }

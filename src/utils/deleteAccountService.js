@@ -8,7 +8,7 @@
  * - Limpieza de localStorage y sessionStorage
  */
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+import { apiFetch } from "./apiHelper";
 
 /**
  * Elimina la cuenta del usuario actual
@@ -25,70 +25,42 @@ export async function deleteAccount(userId, token) {
   }
 
   try {
-    const response = await fetch(`${BACKEND_URL}/user/${userId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
+    const responseData = await apiFetch(
+      `/user/${userId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ confirmacion: "Confirmar" }),
       },
-      body: JSON.stringify({ confirmacion: 'Confirmar' })
-    });
-
-    // Si respuesta no es OK, procesar error
-    if (!response.ok) {
-      let errorData = {};
-      try {
-        errorData = await response.json();
-      } catch {
-        errorData = {};
-      }
-
-      // Mapear códigos HTTP a mensajes claros
-      const errorMessages = {
-        400: "Confirmación incorrecta",
-        403: "No tienes permiso para eliminar esta cuenta",
-        404: "Usuario no encontrado",
-        500: "Error del servidor. Inténtalo más tarde"
-      };
-
-      return {
-        success: false,
-        status: response.status,
-        message: errorMessages[response.status] || errorData.message || "Error desconocido",
-        error: errorData
-      };
-    }
-
-    // Respuesta exitosa (200, 204, etc.)
-    // Intentar parsear JSON si hay contenido, si no, retornar éxito
-    let responseData = {};
-    if (response.status !== 204) {
-      const contentType = response.headers.get('content-type');
-      if (contentType && contentType.includes('application/json')) {
-        try {
-          const text = await response.text();
-          if (text) {
-            responseData = JSON.parse(text);
-          }
-        } catch {
-          // Respuesta vacía o no-JSON, continuar con éxito
-          responseData = {};
-        }
-      }
-    }
+      false
+    );
 
     return {
       success: true,
-      status: response.status,
-      message: responseData.message || "Cuenta eliminada exitosamente"
+      status: 200,
+      message: responseData?.message || "Cuenta eliminada exitosamente"
     };
 
   } catch (error) {
+    // Mapear codigos HTTP a mensajes claros
+    const errorMessages = {
+      400: "Confirmación incorrecta",
+      403: "No tienes permiso para eliminar esta cuenta",
+      404: "Usuario no encontrado",
+      500: "Error del servidor. Inténtalo más tarde",
+    };
+
     console.error('Error al eliminar cuenta:', error);
     return {
       success: false,
-      message: "Error de red. Verifica tu conexión",
-      error: error.message
+      status: error?.status,
+      message:
+        errorMessages[error?.status] ||
+        error?.message ||
+        "Error de red. Verifica tu conexion",
+      error: error?.details || error?.message
     };
   }
 }

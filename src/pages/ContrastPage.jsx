@@ -3,11 +3,18 @@ import { useContrast } from "../context/ContrastContext";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/ContrastPage.css";
+import BackButton from "../components/CommonComponents/BackButton";
+import Breadcrumb from "../components/CommonComponents/Breadcrumb";
 
 const ContrastPage = () => {
   const { contrastLevel, handleContrastChange } = useContrast();
   const { userId } = useAuth();
   const navigate = useNavigate();
+
+  const breadcrumbItems = [
+    { label: "Configuracion", onClick: () => navigate("/configuracion") },
+    { label: "Contraste", active: true },
+  ];
 
   const contrastOptions = [
     {
@@ -32,18 +39,15 @@ const ContrastPage = () => {
 
   return (
     <div className="contrastPage-container">
-      <div className="contrastPage-header">
-        <button
-          onClick={() => navigate("/configuracion")}
-          className="contrastPage-backBtn"
-          aria-label="Volver a configuración"
-        >
-          ←
-        </button>
-        <h1 className="contrastPage-title">Opciones de Contraste</h1>
+      <div className="breadcrumb-topbar">
+        <Breadcrumb items={breadcrumbItems} />
+        <div className="breadcrumb-actions">
+          <BackButton onClick={() => navigate("/configuracion")} label="Volver" />
+        </div>
       </div>
 
       <div className="contrastPage-content">
+        <h1 className="contrastPage-title">Opciones de Contraste</h1>
         <p className="contrastPage-description">
           Elige el nivel de contraste que mejor se adapte a tus necesidades. Los cambios
           se aplicarán inmediatamente en toda la aplicación.
