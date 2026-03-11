@@ -9,13 +9,14 @@ import RegisterForm from './RegisterForm.jsx';
 import Header from './Header.jsx';
 import { showAlert } from "../CommonComponents/Alert.jsx";
 import RecoverPasswordForm from './RecoverPasswordForm.jsx';
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import { useAuthApi } from "../../hooks/api/useAuthApi";
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [register, setRegister] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [recover, setRecover] = useState(false);
+  const { login, loading } = useAuthApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,24 +30,11 @@ const LoginForm = ({ onLoginSuccess }) => {
     }
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        await showAlert("success", "Inicio de sesión exitoso");
-        sessionStorage.setItem("userId", data.userId);
-        sessionStorage.setItem("token", data.token);
-        sessionStorage.setItem("name",data.nombre);
-        onLoginSuccess(data.name);
-      } else {
-        await showAlert("error", data.message || "Error al iniciar sesión");
-      }
-    } catch {
-      await showAlert("error", "Error de conexión con el servidor");
+      const response = await login(formData);
+      await showAlert("success", "Inicio de sesión exitoso");
+      onLoginSuccess(response.nombre || response.name);
+    } catch (err) {
+      await showAlert("error", err?.message || "Error al iniciar sesión");
     }
   };
 
@@ -115,7 +103,9 @@ const LoginForm = ({ onLoginSuccess }) => {
         </div>
 
         <a href="#" className="forgot-password" onClick={() => setRecover(true)}>Recuperar contraseña</a>
-        <button className="login-btn" onClick={handleLoginClick}>Inicia Sesión</button>
+        <button className="login-btn" onClick={handleLoginClick} disabled={loading}>
+          {loading ? 'Iniciando...' : 'Inicia Sesión'}
+        </button>
 
         <div className="register-separator" />
         <p className="register-link">¿No tienes una cuenta?</p>

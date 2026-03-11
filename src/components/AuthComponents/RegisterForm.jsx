@@ -8,8 +8,10 @@ import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
 import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
 import PasswordValidator from './PasswordValidator.jsx';
+import { useAuthApi } from "../../hooks/api/useAuthApi";
 
 const RegisterForm = ({ onRegisterSuccess }) => {
+  const { register, getSuppliers, loading } = useAuthApi();
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -22,22 +24,18 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [showPasswordValidator, setShowPasswordValidator] = useState(false);
   const [passwordInputFocused, setPasswordInputFocused] = useState(false);
-  const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
-
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadSuppliers = async () => {
       try {
-        const res = await fetch(`${DOMAIN_URL}/supplier`);
-        const data = await res.json();
-        if (res.ok) setSupplierList(data || []);
-        else await showAlert("error", data?.message || "Error al obtener proveedores");
+        const data = await getSuppliers();
+        setSupplierList(data || []);
       } catch (error) {
         console.error('Ocurrió un problema al obtener los proveedores', error);
       }
     };
-    fetchData();
-  }, []);
+    loadSuppliers();
+  }, [getSuppliers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,21 +66,11 @@ const RegisterForm = ({ onRegisterSuccess }) => {
     }
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/user/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        await showAlert("success", "Usuario registrado con éxito");
-        onRegisterSuccess();
-      } else {
-        await showAlert("error", data.message || "Error al registrarse");
-      }
-    } catch {
-      await showAlert("error", "Error de conexión con el servidor");
+      await register(formData);
+      await showAlert("success", "Usuario registrado con éxito");
+      onRegisterSuccess();
+    } catch (err) {
+      await showAlert("error", err?.message || "Error al registrarse");
     }
   };
 
@@ -197,7 +185,9 @@ const RegisterForm = ({ onRegisterSuccess }) => {
           </select>
         </div>
 
-        <button className="register-btn" onClick={handleRegisterClick}>Registrarse</button>
+        <button className="register-btn" onClick={handleRegisterClick} disabled={loading}>
+          {loading ? 'Registrando...' : 'Registrarse'}
+        </button>
       </div>
     </div>
   );
