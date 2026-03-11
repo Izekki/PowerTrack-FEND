@@ -2,15 +2,17 @@
    Estilos Generales de Contenedores
 ===================================== */
 .login-container {
+  --login-logo-size: 210px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: flex-start;
+  min-height: 100dvh;
   box-sizing: border-box;
   background-color: var(--bg-body);
-  padding: calc(var(--login-header-height, 15vh) + 16px) 5% 40px;
-  overflow: auto;
+  padding: calc(var(--login-header-height, 15vh) + 12px) 5% 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
 }
 
@@ -50,14 +52,32 @@
 }
 
 @media (min-width: 1024px) {
-  .login-logo {
+  .login-container {
     --login-logo-size: 270px;
   }
 }
 
+@media (max-width: 1280px) {
+  .login-container {
+    --login-logo-size: 220px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-container {
+    --login-logo-size: 190px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    --login-logo-size: 150px;
+  }
+}
+
 @media (max-width: 480px) {
-  .login-logo {
-    --login-logo-size: 160px;
+  .login-container {
+    --login-logo-size: 130px;
   }
 }
 
@@ -277,5 +297,59 @@
   background: none;
   border: none;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .login-container {
+    padding-left: 4%;
+    padding-right: 4%;
+  }
+
+  .login-form-wrapper {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: calc(var(--login-header-height, 15vh) + 10px) 12px 22px;
+  }
+
+  .login-form-wrapper {
+    max-width: 100%;
+    padding-top: calc((var(--login-logo-size, 210px) / 2) + 14px);
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .input-container {
+    padding: 10px;
+  }
+
+  .input-container img,
+  .eye-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .login-btn,
+  .return-btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .register-btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }
 

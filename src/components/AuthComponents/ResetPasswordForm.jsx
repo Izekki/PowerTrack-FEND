@@ -34,7 +34,7 @@ const ResetPasswordForm = () => {
           await showAlert("error", "Token inválido o expirado");
           setTimeout(() => navigate('/login'), 2000);
         }
-      } catch (error) {
+      } catch {
         await showAlert("error", "Error de conexión con el servidor");
         setTimeout(() => navigate('/login'), 2000);
       } finally {

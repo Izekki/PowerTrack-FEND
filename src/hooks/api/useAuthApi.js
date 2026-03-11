@@ -3,7 +3,7 @@
  * Maneja loading, error y persistencia de sesion (sessionStorage)
  */
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   loginUser,
   registerUser,
@@ -17,9 +17,9 @@ export const useAuthApi = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const clearError = () => setError(null);
+  const clearError = useCallback(() => setError(null), []);
 
-  const login = async (credentials) => {
+  const login = useCallback(async (credentials) => {
     setLoading(true);
     clearError();
     try {
@@ -36,9 +36,9 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
-  const register = async (payload) => {
+  const register = useCallback(async (payload) => {
     setLoading(true);
     clearError();
     try {
@@ -51,9 +51,9 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
-  const loadSuppliers = async () => {
+  const loadSuppliers = useCallback(async () => {
     setLoading(true);
     clearError();
     try {
@@ -66,9 +66,9 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
-  const recoverPassword = async (email) => {
+  const recoverPassword = useCallback(async (email) => {
     setLoading(true);
     clearError();
     try {
@@ -81,9 +81,9 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
-  const verifyToken = async (token) => {
+  const verifyToken = useCallback(async (token) => {
     setLoading(true);
     clearError();
     try {
@@ -96,9 +96,9 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
-  const resetPassword = async (payload) => {
+  const resetPassword = useCallback(async (payload) => {
     setLoading(true);
     clearError();
     try {
@@ -111,7 +111,7 @@ export const useAuthApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [clearError]);
 
   return {
     loading,
