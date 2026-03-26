@@ -161,7 +161,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
       title: {
         text: 'Fecha (Día/Mes)',
         style: {
-          fontSize: '12px',
+          fontSize: 'var(--font-small)',
           color: 'var(--text-primary)',
         },
       },
@@ -170,7 +170,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
       title: {
         text: 'Consumo (kWh)',
         style: {
-          fontSize: '12px',
+          fontSize: 'var(--font-small)',
           color: 'var(--text-primary)',
         },
       },
@@ -190,7 +190,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
     title: {
       text: 'Consumo Real por Fecha',
       style: {
-        fontSize: '16px',
+        fontSize: 'var(--font-body-interaction)',
         color: 'var(--text-primary)',
       },
     },
@@ -225,7 +225,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
                   border: 'none',
                   borderRadius: '5px',
                   cursor: isGenerating ? 'not-allowed' : 'pointer',
-                  fontSize: '16px',
+                  fontSize: 'var(--font-body-interaction)',
                   opacity: isGenerating ? 0.7 : 1
                 }}
               >
@@ -288,7 +288,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
               pageBreakInside: 'avoid'
             }}>
               <h3 style={{ marginTop: '0' }}>{grupo.nombre}</h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', fontSize: '14px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px', fontSize: 'var(--font-secondary)' }}>
                 <p><strong>Consumo Total:</strong> {grupo.consumoTotalKWh} kWh</p>
                 <p><strong>Costo Total:</strong> ${grupo.costoTotalMXN} MXN</p>
                 <p><strong>Consumo por Día:</strong> {grupo.consumoPorDiaKWh} kWh</p>
@@ -331,26 +331,26 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
                   <table style={{
                     width: '100%',
                     borderCollapse: 'collapse',
-                    fontSize: '11px',
+                    fontSize: 'var(--font-small)',
                     marginBottom: '15px'
                   }}>
                     <thead>
                       <tr style={{ backgroundColor: 'var(--consumo-card-bg)' }}>
-                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Dispositivo</th>
-                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Potencia (W)</th>
-                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Consumo Actual (kWh)</th>
-                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Consumo/Día (kWh)</th>
-                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>Proyección Mensual (kWh)</th>
+                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>Dispositivo</th>
+                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>Potencia (W)</th>
+                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>Consumo Actual (kWh)</th>
+                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>Consumo/Día (kWh)</th>
+                        <th style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>Proyección Mensual (kWh)</th>
                       </tr>
                     </thead>
                     <tbody>
                       {grupos[globalIndex].dispositivos.map((dispositivo, dispIndex) => (
                         <tr key={dispIndex}>
-                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>{dispositivo.nombre}</td>
-                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>{dispositivo.potenciaW} W</td>
-                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>{dispositivo.consumoActualKWh} kWh</td>
-                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>{dispositivo.consumoPorDiaKWh} kWh</td>
-                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: '10px' }}>{dispositivo.consumoMensualKWh} kWh</td>
+                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>{dispositivo.nombre}</td>
+                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>{dispositivo.potenciaW} W</td>
+                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>{dispositivo.consumoActualKWh} kWh</td>
+                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>{dispositivo.consumoPorDiaKWh} kWh</td>
+                          <td style={{ border: '1px solid #ddd', padding: '6px', fontSize: 'var(--font-extra-small)' }}>{dispositivo.consumoMensualKWh} kWh</td>
                         </tr>
                       ))}
                     </tbody>
@@ -376,7 +376,7 @@ const ReportePDFPage = ({ reporte, onGeneratePDF, isGenerating }) => {
         {/* Gráfico de barras */}
         <div style={{ pageBreakBefore: 'always' }}>
           <h2 style={{ marginTop: '0', marginBottom: '20px' }}>📈 Consumo Promedio Diario en el Período</h2>
-          <p style={{ fontSize: '12px', color: 'var(--text-dark)', marginBottom: '20px' }}>
+          <p style={{ fontSize: 'var(--font-small)', color: 'var(--text-dark)', marginBottom: '20px' }}>
             *Este gráfico muestra el consumo promedio diario ({consumoPorDia.toFixed(4)} kWh)
             distribuido a lo largo del período de {usuario.diasEnPeriodo} días.
           </p>

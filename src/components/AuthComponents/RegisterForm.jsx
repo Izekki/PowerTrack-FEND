@@ -7,8 +7,11 @@ import eyeIcon from "../../assets/eye-icon.svg";
 import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
 import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
+import PasswordValidator from './PasswordValidator.jsx';
+import { useAuthApi } from "../../hooks/api/useAuthApi";
 
 const RegisterForm = ({ onRegisterSuccess }) => {
+  const { register, getSuppliers, loading } = useAuthApi();
   const [formData, setFormData] = useState({
     nombre: '',
     correo: '',
@@ -19,26 +22,39 @@ const RegisterForm = ({ onRegisterSuccess }) => {
   const [supplierList, setSupplierList] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
-
+  const [showPasswordValidator, setShowPasswordValidator] = useState(false);
+  const [passwordInputFocused, setPasswordInputFocused] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const loadSuppliers = async () => {
       try {
-        const res = await fetch(`${DOMAIN_URL}/supplier`);
-        const data = await res.json();
-        if (res.ok) setSupplierList(data || []);
-        else await showAlert("error", data?.message || "Error al obtener proveedores");
+        const data = await getSuppliers();
+        setSupplierList(data || []);
       } catch (error) {
         console.error('Ocurrió un problema al obtener los proveedores', error);
       }
     };
-    fetchData();
-  }, []);
+    loadSuppliers();
+  }, [getSuppliers]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevData => ({ ...prevData, [name]: value }));
+    
+    // Mostrar/ocultar el validador solo cuando se escribe en contraseña
+    if (name === 'contraseña') {
+      setShowPasswordValidator(value.length > 0 && passwordInputFocused);
+    }
+  };
+
+  const handlePasswordFocus = () => {
+    setPasswordInputFocused(true);
+    setShowPasswordValidator(formData.contraseña.length > 0);
+  };
+
+  const handlePasswordBlur = () => {
+    setPasswordInputFocused(false);
+    setShowPasswordValidator(false);
   };
 
   const handleRegisterClick = async () => {
@@ -50,21 +66,11 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
     }
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/user/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        await showAlert("success", "Usuario registrado con éxito");
-        onRegisterSuccess();
-      } else {
-        await showAlert("error", data.message || "Error al registrarse");
-      }
-    } catch {
-      await showAlert("error", "Error de conexión con el servidor");
+      await register(formData);
+      await showAlert("success", "Usuario registrado con éxito");
+      onRegisterSuccess();
+    } catch (err) {
+      await showAlert("error", err?.message || "Error al registrarse");
     }
   };
 
@@ -77,14 +83,14 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
         <h2 className="register-title"><a className="register-back-arrow" onClick={handleGoBackClick}>&larr;</a> Registro</h2>
 
         <div className="register-form-group">
-          <label className="register-label" htmlFor="nombre">Introduzca su nombre:</label>
+          <label className="register-label" htmlFor="nombre">Nombre</label>
           <div className="register-input-container">
             <img src={nameIcon} alt="Nombre" />
             <input
               className="register-input"
               type="text"
               name="nombre"
-              placeholder="Introduzca su nombre"
+              placeholder="Juan Pérez"
               value={formData.nombre}
               onChange={handleChange}
               required
@@ -100,7 +106,7 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
               className="register-input"
               type="email"
               name="correo"
-              placeholder="Introduzca su correo electrónico"
+              placeholder="correo@ejemplo.com"
               value={formData.correo}
               onChange={handleChange}
               required
@@ -108,25 +114,37 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
           </div>
         </div>
 
-        <div className="register-form-group">
+        <div className="register-form-group register-password-group">
           <label className="register-label" htmlFor="contraseña">Contraseña</label>
-          <div className="register-input-container">
-            <img src={passwordIcon} alt="Contraseña" />
-            <input
-              className="register-input"
-              type={showPassword ? "text" : "password"}
-              name="contraseña"
-              placeholder="Introduzca su contraseña"
-              value={formData.contraseña}
-              onChange={handleChange}
-              required
-            />
-            <img
-              src={showPassword ? eyeSlashIcon : eyeIcon}
-              alt="Toggle password visibility"
-              className="eye-icon"
-              onClick={() => setShowPassword(!showPassword)}
-            />
+          <div className="register-password-wrapper">
+            <div className="register-password-input-wrapper">
+              <div className="register-input-container">
+                <img src={passwordIcon} alt="Contraseña" />
+                <input
+                  className="register-input"
+                  type={showPassword ? "text" : "password"}
+                  name="contraseña"
+                  placeholder="Contraseña"
+                  value={formData.contraseña}
+                                    onFocus={handlePasswordFocus}
+                                    onBlur={handlePasswordBlur}
+                  onChange={handleChange}
+                  required
+                />
+                <img
+                  src={showPassword ? eyeSlashIcon : eyeIcon}
+                  alt="Toggle password visibility"
+                  className="eye-icon"
+                  onClick={() => setShowPassword(!showPassword)}
+                />
+              </div>
+            </div>
+            <div className="register-password-validator-wrapper">
+              <PasswordValidator 
+                password={formData.contraseña} 
+                isVisible={showPasswordValidator}
+              />
+            </div>
           </div>
         </div>
 
@@ -138,7 +156,7 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
               className="register-input"
               type={showConfirmPassword ? "text" : "password"}
               name="confirmarContraseña"
-              placeholder="Vuelva a introducir la Contraseña"
+              placeholder="Confirma la contraseña"
               value={formData.confirmarContraseña}
               onChange={handleChange}
               required
@@ -167,7 +185,9 @@ const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
           </select>
         </div>
 
-        <button className="register-btn" onClick={handleRegisterClick}>Registrarse</button>
+        <button className="register-btn" onClick={handleRegisterClick} disabled={loading}>
+          {loading ? 'Registrando...' : 'Registrarse'}
+        </button>
       </div>
     </div>
   );

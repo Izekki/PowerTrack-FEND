@@ -11,14 +11,23 @@ import configIcon from "../../assets/sidebar-icons/ajuste.png";
 import logoutIcon from "../../assets/sidebar-icons/salida.png";
 import consuIcon from "../../assets/sidebar-icons/grafico.png";
 import profileIcon from "../../assets/sidebar-icons/avatar.png";
-import dashboardIcon from "../../assets/sidebar-icons/dashboard.png";
-// Iconos inline para Dashboard y Stats si no existen en assets
+import homeIcon from "../../assets/sidebar-icons/home.png";
 
 const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
   const location = useLocation();
   const { hasNewAlerts } = useAlert();
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => {
+    // Para Configuration, consideramos también /ayuda como parte de esa sección
+    if (path === "/configuracion") {
+      return (
+        location.pathname === path ||
+        location.pathname.startsWith(`${path}/`) ||
+        location.pathname === "/ayuda"
+      );
+    }
+    return location.pathname === path || location.pathname.startsWith(`${path}/`);
+  };
 
   return (
     <aside className={`sidebar ${isCollapsed ? "collapsed" : "expanded"}`}>
@@ -43,13 +52,13 @@ const Sidebar = ({ isCollapsed, toggleSidebar, onLogout }) => {
         <ul>
           <li>
             <Link
-              to="/dashboard"
-              className={`nav-item ${isActive("/dashboard") ? "active" : ""}`}
-              title="Dashboard"
-              aria-label="Dashboard"
+              to="/home"
+              className={`nav-item ${isActive("/home") ? "active" : ""}`}
+              title="Inicio"
+              aria-label="Inicio"
             >
-              <img src={dashboardIcon} alt="Dashboard" className="icon-img" />
-              <span className="label">Dashboard</span>
+              <img src={homeIcon} alt="Inicio" className="icon-img" />
+              <span className="label">Inicio</span>
             </Link>
           </li>
           <li>

@@ -1,4 +1,4 @@
-/* src/components/AlertsCard.css */
+﻿/* src/components/AlertsCard.css */
 .alert-card {
   background-color: var(--card-bg);
   border: 1px solid #ffffff;
@@ -29,7 +29,7 @@
 }
 
 .alert-name {
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   font-weight: 600;
   color: var(--text-primary);
 }
@@ -45,7 +45,7 @@
   color: var(--text-muted); /* color gris claro de tu paleta */
   cursor: pointer;
 
-  font-size: 1.1rem; /* tamaño legible */
+  font-size: var(--font-heading-small); /* tamaño legible */
   line-height: 1;
   padding: 4px;
 
@@ -61,5 +61,6 @@
 }
 
 .alert-card {
-  position: relative; /* importante para posicionar botón */
+  position: relative; /* importante para posicionar botÃ³n */
 }
+

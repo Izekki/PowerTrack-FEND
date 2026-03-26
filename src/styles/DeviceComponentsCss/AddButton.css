@@ -1,4 +1,4 @@
-.add-button {
+﻿.add-button {
     background: transparent;
     border: none;
     padding: 5px;
@@ -22,7 +22,7 @@
 
 .add-button-label {
     margin-left: 6px;
-    font-size: 0.95rem;
+    font-size: var(--font-secondary);
     font-weight: 600;
     color: var(--text-primary);
 }
@@ -40,7 +40,7 @@
 }
 
 .add-button-compact .add-button-label {
-    font-size: 0.85rem;
+    font-size: var(--font-secondary);
 }
 
 /* Invertir el icono en modo oscuro si es necesario */

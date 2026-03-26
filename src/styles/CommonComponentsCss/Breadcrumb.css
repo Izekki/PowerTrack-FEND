@@ -1,0 +1,108 @@
+.breadcrumb-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.breadcrumb-container {
+  padding: 12px 20px;
+  background-color: transparent;
+  border-bottom: none;
+  flex: 1;
+}
+
+.breadcrumb-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.breadcrumb-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  font-size: var(--font-secondary);
+  font-family: "Nunito", sans-serif;
+}
+
+.breadcrumb-item {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.breadcrumb-link {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 1.5;
+}
+
+.breadcrumb-link:hover {
+  color: var(--link-hover);
+  background-color: rgba(76, 175, 80, 0.08);
+  text-decoration: none;
+}
+
+.breadcrumb-link:active {
+  background-color: rgba(76, 175, 80, 0.15);
+}
+
+.breadcrumb-link:focus {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+.breadcrumb-active {
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 6px 8px;
+  line-height: 1.5;
+}
+
+.breadcrumb-separator {
+  margin: 0 4px;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-topbar {
+    gap: 8px;
+  }
+
+  .breadcrumb-container {
+    padding: 10px 16px;
+  }
+
+  .breadcrumb-actions {
+    padding-right: 16px;
+  }
+
+  .breadcrumb-list {
+    font-size: var(--font-small);
+  }
+
+  .breadcrumb-link {
+    padding: 4px 6px;
+  }
+
+  .breadcrumb-active {
+    padding: 4px 6px;
+  }
+}

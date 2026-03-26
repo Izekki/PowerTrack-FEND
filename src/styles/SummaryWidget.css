@@ -1,4 +1,4 @@
-.summary-widget-card {
+﻿.summary-widget-card {
   background: var(--card-bg);
   border: 1px solid #ffffff;
   border-radius: 15px;
@@ -10,7 +10,7 @@
 }
 
 .summary-widget-title {
-  font-size: 18px;
+  font-size: var(--font-body-reading);
   margin: 0 0 12px 0;
   color: var(--text-primary);
 }
@@ -20,7 +20,7 @@
 }
 
 .summary-widget-subsection h4 {
-  font-size: 15px;
+  font-size: var(--font-secondary);
   margin-bottom: 8px;
   color: var(--text-primary);
 }
@@ -44,3 +44,4 @@
   background-color: var(--item-hover-bg);
   transform: translateY(-1px);
 }
+

@@ -1,11 +1,11 @@
-/* ========== Barra de Navegación ========== */
+﻿/* ========== Barra de NavegaciÃ³n ========== */
 .cont-nav-bar {
   background-color: var(--bg-navbar);
   padding: 10px;
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Encabezado del menú (solo visible en móviles) */
+/* Encabezado del menÃº (solo visible en mÃ³viles) */
 .menu-header {
   display: none;
   justify-content: space-between;
@@ -14,7 +14,7 @@
 }
 
 .burger-button {
-  font-size: 1.5rem;
+  font-size: var(--font-heading-large);
   background: none;
   border: none;
   cursor: pointer;
@@ -23,18 +23,18 @@
 
 .menu-title {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: var(--font-heading-small);
   color: var(--text-primary);
 }
 
-/* Contenedor de la barra de navegación */
+/* Contenedor de la barra de navegaciÃ³n */
 .nav-bar {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
 }
 
-/* Lista de elementos del menú */
+/* Lista de elementos del menÃº */
 .nav-bar ul {
   list-style-type: none;
   display: flex;
@@ -44,9 +44,9 @@
   padding: 0;
 }
 
-/* Estilo de cada ítem del menú */
+/* Estilo de cada Ã­tem del menÃº */
 .nav-bar li {
-  font-size: 20px;
+  font-size: var(--font-heading-medium);
   transition: all 0.3s ease;
 }
 
@@ -83,7 +83,7 @@
 
 /* ========== Media Queries ========== */
 
-/* Móviles (hasta 768px) */
+/* MÃ³viles (hasta 768px) */
 @media (max-width: 768px) {
   .menu-header {
     display: flex;
@@ -91,11 +91,11 @@
   }
 
   .burger-button {
-    font-size: 1.2rem;
+    font-size: var(--font-heading-small);
   }
 
   .menu-title {
-    font-size: 1rem;
+    font-size: var(--font-body-interaction);
   }
 
   .nav-bar {
@@ -116,7 +116,7 @@
   }
 
   .nav-bar li {
-    font-size: 18px;
+    font-size: var(--font-body-reading);
   }
 
   .nav-bar li a {
@@ -131,6 +131,7 @@
   }
 
   .nav-bar li {
-    font-size: 18px;
+    font-size: var(--font-body-reading);
   }
 }
+

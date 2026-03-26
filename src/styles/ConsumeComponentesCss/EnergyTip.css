@@ -1,4 +1,4 @@
-/* === Apartado del consejo === */
+﻿/* === Apartado del consejo === */
 .tip-icon {
   width: 65px;
   height: 65px;
@@ -17,12 +17,12 @@
 
 .tip-texto h4 {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--font-body-reading);
   color: var(--text-primary);
 }
 
 .tip-texto p {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--font-body-interaction);
   color: var(--text-secondary);
 }

@@ -1,4 +1,4 @@
-/* Estilos para el modal */
+﻿/* Estilos para el modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -25,7 +25,7 @@
 
 h2 {
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: var(--font-heading-large);
   color: var(--text-primary); /* Color de texto consistente con la app */
 }
 
@@ -92,17 +92,17 @@ h2 {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   transition: background-color 0.3s ease;
 }
 
 .submit-btn {
-  background-color: var(--btn-primary-bg); /* Botón de acción primaria */
+  background-color: var(--btn-primary-bg); /* BotÃ³n de acciÃ³n primaria */
   color: var(--text-white); /* Texto blanco */
 }
 
 .cancel-btn {
-  background-color: var(--btn-secondary-bg); /* Botón de cancelación */
+  background-color: var(--btn-secondary-bg); /* BotÃ³n de cancelaciÃ³n */
   color: var(--text-white); /* Texto blanco */
 }
 
@@ -110,3 +110,4 @@ h2 {
 .cancel-btn:hover {
   opacity: 0.8;
 }
+

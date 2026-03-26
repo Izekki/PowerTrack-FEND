@@ -1,4 +1,8 @@
-/* Estilos base se mantienen igual */
+﻿/* Estilos base se mantienen igual */
+.appBody {
+  font-size: var(--font-body-interaction);
+}
+
 .bodyHeaderTop {
   display: flex;
   justify-content: space-between;
@@ -13,10 +17,11 @@
 }
 
 .headerTitle h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: var(--font-page-title);
+  font-weight: 700;
   margin: 0;
   color: var(--text-primary);
+  line-height: 1.2;
 }
 
 .headerIcon {
@@ -31,11 +36,14 @@
   flex-direction: column;
   gap: 12px;
   margin: 10px 0 20px;
+  padding-right: 12px;
+  box-sizing: border-box;
 }
 
 .devices-header-controls .search-bar {
   width: 100%;
   margin: 0;
+  box-sizing: border-box;
 }
 
 .devices-view-toggle {
@@ -54,9 +62,10 @@
   border: none;
   background: transparent;
   color: var(--text-primary);
-  font-family: 'nunito', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: var(--font-body-interaction);
+  line-height: 1.2;
   padding: 6px 12px;
   border-radius: 999px;
   cursor: pointer;
@@ -74,7 +83,7 @@
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
 }
 
-/* Media queries para móviles */
+/* Media queries para mÃ³viles */
 @media (max-width: 768px) {
   .bodyHeaderTop {
     flex-direction: column;
@@ -83,9 +92,6 @@
     margin-bottom: 0.8rem;
   }
   
-  .headerTitle h2 {
-    font-size: 1.3rem;
-  }
   
   .headerIcon {
     width: 30px;
@@ -95,13 +101,11 @@
 
   .devices-header-controls {
     margin: 0 0 16px;
+    padding-right: 8px;
   }
 }
 
 @media (max-width: 480px) {
-  .headerTitle h2 {
-    font-size: 1.2rem;
-  }
   
   .headerIcon {
     width: 28px;

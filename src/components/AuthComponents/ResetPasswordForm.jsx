@@ -7,11 +7,12 @@ import eyeIcon from "../../assets/eye-icon.svg";
 import eyeSlashIcon from "../../assets/eye-slash-icon.svg";
 import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
+import { useAuthApi } from "../../hooks/api/useAuthApi";
 
 const ResetPasswordForm = () => {
   const { token } = useParams();
   const navigate = useNavigate();
+  const { verifyToken, resetPassword, loading } = useAuthApi();
 
   const [isTokenValid, setIsTokenValid] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -24,18 +25,16 @@ const ResetPasswordForm = () => {
   });
 
   useEffect(() => {
-    const verifyToken = async () => {
+    const verifyResetToken = async () => {
       try {
-        const response = await fetch(`${DOMAIN_URL}/psR/verify-token/${token}`);
-        const data = await response.json();
-
-        if (data.success) {
+        const data = await verifyToken(token);
+        if (data?.success) {
           setIsTokenValid(true);
         } else {
-          await showAlert("error", data.message || "Token inválido o expirado");
-          setTimeout(() => navigate('/login', 2000));
+          await showAlert("error", "Token inválido o expirado");
+          setTimeout(() => navigate('/login'), 2000);
         }
-      } catch (error) {
+      } catch {
         await showAlert("error", "Error de conexión con el servidor");
         setTimeout(() => navigate('/login'), 2000);
       } finally {
@@ -43,8 +42,10 @@ const ResetPasswordForm = () => {
       }
     };
 
-    verifyToken();
-  }, [token, navigate]);
+    if (token) {
+      verifyResetToken();
+    }
+  }, [token, navigate, verifyToken]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,26 +67,15 @@ const ResetPasswordForm = () => {
     }
 
     try {
-      const response = await fetch(`${DOMAIN_URL}/psR/reset-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          token,
-          nuevaPassword: formData.password,
-          confirmarPassword: formData.confirmPassword
-        }),
+      await resetPassword({
+        token,
+        nuevaPassword: formData.password,
+        confirmarPassword: formData.confirmPassword
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        await showAlert("success", "Contraseña actualizada correctamente");
-        setTimeout(() => navigate('/login', 500));
-      } else {
-        await showAlert("error", data.message || "No se pudo restablecer la contraseña");
-      }
+      await showAlert("success", "Contraseña actualizada correctamente");
+      setTimeout(() => navigate('/login'), 500);
     } catch (error) {
-      await showAlert("error", "Error de conexión con el servidor");
+      await showAlert("error", error?.message || "No se pudo restablecer la contraseña");
     }
   };
 
@@ -169,7 +159,9 @@ const ResetPasswordForm = () => {
             </div>
           </div>
 
-          <button type="submit" className="register-btn">Guardar nueva contraseña</button>
+          <button type="submit" className="register-btn" disabled={loading}>
+            {loading ? 'Guardando...' : 'Guardar nueva contraseña'}
+          </button>
         </form>
       </div>
     </div>

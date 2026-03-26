@@ -11,7 +11,8 @@ import configIcon from "../../assets/sidebar-icons/ajuste.png";
 
 const getPageIcon = (pageTitle) => {
   const icons = {
-    "Dashboard": <img src={dashboardIcon} alt="Dashboard" className="page-icon-img" />,
+    "Inicio": <img src={dashboardIcon} alt="Inicio" className="page-icon-img" />,
+    "Home": <img src={dashboardIcon} alt="Home" className="page-icon-img" />,
     "Consumo": <img src={consuIcon} alt="Consumo" className="page-icon-img" />,
     "Dispositivos": <img src={devicesIcon} alt="Dispositivos" className="page-icon-img" />,
     "Alertas": <img src={alertIcon} alt="Alertas" className="page-icon-img" />,
@@ -22,22 +23,24 @@ const getPageIcon = (pageTitle) => {
   return icons[pageTitle] || null;
 };
 
-const HeaderPW = ({ userName, pageTitle = "Dashboard" }) => {
+const HeaderPW = ({ userName, pageTitle = "Inicio" }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsCollapsed(true);
+      setShowWelcome(false);
     }, 3000);
     
     return () => clearTimeout(timer);
   }, []);
 
   const pageIcon = getPageIcon(pageTitle);
-  const isDashboard = pageTitle === "Dashboard";
-  const displayText = isCollapsed
-    ? pageTitle
-    : (isDashboard ? `${pageTitle}, ${userName}` : pageTitle);
+  const isHomePage = pageTitle === "Inicio" || pageTitle === "Home";
+  const displayText = showWelcome && isHomePage
+    ? `Hola, ${userName}`
+    : pageTitle;
 
   return (
     <header className={`header-pw ${isCollapsed ? "header-collapsed" : ""}`}>

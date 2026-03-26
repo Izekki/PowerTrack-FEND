@@ -1,0 +1,269 @@
+/* Estructura base de la página de contraste */
+.contrastPage-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: min(100%, 980px);
+  box-sizing: border-box;
+  padding: clamp(14px, 2.4vw, 24px);
+  background-color: var(--bg-body);
+  min-height: auto;
+  margin: 0 auto 24px;
+}
+
+.contrastPage-title {
+  font-size: var(--font-page-title);
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: bold;
+}
+
+.contrastPage-content {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(18px, 2.4vw, 28px);
+}
+
+.contrastPage-description {
+  font-size: var(--font-body-interaction);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Contenedor de opciones */
+.contrastOptions-container {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+}
+
+.contrastOption-card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--border-color, #e0e0e0);
+  border-radius: 12px;
+  padding: clamp(14px, 2vw, 20px);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.contrastOption-card:hover {
+  border-color: var(--btn-primary-bg);
+  box-shadow: 0 4px 12px rgba(100, 149, 237, 0.15);
+  transform: translateY(-2px);
+}
+
+.contrastOption-card.active {
+  border-color: var(--btn-primary-bg);
+  background-color: color-mix(in srgb, var(--btn-primary-bg) 12%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--btn-primary-bg) 26%, transparent);
+}
+
+.contrastOption-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.contrastOption-input {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  margin: 0;
+  accent-color: var(--btn-primary-bg);
+}
+
+.contrastOption-title {
+  font-size: var(--font-body-interaction);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.contrastOption-description {
+  font-size: var(--font-secondary);
+  color: var(--text-secondary);
+  margin: 0 0 15px 28px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+/* Vista previa del contraste */
+.contrastPreview {
+  background-color: var(--bg-body);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contrastPreview-text {
+  font-size: var(--font-secondary);
+  font-weight: 500;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: color-mix(in srgb, var(--btn-primary-bg) 10%, transparent);
+  color: var(--text-primary);
+}
+
+.contrastPreview-button {
+  padding: 8px 12px;
+  background-color: var(--btn-primary-bg);
+  color: var(--text-white);
+  border-radius: 4px;
+  font-size: var(--font-small);
+  font-weight: 500;
+  text-align: center;
+  cursor: not-allowed;
+}
+
+.contrastPreview-field {
+  display: block;
+  width: 100% !important;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 8px !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+  font-size: var(--font-small) !important;
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+}
+
+/* Estilos específicos para cada nivel de contraste */
+
+/* Contraste Normal */
+.contrast-preview-normal .contrastPreview-text {
+  background-color: color-mix(in srgb, var(--btn-primary-bg) 12%, transparent);
+  color: var(--text-primary);
+}
+
+.contrast-preview-normal .contrastPreview-button {
+  background-color: var(--btn-primary-bg);
+  color: var(--text-white);
+}
+
+.contrast-preview-normal .contrastPreview-field {
+  color: var(--input-text) !important;
+}
+
+/* Contraste Alto */
+.contrast-preview-high .contrastPreview-text {
+  background-color: rgba(0, 0, 200, 0.15);
+  color: #000;
+  font-weight: 600;
+}
+
+.contrast-preview-high .contrastPreview-button {
+  background-color: #0000d0;
+  color: #fff;
+  font-weight: 600;
+}
+
+.contrast-preview-high .contrastPreview-field {
+  color: #000 !important;
+  border: 2px solid #0000d0 !important;
+  background-color: #fff !important;
+}
+
+/* Contraste Muy Alto */
+.contrast-preview-very-high .contrastPreview-text {
+  background-color: #ffff00;
+  color: #000;
+  font-weight: 700;
+  border: 2px solid #000;
+}
+
+.contrast-preview-very-high .contrastPreview-button {
+  background-color: #000;
+  color: #ffff00;
+  font-weight: 700;
+  border: 3px solid #000;
+}
+
+.contrast-preview-very-high .contrastPreview-field {
+  color: #000 !important;
+  border: 3px solid #000 !important;
+  background-color: #fff !important;
+  font-weight: 600 !important;
+}
+
+/* Sección de información */
+.contrastInfo-section {
+  background-color: var(--card-bg);
+  border-left: 4px solid var(--btn-primary-bg);
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: clamp(16px, 2.4vw, 24px);
+}
+
+.contrastInfo-section h2 {
+  font-size: var(--font-heading-medium);
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.contrastInfo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: clamp(12px, 2vw, 20px);
+}
+
+.contrastInfo-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.contrastInfo-item h3 {
+  font-size: var(--font-body-interaction);
+  color: var(--text-primary);
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.contrastInfo-item p {
+  font-size: var(--font-secondary);
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contrastPage-container {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .contrastOptions-container {
+    grid-template-columns: 1fr;
+  }
+
+  .contrastInfo-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .contrastOption-label {
+    align-items: flex-start;
+  }
+
+  .contrastOption-description {
+    margin-left: 0;
+  }
+}
+

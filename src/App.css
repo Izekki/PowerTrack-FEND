@@ -1,5 +1,7 @@
 body {
   font-family: "Nunito", sans-serif;
+  font-size: var(--font-body-interaction);
+  line-height: 1.5;
   padding: 0;
   margin: 0;
   background-color: var(--bg-body);
@@ -10,7 +12,7 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--font-secondary);
   transition: background-color 0.3s ease;
 }
 
@@ -21,6 +23,17 @@ body {
   --text-secondary: #555555;
   --text-white: #ffffff;
   --error-color: #ff4444;
+
+  /* Tipografía accesible (móvil primero) - ESCALA PRINCIPAL */
+  --font-page-title: clamp(28px, 6vw, 40px);
+  --font-heading-large: clamp(24px, 5vw, 36px);
+  --font-heading-medium: clamp(20px, 4vw, 28px);
+  --font-heading-small: clamp(18px, 3.8vw, 24px);
+  --font-body-reading: clamp(16px, 3.8vw, 20px);
+  --font-body-interaction: clamp(16px, 3.4vw, 18px);
+  --font-secondary: clamp(14px, 3vw, 16px);
+  --font-small: clamp(12px, 2.5vw, 14px);
+  --font-extra-small: clamp(11px, 2vw, 13px);
 
   /* Botones */
   --btn-primary-bg: #2E7D32;
@@ -125,6 +138,20 @@ body {
 
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --font-page-title: clamp(35px, 3.6vw, 50px);
+    --font-heading-large: clamp(28px, 2.5vw, 40px);
+    --font-heading-medium: clamp(22px, 2vw, 32px);
+    --font-heading-small: clamp(18px, 1.8vw, 26px);
+    --font-body-reading: clamp(18px, 1.7vw, 24px);
+    --font-body-interaction: clamp(14px, 1.4vw, 20px);
+    --font-secondary: clamp(12px, 1.2vw, 18px);
+    --font-small: clamp(11px, 1vw, 14px);
+    --font-extra-small: clamp(10px, 0.8vw, 12px);
+  }
+}
+
 [data-theme="dark"] {
   --bg-body: #222222;
   --text-primary: #ffffff;
@@ -211,6 +238,124 @@ body {
 
 }
 
+/* Contraste global para toda la aplicacion */
+body.contrast-high {
+  --text-primary: #000;
+  --text-secondary: #333;
+  --border-color: #0000d0;
+  --card-border: #0000d0;
+  --btn-primary-bg: #0000d0;
+  --btn-primary-hover: #0000a8;
+  --btn-secondary-bg: #4a4a4a;
+  --btn-secondary-hover: #222;
+  --card-bg: #f5f5f5;
+  --group-card-bg: #f0f2ff;
+  --bg-light: #ffffff;
+  --bg-group: #f5f5f5;
+  --bg-body: #fff;
+  --bg-navbar: #fff;
+  --nav-hover-bg: rgba(0, 0, 208, 0.12);
+  --input-bg: #fff;
+  --input-text: #000;
+  --header-gradient-start: #0000d0;
+  --header-gradient-end: #000;
+  --link-color: #0000d0;
+  --link-hover: #00008b;
+
+  /* Consumo tokens para contraste alto */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #0000d0;
+  --consumo-card-shadow: 0 0 0 2px rgba(0, 0, 208, 0.2);
+  --consumo-consejo-bg: #eef1ff;
+  --consumo-button-bg: #ffffff;
+  --consumo-text-button: #0000d0;
+  --consumo-group-button-bg: #f2f4ff;
+  --consumo-group-button-hover: #0000d0;
+  --consumo-group-text-button: #0000d0;
+  --consumo-button-extra-bg: #0000d0;
+  --consumo-text-title: #000000;
+  --consumo-button-bg-hover: #0000d0;
+  --consumo-text-hover: #ffffff;
+}
+
+body.contrast-high :is(input, select, textarea) {
+  border: 2px solid #0000d0 !important;
+  color: #000 !important;
+  background-color: #fff !important;
+}
+
+body.contrast-high button {
+  border: 2px solid currentColor !important;
+  font-weight: 600 !important;
+}
+
+body.contrast-high *:focus-visible {
+  outline: 3px solid #0000d0 !important;
+  outline-offset: 2px !important;
+}
+
+body.contrast-very-high {
+  --text-primary: #000;
+  --text-secondary: #000;
+  --border-color: #000;
+  --card-border: #000;
+  --btn-primary-bg: #000;
+  --btn-primary-hover: #000;
+  --btn-secondary-bg: #000;
+  --btn-secondary-hover: #000;
+  --text-white: #ffff00;
+  --card-bg: #fff;
+  --group-card-bg: #fff;
+  --bg-light: #fff;
+  --bg-group: #fff;
+  --bg-body: #fff;
+  --bg-navbar: #fff;
+  --nav-hover-bg: #ffff00;
+  --input-bg: #fff;
+  --input-text: #000;
+  --header-gradient-start: #000;
+  --header-gradient-end: #000;
+  --link-color: #0000ff;
+  --link-hover: #0000ff;
+
+  /* Consumo tokens para contraste muy alto */
+  --consumo-card-bg: #ffffff;
+  --consumo-card-border: #000000;
+  --consumo-card-shadow: 0 0 0 2px #000000;
+  --consumo-consejo-bg: #ffffff;
+  --consumo-button-bg: #ffffff;
+  --consumo-text-button: #000000;
+  --consumo-group-button-bg: #ffffff;
+  --consumo-group-button-hover: #000000;
+  --consumo-group-text-button: #000000;
+  --consumo-button-extra-bg: #000000;
+  --consumo-text-title: #000000;
+  --consumo-button-bg-hover: #000000;
+  --consumo-text-hover: #ffff00;
+}
+
+body.contrast-very-high :is(input, select, textarea) {
+  border: 3px solid #000 !important;
+  color: #000 !important;
+  background-color: #fff !important;
+  font-weight: 700 !important;
+}
+
+body.contrast-very-high button {
+  border: 3px solid #000 !important;
+  font-weight: 700 !important;
+}
+
+body.contrast-very-high a {
+  color: #0000ff !important;
+  text-decoration: underline !important;
+}
+
+body.contrast-very-high *:focus-visible {
+  outline: 3px solid #000 !important;
+  outline-offset: 2px !important;
+}
+
 
 /*PARA LA IMPRESION DEL PDF*/
 
@@ -282,14 +427,14 @@ body {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
   gap: 10px !important;
-  font-size: 14px !important;
+  font-size: var(--font-secondary) !important;
 }
 
 /* Tabla */
 .pdf-light-mode table {
   width: 100% !important;
   border-collapse: collapse !important;
-  font-size: 11px !important;
+  font-size: var(--font-small) !important;
   margin-bottom: 15px !important;
 }
 
@@ -301,7 +446,7 @@ body {
 .pdf-light-mode table td {
   border: 1px solid var(--border-color) !important;
   padding: 6px !important;
-  font-size: 10px !important;
+  font-size: var(--font-extra-small) !important;
   color: var(--text-primary) !important;
   background-color: var(--background-general) !important;
 }
@@ -320,7 +465,7 @@ body {
   border: none !important;
   border-radius: 5px !important;
   cursor: pointer !important;
-  font-size: 16px !important;
+  font-size: var(--font-body-interaction) !important;
   opacity: 1 !important;
   transition: opacity 0.3s ease;
 }

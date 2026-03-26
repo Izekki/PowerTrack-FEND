@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../styles/HomePage.css";
 import { WIDGET_REGISTRY } from "../config/widgetRegistry";
-import { showAlert } from "../components/CommonComponents/Alert";
+import { showAlert, showConfirmAlert } from "../components/CommonComponents/Alert";
 import { createAuthHeaders, getApiDomain } from "../utils/apiHelper";
+import { useBeforeUnload, useLocation, useNavigate } from "react-router-dom";
 
 // --- DND KIT IMPORTS ---
 import {
@@ -28,6 +29,8 @@ const DOMAIN_URL = getApiDomain();
 
 const HomePage = () => {
   const { userId } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Estados
   const [summaryData, setSummaryData] = useState({ consumoDia: 0, costoMes: 0, alertasDia: 0 });
@@ -41,11 +44,108 @@ const HomePage = () => {
   
   // REFERENCIA PARA EL LÍMITE FUTURO (Evita problemas de closure en setInterval)
   const futureLimitRef = useRef(null);
+  const isPromptOpenRef = useRef(false);
+  const bypassNextPopRef = useRef(false);
+  const currentPathRef = useRef(`${location.pathname}${location.search}${location.hash}`);
 
-  // Configuración Dashboard
+  // Configuración Inicio
   const [layout, setLayout] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [trends, setTrends] = useState({ consumoTrend: 0, consumoSign: 'neutral', costoStatus: 'neutral' });
+  const [savedLayout, setSavedLayout] = useState(null);
+
+  const hasUnsavedChanges = useMemo(() => {
+    if (!isEditMode || !Array.isArray(savedLayout)) return false;
+    return JSON.stringify(layout) !== JSON.stringify(savedLayout);
+  }, [isEditMode, layout, savedLayout]);
+  const unsavedChangesMessage = 'Tienes cambios sin guardar en Inicio. ¿Deseas salir sin guardar?';
+
+  useEffect(() => {
+    currentPathRef.current = `${location.pathname}${location.search}${location.hash}`;
+  }, [location]);
+
+  useBeforeUnload(
+    useCallback(
+      (event) => {
+        if (!hasUnsavedChanges) return;
+        event.preventDefault();
+        event.returnValue = '';
+      },
+      [hasUnsavedChanges]
+    )
+  );
+
+  useEffect(() => {
+    if (!hasUnsavedChanges) return;
+
+    const askForUnsavedChangesConfirmation = async () => {
+      if (isPromptOpenRef.current) return false;
+      isPromptOpenRef.current = true;
+
+      try {
+        return await showConfirmAlert({
+          title: "Cambios sin guardar",
+          text: unsavedChangesMessage,
+          confirmButtonText: "Salir sin guardar",
+          cancelButtonText: "Seguir editando",
+        });
+      } finally {
+        isPromptOpenRef.current = false;
+      }
+    };
+
+    const handleDocumentClick = async (event) => {
+      if (event.defaultPrevented) return;
+      if (event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const anchor = target.closest('a[href]');
+      if (!anchor) return;
+      if (anchor.target === '_blank' || anchor.hasAttribute('download')) return;
+
+      const nextUrl = new URL(anchor.href, window.location.origin);
+      if (nextUrl.origin !== window.location.origin) return;
+
+      const currentPath = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      const nextPath = `${nextUrl.pathname}${nextUrl.search}${nextUrl.hash}`;
+      if (currentPath === nextPath) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const shouldLeave = await askForUnsavedChangesConfirmation();
+      if (shouldLeave) {
+        navigate(nextPath);
+      }
+    };
+
+    const handlePopState = async () => {
+      if (bypassNextPopRef.current) {
+        bypassNextPopRef.current = false;
+        return;
+      }
+
+      const previousPath = currentPathRef.current;
+      window.history.pushState(null, '', previousPath);
+
+      const shouldLeave = await askForUnsavedChangesConfirmation();
+      if (shouldLeave) {
+        bypassNextPopRef.current = true;
+        navigate(-1);
+      }
+    };
+
+    document.addEventListener('click', handleDocumentClick, true);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      document.removeEventListener('click', handleDocumentClick, true);
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [hasUnsavedChanges, navigate, unsavedChangesMessage]);
 
   // Sensores DnD
   const sensors = useSensors(
@@ -183,7 +283,9 @@ const HomePage = () => {
                     parsedLayout = defaultLayout;
                 }
             }
-            setLayout(Array.isArray(parsedLayout) ? parsedLayout : defaultLayout);
+              const normalizedLayout = Array.isArray(parsedLayout) ? parsedLayout : defaultLayout;
+              setLayout(normalizedLayout);
+              setSavedLayout(normalizedLayout);
         }
 
         // --- PROCESAMIENTO ---
@@ -237,13 +339,16 @@ const HomePage = () => {
   // ... (Resto de handlers DragEnd, EditMode, RenderContent igual que antes)
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    if (active.id !== over.id) {
-      setLayout((items) => {
-        const oldIndex = items.indexOf(active.id);
-        const newIndex = items.indexOf(over.id);
-        return arrayMove(items, oldIndex, newIndex);
-      });
-    }
+    if (!over || active.id === over.id) return;
+
+    setLayout((items) => {
+      const oldIndex = items.indexOf(active.id);
+      const newIndex = items.indexOf(over.id);
+
+      if (oldIndex === -1 || newIndex === -1) return items;
+
+      return arrayMove(items, oldIndex, newIndex);
+    });
   };
 
   const handleSaveLayout = async () => {
@@ -254,12 +359,52 @@ const HomePage = () => {
         headers: authHeaders,
         body: JSON.stringify({ layout })
       });
-      if (response.ok) { setIsEditMode(false); showAlert("success", "Guardado"); }
-    } catch { showAlert("error", "Error al guardar"); }
+
+      if (response.ok) {
+        setSavedLayout(layout);
+        setIsEditMode(false);
+        showAlert("success", "Guardado");
+      } else {
+        showAlert("error", "Error al guardar");
+      }
+    } catch {
+      showAlert("error", "Error al guardar");
+    }
   };
 
-  const removeWidget = (key) => setLayout(l => l.filter(k => k !== key));
-  const addWidget = (widgetKey) => { if (!layout.includes(widgetKey)) setLayout(prev => [widgetKey, ...prev]); };
+  const handleCancelEdit = async () => {
+    if (!hasUnsavedChanges) {
+      setIsEditMode(false);
+      return;
+    }
+
+    const shouldDiscard = await showConfirmAlert({
+      title: "Cancelar cambios",
+      text: "Tienes cambios sin guardar. ¿Deseas cancelar sin guardar?",
+      confirmButtonText: "Descartar cambios",
+      cancelButtonText: "Seguir editando",
+    });
+
+    if (shouldDiscard) {
+      setLayout(savedLayout);
+      setIsEditMode(false);
+    }
+  };
+
+  const removeWidget = (key) => {
+    setLayout((currentLayout) => {
+      if (!currentLayout.includes(key)) return currentLayout;
+      return currentLayout.filter((widgetKey) => widgetKey !== key);
+    });
+  };
+
+  const addWidget = (widgetKey) => {
+    setLayout((currentLayout) => {
+      if (currentLayout.includes(widgetKey)) return currentLayout;
+      return [widgetKey, ...currentLayout];
+    });
+  };
+
   const availableWidgets = Object.keys(WIDGET_REGISTRY).filter(k => !layout.includes(k));
 
 const renderContent = (widgetKey) => {
@@ -308,20 +453,32 @@ const renderContent = (widgetKey) => {
         </SortableContext>
       </DndContext>
 
-      <div className="edit-button-container">
-         <button className={isEditMode ? "btn-save-mode-bottom" : "btn-edit-mode-bottom"} onClick={isEditMode ? handleSaveLayout : () => setIsEditMode(true)}>
-           {isEditMode ? "Guardar Dashboard" : "Editar widgets"}
-         </button>
-      </div>
+      {!isEditMode && (
+        <div className="edit-button-container">
+          <button className="btn-edit-mode-bottom" onClick={() => setIsEditMode(true)}>
+            Editar widgets
+          </button>
+        </div>
+      )}
 
       {isEditMode && (
         <div className="add-widget-modal persistent-drawer">
-          <div className="modal-header"><h3 className="modal-title">Widgets Disponibles</h3></div>
+          <div className="modal-header">
+            <h3 className="modal-title">Widgets Disponibles</h3>
+            <div className="modal-actions">
+              <button className="btn-cancel-mode" onClick={handleCancelEdit}>
+                Cancelar
+              </button>
+              <button className="btn-save-mode-bottom" onClick={handleSaveLayout}>
+                Guardar
+              </button>
+            </div>
+          </div>
           <div className="available-widgets-grid">
             {availableWidgets.map(key => (
                 <div key={key} className="widget-option" onClick={() => addWidget(key)}>
                   <span>{WIDGET_REGISTRY[key].label}</span>
-                  <div style={{fontSize: '24px', marginTop: '5px', color: 'var(--btn-primary-bg)'}}>+</div>
+                  <div style={{fontSize: 'var(--font-heading-medium)', marginTop: '5px', color: 'var(--btn-primary-bg)'}}>+</div>
                 </div>
             ))}
           </div>

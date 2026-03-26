@@ -1,4 +1,4 @@
-/* Estilos base se mantienen igual */
+﻿/* Estilos base se mantienen igual */
 .header-edit-device-container {
   display: flex;
   justify-content: space-between;
@@ -9,7 +9,7 @@
 }
 
 .title-Editar-Dispositivo {
-  font-size: 30px;
+  font-size: var(--font-page-title);
   color: var(--text-primary);
   margin: 0;
   padding: 0;
@@ -19,20 +19,7 @@
   margin: 0; 
 }
 
-.btn-close-edit {
-  padding: 12px 25px;
-  background-color: var(--btn-secondary-bg);
-  border: none;
-  color: var(--text-white);
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s ease;
-}
 
-.btn-close-edit:hover {
-  background-color: var(--btn-secondary-hover);
-}
 
 .container-edit-cards {
   display: flex;
@@ -53,7 +40,7 @@
   flex: 1 1 450px;
 }
 
-/* Media queries para móviles */
+/* Media queries para mÃ³viles */
 @media (max-width: 768px) {
   .header-edit-device-container {
     padding: 12px 20px;
@@ -63,7 +50,7 @@
   }
   
   .title-Editar-Dispositivo {
-    font-size: 24px;
+    font-size: var(--font-heading-large);
   }
   
   .btn-close-edit {
@@ -87,12 +74,12 @@
 
 @media (max-width: 480px) {
   .title-Editar-Dispositivo {
-    font-size: 20px;
+    font-size: var(--font-heading-medium);
   }
   
   .btn-close-edit {
     padding: 8px 15px;
-    font-size: 0.9rem;
+    font-size: var(--font-secondary);
   }
   
   .container-edit-cards {

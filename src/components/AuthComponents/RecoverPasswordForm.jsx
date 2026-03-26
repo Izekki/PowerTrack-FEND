@@ -3,39 +3,26 @@ import '../../styles/AuthComponentsCss/RegisterForm.css';
 import emailIcon from "../../assets/email-icon.svg";
 import { showAlert } from "../CommonComponents/Alert.jsx";
 import Header from './Header.jsx';
+import { useAuthApi } from "../../hooks/api/useAuthApi";
 
-const DOMAIN_URL = import.meta.env.VITE_BACKEND_URL
-
+const GENERIC_RECOVERY_MESSAGE = 'Si el correo electrónico existe, recibirás instrucciones para restablecer tu contraseña.';
 
 const RecoverPasswordForm = ({ onBackToLogin }) => {
   const [email, setEmail] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { recoverPassword, loading } = useAuthApi();
 
   const handleRecoverClick = async () => {
     if (!email) {
       return await showAlert("error", "El correo es obligatorio");
     }
 
-    setIsSubmitting(true);
-
     try {
-      const response = await fetch(`${DOMAIN_URL}/psR/recover-password`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ correo: email }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        await showAlert("success", "Se ha enviado un correo para restablecer tu contraseña");
-        onBackToLogin();
-      } else {
-        await showAlert("error", data.message || "No se pudo enviar el correo");
-      }
+      await recoverPassword(email);
+      await showAlert("success", GENERIC_RECOVERY_MESSAGE);
+      onBackToLogin();
     } catch (error) {
-      await showAlert("error", "Error de conexión con el servidor");
-    } finally {
-      setIsSubmitting(false);
+      await showAlert("success", GENERIC_RECOVERY_MESSAGE);
+      onBackToLogin();
     }
   };
 
@@ -62,14 +49,17 @@ const RecoverPasswordForm = ({ onBackToLogin }) => {
               required
             />
           </div>
+          <p className="register-label" style={{ marginTop: '8px' }}>
+            {GENERIC_RECOVERY_MESSAGE}
+          </p>
         </div>
 
-        <button 
-          className="register-btn" 
+        <button
+          className="register-btn"
           onClick={handleRecoverClick}
-          disabled={isSubmitting}
+          disabled={loading}
         >
-          {isSubmitting ? 'Enviando...' : 'Enviar instrucciones'}
+          {loading ? 'Enviando...' : 'Enviar instrucciones'}
         </button>
       </div>
     </div>

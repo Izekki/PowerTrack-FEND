@@ -1,4 +1,4 @@
-/* Estilos para el modal de confirmación */
+﻿/* Estilos para el modal de confirmaciÃ³n */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -46,14 +46,14 @@
 
 .modal-header h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--font-body-reading);
   font-weight: 600;
 }
 
 .close-button {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: var(--font-heading-large);
   cursor: pointer;
   color: inherit;
 }
@@ -117,3 +117,4 @@
 .confirm-button.info:hover {
   background-color: var(--btn-info-hover);
 }
+

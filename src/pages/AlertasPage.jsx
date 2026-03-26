@@ -1,39 +1,43 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import AlertsCard from '../components/AlertasComponents/AlertsCard';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AlertasPage.css';
 import { useAlert } from '../context/AlertContext';
-import { apiGet, apiPut, createAuthHeaders, getApiDomain } from '../utils/apiHelper';
-
-
-const DOMAIN_URL = getApiDomain();
+import { apiGet, apiPut } from '../utils/apiHelper';
+import { useNavigate } from 'react-router-dom';
 
 const AlertasPage = () => {
   const { userId } = useAuth();
+  const navigate = useNavigate();
   const [alerts, setAlerts] = useState([]);
-  const [filter, setFilter] = useState('consumo');
-  const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(0); // Página actual
   const limit = 10;
-  const { markAlertsAsRead} = useAlert();
+  const { markAlertsAsRead } = useAlert();
+  const filter = 'todos';
 
   const observer = useRef();
+  const isFetchingRef = useRef(false);
+  const pageRef = useRef(0);
+  const hasMoreRef = useRef(true);
+  const alertsRef = useRef([]);
 
   // Cargar más alertas cuando llegamos al final
   const lastAlertRef = useRef();
 
-  const loadAlerts = async (reset = false) => {
-    if (loading || (!hasMore && !reset)) return;
+  const loadAlerts = useCallback(async (reset = false) => {
+    if (isFetchingRef.current || (!hasMoreRef.current && !reset)) return;
 
+    isFetchingRef.current = true;
     setLoading(true);
 
-    const offset = reset ? 0 : page * limit;
+    const offset = reset ? 0 : pageRef.current * limit;
 
     try {
       // Añadimos el filtro en la URL
-      const response = await apiGet(`/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`);
+      const response = await apiGet(
+        `/alertas/usuario/${userId}?limit=${limit}&offset=${offset}&filtro=${filter}`
+      );
            
       // Manejar diferentes formatos de respuesta
       let data = response;
@@ -58,27 +62,39 @@ const AlertasPage = () => {
 
       if (reset) {
         setAlerts(formatted);
-        setPage(1);
-        setHasMore(formatted.length === limit);
+        pageRef.current = 1;
+        const nextHasMore = formatted.length === limit;
+        setHasMore(nextHasMore);
+        hasMoreRef.current = nextHasMore;
       } else {
         setAlerts(prev => [...prev, ...formatted]);
-        setPage(prev => prev + 1);
-        setHasMore(formatted.length === limit);
+        pageRef.current = pageRef.current + 1;
+        const nextHasMore = formatted.length === limit;
+        setHasMore(nextHasMore);
+        hasMoreRef.current = nextHasMore;
       }
 
     } catch (err) {
       console.error('Error cargando alertas:', err);
     } finally {
+      isFetchingRef.current = false;
       setLoading(false);
     }
-  };
+  }, [filter, limit, userId]);
 
   // Inicializar carga
   useEffect(() => {
     if (userId) {
+      pageRef.current = 0;
+      hasMoreRef.current = true;
+      setHasMore(true);
       loadAlerts(true);
     }
-  }, [userId, filter]);
+  }, [userId, loadAlerts]);
+
+  useEffect(() => {
+    alertsRef.current = alerts;
+  }, [alerts]);
 
 
   useEffect(() => {
@@ -86,7 +102,9 @@ const AlertasPage = () => {
 
   const interval = setInterval(async () => {
     try {
-      const response = await apiGet(`/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`);
+      const response = await apiGet(
+        `/alertas/usuario/${userId}?limit=10&offset=0&filtro=${filter}`
+      );
       
       // Manejar diferentes formatos de respuesta
       let data = response;
@@ -109,7 +127,7 @@ const AlertasPage = () => {
           iconoId: alert.icono_svg,
           dispositivo: alert.tipo_dispositivo,
         }))
-        .filter(alertNueva => !alerts.some(alertExistente => alertExistente.id === alertNueva.id));
+        .filter(alertNueva => !alertsRef.current.some(alertExistente => alertExistente.id === alertNueva.id));
 
       if (nuevas.length > 0) {
         setAlerts(prev => [...nuevas, ...prev]);
@@ -120,17 +138,18 @@ const AlertasPage = () => {
   }, 15000); // cada 15 segundos
 
   return () => clearInterval(interval);
-}, [userId, filter, alerts]);
+}, [userId, filter]);
 
 
   // Observar último elemento para cargar más
   useEffect(() => {
-    if (loading) return;
-
     if (observer.current) observer.current.disconnect();
 
+    if (loading || !hasMore) return;
+
     observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting && hasMore) {
+      if (entries[0].isIntersecting && hasMoreRef.current) {
+        observer.current?.disconnect();
         loadAlerts();
       }
     });
@@ -140,17 +159,18 @@ const AlertasPage = () => {
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [loading, hasMore, filter]); // Agregar `filter` también aquí
+  }, [loading, hasMore, loadAlerts]);
 
   return (
   <div className="alertas-page-container">
     <div className="alertas-header">
-      {/* Botón Filtros (Izquierda) */}
+      {/* Botón configuración de alertas (Izquierda) */}
       <div className="left-side">
         <button
           className="btn-style-default btn-configurar"
-          onClick={() => setShowFilterMenu(!showFilterMenu)}
+          onClick={() => navigate('/alertas/configuracion')}
           aria-label="Configuración"
+          title="Configuración"
           style={{
             width: 24,
             height: 24,
@@ -160,17 +180,17 @@ const AlertasPage = () => {
           }}
         >
           <svg
-            fill="#000000"
+            className="alertas-config-icon"
             width="64px"
             height="64px"
             viewBox="0 0 16 16"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               <g>
@@ -182,35 +202,6 @@ const AlertasPage = () => {
             </g>
           </svg>
         </button>
-
-        {showFilterMenu && (
-          <div className="filter-menu">
-            <button
-              onClick={() => {
-                setFilter("consumo");
-                setShowFilterMenu(false);
-              }}
-            >
-              Mostrar solo consumo
-            </button>
-            <button
-              onClick={() => {
-                setFilter("sistema");
-                setShowFilterMenu(false);
-              }}
-            >
-              Mostrar solo sistema
-            </button>
-            <button
-              onClick={() => {
-                setFilter("todos");
-                setShowFilterMenu(false);
-              }}
-            >
-              Mostrar todos
-            </button>
-          </div>
-        )}
       </div>
 
       {/* Botón Marcar Leídas (Derecha) */}
@@ -280,8 +271,8 @@ const AlertasPage = () => {
         </div>
       )}
 
-      {loading && <p>Cargando más alertas...</p>}
-      {!hasMore && <p>No hay más alertas disponibles.</p>}
+      {loading && hasMore && <p>Cargando más alertas...</p>}
+      {!hasMore && alerts.length > 0 && <p>No hay más alertas disponibles.</p>}
     </div>
   </div>
 );

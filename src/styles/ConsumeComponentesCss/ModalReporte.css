@@ -1,4 +1,4 @@
-/* ModalReporte.css */
+﻿/* ModalReporte.css */
 .modal-reporte-overlay {
   position: fixed;
   top: 0;
@@ -30,7 +30,7 @@
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 1.5rem;
+  font-size: var(--font-heading-large);
   background: none;
   border: none;
   cursor: pointer;
@@ -59,7 +59,7 @@
   color: var(--text-primary);
 }
 
-/* Botón de exportar PDF dentro del modal */
+/* BotÃ³n de exportar PDF dentro del modal */
 .modal-reporte-body button {
   background-color: var(--consumo-button-bg);
   color: var(--consumo-text-button);
@@ -110,14 +110,14 @@
 .pdf-loading-content h3 {
   color: var(--consumo-text-title);
   margin: 20px 0 10px 0;
-  font-size: 1.5rem;
+  font-size: var(--font-heading-large);
   font-weight: 600;
 }
 
 .pdf-loading-content p {
   color: var(--text-primary);
   margin-bottom: 30px;
-  font-size: 1rem;
+  font-size: var(--font-body-interaction);
   opacity: 0.8;
 }
 
@@ -169,7 +169,7 @@
   }
 }
 
-/* Responsive para pantallas pequeñas */
+/* Responsive para pantallas pequeÃ±as */
 @media (max-width: 768px) {
   .modal-reporte-content {
     width: 98%;
@@ -182,6 +182,6 @@
   }
   
   .pdf-loading-content h3 {
-    font-size: 1.3rem;
+    font-size: var(--font-heading-medium);
   }
 }

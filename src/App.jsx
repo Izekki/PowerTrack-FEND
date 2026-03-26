@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "next-themes";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import { ContrastProvider } from "./context/ContrastContext";
 import AppRoutes from "./routes/AppRoutes";
 import { AlertProvider } from "./context/AlertContext"
 
@@ -38,9 +39,11 @@ const App = () => {
   return (
     <ThemeProvider attribute="data-theme">
       <AuthProvider>
-        <AlertProvider>
-          <AppContent />        
-        </AlertProvider>
+        <ContrastProvider>
+          <AlertProvider>
+            <AppContent />        
+          </AlertProvider>
+        </ContrastProvider>
       </AuthProvider>
     </ThemeProvider>
   );

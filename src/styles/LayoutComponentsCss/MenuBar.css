@@ -1,4 +1,4 @@
-/* ========== Barra de Navegación ========== */
+﻿/* ========== Barra de NavegaciÃ³n ========== */
 .cont-nav-bar {
   background-color: var(--bg-navbar);
   padding: 10px;
@@ -21,7 +21,7 @@
 }
 
 .nav-bar li {
-  font-size: 20px;
+  font-size: var(--font-heading-medium);
   transition: all 0.3s ease;
 }
 
