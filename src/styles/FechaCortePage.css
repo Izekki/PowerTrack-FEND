@@ -1,0 +1,243 @@
+/* === Contenedor principal === */
+.fecha-corte-page {
+  min-height: 100vh;
+  background-color: var(--consumo-card-bg);
+}
+
+.fecha-corte-card {
+  background-color: var(--consumo-card-bg);
+  border: 1px solid var(--consumo-card-border);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 10px 15%;
+  box-shadow: var(--consumo-card-shadow);
+}
+
+.fecha-corte-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.columna-izquierda,
+.columna-derecha {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.columna-izquierda {
+  flex: 0.6;
+  min-width: 300px;
+}
+
+.columna-derecha {
+  flex: 0.4;
+  min-width: 280px;
+}
+
+/* === Formulario === */
+.form-container {
+  background-color: var(--bg-group);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: var(--shadow-default);
+}
+
+.page-title {
+  color: var(--consumo-text-title);
+  font-size: var(--font-heading-small);
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.page-description {
+  color: var(--text-muted);
+  font-size: var(--font-secondary);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.corte-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  color: var(--consumo-text-title);
+  font-weight: bold;
+  font-size: var(--font-secondary);
+}
+
+.form-input {
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  font-size: var(--font-secondary);
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--consumo-text-button);
+  box-shadow: 0 0 0 3px rgba(107, 245, 206, 0.2);
+}
+
+.form-info {
+  background-color: rgba(107, 245, 206, 0.1);
+  border-left: 4px solid var(--consumo-text-button);
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.form-info p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: var(--font-secondary);
+  line-height: 1.6;
+}
+
+.save-btn {
+  background-color: var(--consumo-button-bg);
+  color: var(--consumo-text-button);
+  padding: 14px 25px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: var(--font-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-default);
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: var(--consumo-button-bg-hover);
+  color: var(--consumo-text-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.save-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* === Cards de información === */
+.info-card {
+  background-color: var(--bg-group);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-default);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.info-title {
+  color: var(--consumo-text-title);
+  font-size: var(--font-heading-small);
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.info-text {
+  color: var(--text-dark);
+  font-size: var(--font-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  color: var(--text-dark);
+  font-size: var(--font-secondary);
+  line-height: 1.8;
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.info-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--consumo-text-button);
+  font-weight: bold;
+}
+
+.tips-card {
+  background-color: rgba(107, 245, 206, 0.08);
+  border: 1px solid rgba(107, 245, 206, 0.3);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* === Media Queries === */
+
+/* Para dispositivos pequeños (móviles) */
+@media (max-width: 768px) {
+  .fecha-corte-card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .fecha-corte-container {
+    flex-direction: column;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .form-input {
+    font-size: var(--font-small);
+    padding: 10px 12px;
+  }
+
+  .save-btn {
+    font-size: var(--font-small);
+    padding: 12px 20px;
+  }
+
+  .info-card,
+  .tips-card {
+    padding: 15px;
+  }
+}
+
+/* Para dispositivos medianos (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .fecha-corte-card {
+    margin: 10px 8%;
+  }
+
+  .columna-izquierda,
+  .columna-derecha {
+    flex: 1;
+    width: 100%;
+  }
+}

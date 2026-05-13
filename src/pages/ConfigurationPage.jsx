@@ -50,6 +50,10 @@ const ConfigurationPage = () => {
         navigate("/contacto");
         return;
       }
+      if (key === "fecha-corte") {
+        navigate("/fecha-corte");
+        return;
+      }
       setActiveCard(key);
   };
 
@@ -92,3 +96,4 @@ const ConfigurationPage = () => {
 };
 
 export default ConfigurationPage;
+
