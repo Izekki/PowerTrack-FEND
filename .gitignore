@@ -28,6 +28,4 @@ package-lock.json
 package.json
 
 .env
-
-# Markdown files
-*.md
+
